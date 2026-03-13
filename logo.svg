@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none">
+  <defs>
+    <linearGradient id="brainGrad" x1="0" y1="0" x2="200" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a1f6e"/>
+      <stop offset="50%" stop-color="#1a4db5"/>
+      <stop offset="100%" stop-color="#00b8d9"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="100" y1="40" x2="180" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00c8f0"/>
+      <stop offset="100%" stop-color="#00e5ff"/>
+    </linearGradient>
+    <linearGradient id="circuitGrad" x1="0" y1="0" x2="100" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a3a9f"/>
+      <stop offset="100%" stop-color="#0a1f6e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Brain left hemisphere outline -->
+  <path d="M100 22
+    C85 22 68 28 58 42
+    C46 58 44 76 50 92
+    C54 104 60 112 68 120
+    C75 127 84 132 100 134
+    L100 22Z"
+    fill="url(#circuitGrad)" stroke="url(#brainGrad)" stroke-width="2.5"/>
+
+  <!-- Brain right hemisphere outline -->
+  <path d="M100 22
+    C115 22 132 28 142 42
+    C154 58 156 76 150 92
+    C146 104 140 112 132 120
+    C125 127 116 132 100 134
+    L100 22Z"
+    fill="none" stroke="url(#arrowGrad)" stroke-width="2.5"/>
+
+  <!-- Circuit traces - left side -->
+  <circle cx="62" cy="55" r="3.5" fill="#1a4db5" opacity="0.9"/>
+  <circle cx="62" cy="55" r="1.5" fill="#4a90d9"/>
+  <line x1="62" y1="55" x2="75" y2="55" stroke="#1a4db5" stroke-width="1.5"/>
+  <circle cx="75" cy="55" r="2" fill="#1a4db5"/>
+  <line x1="75" y1="55" x2="75" y2="72" stroke="#1a4db5" stroke-width="1.5"/>
+
+  <circle cx="56" cy="80" r="3.5" fill="#1a3a9f" opacity="0.9"/>
+  <circle cx="56" cy="80" r="1.5" fill="#4a90d9"/>
+  <line x1="56" y1="80" x2="75" y2="80" stroke="#1a3a9f" stroke-width="1.5"/>
+  <line x1="75" y1="72" x2="75" y2="80" stroke="#1a4db5" stroke-width="1.5"/>
+  <circle cx="75" cy="72" r="2" fill="#1a4db5"/>
+  <circle cx="75" cy="80" r="2" fill="#1a3a9f"/>
+
+  <circle cx="58" cy="104" r="3.5" fill="#0d2e8a" opacity="0.9"/>
+  <circle cx="58" cy="104" r="1.5" fill="#4a90d9"/>
+  <line x1="58" y1="104" x2="75" y2="104" stroke="#0d2e8a" stroke-width="1.5"/>
+  <line x1="75" y1="80" x2="75" y2="104" stroke="#1a4db5" stroke-width="1.5"/>
+  <circle cx="75" cy="104" r="2" fill="#0d2e8a"/>
+
+  <!-- Dotted vertical center line -->
+  <line x1="100" y1="22" x2="100" y2="134" stroke="#1a4db5" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.6"/>
+
+  <!-- Circuit dot right side top -->
+  <circle cx="106" cy="38" r="2.5" fill="#00b8d9" opacity="0.7"/>
+  <line x1="106" y1="38" x2="106" y2="52" stroke="#00b8d9" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+
+  <!-- Upward arrow - right hemisphere -->
+  <line x1="125" y1="108" x2="155" y2="52" stroke="url(#arrowGrad)" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Arrow head -->
+  <polyline points="140,52 155,52 155,67" stroke="url(#arrowGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Center divider (vertical line of brain) -->
+  <line x1="100" y1="30" x2="100" y2="126" stroke="#1a4db5" stroke-width="1.5" opacity="0.4"/>
+</svg>
