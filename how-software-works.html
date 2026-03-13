@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Ardia Works End-to-End | Ardia Health</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#f8fafb;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:root{
+  --sky:#0d7c6e;--sky2:#0fa58e;--sky3:#14b8a6;
+  --amber:#b45309;--amber2:#d97706;--amber3:#f59e0b;
+  --emerald:#059669;--rose:#e11d48;
+  --lt:#0f172a;--lm:#4a6285;--lb:#dce8f2;
+  --r:12px;--tr:0.24s ease;
+}
+.container{max-width:1140px;margin:0 auto;padding:0 28px}
+
+/* ── NAVBAR ── */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;padding:14px 0;background:rgba(4,12,28,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(13,124,110,0.15)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:0 28px}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff}
+.logo-main{font-family:'Sora',sans-serif;font-size:19px;font-weight:700;color:#fff}
+.logo-sub{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#14b8a6}
+.nav-back{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:.2s ease}
+.nav-back:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.nav-cta{background:linear-gradient(135deg,#0d7c6e,#0fa58e);color:#fff;font-size:13px;font-weight:700;padding:9px 20px;border-radius:8px;cursor:pointer;border:none;font-family:inherit;transition:.2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,124,110,0.35)}
+
+/* ── HERO ── */
+.hero{padding:120px 0 72px;background:linear-gradient(135deg,#0f172a 0%,#0d3340 50%,#0d7c6e 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(14,165,233,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,0.05) 1px,transparent 1px);background-size:60px 60px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(180,83,9,0.15);border:1px solid rgba(180,83,9,0.35);color:#f59e0b;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:22px}
+.hero-title{font-family:'Sora',sans-serif;font-size:clamp(32px,4.5vw,58px);font-weight:800;color:#fff;line-height:1.05;margin-bottom:18px}
+.hero-title span{background:linear-gradient(135deg,#14b8a6,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:rgba(255,255,255,0.7);max-width:640px;line-height:1.8;margin-bottom:36px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
+.hpill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:12px;font-weight:600;padding:6px 14px;border-radius:30px}
+.hpill i{color:#14b8a6;font-size:10px}
+.hero-scroll{text-align:center;margin-top:16px}
+.scroll-arrow{display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,0.4);font-size:11px;animation:bounce 2s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── SECTION HEADER ── */
+.sh{text-align:center;margin-bottom:56px;padding-top:72px}
+.stag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#0d7c6e;background:rgba(13,124,110,0.08);border:1px solid rgba(13,124,110,0.2);padding:5px 14px;border-radius:30px;margin-bottom:14px}
+.st{font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:#1e2f4a;margin-bottom:12px;line-height:1.2}
+.ss{font-size:15px;color:#4a6285;max-width:580px;margin:0 auto;line-height:1.8}
+
+/* ── FLOW SECTION ── */
+.flow-section{background:#fff;padding-bottom:80px}
+.flow-intro{background:linear-gradient(135deg,#f0f9ff,#e8f5f0);border:1px solid #dce8f2;border-radius:16px;padding:28px 32px;margin-bottom:60px;display:flex;gap:20px;align-items:flex-start}
+.flow-intro-icon{width:48px;height:48px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+.flow-intro h3{font-family:'Sora',sans-serif;font-size:17px;font-weight:700;color:#1e2f4a;margin-bottom:6px}
+.flow-intro p{font-size:13.5px;color:#4a6285;line-height:1.75}
+
+/* ── STEP CARDS ── */
+.steps-grid{display:flex;flex-direction:column;gap:0}
+.step-card{display:grid;grid-template-columns:80px 1fr;gap:0;position:relative}
+.step-card:not(:last-child)::after{content:'';position:absolute;left:39px;top:80px;bottom:-20px;width:2px;background:linear-gradient(to bottom,rgba(13,124,110,0.3),rgba(13,124,110,0.05));z-index:0}
+.step-left{display:flex;flex-direction:column;align-items:center;padding-top:20px;position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+.step-right{padding:20px 0 40px 24px}
+.step-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.step-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#1e2f4a;margin-bottom:10px}
+.step-desc{font-size:14px;color:#4a6285;line-height:1.8;margin-bottom:18px}
+.step-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.detail-chip{background:#f8fafb;border:1px solid #dce8f2;border-radius:10px;padding:14px;transition:.2s}
+.detail-chip:hover{border-color:rgba(13,124,110,0.25);transform:translateY(-2px)}
+.detail-chip h5{font-size:12px;font-weight:700;color:#1e2f4a;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.detail-chip h5 i{color:#0d7c6e;font-size:11px}
+.detail-chip p{font-size:11.5px;color:#4a6285;line-height:1.6}
+.step-metric{display:inline-flex;align-items:center;gap:7px;background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.2);color:#059669;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px}
+.step-metric i{font-size:10px}
+.tech-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tech-pill{font-size:10px;font-weight:600;background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.2);color:#0d7c6e;padding:3px 10px;border-radius:20px}
+.code-snippet{background:#0f172a;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;font-family:'DM Mono',monospace;font-size:11.5px;color:#4a6285;line-height:1.8;margin-top:14px;overflow-x:auto}
+.code-snippet .kw{color:#14b8a6}
+.code-snippet .str{color:#f59e0b}
+.code-snippet .comment{color:#4a6285}
+.code-snippet .num{color:#a78bfa}
+.code-snippet .fn{color:#60a5fa}
+
+/* ── ARCHITECTURE DIAGRAM ── */
+.arch-diagram{background:#0f172a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:32px;margin:48px 0;overflow-x:auto}
+.arch-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:28px;letter-spacing:1px;text-transform:uppercase}
+.arch-layers{display:flex;flex-direction:column;gap:12px}
+.arch-layer{border-radius:12px;padding:16px 20px}
+.layer-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;opacity:0.7}
+.layer-nodes{display:flex;flex-wrap:wrap;gap:8px}
+.layer-node{padding:7px 14px;border-radius:8px;font-size:11px;font-weight:600}
+.layer-arrow{text-align:center;color:rgba(255,255,255,0.2);font-size:18px;margin:-4px 0}
+
+/* ── COMPLIANCE ── */
+.compliance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:40px}
+.comp-card{background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:22px;transition:.2s;box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+.comp-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.08)}
+.comp-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:12px}
+.comp-card h4{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px}
+.comp-card p{font-size:12px;color:#4a6285;line-height:1.65}
+
+/* ── METRICS BAR ── */
+.metrics-bar{background:linear-gradient(135deg,#0d7c6e,#0c4a8a);padding:60px 0}
+.metrics-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.metric-item .m-val{font-family:'Sora',sans-serif;font-size:38px;font-weight:800;color:#f59e0b;line-height:1}
+.metric-item .m-lbl{font-size:12px;color:rgba(255,255,255,0.7);margin-top:6px;font-weight:600}
+.metric-item .m-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+
+/* ── CTA ── */
+.cta-section{background:#f8fafb;padding:80px 0;text-align:center}
+.cta-section h2{font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:#1e2f4a;margin-bottom:14px}
+.cta-section p{font-size:15px;color:#4a6285;max-width:520px;margin:0 auto 32px}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);color:#fff;font-size:15px;font-weight:700;padding:14px 32px;border-radius:10px;cursor:pointer;transition:.2s;border:none;font-family:inherit}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,124,110,0.35)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0d7c6e;font-size:15px;font-weight:700;padding:14px 32px;border-radius:10px;cursor:pointer;transition:.2s;border:2px solid rgba(13,124,110,0.25)}
+.btn-outline:hover{border-color:#0d7c6e;transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+.footer{background:#040c1c;padding:48px 0 24px;border-top:1px solid rgba(13,124,110,0.2)}
+.footer-bottom{text-align:center;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);font-size:12px;color:rgba(255,255,255,0.25);margin-top:24px}
+
+/* ── SCROLLTABS ── */
+.sticky-nav{position:sticky;top:62px;z-index:100;background:rgba(248,250,251,0.97);backdrop-filter:blur(10px);border-bottom:1px solid #dce8f2;padding:0}
+.sticky-nav-inner{display:flex;overflow-x:auto;gap:0;max-width:1140px;margin:0 auto;padding:0 28px}
+.snav-item{display:inline-flex;align-items:center;gap:7px;padding:14px 18px;font-size:12.5px;font-weight:600;color:#4a6285;cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:.2s}
+.snav-item:hover{color:#0d7c6e}
+.snav-item.active{color:#0d7c6e;border-bottom-color:#14b8a6}
+
+@media(max-width:768px){
+  .step-card{grid-template-columns:48px 1fr}
+  .step-num{width:40px;height:40px;font-size:16px}
+  .step-card:not(:last-child)::after{left:23px}
+  .metrics-inner{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <div class="logo-icon">⚕</div>
+      <div>
+        <div class="logo-main">ARDIA <span style="color:#14b8a6">HEALTH</span></div>
+        <div class="logo-sub">Precision Revenue Intelligence</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <div style="display:none;align-items:center;gap:4px" id="hiw-links">
+        <a href="solutions.html" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:6px 10px;border-radius:6px;transition:.2s">Solutions</a>
+        <a href="dashboard.html" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:6px 10px;border-radius:6px;transition:.2s">Dashboard</a>
+        <a href="architecture.html" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:6px 10px;border-radius:6px;transition:.2s">Architecture</a>
+        <a href="investors.html" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:6px 10px;border-radius:6px;transition:.2s">Investors</a>
+        <a href="contact.html" style="color:rgba(255,255,255,.6);font-size:12px;font-weight:600;padding:6px 10px;border-radius:6px;transition:.2s">Contact</a>
+      </div>
+      <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      <script>if(window.innerWidth>900)document.getElementById('hiw-links').style.display='flex'</script>
+      <button class="nav-cta" onclick="window.location='dashboard.html'"><i class="fas fa-tachometer-alt"></i> Live Dashboard</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><i class="fas fa-cogs"></i> End-to-End Platform Walkthrough</div>
+    <h1 class="hero-title">How Ardia Works —<br><span>From Denied Claim to Recovered Cash</span></h1>
+    <p class="hero-sub">A complete technical and operational walkthrough of every stage in the Ardia Health platform — from raw EDI data ingestion through AI-powered appeal generation to final payment posting. Six steps. Fully autonomous.</p>
+    <div class="hero-pills">
+      <span class="hpill"><i class="fas fa-circle"></i> ANSI X12 EDI Ingestion</span>
+      <span class="hpill"><i class="fas fa-circle"></i> Neuro-Symbolic AI Engine</span>
+      <span class="hpill"><i class="fas fa-circle"></i> CMS LCD/NCD Matching</span>
+      <span class="hpill"><i class="fas fa-circle"></i> Auto-Appeal Generation</span>
+      <span class="hpill"><i class="fas fa-circle"></i> ERA Payment Posting</span>
+      <span class="hpill"><i class="fas fa-circle"></i> TX SB 1188 Compliant</span>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-arrow"><span>Scroll to explore</span><i class="fas fa-chevron-down"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STICKY NAV ── -->
+<div class="sticky-nav">
+  <div class="sticky-nav-inner">
+    <div class="snav-item active" onclick="scrollTo('step1')"><i class="fas fa-file-import"></i> 1. Ingestion</div>
+    <div class="snav-item" onclick="scrollTo('step2')"><i class="fas fa-brain"></i> 2. AI Analysis</div>
+    <div class="snav-item" onclick="scrollTo('step3')"><i class="fas fa-search"></i> 3. Evidence Retrieval</div>
+    <div class="snav-item" onclick="scrollTo('step4')"><i class="fas fa-pen-nib"></i> 4. Appeal Drafting</div>
+    <div class="snav-item" onclick="scrollTo('step5')"><i class="fas fa-paper-plane"></i> 5. Submission</div>
+    <div class="snav-item" onclick="scrollTo('step6')"><i class="fas fa-dollar-sign"></i> 6. Payment & Audit</div>
+    <div class="snav-item" onclick="scrollTo('arch-section')"><i class="fas fa-layer-group"></i> Architecture</div>
+    <div class="snav-item" onclick="scrollTo('compliance')"><i class="fas fa-shield-alt"></i> Compliance</div>
+  </div>
+</div>
+
+<!-- ── FLOW SECTION ── -->
+<section class="flow-section">
+  <div class="container">
+    <div class="sh">
+      <div class="stag">Platform Walkthrough</div>
+      <h2 class="st">The 6-Step Autonomous Revenue Recovery Engine</h2>
+      <p class="ss">Every denied lab claim moves through six AI-orchestrated stages. Each step is auditable, human-supervised per TX SB 1188, and executes in minutes — not weeks.</p>
+    </div>
+
+    <div class="flow-intro">
+      <div class="flow-intro-icon"><i class="fas fa-info-circle"></i></div>
+      <div>
+        <h3>What makes Ardia different from manual billing</h3>
+        <p>Traditional RCM cycles take 45–90 days per claim with human billers charging $118+ per appeal. Ardia's Neuro-Symbolic Sandwich Architecture processes the same claim in under 2 seconds, cross-references 847 active CMS LCDs, generates a clinically grounded appeal brief, and delivers it to the MAC — all for $2.50 per claim. The <strong>47× cost advantage</strong> compounds across a lab processing 50,000+ claims per year.</p>
+      </div>
+    </div>
+
+    <div class="steps-grid">
+
+      <!-- STEP 1 -->
+      <div class="step-card" id="step1">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#0d7c6e,#059669)">1</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#0d7c6e">Data Ingestion Layer</div>
+          <h3 class="step-title">Claim & EOB Ingestion via EDI 835/837</h3>
+          <p class="step-desc">When a payer denies a lab claim, they transmit a standardized ANSI X12 835 Electronic Remittance Advice (ERA) file. Ardia's ingestion pipeline continuously monitors your practice management system or clearinghouse for incoming 835 files, parses every denial transaction set, and loads structured claim data into the Ardia claims ledger within seconds of receipt.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-file-code"></i> EDI 835 / 837 Parsing</h5>
+              <p>Ingests payer remittances, extracts CAS segments, claim adjustment reason codes (CO-, PR-, OA-), and PLB codes at the loop and segment level.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-plug"></i> EHR / PMS Connectors</h5>
+              <p>Native HL7 FHIR R4 connectors for Epic, Athena, eClinicalWorks, Kareo, and direct API integration with Office Ally, Change Healthcare, Availity clearinghouses.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-lock"></i> HIPAA-Secure Ingestion</h5>
+              <p>All PHI is encrypted in transit (TLS 1.3) and at rest (AES-256). U.S.-only data residency required by TX SB 1188 §4(c) — zero offshore processing.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-sort-amount-down"></i> Triage & Prioritization</h5>
+              <p>Incoming denials are scored by dollar value, payer, denial code, and LAB-type (tox, molecular, PGx) and ranked in the priority queue for AI processing.</p>
+            </div>
+          </div>
+          <div class="code-snippet">
+<span class="comment">// Sample: Parsed EDI 835 Loop 2100 denial record</span>
+{
+  <span class="kw">claim_id</span>: <span class="str">"TX-2026-00441"</span>,
+  <span class="kw">npi</span>: <span class="str">"1234567890"</span>,
+  <span class="kw">cpt_code</span>: <span class="str">"G0480"</span>,  <span class="comment">// 4-drug tox confirmation</span>
+  <span class="kw">billed_amount</span>: <span class="num">3840.00</span>,
+  <span class="kw">paid_amount</span>: <span class="num">0.00</span>,
+  <span class="kw">denial_reason</span>: <span class="str">"CO-50"</span>,  <span class="comment">// Medical necessity</span>
+  <span class="kw">mac</span>: <span class="str">"Palmetto GBA (J-M)"</span>,
+  <span class="kw">payer</span>: <span class="str">"Medicare Part B"</span>,
+  <span class="kw">dos</span>: <span class="str">"2026-02-14"</span>
+}
+          </div>
+          <div class="tech-pills">
+            <span class="tech-pill">ANSI X12 835</span><span class="tech-pill">HL7 FHIR R4</span><span class="tech-pill">AES-256</span><span class="tech-pill">TLS 1.3</span><span class="tech-pill">Change Healthcare</span><span class="tech-pill">Availity</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-card" id="step2">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)">2</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#7c3aed">Neuro-Symbolic AI Core</div>
+          <h3 class="step-title">AI Denial Classification & Viability Scoring</h3>
+          <p class="step-desc">Ardia's Neuro-Symbolic Sandwich Architecture deploys three AI model tiers simultaneously. The top tier uses a large language model for natural language understanding of clinical context. The middle tier applies symbolic reasoning — rules-based logic over CMS coverage policies. The bottom tier uses a deep neural network trained on 2.4M historical claim outcomes to predict appeal success probability.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-brain"></i> LLM Clinical Context Layer</h5>
+              <p>Extracts clinical intent from free-text diagnostic notes, ICD-10 codes, and CPT code sequences. Understands why a test was ordered relative to the patient's condition.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-code-branch"></i> Symbolic Rules Engine</h5>
+              <p>847 active CMS Local Coverage Determinations (LCDs) encoded as formal logic rules. Maps each claim to applicable LCDs by payer, MAC jurisdiction, and CPT code.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-chart-bar"></i> ML Outcome Predictor</h5>
+              <p>Trained on 2.4M historical claims. Predicts appeal success probability (0–100%) using 140+ features: payer behavior, MAC, denial code, CPT, diagnoses, and claim history.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-filter"></i> Viability Threshold</h5>
+              <p>Claims scoring ≥72% appeal confidence are queued for automated appeal. Claims below threshold are flagged for human review — never silently abandoned.</p>
+            </div>
+          </div>
+          <span class="step-metric"><i class="fas fa-bolt"></i> Analyzes 847 claims/minute · 98.4% classification accuracy</span>
+          <div class="tech-pills">
+            <span class="tech-pill">LLM (Clinical Fine-tuned)</span><span class="tech-pill">Symbolic Reasoning</span><span class="tech-pill">Decision Forest</span><span class="tech-pill">LCD/NCD Engine</span><span class="tech-pill">ICD-10 NLP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-card" id="step3">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)">3</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#0ea5e9">Retrieval-Augmented Generation</div>
+          <h3 class="step-title">Evidence Retrieval from 14 Clinical Databases</h3>
+          <p class="step-desc">Before drafting a single word of the appeal letter, the Ardia RAG (Retrieval-Augmented Generation) system queries a curated corpus of 14 clinical and regulatory databases in parallel. It retrieves the exact LCD paragraph supporting the test, the relevant NCCN guideline citation, peer-reviewed PubMed evidence, and payer-specific policy language. All retrieved evidence is citation-linked and stored in the claim audit trail.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-database"></i> CMS Coverage Corpus</h5>
+              <p>Full text of 847 active LCDs, all NCDs, and MAC-specific billing articles. Updated weekly via CMS Coverage Database API.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-flask"></i> Clinical Guidelines</h5>
+              <p>NCCN, ASCO, ACOG, ACS, CAP, AACC, and ASCP guidelines. Indexed at the paragraph level for precise citation retrieval.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-book-medical"></i> PubMed Evidence</h5>
+              <p>Real-time PubMed/MEDLINE query for peer-reviewed studies supporting medical necessity of the specific test and indication combination.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-gavel"></i> Appeals Case Law</h5>
+              <p>Historical ALJ and DAB appeals decisions indexed by CPT code and denial reason. Winning precedent is auto-cited in the appeal brief.</p>
+            </div>
+          </div>
+          <span class="step-metric"><i class="fas fa-search"></i> 14 databases queried in parallel · avg 340ms retrieval time</span>
+          <div class="tech-pills">
+            <span class="tech-pill">RAG Architecture</span><span class="tech-pill">Vector Embeddings</span><span class="tech-pill">CMS Coverage API</span><span class="tech-pill">PubMed API</span><span class="tech-pill">NCCN Guidelines</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-card" id="step4">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#d97706,#b45309)">4</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#d97706">Autonomous Document Generation</div>
+          <h3 class="step-title">AI Appeal Brief Generation & Human Review</h3>
+          <p class="step-desc">The AI drafts a structured appeal letter following CMS Level 1 Redetermination requirements: clinical summary, medical necessity justification with cited evidence, point-by-point rebuttal of the denial rationale, applicable LCD/NCD language, and supporting documentation checklist. Under Texas SB 1188, a licensed clinician or billing professional reviews and approves every appeal before submission — the human-in-the-loop gate is mandatory and audited.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-file-medical-alt"></i> CMS-Compliant Format</h5>
+              <p>Drafts follow MAC-specific Level 1 redetermination templates. Auto-populated with claim number, patient info, provider NPI, and service dates.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-quote-right"></i> Evidence Weaving</h5>
+              <p>Retrieved clinical evidence is structured into a coherent narrative argument — not just appended. The AI reasons from evidence to conclusion like a trained appeals specialist.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-user-md"></i> TX SB 1188 Review Gate</h5>
+              <p>Every AI-generated appeal is flagged for licensed professional review. The provider sees the draft, reviews cited evidence, and approves or edits before any submission.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-history"></i> Full Audit Trail</h5>
+              <p>Every AI action, evidence retrieval, draft version, and human review event is timestamped and immutably logged for CMS audit defense and HIPAA compliance.</p>
+            </div>
+          </div>
+          <span class="step-metric"><i class="fas fa-clock"></i> Draft ready in &lt;90 seconds · Human review avg 4 minutes</span>
+          <div class="code-snippet">
+<span class="comment">// Generated appeal brief metadata</span>
+{
+  <span class="kw">appeal_id</span>: <span class="str">"ARD-AP-2026-00441"</span>,
+  <span class="kw">type</span>: <span class="str">"Level 1 Redetermination"</span>,
+  <span class="kw">mac</span>: <span class="str">"Palmetto GBA J-M"</span>,
+  <span class="kw">ai_confidence</span>: <span class="num">0.98</span>,
+  <span class="kw">evidence_citations</span>: [<span class="str">"LCD L35391"</span>, <span class="str">"NCCN 2026"</span>, <span class="str">"PMID 38412847"</span>],
+  <span class="kw">human_reviewer</span>: <span class="str">"Dr. Jane Smith, MD"</span>,
+  <span class="kw">review_status</span>: <span class="str">"APPROVED"</span>,
+  <span class="kw">sb1188_compliant</span>: <span class="fn">true</span>
+}
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-card" id="step5">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#0d7c6e,#0c4a8a)">5</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#0d7c6e">Automated Submission & Tracking</div>
+          <h3 class="step-title">Multi-Channel Appeal Submission & Deadline Monitoring</h3>
+          <p class="step-desc">Approved appeals are transmitted through the appropriate submission channel for each payer — EDI 277CA for electronic MACs, secure fax for commercial payers, and certified mail with tracking for paper-required submissions. The Ardia deadline engine monitors 120-day CMS appeal windows and commercial payer timely filing limits, auto-escalating any claim approaching its deadline with priority alerts.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-wifi"></i> Electronic Submission</h5>
+              <p>Direct EDI transmission to Palmetto GBA, CGS, Novitas, WPS, and NGS MACs. Acknowledgment tracking via 999/277CA transaction sets.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-calendar-check"></i> Deadline Engine</h5>
+              <p>Tracks 120-day CMS redetermination windows and all commercial payer timely filing limits. Auto-alerts 30, 14, and 7 days before each deadline.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-exchange-alt"></i> Level Escalation</h5>
+              <p>If Level 1 is denied, the system auto-prepares Level 2 (QIC), Level 3 (ALJ), and Level 4 (DAB) packets. Each escalation is triggered within 24 hours of adverse decision.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-bell"></i> Real-Time Status</h5>
+              <p>Dashboard tracks every appeal's position in the appeals process. Providers receive push notifications on status changes, decisions, and payment notifications.</p>
+            </div>
+          </div>
+          <span class="step-metric"><i class="fas fa-check-circle"></i> 89% Level 1 win rate · 94% within 60 days</span>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-card" id="step6">
+        <div class="step-left">
+          <div class="step-num" style="background:linear-gradient(135deg,#059669,#047857)">6</div>
+        </div>
+        <div class="step-right">
+          <div class="step-tag" style="color:#059669">Payment Reconciliation & Intelligence</div>
+          <h3 class="step-title">ERA Payment Auto-Posting & Revenue Intelligence</h3>
+          <p class="step-desc">When the payer approves the appeal, they transmit a new 835 ERA with the payment. Ardia's reconciliation engine matches the approved ERA to the original claim, auto-posts the payment to your PMS, calculates the recovery net of Ardia's success fee, and closes the claim loop. The entire recovery — from original denial to payment post — is logged as a case study in your lab's AI learning corpus, improving future prediction accuracy.</p>
+          <div class="step-detail-grid">
+            <div class="detail-chip">
+              <h5><i class="fas fa-check-double"></i> Auto-Reconciliation</h5>
+              <p>Inbound 835 approval ERAs are matched to open appeal cases within seconds. Payment is auto-posted to the originating claim in your PMS without manual intervention.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-chart-line"></i> Revenue Analytics</h5>
+              <p>Every recovery feeds the Ardia analytics engine: denial trends by payer, CPT performance, appeal win rates by MAC, and projected future recovery pipeline.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-graduation-cap"></i> Continuous Learning</h5>
+              <p>Each resolved case — won or lost — refines the ML outcome predictor. Your lab's model improves with every claim. Network-wide learning across all Ardia clients raises the floor for everyone.</p>
+            </div>
+            <div class="detail-chip">
+              <h5><i class="fas fa-file-invoice-dollar"></i> Success-Fee Billing</h5>
+              <p>Ardia charges 15% of recovered revenue only. No recovery = no fee. Monthly statements itemize every recovery, Ardia fee, and net-to-lab amount with full claim-level detail.</p>
+            </div>
+          </div>
+          <span class="step-metric"><i class="fas fa-dollar-sign"></i> Avg $3,200 recovered per tox claim · $47× ROI</span>
+        </div>
+      </div>
+
+    </div><!-- /steps-grid -->
+  </div>
+</section>
+
+<!-- ── ARCHITECTURE ── -->
+<section style="background:#f8fafb;padding:80px 0" id="arch-section">
+  <div class="container">
+    <div class="sh" style="padding-top:0">
+      <div class="stag">Technical Architecture</div>
+      <h2 class="st">Neuro-Symbolic Sandwich Architecture</h2>
+      <p class="ss">Three AI tiers operating in concert — each compensating for the others' weaknesses to produce medically accurate, legally sound, and highly successful appeal briefs.</p>
+    </div>
+    <div class="arch-diagram">
+      <div class="arch-title">Ardia Platform Architecture — Data Flow</div>
+      <div class="arch-layers">
+        <div class="arch-layer" style="background:rgba(13,124,110,0.12);border:1px solid rgba(13,124,110,0.25)">
+          <div class="layer-label" style="color:#14b8a6">Input Layer — Data Sources</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">EDI 835/837</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">HL7 FHIR R4</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">EHR Connectors</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">Clearinghouse APIs</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">Lab PMS Direct</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25)">
+          <div class="layer-label" style="color:#a78bfa">AI Tier 1 — LLM Clinical Reasoning</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Clinical Context NLP</span>
+            <span class="layer-node" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">ICD-10 Intent Parser</span>
+            <span class="layer-node" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Medical Necessity Scorer</span>
+            <span class="layer-node" style="background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">Appeal Narrative Generator</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.25)">
+          <div class="layer-label" style="color:#38bdf8">AI Tier 2 — Symbolic Rules Engine</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">847 LCD Rules</span>
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">NCD Coverage Logic</span>
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">Payer Policy Encoder</span>
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">CPT/ICD Crosswalk</span>
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">Modifier Logic</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25)">
+          <div class="layer-label" style="color:#f59e0b">AI Tier 3 — ML Outcome Predictor</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">2.4M Claim Dataset</span>
+            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">140+ Feature Model</span>
+            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Payer Behavior Model</span>
+            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Confidence Scoring</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.25)">
+          <div class="layer-label" style="color:#34d399">RAG Evidence Layer</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)">CMS LCD Corpus</span>
+            <span class="layer-node" style="background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)">NCCN / ASCO Guidelines</span>
+            <span class="layer-node" style="background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)">PubMed 34M Papers</span>
+            <span class="layer-node" style="background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)">ALJ Precedent DB</span>
+            <span class="layer-node" style="background:rgba(52,211,153,0.1);color:#34d399;border:1px solid rgba(52,211,153,0.2)">Vector Search Index</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2)">
+          <div class="layer-label" style="color:#f87171">Human-in-the-Loop Gate (TX SB 1188 Required)</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(248,113,113,0.1);color:#f87171;border:1px solid rgba(248,113,113,0.2)">Licensed Clinician Review</span>
+            <span class="layer-node" style="background:rgba(248,113,113,0.1);color:#f87171;border:1px solid rgba(248,113,113,0.2)">Audit Trail Logger</span>
+            <span class="layer-node" style="background:rgba(248,113,113,0.1);color:#f87171;border:1px solid rgba(248,113,113,0.2)">Patient Disclosure Module</span>
+            <span class="layer-node" style="background:rgba(248,113,113,0.1);color:#f87171;border:1px solid rgba(248,113,113,0.2)">Override Controls</span>
+          </div>
+        </div>
+        <div class="layer-arrow">▼</div>
+        <div class="arch-layer" style="background:rgba(13,124,110,0.12);border:1px solid rgba(13,124,110,0.25)">
+          <div class="layer-label" style="color:#14b8a6">Output Layer — Submission & Recovery</div>
+          <div class="layer-nodes">
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">MAC Electronic Filing</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">Secure Fax / Mail</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">ERA Auto-Posting</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">PMS Reconciliation</span>
+            <span class="layer-node" style="background:rgba(20,184,166,0.15);color:#14b8a6;border:1px solid rgba(20,184,166,0.25)">Revenue Analytics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── METRICS BAR ── -->
+<div class="metrics-bar">
+  <div class="container">
+    <div class="metrics-inner">
+      <div class="metric-item">
+        <div class="m-val">47×</div>
+        <div class="m-lbl">Cost Advantage</div>
+        <div class="m-sub">$2.50 vs $118 manual</div>
+      </div>
+      <div class="metric-item">
+        <div class="m-val">89%</div>
+        <div class="m-lbl">Level 1 Win Rate</div>
+        <div class="m-sub">vs 34% industry avg</div>
+      </div>
+      <div class="metric-item">
+        <div class="m-val">&lt;90s</div>
+        <div class="m-lbl">Time to Draft</div>
+        <div class="m-sub">vs 2–4 hrs manual</div>
+      </div>
+      <div class="metric-item">
+        <div class="m-val">$0</div>
+        <div class="m-lbl">Upfront Cost</div>
+        <div class="m-sub">15% of recovered revenue only</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPLIANCE ── -->
+<section style="background:#fff;padding:80px 0" id="compliance">
+  <div class="container">
+    <div class="sh" style="padding-top:0">
+      <div class="stag">Regulatory Compliance</div>
+      <h2 class="st">Built Compliant From Day One</h2>
+      <p class="ss">Texas 2025 AI laws aren't just constraints — they're Ardia's competitive moat. We built the compliance features natively, not as afterthoughts.</p>
+    </div>
+    <div class="compliance-grid">
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(239,68,68,0.1);color:#ef4444"><i class="fas fa-gavel"></i></div>
+        <h4>TX SB 1188 Compliant</h4>
+        <p>Human review gate on every AI-generated clinical output. Patient disclosure module. U.S.-only data storage. Full audit trail. $250K penalty avoided per claim.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(124,58,237,0.1);color:#7c3aed"><i class="fas fa-robot"></i></div>
+        <h4>TRAIGA (HB 149) Ready</h4>
+        <p>TRAIGA regulatory sandbox eligible. No behavioral manipulation. Non-discriminatory AI outputs. Patient-facing disclosure built in. First to market with native compliance.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(14,165,233,0.1);color:#0ea5e9"><i class="fas fa-shield-alt"></i></div>
+        <h4>HIPAA / HITECH</h4>
+        <p>BAA-ready. AES-256 at rest, TLS 1.3 in transit. U.S.-only AWS GovCloud. Zero offshore PHI processing. Annual HIPAA audits. SOC 2 Type II in progress.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(5,150,105,0.1);color:#059669"><i class="fas fa-balance-scale"></i></div>
+        <h4>False Claims Act Safe</h4>
+        <p>Every appeal is grounded in real clinical evidence with citations. No upcoding, no fabricated necessity. FCA-safe audit trail on all submissions. Legal review integration available.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(245,158,11,0.1);color:#d97706"><i class="fas fa-microscope"></i></div>
+        <h4>CLIA / CAP Integration</h4>
+        <p>Lab accreditation data (CLIA number, CAP accreditation, NPI) is embedded in every appeal. Accreditation status monitored for renewal alerts integrated with billing.</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon" style="background:rgba(13,124,110,0.1);color:#0d7c6e"><i class="fas fa-network-wired"></i></div>
+        <h4>FHIR R4 Interoperable</h4>
+        <p>Native FHIR R4 APIs enable bidirectional data exchange with all major EHRs. Supports CMS interoperability rules. No proprietary data lock-in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <h2>Ready to see it in action?</h2>
+  <p>Watch the full end-to-end flow on a real denied toxicology claim in our live demo dashboard — no signup required.</p>
+  <div class="cta-btns">
+    <button class="btn-primary" onclick="window.location='dashboard.html'"><i class="fas fa-tachometer-alt"></i> Open Live Dashboard</button>
+    <button class="btn-outline" onclick="window.location='plg-sandbox.html'"><i class="fas fa-terminal"></i> Try Free Sandbox</button>
+    <button class="btn-outline" onclick="window.location='contact.html'"><i class="fas fa-calendar"></i> Book a Demo</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.06)">
+      <div>
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:10px">ARDIA <span style="color:#5eead4">HEALTH</span></div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8">The Autonomous Clinical Proof Engine. From denied claim to cash — autonomously.</p>
+      </div>
+      <div>
+        <h4 style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px">Platform</h4>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="index.html" style="font-size:13px;color:rgba(255,255,255,0.5);transition:.2s">Home</a>
+          <a href="solutions.html" style="font-size:13px;color:rgba(255,255,255,0.5)">Solutions</a>
+          <a href="how-it-works.html" style="font-size:13px;color:rgba(255,255,255,0.5)">How It Works</a>
+          <a href="dashboard.html" style="font-size:13px;color:rgba(255,255,255,0.5)">Pilot Demo</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:14px">Company</h4>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="about.html" style="font-size:13px;color:rgba(255,255,255,0.5)">Why Ardia</a>
+          <a href="investors.html" style="font-size:13px;color:rgba(255,255,255,0.5)">Investors</a>
+          <a href="contact.html" style="font-size:13px;color:rgba(255,255,255,0.5)">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ardia Health Labs LLC · Argyle, TX 76226 · Not a licensed medical provider. AI outputs require licensed professional review per TX SB 1188.</div>
+  </div>
+</footer>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.snav-item').forEach(i => i.classList.remove('active'));
+  event.target.classList.add('active');
+}
+// Sticky nav active state on scroll
+const sections = ['step1','step2','step3','step4','step5','step6','arch-section','compliance'];
+const navItems = document.querySelectorAll('.snav-item');
+window.addEventListener('scroll', () => {
+  const _nav = document.querySelector('.navbar');
+  if (_nav) _nav.classList.toggle('scrolled', window.scrollY > 40);
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navItems.forEach((item, i) => {
+    item.classList.toggle('active', sections[i] === current || (current === '' && i === 0));
+  });
+});
+</script>
+</body>
+</html>
