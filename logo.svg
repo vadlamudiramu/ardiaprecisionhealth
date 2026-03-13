@@ -15,6 +15,9 @@
     </linearGradient>
   </defs>
 
+  <!-- White background -->
+  <rect width="200" height="160" fill="#ffffff"/>
+
   <!-- Brain left hemisphere outline -->
   <path d="M100 22
     C85 22 68 28 58 42
