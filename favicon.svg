@@ -1,37 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0a1f6e"/>
-      <stop offset="100%" stop-color="#1a4db5"/>
+      <stop offset="0%"   stop-color="#1a237e"/>
+      <stop offset="100%" stop-color="#0288d1"/>
     </linearGradient>
-    <linearGradient id="arrow" x1="32" y1="12" x2="58" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#00e5ff"/>
-      <stop offset="100%" stop-color="#00b8d9"/>
+    <linearGradient id="arrowF" x1="32" y1="50" x2="56" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#40c4ff"/>
+      <stop offset="100%" stop-color="#00e5ff"/>
     </linearGradient>
   </defs>
-
   <!-- Rounded square background -->
   <rect width="64" height="64" rx="12" fill="url(#bg)"/>
-
-  <!-- Left brain half (white) -->
-  <path d="M32 10 C24 10 16 14 12 22 C8 30 9 40 13 48 C16 54 22 58 32 58 L32 10Z"
-    fill="white" opacity="0.15" stroke="white" stroke-width="1.5"/>
-
-  <!-- Right brain half (lighter) -->
-  <path d="M32 10 C40 10 48 14 52 22 C56 30 55 40 51 48 C48 54 42 58 32 58 L32 10Z"
-    fill="none" stroke="url(#arrow)" stroke-width="1.5"/>
-
-  <!-- Circuit dots left side -->
-  <circle cx="18" cy="26" r="2.5" fill="white" opacity="0.8"/>
-  <line x1="18" y1="26" x2="26" y2="26" stroke="white" stroke-width="1.5" opacity="0.6"/>
-  <circle cx="18" cy="36" r="2.5" fill="white" opacity="0.8"/>
-  <line x1="18" y1="36" x2="26" y2="36" stroke="white" stroke-width="1.5" opacity="0.6"/>
-  <line x1="26" y1="26" x2="26" y2="36" stroke="white" stroke-width="1.5" opacity="0.6"/>
-
-  <!-- Upward arrow right side -->
-  <line x1="40" y1="50" x2="54" y2="22" stroke="url(#arrow)" stroke-width="3.5" stroke-linecap="round"/>
-  <polyline points="46,22 54,22 54,30" stroke="url(#arrow)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-  <!-- Center divider -->
-  <line x1="32" y1="12" x2="32" y2="56" stroke="white" stroke-width="1" opacity="0.25" stroke-dasharray="3 2"/>
+  <!-- Left brain half -->
+  <path d="M32,9 C24,9 17,13 13,19 C9,14 4,15 3,21 C0,23 0,30 4,33 C1,37 2,43 6,45 C7,51 13,55 19,53 C21,57 26,60 32,60 L32,9Z"
+    stroke="white" stroke-width="2" fill="none" opacity="0.85"/>
+  <!-- Right brain half -->
+  <path d="M32,9 C40,9 47,13 51,19 C55,14 60,15 61,21 C64,23 64,30 60,33 C63,37 62,43 58,45 C57,51 51,55 45,53 C43,57 38,60 32,60 L32,9Z"
+    stroke="#40c4ff" stroke-width="2" fill="none" opacity="0.85"/>
+  <!-- Circuit dots left -->
+  <circle cx="6"  cy="26" r="2.5" fill="white" opacity="0.9"/>
+  <line x1="6"  y1="26" x2="13" y2="26" stroke="white" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="5"  cy="38" r="2.5" fill="white" opacity="0.9"/>
+  <line x1="5"  y1="38" x2="13" y2="38" stroke="white" stroke-width="1.5" opacity="0.7"/>
+  <line x1="13" y1="26" x2="13" y2="38" stroke="white" stroke-width="1.5" opacity="0.7"/>
+  <!-- Arrow right side -->
+  <line x1="36" y1="52" x2="55" y2="18" stroke="url(#arrowF)" stroke-width="4" stroke-linecap="round"/>
+  <line x1="46" y1="16" x2="56" y2="17" stroke="url(#arrowF)" stroke-width="4" stroke-linecap="round"/>
+  <line x1="57" y1="27" x2="56" y2="17" stroke="url(#arrowF)" stroke-width="4" stroke-linecap="round"/>
 </svg>
