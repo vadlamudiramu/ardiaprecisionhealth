@@ -1662,8 +1662,7 @@ function initInvestorCharts() {
 
 // ===== DASHBOARD CHARTS =====
 function initDashCharts() {
-  const page = document.getElementById('page-dashboard');
-  if (!page || !page.classList.contains('active')) return;
+  // No active guard — runs on page load for standalone pages
 
   const tc = document.getElementById('trendChart');
   if (tc && !tc._chartInit) {

@@ -1915,8 +1915,7 @@ function initInvestorCharts() {
 
 // ===== DASHBOARD CHARTS =====
 function initDashCharts() {
-  const page = document.getElementById('page-dashboard');
-  if (!page || !page.classList.contains('active')) return;
+  // Run regardless — standalone page, no active check needed
 
   const tc = document.getElementById('trendChart');
   if (tc && !tc._chartInit) {
@@ -1946,6 +1945,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!p.classList.contains('active')) p.style.display = 'none';
   });
   initReveal();
+  // Initialize charts on page load
+  setTimeout(initInvestorCharts, 400);
+  setTimeout(initDashCharts, 400);
 });
 
 // ═══════════════════════════════════════════
