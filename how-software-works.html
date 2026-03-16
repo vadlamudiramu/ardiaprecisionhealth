@@ -192,14 +192,14 @@ a{color:inherit;text-decoration:none}
 <!-- ── STICKY NAV ── -->
 <div class="sticky-nav">
   <div class="sticky-nav-inner">
-    <div class="snav-item active" onclick="scrollTo('step1')"><i class="fas fa-file-import"></i> 1. Ingestion</div>
-    <div class="snav-item" onclick="scrollTo('step2')"><i class="fas fa-brain"></i> 2. AI Analysis</div>
-    <div class="snav-item" onclick="scrollTo('step3')"><i class="fas fa-search"></i> 3. Evidence Retrieval</div>
-    <div class="snav-item" onclick="scrollTo('step4')"><i class="fas fa-pen-nib"></i> 4. Appeal Drafting</div>
-    <div class="snav-item" onclick="scrollTo('step5')"><i class="fas fa-paper-plane"></i> 5. Submission</div>
-    <div class="snav-item" onclick="scrollTo('step6')"><i class="fas fa-dollar-sign"></i> 6. Payment & Audit</div>
-    <div class="snav-item" onclick="scrollTo('arch-section')"><i class="fas fa-layer-group"></i> Architecture</div>
-    <div class="snav-item" onclick="scrollTo('compliance')"><i class="fas fa-shield-alt"></i> Compliance</div>
+    <div class="snav-item active" onclick="scrollToSection('step1',this)"><i class="fas fa-file-import"></i> 1. Ingestion</div>
+    <div class="snav-item" onclick="scrollToSection('step2',this)"><i class="fas fa-brain"></i> 2. AI Analysis</div>
+    <div class="snav-item" onclick="scrollToSection('step3',this)"><i class="fas fa-search"></i> 3. Evidence Retrieval</div>
+    <div class="snav-item" onclick="scrollToSection('step4',this)"><i class="fas fa-pen-nib"></i> 4. Appeal Drafting</div>
+    <div class="snav-item" onclick="scrollToSection('step5',this)"><i class="fas fa-paper-plane"></i> 5. Submission</div>
+    <div class="snav-item" onclick="scrollToSection('step6',this)"><i class="fas fa-dollar-sign"></i> 6. Payment & Audit</div>
+    <div class="snav-item" onclick="scrollToSection('arch-section',this)"><i class="fas fa-layer-group"></i> Architecture</div>
+    <div class="snav-item" onclick="scrollToSection('compliance',this)"><i class="fas fa-shield-alt"></i> Compliance</div>
   </div>
 </div>
 
@@ -649,11 +649,15 @@ a{color:inherit;text-decoration:none}
 </footer>
 
 <script>
-function scrollTo(id) {
+function scrollToSection(id, btn) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  if (el) {
+    const offset = 130; // account for fixed navbar + sticky nav
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({top: top, behavior: 'smooth'});
+  }
   document.querySelectorAll('.snav-item').forEach(i => i.classList.remove('active'));
-  event.target.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 // Sticky nav active state on scroll
 const sections = ['step1','step2','step3','step4','step5','step6','arch-section','compliance'];
