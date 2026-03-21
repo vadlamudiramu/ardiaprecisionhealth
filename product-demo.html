@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Demo & Screenshots | Ardia Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f8fafc;color:#0f172a}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(10,31,53,0.97);backdrop-filter:blur(12px);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(94,234,212,0.12)}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-logo-box{width:36px;height:36px;background:#1e3a5f;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:18px;color:#fff}
+.nav-logo-text{font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:#fff}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-link{color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;cursor:pointer;transition:.2s}
+.nav-link:hover{color:#5eead4}
+.btn-book{background:#0d7c6e;color:#fff;padding:9px 20px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;letter-spacing:.5px}
+
+.hero{padding:120px 0 72px;background:linear-gradient(135deg,#0a1f35 0%,#1e3a5f 50%,#0d7c6e 100%);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235eead4' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-tag{display:inline-block;background:rgba(94,234,212,0.15);border:1px solid rgba(94,234,212,0.3);color:#5eead4;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 18px;border-radius:20px;margin-bottom:20px;position:relative}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:18px;position:relative}
+.hero h1 span{color:#5eead4}
+.hero p{font-size:16px;color:rgba(255,255,255,0.7);max-width:600px;margin:0 auto 32px;position:relative;line-height:1.7}
+.stage-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
+.stage-badge{padding:7px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px}
+
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ── SECTION TABS ── */
+.tab-bar{background:#fff;border-bottom:2px solid #e2eaf3;position:sticky;top:64px;z-index:100}
+.tab-inner{display:flex;gap:0;overflow-x:auto;padding:0 24px;max-width:1200px;margin:0 auto}
+.tab-btn{padding:16px 28px;font-size:13px;font-weight:600;color:#4a6285;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s;font-family:'DM Sans',sans-serif;background:none;border-top:none;border-left:none;border-right:none}
+.tab-btn.active{color:#0d7c6e;border-bottom-color:#0d7c6e}
+.tab-btn:hover{color:#0d7c6e}
+.tab-panel{display:none;padding:60px 0}
+.tab-panel.active{display:block}
+
+/* ── SCREENSHOT SECTION ── */
+.screenshot-hero{display:grid;grid-template-columns:1fr 480px;gap:48px;align-items:center;margin-bottom:56px}
+.screenshot-hero.reverse{grid-template-columns:480px 1fr}
+.screenshot-text h2{font-family:'Sora',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:800;color:#0f172a;line-height:1.15;margin-bottom:14px}
+.screenshot-text p{font-size:14px;color:#4a6285;line-height:1.7;margin-bottom:20px}
+.feature-list{list-style:none;margin-bottom:28px}
+.feature-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:#1e2f4a}
+.feature-list li::before{content:'✓';color:#0d7c6e;font-weight:700;margin-top:1px;flex-shrink:0}
+.btn-primary{display:inline-block;background:#0d7c6e;color:#fff;padding:12px 24px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;font-family:'Sora',sans-serif;transition:.2s;margin-right:10px}
+.btn-primary:hover{background:#0b6a5e;transform:translateY(-1px)}
+.btn-secondary{display:inline-block;background:#fff;color:#1e3a5f;padding:12px 24px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #1e3a5f;text-decoration:none;font-family:'Sora',sans-serif;transition:.2s}
+.btn-secondary:hover{background:#f0f4ff}
+
+.screenshot-frame{border-radius:14px;overflow:hidden;box-shadow:0 24px 80px rgba(13,124,110,0.18),0 4px 24px rgba(0,0,0,0.12);border:1px solid #b2d8d1}
+.screenshot-frame img{width:100%;display:block}
+.screenshot-frame .frame-bar{background:#1e2f4a;padding:10px 14px;display:flex;align-items:center;gap:8px}
+.frame-dot{width:10px;height:10px;border-radius:50%}
+.frame-url{flex:1;background:#0a1f35;border-radius:5px;padding:4px 12px;margin:0 10px;font-size:11px;color:#94a3b8;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px}
+.live-badge{background:#0d7c6e;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:auto}
+
+/* ── MOBILE PANEL ── */
+.mobile-showcase{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.phone-container{display:flex;justify-content:center}
+.phone-wrap{max-width:300px}
+
+/* ── STAGE TIMELINE ── */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+.timeline-card{background:#fff;border:2px solid #e2eaf3;border-radius:14px;padding:24px;position:relative;transition:.2s}
+.timeline-card.active{border-color:#0d7c6e;background:linear-gradient(135deg,#f0fdf9,#e8faf5)}
+.timeline-card.future{opacity:.7}
+.timeline-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'Sora',sans-serif;margin-bottom:12px}
+.timeline-card h4{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;margin-bottom:8px;color:#0f172a}
+.timeline-card p{font-size:12px;color:#4a6285;line-height:1.6}
+
+/* ── STATS STRIP ── */
+.stats-strip{background:linear-gradient(135deg,#0a1f35,#1e3a5f);padding:48px 0;margin:60px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat-val{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;color:#5eead4;margin-bottom:6px}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,0.6)}
+
+/* ── FOOTER ── */
+footer{background:#0a1f35;padding:32px 24px;text-align:center}
+footer p{color:rgba(255,255,255,0.4);font-size:12px}
+
+@media(max-width:768px){
+  .screenshot-hero,.screenshot-hero.reverse,.mobile-showcase,.timeline{grid-template-columns:1fr}
+  .tab-btn{padding:12px 18px;font-size:12px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo" onclick="window.location='index.html'">
+    <div class="nav-logo-box">A</div>
+    <div>
+      <div class="nav-logo-text">ARDIA HEALTH</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link" onclick="window.location='index.html'">Home</span>
+    <span class="nav-link" onclick="window.location='dashboard.html'">Live Dashboard</span>
+    <span class="nav-link" onclick="window.location='mobile-app.html'">Mobile App</span>
+    <span class="nav-link" onclick="window.location='plg-sandbox.html'">Free Trial</span>
+    <span class="nav-link" onclick="window.location='investors.html'">Investors</span>
+    <span class="btn-book" onclick="window.location='contact.html'">BOOK A DEMO</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">PRODUCT DEMO &amp; SCREENSHOTS</div>
+    <h1>See Ardia's Platform<br><span>In Action</span></h1>
+    <p>Three interactive demos. Three product screenshots. One platform that recovers denied healthcare revenue through clinical AI reasoning — not just alerts.</p>
+    <div class="stage-badges">
+      <span class="stage-badge" style="background:rgba(13,124,110,0.3);color:#5eead4;border:1px solid rgba(94,234,212,0.3)">✓ Phase 1 — Active Development</span>
+      <span class="stage-badge" style="background:rgba(30,58,95,0.5);color:#93c5fd;border:1px solid rgba(147,197,253,0.3)">✓ DFW Pilot Target: Q2 2026</span>
+      <span class="stage-badge" style="background:rgba(217,119,6,0.25);color:#fcd34d;border:1px solid rgba(252,211,77,0.3)">✓ Pre-Revenue · Seed Stage · Founded Jan 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <div class="tab-inner">
+    <button class="tab-btn active" onclick="switchTab('dashboard',this)">Dashboard Demo</button>
+    <button class="tab-btn" onclick="switchTab('mobile',this)">Mobile App</button>
+    <button class="tab-btn" onclick="switchTab('trial',this)">90-Second Trial</button>
+    <button class="tab-btn" onclick="switchTab('stages',this)">Development Stages</button>
+  </div>
+</div>
+
+<!-- ── TAB 1: DASHBOARD ── -->
+<div id="tab-dashboard" class="tab-panel active">
+  <div class="container">
+
+    <div class="screenshot-hero">
+      <div class="screenshot-text">
+        <span style="display:inline-block;background:#dcfce7;color:#166534;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:12px;margin-bottom:14px">PHASE 1 · ACTIVE · Q2 2026 PILOT</span>
+        <h2>ToxIQ™ + MolecuIQ™<br>Denial Intelligence Dashboard</h2>
+        <p>The Ardia clinical revenue intelligence dashboard shows real-time denial analysis, MAC LCD cross-reference, AI-generated appeal narratives, and recovery tracking — all in one place. Labs go from denied claim to filed appeal in under 90 seconds.</p>
+        <ul class="feature-list">
+          <li>Live denial queue with AI triage priority — never miss a recovery opportunity</li>
+          <li>Recovery trend charts showing weekly revenue improvement</li>
+          <li>Denial code breakdown (CO-50, CO-55, CO-97, CO-151) with strategy guidance</li>
+          <li>Top denial queue with claim amounts, payer, and one-click appeal generation</li>
+          <li>Live activity feed showing every appeal filed, payment posted, and AI update</li>
+        </ul>
+        <a href="dashboard.html" target="_blank" class="btn-primary"><i class="fas fa-external-link-alt" style="margin-right:6px"></i>Open Live Dashboard</a>
+        <a href="plg-sandbox.html" target="_blank" class="btn-secondary">Try Free Trial</a>
+      </div>
+      <div>
+        <div class="screenshot-frame">
+          <div class="frame-bar">
+            <span class="frame-dot" style="background:#ef4444"></span>
+            <span class="frame-dot" style="background:#f59e0b"></span>
+            <span class="frame-dot" style="background:#22c55e"></span>
+            <div class="frame-url">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              ardiahealthlabs.com/dashboard.html
+              <span class="live-badge">LIVE</span>
+            </div>
+          </div>
+          <img src="img/screenshot-dashboard.png" alt="Ardia Health Denial Intelligence Dashboard — showing KPI cards with $47,280 revenue recovered, 6.2% denial rate, 89% appeal win rate, denial code breakdown chart, and live activity feed" loading="lazy">
+        </div>
+        <p style="font-size:11px;color:#94a3b8;text-align:center;margin-top:10px">↑ Actual product screenshot · Click "Open Live Dashboard" to interact with the full demo</p>
+      </div>
+    </div>
+
+    <!-- KPI callouts -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:40px 0;border-top:1px solid #e2eaf3">
+      <div style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:#0d7c6e">$47,280</div>
+        <div style="font-size:12px;color:#4a6285;margin-top:4px">Revenue Recovered MTD</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:#3b82f6">6.2%</div>
+        <div style="font-size:12px;color:#4a6285;margin-top:4px">Denial Rate (down from 38%)</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:#f59e0b">89%</div>
+        <div style="font-size:12px;color:#4a6285;margin-top:4px">Appeal Win Rate</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:#8b5cf6">$2.50</div>
+        <div style="font-size:12px;color:#4a6285;margin-top:4px">Cost Per Appeal (vs $118 manual)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB 2: MOBILE ── -->
+<div id="tab-mobile" class="tab-panel">
+  <div class="container">
+    <div class="mobile-showcase">
+      <div class="phone-container">
+        <div class="phone-wrap">
+          <div class="screenshot-frame">
+            <div class="frame-bar">
+              <span class="frame-dot" style="background:#ef4444"></span>
+              <span class="frame-dot" style="background:#f59e0b"></span>
+              <span class="frame-dot" style="background:#22c55e"></span>
+              <div class="frame-url" style="font-size:10px">ardiahealthlabs.com/mobile-app.html<span class="live-badge">LIVE</span></div>
+            </div>
+            <img src="img/screenshot-mobile.png" alt="Ardia Health Mobile App — iOS/Android claim management app showing denial alerts, appeal status, and revenue tracking" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="screenshot-text">
+        <span style="display:inline-block;background:#eff6ff;color:#1d4ed8;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:12px;margin-bottom:14px">iOS &amp; ANDROID · PHASE 1 ROADMAP</span>
+        <h2>Ardia Mobile<br>Claim Manager</h2>
+        <p>Lab directors and billing teams can manage denials, track appeal status, and monitor revenue recovery from anywhere. Real-time push notifications alert on new denials and payment postings — no more end-of-day surprise write-offs.</p>
+        <ul class="feature-list">
+          <li>Real-time push notifications for new denials — act before deadlines expire</li>
+          <li>One-tap appeal filing with AI-drafted narrative loaded and ready</li>
+          <li>Revenue recovery dashboard with daily/weekly/monthly views</li>
+          <li>Claim detail view with denial reason, payer contact, and recommended strategy</li>
+          <li>Quick action shortcuts — file appeal, escalate, request retro-auth in seconds</li>
+        </ul>
+        <a href="mobile-app.html" target="_blank" class="btn-primary"><i class="fas fa-mobile-alt" style="margin-right:6px"></i>View Mobile App Demo</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB 3: PLG TRIAL ── -->
+<div id="tab-trial" class="tab-panel">
+  <div class="container">
+    <div class="screenshot-hero reverse">
+      <div>
+        <div class="screenshot-frame">
+          <div class="frame-bar">
+            <span class="frame-dot" style="background:#ef4444"></span>
+            <span class="frame-dot" style="background:#f59e0b"></span>
+            <span class="frame-dot" style="background:#22c55e"></span>
+            <div class="frame-url">ardiahealthlabs.com/plg-sandbox.html<span class="live-badge">TRY IT</span></div>
+          </div>
+          <img src="img/screenshot-trial.png" alt="Ardia Health 90-Second Free Trial — AI reasoning engine analyzing a denied G0480 toxicology claim, showing clinical evidence citations and generating appeal brief" loading="lazy">
+        </div>
+        <p style="font-size:11px;color:#94a3b8;text-align:center;margin-top:10px">↑ Product screenshot showing live AI reasoning output · Try it yourself below</p>
+      </div>
+      <div class="screenshot-text">
+        <span style="display:inline-block;background:#fffbeb;color:#92400e;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:12px;margin-bottom:14px">LIVE · NO SIGNUP REQUIRED</span>
+        <h2>90-Second AI<br>Appeal Generator</h2>
+        <p>Paste any denied claim. The Ardia Neuro-Symbolic AI engine — a three-layer system combining Claude (Anthropic LLM), 847 symbolic policy rules, and ML denial prediction — generates a clinical-grade appeal brief in under 90 seconds.</p>
+        <ul class="feature-list">
+          <li>Paste EDI 835 denial or manually enter CPT code + denial reason</li>
+          <li>AI identifies MAC jurisdiction, applicable LCD/NCD, and denial category</li>
+          <li>Clinical reasoning engine reads documentation and finds the evidence gap</li>
+          <li>Generates NCCN/ASCO/CPIC-cited appeal with payer-specific language</li>
+          <li>Download as PDF or file directly — estimated recovery amount shown upfront</li>
+        </ul>
+        <a href="plg-sandbox.html" target="_blank" class="btn-primary" style="background:#d97706"><i class="fas fa-bolt" style="margin-right:6px"></i>Try Free — 90 Seconds</a>
+        <a href="dashboard.html" target="_blank" class="btn-secondary">Open Full Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TAB 4: STAGES ── -->
+<div id="tab-stages" class="tab-panel">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:800;color:#0f172a;margin-bottom:12px">Development Roadmap</h2>
+      <p style="color:#4a6285;font-size:14px;max-width:600px;margin:0 auto">Ardia is building four AI modules across three phases. Phase 1 is active today targeting independent toxicology and molecular diagnostic labs in DFW.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-card active">
+        <div class="timeline-num" style="background:#dcfce7;color:#166534">1</div>
+        <span style="display:inline-block;background:#0d7c6e;color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;margin-bottom:10px;letter-spacing:.5px">ACTIVE NOW</span>
+        <h4>ToxIQ™</h4>
+        <p style="margin-bottom:12px">Toxicology Revenue Intelligence — AI denial prevention and appeal automation for urine drug screening (G0480–G0483) and definitive drug testing.</p>
+        <p><strong style="color:#0d7c6e">Target:</strong> DFW independent tox labs · Q2 2026 pilot launch<br><strong style="color:#0d7c6e">Stage:</strong> Architecture complete · Pilot outreach active</p>
+      </div>
+      <div class="timeline-card active">
+        <div class="timeline-num" style="background:#dcfce7;color:#166534">1</div>
+        <span style="display:inline-block;background:#0d7c6e;color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;margin-bottom:10px;letter-spacing:.5px">ACTIVE NOW</span>
+        <h4>MolecuIQ™</h4>
+        <p style="margin-bottom:12px">Molecular Diagnostics &amp; Precision RCM — Full MolDX/DEX Z-code automation, CPT mapping for 75,000+ genetic tests, NGS prior auth, and PGx claims.</p>
+        <p><strong style="color:#0d7c6e">Target:</strong> DFW molecular labs · Q2 2026<br><strong style="color:#0d7c6e">Stage:</strong> Primary flagship module · Architecture complete</p>
+      </div>
+      <div class="timeline-card future">
+        <div class="timeline-num" style="background:#eff6ff;color:#1d4ed8">2</div>
+        <span style="display:inline-block;background:#1e3a5f;color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;margin-bottom:10px;letter-spacing:.5px">PHASE 2 · 2027</span>
+        <h4>AcoIQ™</h4>
+        <p style="margin-bottom:12px">ACO &amp; Value-Based Care Intelligence — MSSP/ACO REACH risk coding, HCC gap identification, and shared savings attribution modeling.</p>
+        <p><strong style="color:#1e3a5f">Target:</strong> Texas ACO market · 2027<br><strong style="color:#1e3a5f">Stage:</strong> Design phase · Roadmap 2027</p>
+      </div>
+      <div class="timeline-card future">
+        <div class="timeline-num" style="background:#faf5ff;color:#7e22ce">3</div>
+        <span style="display:inline-block;background:#7c3aed;color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;margin-bottom:10px;letter-spacing:.5px">PHASE 3 · 2027–28</span>
+        <h4>BehaviorIQ™</h4>
+        <p style="margin-bottom:12px">Behavioral Health &amp; SUD RCM — MAT J-code billing, CCBHC comprehensive billing optimization, and SUD treatment billing automation.</p>
+        <p><strong style="color:#7c3aed">Target:</strong> DFW behavioral health · 2027–28<br><strong style="color:#7c3aed">Stage:</strong> Roadmap phase</p>
+      </div>
+    </div>
+
+    <!-- Company info -->
+    <div style="margin-top:48px;padding:32px;background:#fff;border-radius:16px;border:1px solid #e2eaf3;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center">
+      <div>
+        <div style="font-size:28px;margin-bottom:8px">🏢</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:#0f172a;margin-bottom:4px">Ardia Health Labs LLC</div>
+        <div style="font-size:12px;color:#4a6285">Delaware LLC</div>
+      </div>
+      <div>
+        <div style="font-size:28px;margin-bottom:8px">📅</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:#0f172a;margin-bottom:4px">Founded January 2026</div>
+        <div style="font-size:12px;color:#4a6285">DFW Pilot Target Q2 2026</div>
+      </div>
+      <div>
+        <div style="font-size:28px;margin-bottom:8px">📍</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:#0f172a;margin-bottom:4px">Argyle, TX 76226</div>
+        <div style="font-size:12px;color:#4a6285">Dallas-Fort Worth Metro</div>
+      </div>
+      <div>
+        <div style="font-size:28px;margin-bottom:8px">☁️</div>
+        <div style="font-family:'Sora',sans-serif;font-weight:700;color:#0f172a;margin-bottom:4px">Google Cloud Platform</div>
+        <div style="font-size:12px;color:#4a6285">Vertex AI · Healthcare Data Engine</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-val">$12B</div><div class="stat-lbl">Lab Revenue Left Unpaid Annually</div></div>
+      <div><div class="stat-val">89%</div><div class="stat-lbl">AI Appeal Win Rate (Demo)</div></div>
+      <div><div class="stat-val">47×</div><div class="stat-lbl">Lower Cost Than Manual Appeals</div></div>
+      <div><div class="stat-val">&lt;90s</div><div class="stat-lbl">From Denied Claim to Filed Appeal</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section style="padding:72px 0;text-align:center;background:#fff">
+  <div class="container">
+    <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:800;color:#0f172a;margin-bottom:14px">Ready to See It Live With Your Claims?</h2>
+    <p style="font-size:14px;color:#4a6285;max-width:520px;margin:0 auto 32px">Book a 20-minute personalized demo. We'll run your actual denials through the system and show you the recovery potential in real time.</p>
+    <a href="plg-sandbox.html" class="btn-primary" style="font-size:14px;padding:14px 28px;margin-right:14px"><i class="fas fa-bolt" style="margin-right:7px"></i>Try Free — 90 Seconds</a>
+    <a href="contact.html" class="btn-secondary" style="font-size:14px;padding:14px 28px">Book a Personalized Demo</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ardia Health Labs LLC · Delaware LLC · Argyle, TX 76226 · Dallas-Fort Worth, Texas · <a href="index.html" style="color:#5eead4">Home</a></p>
+  <p style="margin-top:8px;font-size:11px;color:rgba(255,255,255,0.2)">Not a licensed medical provider. AI outputs require licensed professional review per TX SB 1188.</p>
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tab-bar').offsetTop - 70, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
