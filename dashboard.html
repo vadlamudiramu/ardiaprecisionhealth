@@ -1776,6 +1776,7 @@ function exportCSV() {
 
 </script>
 
+<script>
 // ── NAVBAR SCROLL ──
 const _nav = document.getElementById('navbar');
 if (_nav) window.addEventListener('scroll', () => _nav.classList.toggle('scrolled', scrollY > 40));
@@ -1784,8 +1785,9 @@ function closeMenu() { const n=document.getElementById('navLinks'); if(n) n.clas
 // ── INIT ON LOAD ──
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(initReveal, 100);
-    setTimeout(initDashCharts, 200);
+  setTimeout(initDashCharts, 200);
 });
+</script>
 
 <!-- ═══════ DASHBOARD MODALS ═══════ -->
 <div id="dq-modal-overlay" onclick="closeDqModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;backdrop-filter:blur(3px)"></div>
