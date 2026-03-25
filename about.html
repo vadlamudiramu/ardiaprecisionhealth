@@ -104,13 +104,13 @@ img{max-width:100%}
 .prev-dots span:nth-child(1){background:#ff5f57}
 .prev-dots span:nth-child(2){background:#febc2e}
 .prev-dots span:nth-child(3){background:#28c840}
-.prev-title{font-size:11px;font-weight:600;color:#4a6285;margin-left:3px}
+.prev-title{font-size:11px;font-weight:600;color:#7a93b0;margin-left:3px}
 .prev-body{padding:12px;display:flex;flex-direction:column;gap:9px}
 .prev-card{background:rgba(11,26,55,0.95);border:1px solid #dce8f2;border-radius:9px;padding:12px}
 .prev-chd{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-.prev-chd i{font-size:12px}
-.prev-chd span{font-size:11px;font-weight:700;color:#1e2f4a}
-.prev-cbody{font-size:11px;color:#4a6285;line-height:1.65}
+.prev-chd i{font-size:12px;color:#5eead4}
+.prev-chd span{font-size:11px;font-weight:700;color:#e2e8f0}
+.prev-cbody{font-size:11px;color:#94a3b8;line-height:1.65}
 .prev-cbody p{margin-bottom:2px}
 .prev-cbody ul{padding-left:13px;list-style:disc}
 .prev-cbody ul li{margin-bottom:2px}
@@ -1110,7 +1110,23 @@ body { overflow-x: hidden; }
           </div>
         </div>
       </li>
-      <li class="nav-item"><span class="nav-link" onclick="window.location='our-product.html'" style="cursor:pointer">Our Product</span></li>
+      <li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer">
+          Our Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
+            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MoleculIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">AcoIQ™ &amp; BehaviorIQ™</div><div class="mega-item-desc">Phase 2–3 · 2027–2028 roadmap</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-investors" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-dashboard" onclick="window.location='dashboard.html'" style="cursor:pointer">Pilot Demo</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-contact" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>

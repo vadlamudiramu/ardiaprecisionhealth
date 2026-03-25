@@ -191,6 +191,23 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
 /* ── DISCLOSURE ── */
 .disclosure{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:16px 20px;font-size:13px;color:#78350f;max-width:900px;margin:0 auto;line-height:1.6}
 .disclosure strong{color:#d97706}
+
+/* ── MEGA MENU ── */
+.mega-menu{position:absolute;top:calc(100% + 1px);left:-60px;width:580px;background:#fff;border:1px solid #e2e8f0;border-radius:0 0 16px 16px;box-shadow:0 20px 60px rgba(13,124,110,0.10),0 8px 24px rgba(0,0,0,0.07);opacity:0;visibility:hidden;transition:opacity 0.2s ease,visibility 0.2s ease;pointer-events:none;z-index:10000;overflow:hidden}
+.nav-item:hover .mega-menu{opacity:1;visibility:visible;pointer-events:auto}
+.mega-header{padding:14px 22px 12px;border-bottom:1px solid #e2e8f0;background:#f8fafb}
+.mega-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#7a93b0;margin-bottom:3px}
+.mega-desc{font-size:12.5px;color:#4a6285}
+.mega-grid{display:grid;grid-template-columns:1fr 1fr;padding:12px;gap:2px}
+.mega-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-radius:10px;cursor:pointer;transition:all 0.18s}
+.mega-item:hover{background:#f0fdf9;transform:translateX(2px)}
+.mega-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.mi-teal{background:rgba(13,124,110,0.1);color:#0d7c6e}
+.mi-blue{background:rgba(3,105,161,0.1);color:#0369a1}
+.mi-amber{background:rgba(180,83,9,0.1);color:#b45309}
+.mi-purple{background:rgba(124,58,237,0.1);color:#7c3aed}
+.mega-item-title{font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:2px;line-height:1.2}
+.mega-item-desc{font-size:11.5px;color:#7a93b0;line-height:1.5}
 </style>
 </head>
 <body>
@@ -208,7 +225,23 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     <ul class="nav-links" id="navLinks">
       <li class="nav-item"><span class="nav-link" onclick="window.location='index.html'" style="cursor:pointer">Home</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='solutions.html'" style="cursor:pointer">Solutions Hub</span></li>
-      <li class="nav-item"><span class="nav-link active-page" onclick="window.location='our-product.html'" style="cursor:pointer">Our Product</span></li>
+      <li class="nav-item">
+        <span class="nav-link active-page" style="display:flex;align-items:center;gap:4px;cursor:pointer" onclick="window.location='our-product.html'">
+          Our Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
+            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MoleculIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">AcoIQ™ &amp; BehaviorIQ™</div><div class="mega-item-desc">Phase 2–3 · 2027–2028 roadmap</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='dashboard.html'" style="cursor:pointer">Pilot Demo</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
@@ -222,6 +255,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     </div>
   </div>
 </nav>
+<div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:8px 0;position:sticky;top:64px;z-index:40"><div style="max-width:1280px;margin:0 auto;padding:0 24px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0d7c6e;cursor:pointer;transition:.2s;padding:4px 0" onclick="window.location='index.html'" onmouseover="this.style.gap='12px'" onmouseout="this.style.gap='8px'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back to Home</span></div></div>
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
@@ -375,19 +409,19 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="demo-card-icon">⚡</div>
         <div class="demo-card-title">Pilot Dashboard</div>
         <div class="demo-card-desc">Live denial intelligence dashboard showing $47,280 recovered, 6.2% denial rate, 89% appeal win rate, real-time denial queue, recovery trend, and AI activity feed.</div>
-        <a href="dashboard.html" target="_blank" class="demo-card-btn green">Open Full Dashboard →</a>
+        <a href="dashboard.html"  class="demo-card-btn green">Open Full Dashboard →</a>
       </div>
       <div class="demo-card">
         <div class="demo-card-icon">🧪</div>
         <div class="demo-card-title">90-Second Free Trial</div>
         <div class="demo-card-desc">Paste any denied claim. Watch the Neuro-Symbolic AI generate a payer-formatted appeal brief with clinical citations, LCD references, and recovery arguments — in under 90 seconds. No signup required.</div>
-        <a href="plg-sandbox.html" target="_blank" class="demo-card-btn amber">Try It Free — No Signup →</a>
+        <a href="plg-sandbox.html"  class="demo-card-btn amber">Try It Free — No Signup →</a>
       </div>
       <div class="demo-card">
         <div class="demo-card-icon">📱</div>
         <div class="demo-card-title">Mobile App Preview</div>
         <div class="demo-card-desc">iOS/Android claim manager. Real-time denial alerts, appeal status tracking, quick-action appeal submission, and revenue pipeline — all on mobile. Designed for lab managers on the go.</div>
-        <a href="mobile-app.html" target="_blank" class="demo-card-btn navy">View Mobile Preview →</a>
+        <a href="mobile-app.html"  class="demo-card-btn navy">View Mobile Preview →</a>
       </div>
     </div>
   </div>

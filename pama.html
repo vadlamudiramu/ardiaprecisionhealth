@@ -104,13 +104,13 @@ img{max-width:100%}
 .prev-dots span:nth-child(1){background:#ff5f57}
 .prev-dots span:nth-child(2){background:#febc2e}
 .prev-dots span:nth-child(3){background:#28c840}
-.prev-title{font-size:11px;font-weight:600;color:#4a6285;margin-left:3px}
+.prev-title{font-size:11px;font-weight:600;color:#7a93b0;margin-left:3px}
 .prev-body{padding:12px;display:flex;flex-direction:column;gap:9px}
 .prev-card{background:rgba(11,26,55,0.95);border:1px solid #dce8f2;border-radius:9px;padding:12px}
 .prev-chd{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-.prev-chd i{font-size:12px}
-.prev-chd span{font-size:11px;font-weight:700;color:#1e2f4a}
-.prev-cbody{font-size:11px;color:#4a6285;line-height:1.65}
+.prev-chd i{font-size:12px;color:#5eead4}
+.prev-chd span{font-size:11px;font-weight:700;color:#e2e8f0}
+.prev-cbody{font-size:11px;color:#94a3b8;line-height:1.65}
 .prev-cbody p{margin-bottom:2px}
 .prev-cbody ul{padding-left:13px;list-style:disc}
 .prev-cbody ul li{margin-bottom:2px}
@@ -1110,7 +1110,23 @@ body { overflow-x: hidden; }
           </div>
         </div>
       </li>
-      <li class="nav-item"><span class="nav-link" onclick="window.location='our-product.html'" style="cursor:pointer">Our Product</span></li>
+      <li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer">
+          Our Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
+            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MoleculIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">AcoIQ™ &amp; BehaviorIQ™</div><div class="mega-item-desc">Phase 2–3 · 2027–2028 roadmap</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-investors" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-dashboard" onclick="window.location='dashboard.html'" style="cursor:pointer">Pilot Demo</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-contact" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
@@ -1383,6 +1399,193 @@ body { overflow-x: hidden; }
           <div style="background:rgba(255,255,255,0.1);border-radius:8px;padding:12px">
             <div style="font-size:11px;font-weight:700;color:#5eead4;margin-bottom:4px">Rate-Based Methodology</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.8)">Texas Medicaid uses resource-based fee methodology — Ardia's rate intelligence identifies billing optimization opportunities within compliant bounds.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CPT CODE IMPACT TABLE -->
+<section style="background:#fff;padding:64px 0">
+  <div class="container">
+    <div class="sh reveal" style="text-align:center;margin-bottom:44px">
+      <span class="section-tag-l">Code-Level Impact</span>
+      <h2 class="st st-l">PAMA 2027 Rate Impact by CPT Code</h2>
+      <p class="ss ss-l">These are the exact codes that determine your lab's survival. Know your exposure before January 1, 2027.</p>
+    </div>
+    <div style="overflow-x:auto;border-radius:14px;border:2px solid #dce8f2;box-shadow:0 4px 20px rgba(13,124,110,0.07)" class="reveal">
+      <table style="width:100%;border-collapse:collapse;min-width:800px;font-size:13px">
+        <thead>
+          <tr style="background:#1e2f4a">
+            <th style="padding:14px 18px;text-align:left;color:#fff;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">CPT / G-Code</th>
+            <th style="padding:14px 14px;text-align:left;color:#fff;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">Description</th>
+            <th style="padding:14px 14px;text-align:center;color:#fff;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">2023 Rate</th>
+            <th style="padding:14px 14px;text-align:center;color:#fca5a5;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">2027 Target</th>
+            <th style="padding:14px 14px;text-align:center;color:#fbbf24;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">% Cut</th>
+            <th style="padding:14px 14px;text-align:center;color:#5eead4;font-size:11px;font-weight:700;font-family:'Sora',sans-serif">Ardia Defense</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fefefe">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">G0480</td>
+            <td style="padding:13px 14px;color:#4a6285">Definitive Drug Testing, 1–7 Drug Classes</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$127.50</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#dc2626">$72.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef2f2;color:#dc2626;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–43%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">LCD + Appeal</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fafcff">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">G0481</td>
+            <td style="padding:13px 14px;color:#4a6285">Definitive Drug Testing, 8–14 Drug Classes</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$204.30</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#dc2626">$118.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef2f2;color:#dc2626;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–42%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">LCD + Appeal</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fefefe">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">G0482</td>
+            <td style="padding:13px 14px;color:#4a6285">Definitive Drug Testing, 15–21 Drug Classes</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$323.70</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#dc2626">$175.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef2f2;color:#dc2626;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–46%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">LCD + Appeal</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fafcff">
+            <td style="padding:13px 18px;font-weight:700;color:#dc2626">G0483</td>
+            <td style="padding:13px 14px;color:#4a6285"><span style="color:#dc2626;font-weight:700">HIGHEST RISK</span> · Definitive Tox, 22+ Drug Classes</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$508.90</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#dc2626">$209.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef2f2;color:#dc2626;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px;border:1.5px solid #dc2626">–59%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fff9ec;color:#b45309;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">Critical · All 3 Vectors</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fefefe">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">81401</td>
+            <td style="padding:13px 14px;color:#4a6285">Molecular Pathology Level 2 (PGx panel)</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$196.00</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#d97706">$156.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef3c7;color:#b45309;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–20%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">MolDX + CPIC</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f5fb;background:#fafcff">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">G0659</td>
+            <td style="padding:13px 14px;color:#4a6285">Qualitative Drug Screening (presumptive)</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$84.00</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#d97706">$68.00</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef3c7;color:#b45309;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–19%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">Anti-bundling</span></td>
+          </tr>
+          <tr style="background:#fefefe">
+            <td style="padding:13px 18px;font-weight:700;color:#1e2f4a">87491–87591</td>
+            <td style="padding:13px 14px;color:#4a6285">Infectious Disease Molecular Panels (STI)</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#1e2f4a">$45–$68</td>
+            <td style="padding:13px 14px;text-align:center;font-weight:700;color:#d97706">$36–$57</td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#fef3c7;color:#b45309;font-weight:800;padding:3px 10px;border-radius:20px;font-size:12px">–15–20%</span></td>
+            <td style="padding:13px 14px;text-align:center"><span style="background:#f0fdf9;color:#059669;font-weight:700;padding:3px 10px;border-radius:20px;font-size:11px">Medical necessity</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px;font-size:11px;color:#7a93b0;text-align:right">Sources: CMS CLFS 2023 Final Rule · MedPAC 2024 Report · ACLA Market Impact Study · PAMA Implementation data. Projected rates based on current data-reporting trajectories.</div>
+  </div>
+</section>
+
+<!-- LAB SURVIVAL PLAYBOOK -->
+<section style="background:#f5fbfa;padding:64px 0">
+  <div class="container">
+    <div class="sh reveal" style="text-align:center;margin-bottom:44px">
+      <span class="section-tag-l">Survival Playbook</span>
+      <h2 class="st st-l">The 5-Step PAMA Survival Playbook for Independent Labs</h2>
+      <p class="ss ss-l">Labs that survive PAMA 2027 won't survive by accident. They'll follow a specific operational playbook. Ardia executes all 5 steps automatically.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr;gap:16px;max-width:860px;margin:0 auto" class="reveal">
+      <div style="display:flex;gap:20px;background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px;align-items:flex-start">
+        <div style="min-width:48px;height:48px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0">1</div>
+        <div>
+          <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Audit Your CPT Mix — Quantify Your PAMA Exposure by July 2026</h4>
+          <p style="font-size:13px;color:#4a6285;line-height:1.7">Map your current billing volume by G-code tier to calculate your exact 2027 revenue exposure. A lab generating $2M/year from G0483 faces a $1.18M revenue loss without intervention. Ardia generates this audit in 24 hours from your billing data.</p>
+          <div style="margin-top:10px;background:#f0fdf9;border-radius:8px;padding:10px 14px;font-size:12px;color:#0d7c6e;font-weight:600"><i class="fas fa-robot" style="margin-right:6px"></i>Ardia automates: PAMA Exposure Calculator runs instantly on upload</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px;align-items:flex-start">
+        <div style="min-width:48px;height:48px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0">2</div>
+        <div>
+          <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Submit Your CLFS Data by July 31, 2026 — and Submit Strategically</h4>
+          <p style="font-size:13px;color:#4a6285;line-height:1.7">The biggest mistake labs make is submitting ALL private payer rates without analysis. You must submit the most favorable defensible rates. Ardia's PAMA Rate Intelligence ranks your payer contracts, identifying which rates are highest within CMS compliance bounds, and flags the data that will set the best possible 2027 floor.</p>
+          <div style="margin-top:10px;background:#f0fdf9;border-radius:8px;padding:10px 14px;font-size:12px;color:#0d7c6e;font-weight:600"><i class="fas fa-robot" style="margin-right:6px"></i>Ardia automates: Payer Contract Rate Intelligence Report</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px;align-items:flex-start">
+        <div style="min-width:48px;height:48px;background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0">3</div>
+        <div>
+          <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Eliminate the 65% of Denials You're Currently Abandoning</h4>
+          <p style="font-size:13px;color:#4a6285;line-height:1.7">Most labs abandon 65% of their denials due to appeal complexity and cost. Post-PAMA, abandoned denials become existential. Every $1,000 denial you abandon costs 4× the lost revenue in the context of a 15% rate cut. Ardia eliminates the appeal abandonment problem — 100% of appealable denials get AI-drafted letters filed within 4 minutes.</p>
+          <div style="margin-top:10px;background:#fff9ec;border-radius:8px;padding:10px 14px;font-size:12px;color:#b45309;font-weight:600"><i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>Financial impact: For a lab with $500K/month in denials, recovery rises from $87.5K to $445K/month</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px;align-items:flex-start">
+        <div style="min-width:48px;height:48px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0">4</div>
+        <div>
+          <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Renegotiate Private Payer Contracts Before Medicare Rates Set the Ceiling</h4>
+          <p style="font-size:13px;color:#4a6285;line-height:1.7">Private payers use Medicare CLFS as a reference floor. Once PAMA cuts Medicare rates, every payer contract renewal anchors lower. Labs must renegotiate now — before the 2027 reference point resets. Ardia's Payer Intelligence Engine benchmarks your current contract rates versus market and identifies specific renegotiation arguments for each payer.</p>
+          <div style="margin-top:10px;background:#f0fdf9;border-radius:8px;padding:10px 14px;font-size:12px;color:#0d7c6e;font-weight:600"><i class="fas fa-robot" style="margin-right:6px"></i>Ardia automates: Contract Benchmark Report + Renegotiation Talking Points per Payer</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;background:linear-gradient(135deg,rgba(5,150,105,0.06),rgba(13,124,110,0.03));border:1.5px solid rgba(5,150,105,0.25);border-radius:14px;padding:24px;align-items:flex-start">
+        <div style="min-width:48px;height:48px;background:linear-gradient(135deg,#059669,#10b981);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0">5</div>
+        <div>
+          <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Expand High-Margin Test Menu — Molecular Dx and PGx Diversification</h4>
+          <p style="font-size:13px;color:#4a6285;line-height:1.7">G0480–G0483 tox codes face the steepest cuts. Labs dependent on a single test category are most vulnerable. PGx (81401, 81479), ACO-relevant metabolic panels, and behavioral health biomarker tests carry more favorable PAMA trajectories and expanding private payer coverage. Ardia's precision medicine roadmap identifies which test expansions have the best reimbursement durability through 2030.</p>
+          <div style="margin-top:10px;background:#f0fdf9;border-radius:8px;padding:10px 14px;font-size:12px;color:#0d7c6e;font-weight:600"><i class="fas fa-robot" style="margin-right:6px"></i>Ardia platform: MoleculIQ™ + AcoIQ™ modules unlock diversified test menu reimbursement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS ACT + LEGISLATIVE LANDSCAPE -->
+<section style="background:linear-gradient(135deg,#1e2f4a,#0a3060);padding:64px 0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start" class="reveal">
+      <div>
+        <span style="display:inline-block;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:#f59e0b;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px">Legislative Landscape</span>
+        <h2 style="font-family:'Sora',sans-serif;font-size:clamp(20px,2.5vw,30px);font-weight:800;color:#fff;margin-bottom:16px">The RESULTS Act: Your Legislative Lifeline — But Don't Count on It</h2>
+        <p style="font-size:14px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:20px">The Realizing Excellence in Sustainable and Unbiased Laboratory Testing Standards (RESULTS) Act would reform PAMA data collection to include all labs — not just large reference labs. It would phase in cuts over 10 years and require representative sampling. But after 7 delays, Congress's track record on PAMA action is poor.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+          <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.07);border-radius:10px;padding:14px">
+            <i class="fas fa-check-circle" style="color:#34d399;margin-top:2px;flex-shrink:0"></i>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8)"><strong style="color:#fff">If it passes:</strong> 10-year cut phase-in, representative sampling from all labs, methodology overhaul. A lifeline for independent labs — but still requires efficiency improvements to stay competitive.</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(220,38,38,0.1);border-radius:10px;padding:14px;border:1px solid rgba(220,38,38,0.2)">
+            <i class="fas fa-times-circle" style="color:#f87171;margin-top:2px;flex-shrink:0"></i>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8)"><strong style="color:#fca5a5">If it fails (likely):</strong> Status quo — January 1, 2027 cliff triggers. G0483 loses 59%, all definitive tox codes down 40–59%. Labs without a denial defense platform will face cash flow crises within 60–90 days of cuts taking effect.</div>
+          </div>
+        </div>
+        <div style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:16px">
+          <div style="font-size:12px;font-weight:700;color:#f59e0b;margin-bottom:6px">Ardia's Strategy: Plan for Failure, Benefit from Success</div>
+          <p style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.65">Ardia is built for the worst-case PAMA scenario. If the RESULTS Act passes, Ardia customers still benefit from 89% appeal win rates and 47× cost reduction — an 18-month head start on competitors. If it fails, Ardia customers are the only ones with a working survival system.</p>
+        </div>
+      </div>
+      <div>
+        <span style="display:inline-block;background:rgba(20,184,166,0.15);border:1px solid rgba(20,184,166,0.3);color:#5eead4;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px">The Double Squeeze</span>
+        <h3 style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px">PAMA Cuts + Denial Rates = Existential Math</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px">Independent labs face a mathematical convergence of two simultaneous revenue threats that compound each other:</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:12px;padding:18px">
+            <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#f87171;margin-bottom:4px">–59%</div>
+            <div style="font-size:12px;font-weight:700;color:#fca5a5;margin-bottom:6px">Medicare Rate Reduction (G0483)</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:0">Per-test reimbursement falls from $508.90 → $209.00 post-PAMA</p>
+          </div>
+          <div style="text-align:center;font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#f59e0b">+ PLUS</div>
+          <div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:12px;padding:18px">
+            <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#f87171;margin-bottom:4px">27%</div>
+            <div style="font-size:12px;font-weight:700;color:#fca5a5;margin-bottom:6px">Avg Denial Rate (Independent Labs)</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.6);margin:0">27% of claims denied — 65% abandoned uncontested</p>
+          </div>
+          <div style="text-align:center;font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#f87171">= EQUALS</div>
+          <div style="background:rgba(5,150,105,0.15);border:1.5px solid rgba(5,150,105,0.4);border-radius:12px;padding:18px">
+            <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#34d399;margin-bottom:4px">Ardia Closes Both Gaps</div>
+            <p style="font-size:11px;color:rgba(255,255,255,0.7);margin:0">Denial rate → 6.2% · Appeal win rate 89% · Cost $2.50/appeal · Net margin defended</p>
           </div>
         </div>
       </div>

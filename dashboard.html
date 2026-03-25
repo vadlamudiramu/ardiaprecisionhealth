@@ -104,13 +104,13 @@ img{max-width:100%}
 .prev-dots span:nth-child(1){background:#ff5f57}
 .prev-dots span:nth-child(2){background:#febc2e}
 .prev-dots span:nth-child(3){background:#28c840}
-.prev-title{font-size:11px;font-weight:600;color:#4a6285;margin-left:3px}
+.prev-title{font-size:11px;font-weight:600;color:#7a93b0;margin-left:3px}
 .prev-body{padding:12px;display:flex;flex-direction:column;gap:9px}
 .prev-card{background:rgba(11,26,55,0.95);border:1px solid #dce8f2;border-radius:9px;padding:12px}
 .prev-chd{display:flex;align-items:center;gap:7px;margin-bottom:8px}
-.prev-chd i{font-size:12px}
-.prev-chd span{font-size:11px;font-weight:700;color:#1e2f4a}
-.prev-cbody{font-size:11px;color:#4a6285;line-height:1.65}
+.prev-chd i{font-size:12px;color:#5eead4}
+.prev-chd span{font-size:11px;font-weight:700;color:#e2e8f0}
+.prev-cbody{font-size:11px;color:#94a3b8;line-height:1.65}
 .prev-cbody p{margin-bottom:2px}
 .prev-cbody ul{padding-left:13px;list-style:disc}
 .prev-cbody ul li{margin-bottom:2px}
@@ -1110,7 +1110,23 @@ body { overflow-x: hidden; }
           </div>
         </div>
       </li>
-      <li class="nav-item"><span class="nav-link" onclick="window.location='our-product.html'" style="cursor:pointer">Our Product</span></li>
+      <li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer">
+          Our Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
+            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MoleculIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">AcoIQ™ &amp; BehaviorIQ™</div><div class="mega-item-desc">Phase 2–3 · 2027–2028 roadmap</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-investors" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-dashboard" class="nav-link active-page" onclick="window.location='dashboard.html'" style="cursor:pointer">Pilot Demo</span></li>
       <li class="nav-item"><span class="nav-link" id="nav-contact" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
@@ -1156,18 +1172,18 @@ body { overflow-x: hidden; }
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px">
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #0d7c6e">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Revenue Recovered · MTD</div>
-      <div style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#0d7c6e">$47,280</div>
-      <div style="font-size:11px;color:#059669;margin-top:4px"><i class="fas fa-arrow-up"></i> +18.4% vs last month</div>
+      <div id="kpi-revenue" style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#0d7c6e">$47,280</div>
+      <div id="kpi-revenue-delta" style="font-size:11px;color:#059669;margin-top:4px"><i class="fas fa-arrow-up"></i> +18.4% vs last month</div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #0ea5e9">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Denial Rate</div>
-      <div style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1e2f4a">6.2%</div>
+      <div id="kpi-denial" style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1e2f4a">6.2%</div>
       <div style="font-size:11px;color:#059669;margin-top:4px"><i class="fas fa-arrow-down"></i> Down from 38% pre-Ardia</div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #f59e0b">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Appeal Win Rate</div>
-      <div style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1e2f4a">89%</div>
-      <div style="font-size:11px;color:#7a93b0;margin-top:4px">312 appeals filed this month</div>
+      <div id="kpi-winrate" style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1e2f4a">89%</div>
+      <div id="kpi-appeals-count" style="font-size:11px;color:#7a93b0;margin-top:4px">312 appeals filed this month</div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #8b5cf6">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Cost Per Appeal</div>
@@ -1205,12 +1221,17 @@ body { overflow-x: hidden; }
       <div class="denial-row" style="border:none"><div class="dr-amount">$720</div><div class="dr-info"><h5>G0659 · Qualitative Drug Screening</h5><p>CO-97 · Bundled service · Claim #TX-2026-00428</p></div><span class="dr-status" style="background:#fef3c7;color:#b45309">Drafting</span></div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px">
-      <div style="font-family:Sora,sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:16px">Live Activity</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-family:Sora,sans-serif;font-size:14px;font-weight:700;color:#1e2f4a">Live Activity</div>
+        <span style="display:flex;align-items:center;gap:5px;font-size:10px;color:#059669;font-weight:700"><span style="width:6px;height:6px;border-radius:50%;background:#34d399;display:inline-block;animation:blink 1.4s infinite"></span>Streaming</span>
+      </div>
+      <div id="live-act-list">
       <div class="activity-item"><div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-check" style="color:#059669;font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">Appeal Filed: G0480</div><div class="act-time" style="font-size:11px;color:#7a93b0">3 min ago · $3,840</div></div></div>
       <div class="activity-item"><div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:#e8f4fd;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-bolt" style="color:#0284c7;font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">AI Narrative Generated</div><div class="act-time" style="font-size:11px;color:#7a93b0">8 min ago · CO-55 reversal</div></div></div>
       <div class="activity-item"><div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-dollar-sign" style="color:#059669;font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">Payment Posted: $1,920</div><div class="act-time" style="font-size:11px;color:#7a93b0">14 min ago · PGx win</div></div></div>
       <div class="activity-item"><div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:#fef3c7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-clock" style="color:#d97706;font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">LCD L35006 Updated</div><div class="act-time" style="font-size:11px;color:#7a93b0">1h ago · Palmetto GBA</div></div></div>
       <div class="activity-item" style="border:none"><div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:#ede9fe;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-chart-bar" style="color:#7c3aed;font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">Weekly Report Ready</div><div class="act-time" style="font-size:11px;color:#7a93b0">2h ago · 47 appeals</div></div></div>
+      </div><!-- /live-act-list -->
     </div>
   </div>
 </div>
@@ -1774,6 +1795,73 @@ function exportCSV() {
   document.body.appendChild(a); a.click();
   document.body.removeChild(a); URL.revokeObjectURL(url);
 }
+
+// ═══════════════════════════════════════════════
+//  REAL-TIME LIVE DASHBOARD DATA
+// ═══════════════════════════════════════════════
+let _liveRevenue = 47280;
+let _liveAppeals = 312;
+let _lastFeedTime = Date.now();
+
+const LIVE_EVENTS = [
+  { bg:'#dcfce7', ic:'#059669', fa:'fa-check-circle', title:'Appeal Won: G0483 · PGx Panel', sub:'· ERA posted · +$2,100' },
+  { bg:'#e8f4fd', ic:'#0284c7', fa:'fa-bolt',         title:'AI Brief Generated: CO-50 Denial', sub:'· Palmetto GBA · 98% confidence' },
+  { bg:'#dcfce7', ic:'#059669', fa:'fa-dollar-sign',  title:'Payment Posted: $890', sub:'· CO-151 reversal · G0481' },
+  { bg:'#fef3c7', ic:'#d97706', fa:'fa-sync',         title:'LCD L35006 Rule Cache Refreshed', sub:'· 3 CPT codes re-evaluated' },
+  { bg:'#ede9fe', ic:'#7c3aed', fa:'fa-brain',        title:'Neuro-Symbolic Engine: New Pattern', sub:'· CO-55 strategy updated' },
+  { bg:'#dcfce7', ic:'#059669', fa:'fa-check-circle', title:'Appeal Filed: 81401 · Molecular Dx', sub:'· $1,920 at stake' },
+  { bg:'#e8f4fd', ic:'#0284c7', fa:'fa-shield-alt',   title:'HIPAA Audit Trail Logged', sub:'· 0 FCA flags · TX SB 1188 ✓' },
+  { bg:'#dcfce7', ic:'#059669', fa:'fa-trophy',       title:'Appeal Won: CO-97 Bundling Denial', sub:'· $720 recovered · G0659' },
+  { bg:'#fef3c7', ic:'#d97706', fa:'fa-clock',        title:'Payer Response: Palmetto 30-day window', sub:'· 5 appeals pending review' },
+  { bg:'#e8f4fd', ic:'#0284c7', fa:'fa-chart-line',   title:'Denial Rate Updated: 6.1%', sub:'· Down 0.1% vs prior week' },
+];
+let _eventIdx = 0;
+
+function tickDashLive() {
+  // Increment revenue by $35–$145
+  const inc = Math.floor(Math.random() * 110 + 35);
+  _liveRevenue += inc;
+  const revEl = document.getElementById('kpi-revenue');
+  if (revEl) {
+    revEl.textContent = '$' + _liveRevenue.toLocaleString();
+    revEl.style.transition = 'color 0.3s';
+    revEl.style.color = '#059669';
+    setTimeout(() => { if (revEl) revEl.style.color = '#0d7c6e'; }, 600);
+  }
+  // Occasionally increment appeals
+  if (Math.random() > 0.5) {
+    _liveAppeals++;
+    const appEl = document.getElementById('kpi-appeals-count');
+    if (appEl) appEl.textContent = _liveAppeals + ' appeals filed this month';
+  }
+}
+
+function addLiveFeedItem() {
+  const feed = document.getElementById('live-act-list');
+  if (!feed) return;
+  const ev = LIVE_EVENTS[_eventIdx % LIVE_EVENTS.length];
+  _eventIdx++;
+  const secs = Math.floor((Date.now() - _lastFeedTime) / 1000);
+  _lastFeedTime = Date.now();
+  const timeStr = secs < 60 ? 'Just now' : Math.floor(secs/60) + 'min ago';
+  const newItem = document.createElement('div');
+  newItem.className = 'activity-item';
+  newItem.style.cssText = 'opacity:0;transform:translateX(-8px);transition:all 0.4s ease;border-bottom:1px solid #f0f5fb';
+  newItem.innerHTML = `<div class="act-icon" style="width:30px;height:30px;border-radius:8px;background:${ev.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas ${ev.fa}" style="color:${ev.ic};font-size:11px"></i></div><div class="act-body"><div style="font-size:12px;font-weight:600;color:#1e2f4a">${ev.title}</div><div class="act-time" style="font-size:11px;color:#7a93b0">${timeStr} ${ev.sub}</div></div>`;
+  feed.insertBefore(newItem, feed.firstChild);
+  setTimeout(() => { newItem.style.opacity='1'; newItem.style.transform='translateX(0)'; }, 50);
+  // Remove last item if more than 6
+  const items = feed.querySelectorAll('.activity-item');
+  if (items.length > 6) {
+    const last = items[items.length - 1];
+    last.style.opacity = '0';
+    setTimeout(() => { if (last.parentNode) last.parentNode.removeChild(last); }, 300);
+  }
+}
+
+// Start live tickers
+setInterval(tickDashLive, 4200);
+setInterval(addLiveFeedItem, 7500);
 
 </script>
 

@@ -305,6 +305,15 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
 </head>
 <body>
 
+
+<!-- ── BACK TO HOME BANNER ── -->
+<div style="background:#1e3a5f;color:#fff;text-align:center;padding:10px 20px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+  <span>📱 Ardia Health Mobile App — Interactive Preview</span>
+  <a href="index.html" style="background:#0d7c6e;color:#fff;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+    ← Back to Website
+  </a>
+</div>
+
 <div class="phone-wrapper">
 <div class="phone-shell">
   <div class="phone-notch"></div>
@@ -367,8 +376,8 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
         </div>
         <div class="kpi-scroll">
           <div class="kpi-card">
-            <div class="kpi-label">Recovered</div>
-            <div class="kpi-value" style="color:#4ade80">$8.4K</div>
+            <div class="kpi-label">Recovered MTD</div>
+            <div class="kpi-value" style="color:#4ade80" id="live-kpi-rec">$8.4K</div>
             <div class="kpi-delta up">↑ +12% today</div>
           </div>
           <div class="kpi-card">
@@ -427,6 +436,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
           <div class="sec-action" onclick="switchScreen('notifications')">View all</div>
         </div>
         <div id="activityFeed"></div>
+
+        <!-- Live Feed -->
+        <div class="sec-head" style="margin-top:4px">
+          <div class="sec-title" style="display:flex;align-items:center;gap:6px"><span class="live-dot"></span> Live Activity</div>
+          <div style="font-size:10px;color:#22c55e;font-weight:700">REAL-TIME</div>
+        </div>
+        <div id="liveFeed" style="margin:0 0 4px"></div>
 
         <div style="height:20px"></div>
       </div>
@@ -1003,5 +1019,72 @@ updateTime(); setInterval(updateTime, 30000);
 renderRecentClaims();
 renderActivityFeed();
 </script>
+
+<script>
+// Real-time live data simulation
+const liveData = {
+  recovered: 8400,
+  winRate: 89,
+  openClaims: 23,
+  tat: 34,
+  totalMTD: 47280,
+  appealsWon: 41,
+};
+
+const activities = [
+  { icon: '✅', color: '#4ade80', text: 'Appeal ARD-2849 approved — $1,230 posted', age: 'Just now' },
+  { icon: '🧠', color: '#3b82f6', text: 'AI analyzed ARD-2850 — CO-55 · 96% confidence', age: '45 sec ago' },
+  { icon: '📥', color: '#fbbf24', text: 'New denial ARD-2851 received from BCBS · $2,100', age: '2m ago' },
+  { icon: '⚡', color: '#a78bfa', text: 'Auto-appeal filed for ARD-2848 · Level 2 QIC packet', age: '4m ago' },
+  { icon: '✅', color: '#4ade80', text: 'ARD-2845 approved by Aetna · $980 recovered', age: '8m ago' },
+];
+
+let activityIdx = 0;
+function tickLiveData() {
+  // Simulate small increments
+  liveData.recovered += Math.floor(Math.random() * 180 + 20);
+  liveData.totalMTD += Math.floor(Math.random() * 180 + 20);
+  
+  // Update KPI cards if visible
+  const kpiVals = document.querySelectorAll('.kpi-value');
+  if (kpiVals.length >= 1) {
+    kpiVals[0].textContent = '$' + (liveData.recovered / 1000).toFixed(1) + 'K';
+  }
+
+  // Update home screen total
+  const hTotal = document.getElementById('live-mtd');
+  if (hTotal) hTotal.textContent = '$' + liveData.totalMTD.toLocaleString();
+  
+  // Pulse indicator
+  const pulse = document.querySelector('.live-dot');
+  if (pulse) {
+    pulse.style.background = '#22c55e';
+    setTimeout(() => { if(pulse) pulse.style.background = '#ef4444'; }, 400);
+  }
+}
+
+function addLiveFeedItem() {
+  const feed = document.getElementById('liveFeed');
+  if (!feed) return;
+  const a = activities[activityIdx % activities.length];
+  activityIdx++;
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.04);animation:slideIn .3s ease';
+  div.innerHTML = `<span style="font-size:16px;flex-shrink:0">${a.icon}</span><div style="flex:1"><div style="font-size:12px;font-weight:600;color:#f1f5f9;line-height:1.4">${a.text}</div><div style="font-size:10px;color:var(--muted);margin-top:2px">${a.age}</div></div>`;
+  feed.insertBefore(div, feed.firstChild);
+  if (feed.children.length > 8) feed.removeChild(feed.lastChild);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setInterval(tickLiveData, 3500);
+  setInterval(addLiveFeedItem, 6000);
+  setTimeout(addLiveFeedItem, 1500);
+});
+</script>
+<style>
+@keyframes slideIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; display: inline-block; animation: pulse 2s infinite; }
+</style>
+
 </body>
 </html>

@@ -6,7 +6,23 @@
 <title>Product Demo & Screenshots | Ardia Health</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<li class="nav-item"><span class="nav-link" onclick="window.location='our-product.html'" style="cursor:pointer">Our Product</span></li>
+<li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer">
+          Our Product <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
+            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MoleculIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
+            <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">AcoIQ™ &amp; BehaviorIQ™</div><div class="mega-item-desc">Phase 2–3 · 2027–2028 roadmap</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -151,8 +167,8 @@ footer p{color:rgba(255,255,255,0.4);font-size:12px}
           <li>Top denial queue with claim amounts, payer, and one-click appeal generation</li>
           <li>Live activity feed showing every appeal filed, payment posted, and AI update</li>
         </ul>
-        <a href="dashboard.html" target="_blank" class="btn-primary"><i class="fas fa-external-link-alt" style="margin-right:6px"></i>Open Live Dashboard</a>
-        <a href="plg-sandbox.html" target="_blank" class="btn-secondary">Try Free Trial</a>
+        <a href="dashboard.html"  class="btn-primary"><i class="fas fa-external-link-alt" style="margin-right:6px"></i>Open Live Dashboard</a>
+        <a href="plg-sandbox.html"  class="btn-secondary">Try Free Trial</a>
       </div>
       <div>
         <div class="screenshot-frame">
@@ -222,7 +238,7 @@ footer p{color:rgba(255,255,255,0.4);font-size:12px}
           <li>Claim detail view with denial reason, payer contact, and recommended strategy</li>
           <li>Quick action shortcuts — file appeal, escalate, request retro-auth in seconds</li>
         </ul>
-        <a href="mobile-app.html" target="_blank" class="btn-primary"><i class="fas fa-mobile-alt" style="margin-right:6px"></i>View Mobile App Demo</a>
+        <a href="mobile-app.html"  class="btn-primary"><i class="fas fa-mobile-alt" style="margin-right:6px"></i>View Mobile App Demo</a>
       </div>
     </div>
   </div>
@@ -255,8 +271,8 @@ footer p{color:rgba(255,255,255,0.4);font-size:12px}
           <li>Generates NCCN/ASCO/CPIC-cited appeal with payer-specific language</li>
           <li>Download as PDF or file directly — estimated recovery amount shown upfront</li>
         </ul>
-        <a href="plg-sandbox.html" target="_blank" class="btn-primary" style="background:#d97706"><i class="fas fa-bolt" style="margin-right:6px"></i>Try Free — 90 Seconds</a>
-        <a href="dashboard.html" target="_blank" class="btn-secondary">Open Full Dashboard</a>
+        <a href="plg-sandbox.html"  class="btn-primary" style="background:#d97706"><i class="fas fa-bolt" style="margin-right:6px"></i>Try Free — 90 Seconds</a>
+        <a href="dashboard.html"  class="btn-secondary">Open Full Dashboard</a>
       </div>
     </div>
   </div>
