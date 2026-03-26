@@ -26,7 +26,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
   padding:20px;
 }
 .phone-shell{
-  width:390px;height:844px;background:#000;border-radius:44px;
+  width:390px;
+  height:min(844px, calc(100vh - 40px));
+  background:#000;border-radius:44px;
   box-shadow:0 0 0 10px #1a1a1a,0 0 0 12px #222,0 60px 120px rgba(0,0,0,0.7),0 0 80px rgba(45,212,191,0.06);
   position:relative;overflow:hidden;flex-shrink:0;
 }
@@ -302,6 +304,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
 .logo-name{font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:var(--text)}
 .logo-name span{color:var(--teal)}
 </style>
+<style>/* Hide Vercel toolbar */vercel-live-feedback,#__vercel_toolbar_container,.__vercel-toolbar,vt-toolbar,[id*="vercel-toolbar"],[class*="vercel-live"]{display:none!important}</style>
 </head>
 <body>
 
@@ -639,27 +642,34 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
           <div class="card">
             <div class="card-p">
               <div class="card-title">Recovery by Denial Code</div>
-              ${[
-                {code:'CO-50', label:'Medical Necessity', amount:'$124K', pct:91, color:'#3b82f6'},
-                {code:'CO-55', label:'Experimental', amount:'$87K', pct:87, color:'#2dd4bf'},
-                {code:'CO-151', label:'Freq. Limit', amount:'$43K', pct:78, color:'#a78bfa'},
-                {code:'CO-197', label:'Contractual', amount:'$31K', pct:72, color:'#fbbf24'},
-              ].map(d => `
               <div style="margin-bottom:14px">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-                  <div>
-                    <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:${d.color}">${d.code}</span>
-                    <span style="font-size:11px;color:var(--muted);margin-left:6px">${d.label}</span>
-                  </div>
-                  <div style="text-align:right">
-                    <div style="font-size:13px;font-weight:800;color:#4ade80">${d.amount}</div>
-                    <div style="font-size:10px;color:var(--muted)">${d.pct}% win</div>
-                  </div>
+                  <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#3b82f6">CO-50</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Medical Necessity</span></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$124K</div><div style="font-size:10px;color:var(--muted)">91% win</div></div>
                 </div>
-                <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden">
-                  <div style="height:100%;width:${d.pct}%;background:linear-gradient(90deg,${d.color},${d.color}88);border-radius:3px;transition:width .8s ease"></div>
+                <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:91%;background:linear-gradient(90deg,#3b82f6,#3b82f688);border-radius:3px"></div></div>
+              </div>
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                  <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#2dd4bf">CO-55</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Experimental</span></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$87K</div><div style="font-size:10px;color:var(--muted)">87% win</div></div>
                 </div>
-              </div>`).join('')}
+                <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:87%;background:linear-gradient(90deg,#2dd4bf,#2dd4bf88);border-radius:3px"></div></div>
+              </div>
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                  <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#a78bfa">CO-151</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Freq. Limit</span></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$43K</div><div style="font-size:10px;color:var(--muted)">78% win</div></div>
+                </div>
+                <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:78%;background:linear-gradient(90deg,#a78bfa,#a78bfa88);border-radius:3px"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                  <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#fbbf24">CO-197</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Contractual</span></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$31K</div><div style="font-size:10px;color:var(--muted)">72% win</div></div>
+                </div>
+                <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:72%;background:linear-gradient(90deg,#fbbf24,#fbbf2488);border-radius:3px"></div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -670,16 +680,18 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
             <div class="card-p">
               <div class="card-title">Monthly Recovery Revenue ($K)</div>
               <div style="display:flex;align-items:flex-end;gap:4px;height:80px;margin-top:8px">
-                ${[180,195,215,235,248,270,295,320,340,315,360,385].map((h, i) => {
-                  const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
-                  const isLast = i === 11;
-                  return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-                    <div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end">
-                      <div style="height:${Math.round(h/385*70)}px;background:${isLast ? 'linear-gradient(to top,#4ade80,#2dd4bf)' : 'linear-gradient(to top,#3b82f6,#2dd4bf)'};border-radius:3px 3px 0 0;min-height:4px;opacity:${isLast ? '1' : '.6'}"></div>
-                    </div>
-                    <span style="font-size:8px;color:var(--muted)">${months[i]}</span>
-                  </div>`;
-                }).join('')}
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:33px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">J</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:35px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">F</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:39px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">M</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:43px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">A</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:45px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">M</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:49px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">J</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:54px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">J</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:58px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">A</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:62px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">S</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:57px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">O</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:65px;background:linear-gradient(to top,#3b82f6,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px;opacity:.6"></div></div><span style="font-size:8px;color:var(--muted)">N</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end"><div style="height:70px;background:linear-gradient(to top,#4ade80,#2dd4bf);border-radius:3px 3px 0 0;min-height:4px"></div></div><span style="font-size:8px;color:var(--muted)">D</span></div>
               </div>
             </div>
           </div>
@@ -690,18 +702,31 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
           <div class="card">
             <div class="card-p">
               <div class="card-title">Payer Win Rates</div>
-              ${[
-                {payer:'Medicare', rate:92, claims:148, color:'#4ade80'},
-                {payer:'Aetna', rate:87, claims:89, color:'#2dd4bf'},
-                {payer:'United HC', rate:84, claims:112, color:'#3b82f6'},
-                {payer:'BCBS', rate:81, claims:76, color:'#a78bfa'},
-                {payer:'Cigna', rate:78, claims:54, color:'#fbbf24'},
-              ].map(p => `
               <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
-                <div style="flex:1;font-size:13px;font-weight:600">${p.payer}</div>
-                <div style="font-size:11px;color:var(--muted);margin-right:12px">${p.claims} claims</div>
-                <div style="font-size:14px;font-weight:800;color:${p.color}">${p.rate}%</div>
-              </div>`).join('')}
+                <div style="flex:1;font-size:13px;font-weight:600">Medicare</div>
+                <div style="font-size:11px;color:var(--muted);margin-right:12px">148 claims</div>
+                <div style="font-size:14px;font-weight:800;color:#4ade80">92%</div>
+              </div>
+              <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+                <div style="flex:1;font-size:13px;font-weight:600">Aetna</div>
+                <div style="font-size:11px;color:var(--muted);margin-right:12px">89 claims</div>
+                <div style="font-size:14px;font-weight:800;color:#2dd4bf">87%</div>
+              </div>
+              <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+                <div style="flex:1;font-size:13px;font-weight:600">United HC</div>
+                <div style="font-size:11px;color:var(--muted);margin-right:12px">112 claims</div>
+                <div style="font-size:14px;font-weight:800;color:#3b82f6">84%</div>
+              </div>
+              <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+                <div style="flex:1;font-size:13px;font-weight:600">BCBS</div>
+                <div style="font-size:11px;color:var(--muted);margin-right:12px">76 claims</div>
+                <div style="font-size:14px;font-weight:800;color:#a78bfa">81%</div>
+              </div>
+              <div style="display:flex;align-items:center;padding:8px 0">
+                <div style="flex:1;font-size:13px;font-weight:600">Cigna</div>
+                <div style="font-size:11px;color:var(--muted);margin-right:12px">54 claims</div>
+                <div style="font-size:14px;font-weight:800;color:#fbbf24">78%</div>
+              </div>
             </div>
           </div>
         </div>
@@ -719,40 +744,80 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
       </div>
       <div class="scroll-area">
         <div style="padding:8px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Today</div>
-        ${[
-          {dot:'#4ade80', icon:'✅', title:'ARD-2845 Approved', sub:'Aetna approved appeal · $980 recovered · Posted to PMS', time:'2m ago', unread:true},
-          {dot:'#3b82f6', icon:'🧠', title:'AI Analysis Complete', sub:'ARD-2846 analyzed — CO-55 defense · 94% confidence · 5 citations found', time:'6m ago', unread:true},
-          {dot:'#fbbf24', icon:'📥', title:'New Denial Intake', sub:'ARD-2847 received from United HC · CO-50 · $1,850 at stake', time:'11m ago', unread:true},
-          {dot:'#4ade80', icon:'✅', title:'ARD-2844 Approved', sub:'Medicare Part B approved $745 · Auto-posted ERA received', time:'28m ago', unread:false},
-          {dot:'#f87171', icon:'⚠️', title:'ARD-2842 Denied at L1', sub:'Medicare denied Level 1 appeal · Auto-preparing Level 2 QIC packet', time:'1h ago', unread:false},
-          {dot:'#a78bfa', icon:'📋', title:'Proof Packet Generated', sub:'ARD-2843 proof packet ready · 6 citations · Awaiting provider review', time:'2h ago', unread:false},
-        ].map(n => `
-        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:.15s;${n.unread ? 'background:rgba(255,255,255,.02)' : ''}">
-          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${n.icon}</div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;background:rgba(255,255,255,.02)">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
           <div style="flex:1">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
-              <div style="font-size:13px;font-weight:700">${n.title}</div>
-              ${n.unread ? '<div style="width:7px;height:7px;background:#3b82f6;border-radius:50%;flex-shrink:0"></div>' : ''}
-            </div>
-            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">${n.sub}</div>
-            <div style="font-size:10.5px;color:var(--dim);font-family:\'DM Mono\',monospace">${n.time}</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><div style="font-size:13px;font-weight:700">ARD-2845 Approved</div><div style="width:7px;height:7px;background:#3b82f6;border-radius:50%;flex-shrink:0"></div></div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">Aetna approved appeal · $980 recovered · Posted to PMS</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">2m ago</div>
           </div>
-        </div>`).join('')}
+        </div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;background:rgba(255,255,255,.02)">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🧠</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><div style="font-size:13px;font-weight:700">AI Analysis Complete</div><div style="width:7px;height:7px;background:#3b82f6;border-radius:50%;flex-shrink:0"></div></div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">ARD-2846 analyzed — CO-55 defense · 94% confidence · 5 citations found</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">6m ago</div>
+          </div>
+        </div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;background:rgba(255,255,255,.02)">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📥</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><div style="font-size:13px;font-weight:700">New Denial Intake</div><div style="width:7px;height:7px;background:#3b82f6;border-radius:50%;flex-shrink:0"></div></div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">ARD-2847 received from United HC · CO-50 · $1,850 at stake</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">11m ago</div>
+          </div>
+        </div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;margin-bottom:2px">ARD-2844 Approved</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">Medicare Part B approved $745 · Auto-posted ERA received</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">28m ago</div>
+          </div>
+        </div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⚠️</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;margin-bottom:2px">ARD-2842 Denied at L1</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">Medicare denied Level 1 appeal · Auto-preparing Level 2 QIC packet</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">1h ago</div>
+          </div>
+        </div>
+        <div onclick="showToast('👆','Opening claim detail...','rgba(59,130,246,.15)','#3b82f6')" style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.06);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📋</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;margin-bottom:2px">Proof Packet Generated</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">ARD-2843 proof packet ready · 6 citations · Awaiting provider review</div>
+            <div style="font-size:10.5px;color:var(--dim);font-family:'DM Mono',monospace">2h ago</div>
+          </div>
+        </div>
 
         <div style="padding:16px 16px 4px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Yesterday</div>
-        ${[
-          {icon:'📊', title:'Weekly Report Ready', sub:'Feb 10–16: $47,280 recovered · 91.7% win rate · 12 appeals filed', time:'Yesterday, 5:00 PM'},
-          {icon:'⏰', title:'Deadline Alert', sub:'ARD-2831 — 14 days remaining for CMS 120-day window · Take action', time:'Yesterday, 9:00 AM'},
-          {icon:'🎉', title:'Milestone Reached', sub:'Harmony Tox Lab crossed $1M recovered in 60 days · New record!', time:'Yesterday, 8:45 AM'},
-        ].map(n => `
         <div style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04)">
-          <div style="width:38px;height:38px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${n.icon}</div>
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📊</div>
           <div style="flex:1">
-            <div style="font-size:13px;font-weight:600;margin-bottom:2px">${n.title}</div>
-            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">${n.sub}</div>
-            <div style="font-size:10.5px;color:var(--dim)">${n.time}</div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px">Weekly Report Ready</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">Feb 10–16: $47,280 recovered · 91.7% win rate · 12 appeals filed</div>
+            <div style="font-size:10.5px;color:var(--dim)">Yesterday, 5:00 PM</div>
           </div>
-        </div>`).join('')}
+        </div>
+        <div style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04)">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⏰</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px">Deadline Alert</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">ARD-2831 — 14 days remaining for CMS 120-day window · Take action</div>
+            <div style="font-size:10.5px;color:var(--dim)">Yesterday, 9:00 AM</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04)">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,.05);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🎉</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;margin-bottom:2px">Milestone Reached</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:3px">Harmony Tox Lab crossed $1M recovered in 60 days · New record!</div>
+            <div style="font-size:10.5px;color:var(--dim)">Yesterday, 8:45 AM</div>
+          </div>
+        </div>
         <div style="height:20px"></div>
       </div>
     </div>
