@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Outreach Audit | Ardia Precision Health</title>
+<style>
+  :root {
+    --bg:#0a0f1e; --panel:#0f1729; --card:#131d35; --border:#1e2d50;
+    --red:#ef4444; --orange:#f59e0b; --green:#10b981; --blue:#2563eb;
+    --purple:#7c3aed; --cyan:#06b6d4; --text:#e2e8f0; --muted:#64748b; --white:#fff;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:var(--bg); color:var(--text); }
+
+  header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 32px; background:rgba(15,23,41,.97);
+    border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100;
+  }
+  .logo { display:flex; align-items:center; gap:10px; }
+  .logo-mark { width:30px; height:30px; border-radius:6px; background:linear-gradient(135deg,#ef4444,#f59e0b); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:white; }
+  .logo-text { font-size:14px; font-weight:700; color:var(--white); }
+  .logo-sub { font-size:10px; color:var(--muted); }
+  .hbadge { padding:5px 12px; border-radius:14px; font-size:11px; font-weight:600; border:1px solid; }
+
+  .alert-bar {
+    background:rgba(239,68,68,.1); border-bottom:1px solid rgba(239,68,68,.3);
+    padding:14px 32px; display:flex; align-items:center; gap:12px;
+  }
+  .alert-icon { font-size:20px; }
+  .alert-text { font-size:13px; color:#fca5a5; }
+  .alert-text strong { color:#f87171; }
+
+  /* SUMMARY CARDS */
+  .summary-row { display:flex; gap:12px; padding:24px 32px 0; flex-wrap:wrap; }
+  .sum-card {
+    flex:1; min-width:140px; background:var(--panel); border:1px solid var(--border);
+    border-radius:12px; padding:16px 20px; position:relative; overflow:hidden;
+  }
+  .sum-card::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+  .sc-red::after { background:var(--red); }
+  .sc-orange::after { background:var(--orange); }
+  .sc-green::after { background:var(--green); }
+  .sc-blue::after { background:var(--blue); }
+  .sum-val { font-size:30px; font-weight:800; color:var(--white); }
+  .sum-label { font-size:11px; color:var(--muted); margin-top:3px; }
+
+  /* TAB NAV */
+  .tab-nav {
+    display:flex; padding:0 32px; border-bottom:1px solid var(--border);
+    background:var(--panel); position:sticky; top:53px; z-index:90; margin-top:20px;
+  }
+  .tab-btn {
+    padding:13px 18px; font-size:12px; font-weight:600; color:var(--muted);
+    border:none; background:none; cursor:pointer; border-bottom:2px solid transparent;
+    transition:all .2s; white-space:nowrap;
+  }
+  .tab-btn:hover { color:var(--text); }
+  .tab-btn.active { color:var(--white); border-bottom-color:var(--red); }
+
+  .tab-content { display:none; padding:24px 32px; }
+  .tab-content.active { display:block; }
+
+  /* FILTER BAR */
+  .filter-bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  .filter-btn {
+    padding:5px 14px; border-radius:16px; font-size:11px; font-weight:600;
+    border:1px solid var(--border); background:var(--card); color:var(--muted);
+    cursor:pointer; transition:all .2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background:rgba(37,99,235,.15); border-color:var(--blue); color:#93c5fd; }
+  .filter-btn.f-red.active { background:rgba(239,68,68,.15); border-color:var(--red); color:#f87171; }
+  .filter-btn.f-orange.active { background:rgba(245,158,11,.15); border-color:var(--orange); color:#fbbf24; }
+  .filter-btn.f-green.active { background:rgba(16,185,129,.15); border-color:var(--green); color:#6ee7b7; }
+
+  .search-box {
+    padding:7px 14px; border-radius:8px; border:1px solid var(--border);
+    background:var(--card); color:var(--text); font-size:12px; width:220px;
+    margin-left:auto;
+  }
+  .search-box:focus { outline:none; border-color:var(--blue); }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; }
+  th {
+    text-align:left; padding:10px 14px; font-size:10px; font-weight:700;
+    color:var(--muted); text-transform:uppercase; letter-spacing:.8px;
+    background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:94px;
+  }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.04); font-size:12px; vertical-align:top; }
+  tr:hover td { background:rgba(255,255,255,.02); }
+  tr.hidden { display:none; }
+
+  .status-badge {
+    display:inline-flex; align-items:center; gap:5px; padding:3px 8px;
+    border-radius:6px; font-size:10px; font-weight:700; white-space:nowrap;
+  }
+  .s-fail { background:rgba(239,68,68,.12); color:#f87171; border:1px solid rgba(239,68,68,.25); }
+  .s-delay { background:rgba(245,158,11,.12); color:#fbbf24; border:1px solid rgba(245,158,11,.25); }
+  .s-draft { background:rgba(37,99,235,.12); color:#93c5fd; border:1px solid rgba(37,99,235,.25); }
+  .s-fix { background:rgba(16,185,129,.12); color:#6ee7b7; border:1px solid rgba(16,185,129,.25); }
+
+  .correct-email {
+    font-family:'SF Mono','Fira Code',monospace; font-size:11px;
+    color:#6ee7b7; background:rgba(16,185,129,.06);
+    padding:2px 7px; border-radius:4px; border:1px solid rgba(16,185,129,.2);
+    display:inline-block; margin-top:3px;
+  }
+  .wrong-email {
+    font-family:'SF Mono','Fira Code',monospace; font-size:11px;
+    color:#f87171; text-decoration:line-through; opacity:.7;
+  }
+  .action-chip {
+    display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; font-weight:600;
+    margin-top:3px;
+  }
+  .ac-web { background:rgba(6,182,212,.1); color:var(--cyan); border:1px solid rgba(6,182,212,.2); }
+  .ac-linkedin { background:rgba(37,99,235,.1); color:#93c5fd; border:1px solid rgba(37,99,235,.2); }
+  .ac-fixed { background:rgba(16,185,129,.1); color:#6ee7b7; border:1px solid rgba(16,185,129,.2); }
+  .ac-verify { background:rgba(245,158,11,.1); color:#fbbf24; border:1px solid rgba(245,158,11,.2); }
+
+  .cat-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:5px; }
+  .company-name { font-weight:700; color:var(--white); }
+  .contact-name { font-size:11px; color:var(--muted); }
+
+  .priority { font-size:11px; font-weight:700; }
+  .p-high { color:#f87171; }
+  .p-med { color:#fbbf24; }
+  .p-low { color:var(--muted); }
+
+  /* DRAFTS TABLE */
+  .draft-status { display:flex; align-items:center; gap:6px; }
+  .draft-dot { width:8px; height:8px; border-radius:50%; }
+
+  /* ACTION PLAN */
+  .action-section { margin-bottom:28px; }
+  .action-title { font-size:16px; font-weight:700; color:var(--white); margin-bottom:6px; }
+  .action-sub { font-size:13px; color:var(--muted); margin-bottom:16px; }
+  .action-step {
+    background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    padding:16px 20px; margin-bottom:10px; display:flex; gap:14px; align-items:flex-start;
+  }
+  .step-num {
+    width:28px; height:28px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; margin-top:1px;
+  }
+  .step-title { font-size:13px; font-weight:700; color:var(--white); margin-bottom:4px; }
+  .step-body { font-size:12px; color:var(--muted); line-height:1.6; }
+
+  .section-label { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">!</div>
+    <div>
+      <div class="logo-text">Ardia Precision Health</div>
+      <div class="logo-sub">Investor Outreach — Full Email Audit Report</div>
+    </div>
+  </div>
+  <span class="hbadge" style="background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:#f87171">48 Emails Failed · Audit: Apr 28, 2026</span>
+</header>
+
+<div class="alert-bar">
+  <div class="alert-icon">⚠️</div>
+  <div class="alert-text">
+    <strong>Critical:</strong> 48 emails sent by the automated system permanently failed — most had wrong or guessed email addresses.
+    The 14 carefully-drafted contacts in the Master Outreach Tracker were <strong>never sent</strong> (still as drafts).
+    Below is the complete audit with correct contact information and remediation steps.
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary-row">
+  <div class="sum-card sc-red">
+    <div class="sum-val">48</div>
+    <div class="sum-label">Emails Permanently Failed</div>
+  </div>
+  <div class="sum-card sc-orange">
+    <div class="sum-val">14</div>
+    <div class="sum-label">Good Drafts — Never Sent</div>
+  </div>
+  <div class="sum-card sc-green">
+    <div class="sum-val">22</div>
+    <div class="sum-label">Correct Emails Found</div>
+  </div>
+  <div class="sum-card sc-blue">
+    <div class="sum-val">26</div>
+    <div class="sum-label">Need LinkedIn / Web Research</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('failed')">🔴 All Failed Emails (48)</button>
+  <button class="tab-btn" onclick="showTab('drafts')">📋 Good Drafts Never Sent (14)</button>
+  <button class="tab-btn" onclick="showTab('action')">✅ Remediation Plan</button>
+</div>
+
+<!-- TAB 1: FAILED EMAILS -->
+<div class="tab-content active" id="tab-failed">
+  <div class="filter-bar">
+    <button class="filter-btn f-red active" onclick="filterFailed('all',this)">All (48)</button>
+    <button class="filter-btn f-red" onclick="filterFailed('immediate',this)">Immediate Fail (39)</button>
+    <button class="filter-btn f-orange" onclick="filterFailed('delayed',this)">Delayed Fail (9)</button>
+    <button class="filter-btn f-green" onclick="filterFailed('fixed',this)">Correct Email Found ✓</button>
+    <input class="search-box" type="text" placeholder="Search company or email..." oninput="searchFailed(this.value)" id="searchBox">
+  </div>
+
+  <table id="failTable">
+    <thead>
+      <tr>
+        <th style="width:22%">Company</th>
+        <th style="width:14%">Wrong Email Sent</th>
+        <th style="width:8%">Fail Type</th>
+        <th style="width:8%">Priority</th>
+        <th style="width:22%">Correct Email / Action</th>
+        <th style="width:26%">Failure Reason</th>
+      </tr>
+    </thead>
+    <tbody id="failBody">
+    </tbody>
+  </table>
+</div>
+
+<!-- TAB 2: GOOD DRAFTS -->
+<div class="tab-content" id="tab-drafts">
+  <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.25);border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+    <div style="font-size:13px;font-weight:700;color:#93c5fd;margin-bottom:6px">These 14 emails ARE properly addressed and ready — they just need to be sent</div>
+    <div style="font-size:12px;color:var(--muted)">These were carefully drafted in previous sessions with personalized content for each recipient. Open Gmail → Drafts → review each → send from info@ardiahealthlabs.com.</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Contact Name</th>
+        <th>Organization</th>
+        <th>Email Address</th>
+        <th>Category</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="company-name">Hemant Taneja</span></td><td>General Catalyst</td><td><span class="correct-email">htaneja@generalcatalyst.com</span></td><td><span class="action-chip ac-fixed">VC — Tier 1</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Kensington</span></td><td>NIH (NCI)</td><td><span class="correct-email">kinsingc@mail.nih.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NIH</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Ratan Bhat</span></td><td>AstraZeneca</td><td><span class="correct-email">ratan.bhat@astrazeneca.com</span></td><td><span class="action-chip ac-fixed">Pharma</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Keith Dreyer</span></td><td>Mass General Brigham</td><td><span class="correct-email">kdreyer@partners.org</span></td><td><span class="action-chip" style="background:rgba(16,185,129,.1);color:#6ee7b7;border:1px solid rgba(16,185,129,.2)">Strategic</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Alicia Monk</span></td><td>NSF</td><td><span class="correct-email">amonk@nsf.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NSF</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Amy Wagner</span></td><td>NIH</td><td><span class="correct-email">awagner@mail.nih.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NIH</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Open Innovation</span></td><td>AstraZeneca</td><td><span class="correct-email">openinnovation@astrazeneca.com</span></td><td><span class="action-chip ac-fixed">Pharma</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">ARPA-H Advocate</span></td><td>ARPA-H</td><td><span class="correct-email">advocate@arpa-h.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">ONC LEAP Team</span></td><td>HHS / ONC</td><td><span class="correct-email">ONC-LEAP@hhs.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / HHS</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Jon Lorsch</span></td><td>NIH / NIGMS</td><td><span class="correct-email">jon.lorsch@nih.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NIH</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Begum Demir</span></td><td>OpenEvidence</td><td><span class="correct-email">begumdemir@openevidence.com</span></td><td><span class="action-chip ac-fixed">Strategic AI</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">AI Ready Program</span></td><td>NSF</td><td><span class="correct-email">ai-ready@nsf.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NSF</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">Dr. Zhao Ming</span></td><td>NIH</td><td><span class="correct-email">zhaoming3@mail.nih.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NIH</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+      <tr><td><span class="company-name">ODPRIMED AI</span></td><td>NIH / OD</td><td><span class="correct-email">ODPRIMED-AI@od.nih.gov</span></td><td><span class="action-chip" style="background:rgba(124,58,237,.1);color:#c4b5fd;border:1px solid rgba(124,58,237,.2)">Gov / NIH</span></td><td><span class="status-badge s-draft">📋 Draft Ready</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TAB 3: ACTION PLAN -->
+<div class="tab-content" id="tab-action">
+  <div class="action-section">
+    <div class="action-title">Immediate Actions — In Order</div>
+    <div class="action-sub">Do these in sequence. The drafts tab is your highest-ROI action — these are real, verified contacts who haven't heard from you yet.</div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:rgba(239,68,68,.15);color:#f87171">1</div>
+      <div>
+        <div class="step-title">TODAY — Send Your 14 Ready Drafts</div>
+        <div class="step-body">Open Gmail → Drafts. You have 14 emails to real, verified contacts that are written and ready. Open each one, check the From field shows info@ardiahealthlabs.com, and send. These include General Catalyst, NIH teams, AstraZeneca, ARPA-H, HHS/ONC, NSF, and OpenEvidence. This is your most valuable action right now — don't let more time pass.</div>
+      </div>
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:rgba(245,158,11,.15);color:#fbbf24">2</div>
+      <div>
+        <div class="step-title">TURN OFF the automated outreach system immediately</div>
+        <div class="step-body">The automation that has been running is sending emails to guessed/wrong addresses — 48 failures prove this. It is damaging your sender reputation (info@ardiahealthlabs.com) and could get your domain blacklisted. Turn it off in whatever tool is running it (Zapier / Make / script) before it sends more bad emails. Quality over volume.</div>
+      </div>
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:rgba(16,185,129,.15);color:#6ee7b7">3</div>
+      <div>
+        <div class="step-title">HIGH PRIORITY — Fix and Resend These 8 (Correct Emails Confirmed)</div>
+        <div class="step-body">
+          The following had wrong addresses but correct emails are now confirmed — write detailed, personalized emails to each:<br><br>
+          <strong style="color:#6ee7b7">NEA Healthcare</strong> → <code style="color:#fbbf24">bd@nea.com</code> (Mohamad Makhzoumi, Managing GP Healthcare, $28B AUM)<br>
+          <strong style="color:#6ee7b7">Khosla Ventures</strong> → <code style="color:#fbbf24">kv@khoslaventures.com</code> (Hal Paz, Operating Partner Healthcare)<br>
+          <strong style="color:#6ee7b7">TMC Ventures</strong> → <code style="color:#fbbf24">ventures@tmc.edu</code> (was sent to wrong person gina.luna@tmc.edu)<br>
+          <strong style="color:#6ee7b7">CPRIT Texas</strong> → <code style="color:#fbbf24">productdev@cprit.texas.gov</code> (was sent to info@cprit.state.tx.us — wrong domain)<br>
+          <strong style="color:#6ee7b7">Salesforce Ventures</strong> → <code style="color:#fbbf24">salesforceventures.com/companies/pitch/</code> (web form — no direct email)<br>
+          <strong style="color:#6ee7b7">Quest Diagnostics</strong> → <code style="color:#fbbf24">mediacontact@questdiagnostics.com</code> + partnership form on site<br>
+          <strong style="color:#6ee7b7">CVS Health Ventures</strong> → <code style="color:#fbbf24">ventures@cvshealth.com</code> (was sent to wrong Aetna address; CVS runs $100M health fund)<br>
+          <strong style="color:#6ee7b7">MGB AIDIF</strong> → <code style="color:#fbbf24">aidif@massgeneralbrigham.org</code> (mfreni@ was access denied — use program inbox)
+        </div>
+      </div>
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:rgba(37,99,235,.15);color:#93c5fd">4</div>
+      <div>
+        <div class="step-title">RESEARCH — Find Correct Emails for Remaining 26 via LinkedIn</div>
+        <div class="step-body">For companies where email was not found (Perot Jain, Sante Ventures, Golden Seeds Dallas, Cowtown Angels, DFW Capital, North Texas Angels, Wildcat Venture Partners, Goldcrest Capital, Catalyst Health Ventures, etc.) — find the correct person on LinkedIn and use the format: firstname@companyname.com or firstname.lastname@companyname.com. Always verify before sending.</div>
+      </div>
+    </div>
+
+    <div class="action-step">
+      <div class="step-num" style="background:rgba(124,58,237,.15);color:#c4b5fd">5</div>
+      <div>
+        <div class="step-title">REWRITE — All New Emails Need Dr.-Reddy-Level Detail</div>
+        <div class="step-body">The failed emails were generic 3-line blasts. Every resent email needs: (1) specific reason THIS funder fits Ardia — their portfolio, thesis, geography; (2) the specific Ardia module most relevant to them; (3) specific ask — intro call, pilot conversation, or grant feedback; (4) concrete metrics — 89% win rate, $12B market, PAMA 2027 catalyst, TRAIGA certification. No more bulk automation. One personalized email per contact.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const failData = [
+  // IMMEDIATE FAILURES
+  { company:"Perot Jain (DFW VC)", contact:"Anurag Jain", wrong:"anurag@perotjain.com", type:"immediate", priority:"high", correct:"contact@perotjain.com or LinkedIn", action:"linkedin", reason:"550 Address not found — no user 'anurag' at domain", fixed:false },
+  { company:"NEA Healthcare", contact:"Mohamad Makhzoumi", wrong:"info@nea.com", type:"immediate", priority:"high", correct:"bd@nea.com", action:"fixed", reason:"550 Address not found — generic 'info' inbox doesn't exist", fixed:true },
+  { company:"Khosla Ventures", contact:"Hal Paz (Health)", wrong:"health@khoslaventures.com", type:"immediate", priority:"high", correct:"kv@khoslaventures.com", action:"fixed", reason:"550 Address not found — wrong sub-address", fixed:true },
+  { company:"Kleiner Perkins", contact:"Healthcare Team", wrong:"kpcb@kleinerperkins.com", type:"immediate", priority:"high", correct:"Use kleinerperkins.com contact form", action:"web", reason:"550 Address not found — old KPCB format no longer valid", fixed:false },
+  { company:"TMC Ventures", contact:"Ventures Team", wrong:"gina.luna@tmc.edu", type:"immediate", priority:"high", correct:"ventures@tmc.edu", action:"fixed", reason:"550 Address not found — wrong individual contact", fixed:true },
+  { company:"Salesforce Ventures", contact:"Healthcare Team", wrong:"alexkayyal@salesforce.com", type:"immediate", priority:"high", correct:"salesforceventures.com/companies/pitch/", action:"web", reason:"550 Address not found — wrong employee email", fixed:true },
+  { company:"Salesforce Ventures (2nd)", contact:"John Somorjai", wrong:"john.somorjai@salesforce.com", type:"immediate", priority:"high", correct:"salesforceventures.com/companies/pitch/", action:"web", reason:"550 Address not found — same firm, both wrong", fixed:true },
+  { company:"Quest Diagnostics", contact:"Innovation Team", wrong:"innovation@questdiagnostics.com", type:"immediate", priority:"high", correct:"mediacontact@questdiagnostics.com", action:"fixed", reason:"550 Address not found — wrong inbox name", fixed:true },
+  { company:"Aetna / CVS Ventures", contact:"Innovation Team", wrong:"innovation@aetna.com", type:"immediate", priority:"high", correct:"ventures@cvshealth.com", action:"fixed", reason:"550 Address not found — moved to CVS Health Ventures", fixed:true },
+  { company:"Sante Ventures", contact:"Kirk Coburn", wrong:"kirk@santeventures.com", type:"immediate", priority:"high", correct:"Research on sante.com / LinkedIn", action:"linkedin", reason:"550 Address not found — wrong first name guess", fixed:false },
+  { company:"New Mountain Capital", contact:"Steve Kelly", wrong:"sk@newmountaincapital.com", type:"immediate", priority:"high", correct:"Research via newmountaincapital.com/our-team/", action:"web", reason:"Permanent fatal error — initials format not used", fixed:false },
+  { company:"CPRIT Texas", contact:"Product Development", wrong:"info@cprit.state.tx.us", type:"immediate", priority:"high", correct:"productdev@cprit.texas.gov", action:"fixed", reason:"550 Address not found — wrong domain (.state.tx.us vs .texas.gov)", fixed:true },
+  { company:"MGB AIDIF", contact:"Mike Freni", wrong:"mfreni@massgeneralbrigham.org", type:"immediate", priority:"high", correct:"aidif@massgeneralbrigham.org", action:"fixed", reason:"5.4.1 Access denied — external blocked, use program inbox", fixed:true },
+  { company:"UT Southwestern", contact:"Commercialization", wrong:"commercialization@utsouthwestern.edu", type:"immediate", priority:"high", correct:"ots@utsouthwestern.edu (Office of Technology)", action:"verify", reason:"550 Address not found — wrong inbox name", fixed:false },
+  { company:"Myriad Genetics", contact:"Investor Relations", wrong:"investor.relations@myriad.com", type:"immediate", priority:"high", correct:"ir@myriadgenetics.com", action:"verify", reason:"550 Address not found — wrong domain (myriad vs myriadgenetics)", fixed:false },
+  { company:"Perot Jain", contact:"General Inquiry", wrong:"anurag@perotjain.com", type:"immediate", priority:"high", correct:"hello@perotjain.com or LinkedIn", action:"linkedin", reason:"550 Address not found", fixed:false },
+  { company:"Golden Seeds Dallas", contact:"Dallas Chapter", wrong:"dallas@goldenseeds.com", type:"immediate", priority:"med", correct:"Use goldenseeds.com contact form / LinkedIn", action:"web", reason:"550 5.7.1 Refused by recipient server", fixed:false },
+  { company:"Venture Dallas", contact:"Jessica", wrong:"jessica@venturedallas.org", type:"immediate", priority:"med", correct:"info@venturedallas.org or contact form", action:"verify", reason:"550 Address not found — wrong first name", fixed:false },
+  { company:"Latitude Health Ventures", contact:"Team", wrong:"hello@latitudehealth.com", type:"immediate", priority:"med", correct:"Verify via latitudehealth.com", action:"web", reason:"550 Address not found — domain may have changed", fixed:false },
+  { company:"Digitalis Ventures", contact:"Nate", wrong:"nate@digitalisventures.com", type:"immediate", priority:"med", correct:"Verify via digitalisventures.com team page", action:"web", reason:"Email account doesn't exist", fixed:false },
+  { company:"Next Coast Ventures", contact:"Thomas Ball", wrong:"thomas@nextcoastventures.com", type:"immediate", priority:"med", correct:"Verify via nextcoastventures.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"DFW Capital", contact:"Bill", wrong:"bill@dfwcapital.com", type:"immediate", priority:"med", correct:"Verify via dfwcapital.com / LinkedIn", action:"linkedin", reason:"550 Address not found", fixed:false },
+  { company:"Texas Capital Bank Innovation", contact:"Team", wrong:"innovation@texascapitalbank.com", type:"immediate", priority:"med", correct:"partnerships@texascapitalbank.com or LinkedIn", action:"verify", reason:"550 Address not found", fixed:false },
+  { company:"1820 Ventures", contact:"Team", wrong:"info@1820ventures.com", type:"immediate", priority:"med", correct:"Verify via 1820ventures.com", action:"web", reason:"Recipient unknown — info inbox doesn't exist", fixed:false },
+  { company:"Healthier Capital", contact:"Ajay Mahajan", wrong:"amahajan@healthiercapital.com", type:"immediate", priority:"med", correct:"Verify via healthiercapital.com / LinkedIn", action:"linkedin", reason:"550 Address not found", fixed:false },
+  { company:"Axiom Equity", contact:"Kyle", wrong:"kyle@axiomequity.com", type:"immediate", priority:"med", correct:"Verify via axiomequity.com", action:"web", reason:"Recipient unknown at domain", fixed:false },
+  { company:"Cowtown Angels", contact:"Tom", wrong:"tom@cowtownangels.com", type:"immediate", priority:"med", correct:"info@cowtownangels.com or apply form", action:"web", reason:"Server misconfigured — MX record problem", fixed:false },
+  { company:"Sonic Healthcare", contact:"Strategic", wrong:"info@sonichealthcare.com", type:"immediate", priority:"med", correct:"info@sonichealthcare.com.au (wrong TLD)", action:"verify", reason:"Bounced to .com.au — wrong top-level domain", fixed:false },
+  { company:"Texas HALO Fund", contact:"Paul", wrong:"paul@texashalofund.com", type:"immediate", priority:"med", correct:"Verify via texashalofund.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"RevTech Ventures", contact:"Team", wrong:"hello@revtechventures.com", type:"immediate", priority:"med", correct:"Verify via revtechventures.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"ATX Seed Ventures", contact:"Team", wrong:"pitch@atxseed.com", type:"immediate", priority:"med", correct:"Verify via atxseed.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"Austin Technology Incubator", contact:"Bob", wrong:"bob@ati.utexas.edu", type:"immediate", priority:"med", correct:"ati-info@austin.utexas.edu", action:"verify", reason:"5.4.1 Access denied — external mail blocked", fixed:false },
+  { company:"TRAIGA Program", contact:"Team", wrong:"traiga@tmc.gov", type:"immediate", priority:"med", correct:"traiga@texasdmv.gov or governor.texas.gov", action:"verify", reason:"Domain tmc.gov does not exist", fixed:false },
+  { company:"EDBI Singapore", contact:"Team", wrong:"info@edbi.com", type:"immediate", priority:"med", correct:"info@edbi.com.sg (wrong TLD)", action:"verify", reason:"550 Address not found — likely wrong domain", fixed:false },
+  { company:"Sofinnova Partners", contact:"Team", wrong:"info@sofinnova.fr", type:"immediate", priority:"low", correct:"Verify via sofinnova.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"ARCH Venture Partners", contact:"Bob Nelsen", wrong:"rnelsen@archventure.com", type:"immediate", priority:"low", correct:"info@archventure.com or contact form", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"Sequoia India", contact:"Team", wrong:"india@sequoiacap.com", type:"immediate", priority:"low", correct:"india@sequoiacapital.com", action:"verify", reason:"550 Address not found — wrong domain", fixed:false },
+  { company:"Lytle Enterprises", contact:"Pete", wrong:"pete@lytleenterprises.com", type:"immediate", priority:"low", correct:"Verify via lytleenterprises.com", action:"web", reason:"550 Address not found", fixed:false },
+  { company:"S3 Ventures", contact:"David", wrong:"david@s3vc.com", type:"immediate", priority:"low", correct:"s3ventures.com contact form", action:"web", reason:"550 Address not found", fixed:false },
+
+  // DELAYED FAILURES
+  { company:"Mubadala Capital", contact:"Ventures Team", wrong:"ventures@mubadala.com", type:"delayed", priority:"high", correct:"investment@mubadala.com or web form", action:"web", reason:"Server rejected after 3-day retry — strict external mail policy", fixed:false },
+  { company:"Notley (Texas Impact VC)", contact:"Graham Weston", wrong:"graham@notley.co", type:"delayed", priority:"high", correct:"hello@notley.co or LinkedIn", action:"linkedin", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"Catalyst Health Ventures", contact:"Brian", wrong:"brian@catalysthv.com", type:"delayed", priority:"high", correct:"Verify via catalysthealthventures.com", action:"web", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"North Texas Angels", contact:"David Holt", wrong:"david.holt@northtexasangels.com", type:"delayed", priority:"high", correct:"info@northtexasangels.com", action:"verify", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"Wildcat Venture Partners", contact:"Team", wrong:"info@wildcatventurepartners.com", type:"delayed", priority:"med", correct:"Verify via wildcatventurepartners.com", action:"web", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"Goldcrest Capital", contact:"Tyler", wrong:"tyler@goldcrestcap.com", type:"delayed", priority:"med", correct:"Verify via goldcrestcap.com", action:"web", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"Startup Angels DFW", contact:"DFW Chapter", wrong:"dfw@startupangels.com", type:"delayed", priority:"med", correct:"startupangels.com application form", action:"web", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"Triumph Capital", contact:"Sarah", wrong:"sarah@triumphcapital.com", type:"delayed", priority:"med", correct:"Verify via triumphcapital.com", action:"web", reason:"Server rejected after 3-day retry", fixed:false },
+  { company:"The DEC (Dallas)", contact:"Team", wrong:"hello@dec.org", type:"delayed", priority:"med", correct:"thedec.co contact form (website changed)", action:"web", reason:"DNS Error — no MX record for dec.org", fixed:false },
+  { company:"Manipal Hospitals", contact:"Ventures", wrong:"ventures@manipalhospitals.com", type:"delayed", priority:"low", correct:"Verify via manipalhospitals.com", action:"web", reason:"Undeliverable despite repeated attempts", fixed:false },
+  { company:"Invitae", contact:"Investors", wrong:"investors@invitae.com", type:"delayed", priority:"low", correct:"Company was acquired by LabCorp — contact labcorp.com", action:"verify", reason:"Permanent fatal error — company may be restructured", fixed:false },
+  { company:"MaRS Discovery District", contact:"Team", wrong:"info@marsdd.com", type:"delayed", priority:"low", correct:"info@marsdd.com is correct — retry via web form", action:"web", reason:"Mail server bounce — use web form instead", fixed:false },
+];
+
+function renderTable(data) {
+  const tbody = document.getElementById('failBody');
+  tbody.innerHTML = '';
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    const actionMap = { fixed:'<span class="action-chip ac-fixed">✓ Email Found</span>', web:'<span class="action-chip ac-web">↗ Use Web Form</span>', linkedin:'<span class="action-chip ac-linkedin">LinkedIn</span>', verify:'<span class="action-chip ac-verify">⚠ Verify First</span>' };
+    const typeMap = { immediate:'<span class="status-badge s-fail">Immediate</span>', delayed:'<span class="status-badge s-delay">Delayed 3d</span>' };
+    const prioMap = { high:'<span class="priority p-high">● High</span>', med:'<span class="priority p-med">● Med</span>', low:'<span class="priority p-low">● Low</span>' };
+    tr.setAttribute('data-type', row.type);
+    tr.setAttribute('data-fixed', row.fixed);
+    tr.setAttribute('data-search', (row.company + row.wrong + row.contact).toLowerCase());
+    tr.innerHTML = `
+      <td><div class="company-name">${row.company}</div><div class="contact-name">${row.contact}</div></td>
+      <td><span class="wrong-email">${row.wrong}</span></td>
+      <td>${typeMap[row.type]}</td>
+      <td>${prioMap[row.priority]}</td>
+      <td>${row.correct ? `<div class="correct-email">${row.correct}</div>` : '—'}<br>${actionMap[row.action]}</td>
+      <td style="color:var(--muted);font-size:11px">${row.reason}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+renderTable(failData);
+
+let currentFilter = 'all';
+function filterFailed(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function searchFailed(val) { applyFilters(); }
+
+function applyFilters() {
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll('#failBody tr').forEach(tr => {
+    const typeMatch = currentFilter === 'all' || tr.getAttribute('data-type') === currentFilter || (currentFilter === 'fixed' && tr.getAttribute('data-fixed') === 'true');
+    const searchMatch = !search || tr.getAttribute('data-search').includes(search);
+    tr.classList.toggle('hidden', !(typeMatch && searchMatch));
+  });
+}
+
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
