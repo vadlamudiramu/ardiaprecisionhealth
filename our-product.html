@@ -15,11 +15,14 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
 /* ── NAVBAR ── */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,30,60,0.08);transition:.3s}
 .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:32px}
-.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;flex-shrink:0}
-.nav-logo img{height:36px;width:36px;object-fit:contain}
-.logo-text{display:flex;flex-direction:column;line-height:1.1}
-.logo-name{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#1e3a5f;letter-spacing:-.3px}
-.logo-sub{font-size:8.5px;font-weight:600;color:#0d7c6e;letter-spacing:.8px;text-transform:uppercase}
+.nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none;flex-shrink:0}
+.nav-logo-icon{width:52px;height:52px;background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:10px;border:1.5px solid rgba(20,184,166,0.5);box-shadow:0 0 12px rgba(20,184,166,0.25),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.nav-logo-icon img{width:100%;height:100%;object-fit:contain;display:block}
+.logo-text{display:flex;flex-direction:column;line-height:1.2}
+.logo-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#1e2f4a;letter-spacing:-.3px}
+.logo-name span.teal{color:#1d9bd1}
+.logo-name::after{content:'';display:block;height:2px;background:linear-gradient(to right,#14b8a6,#f59e0b);border-radius:1px;margin-top:4px;margin-bottom:3px}
+.logo-sub{font-size:10px;font-weight:400;color:#5a6e87;letter-spacing:0;text-transform:none}
 .nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin-left:auto}
 .nav-link{font-size:13.5px;font-weight:600;color:#334155;padding:6px 12px;border-radius:8px;cursor:pointer;transition:.2s;white-space:nowrap}
 .nav-link:hover,.nav-link.active-page{color:#0d7c6e;background:rgba(13,124,110,.07)}
@@ -217,9 +220,9 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer">
-      <img src="Ardia_Logo.png" alt="Ardia Precision Health" style="border-radius:6px">
+      <div class="nav-logo-icon"><img src="Ardia_Logo.png" alt="Ardia Precision Health Logo"></div>
       <div class="logo-text">
-        <span class="logo-name">ARDIA PRECISION HEALTH</span>
+        <span class="logo-name">ARDIA <span class="teal">PRECISION HEALTH</span></span>
         <span class="logo-sub">Next-Generation Intelligence for Healthcare Infrastructure.</span>
       </div>
     </a>
@@ -261,7 +264,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
   <div class="hero-eyebrow">🏗️ WHAT WE'RE BUILDING — ARDIA HEALTH LABS</div>
-  <h1>AI-Native Revenue Recovery<br><span>for Healthcare Labs & Clinics</span></h1>
+  <h1>AI-Native Revenue Recovery<br><span>for Healthcare Labs &amp; Clinics</span></h1>
   <p class="hero-sub">Ardia is building the only AI platform that reasons about clinical documentation, argues denied claims, and generates evidence-backed recovery narratives — autonomously, in under 90 seconds.</p>
   <div class="stage-badges">
     <span class="badge badge-green">✅ Phase 1 — Active Development</span>
@@ -326,7 +329,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="stage-desc">AI-driven denial prevention and appeal automation for urine drug screening (GO480–GO483) and definitive drug testing (80300–80377 CPT codes). Highest-volume denial segment for independent labs.</div>
         <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
           <li>✓ Medical necessity validation per payer LCD</li>
-          <li>✓ Quantity limits & frequency checking</li>
+          <li>✓ Quantity limits &amp; frequency checking</li>
           <li>✓ Presumptive-to-definitive bundling compliance</li>
           <li>✓ Automated appeal brief generation</li>
         </ul>
@@ -335,7 +338,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       <div class="stage-card active">
         <div class="stage-phase phase-1">Phase 1 · Primary</div>
         <div class="stage-name">MoleculIQ™</div>
-        <div class="stage-tag">Molecular Diagnostics & Precision RCM</div>
+        <div class="stage-tag">Molecular Diagnostics &amp; Precision RCM</div>
         <div class="stage-desc">Full MolDX/DEX Z-code automation, CPT mapping for 75,000+ genetic tests, NGS prior authorization, and PGx claims processing. The most complex and highest-value billing module in lab medicine.</div>
         <ul style="list-style:none;font-size:13px;color:#475569;display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
           <li>✓ MolDX DEX Z-code assignment automation</li>
@@ -351,7 +354,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="stage-tag">ACO Shared Savings Optimization</div>
         <div class="stage-desc">HCC risk adjustment coding optimization and shared savings attribution under MSSP Enhanced Track and ACO REACH programs. Targets DFW-area ACOs and value-based care organizations.</div>
         <ul style="list-style:none;font-size:13px;color:#94a3b8;display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
-          <li>◦ HCC coding gap identification & documentation</li>
+          <li>◦ HCC coding gap identification &amp; documentation</li>
           <li>◦ Shared savings attribution modeling</li>
           <li>◦ MSSP Enhanced / ACO REACH compliance</li>
         </ul>
@@ -360,12 +363,12 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       <div class="stage-card">
         <div class="stage-phase phase-3">Phase 3 · 2027–28</div>
         <div class="stage-name">BehaviorIQ™</div>
-        <div class="stage-tag">Behavioral Health & Addiction Medicine</div>
+        <div class="stage-tag">Behavioral Health &amp; Addiction Medicine</div>
         <div class="stage-desc">Specialized billing for behavioral health and addiction medicine covering H-codes, J-codes (MAT), and CCBHC billing. DFW has 40+ behavioral health organizations as Phase 3 targets.</div>
         <ul style="list-style:none;font-size:13px;color:#94a3b8;display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
           <li>◦ MAT J-code billing (buprenorphine, naltrexone)</li>
           <li>◦ CCBHC comprehensive billing optimization</li>
-          <li>◦ SUD treatment billing & appeals automation</li>
+          <li>◦ SUD treatment billing &amp; appeals automation</li>
         </ul>
         <span class="stage-timeline">Roadmap phase · Phase 3 target 2027–2028</span>
       </div>
@@ -377,7 +380,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
 <section class="demo-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">Live Demos & App Links</span>
+      <span class="section-label">Live Demos &amp; App Links</span>
       <h2 class="section-title" style="color:#fff">See It Working — Right Now</h2>
       <p class="section-sub" style="color:rgba(255,255,255,.7);margin:0 auto">Three live demo environments. Click through the actual platform — not a mockup. The dashboard is functional, the trial is real, the mobile app is interactive.</p>
     </div>
@@ -585,7 +588,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="tl-date">2029+</div>
         <div class="tl-dot gray"></div>
         <div class="tl-body">
-          <div class="tl-title">Phase 4–6 — Global & Payer Markets</div>
+          <div class="tl-title">Phase 4–6 — Global &amp; Payer Markets</div>
           <div class="tl-desc">International expansion (UK NHS, EU healthcare). Payer-side licensing. Genomics market entry. AI-native claims clearinghouse. Target: $537B+ precision medicine market.</div>
           <div class="tl-tags"><span class="tl-tag gray">Global</span><span class="tl-tag gray">Payer-Side</span><span class="tl-tag gray">$537B Market</span></div>
         </div>
