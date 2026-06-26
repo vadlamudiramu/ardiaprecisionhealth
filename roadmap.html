@@ -57,7 +57,7 @@ img{max-width:100%}
 .navbar.scrolled{background:rgba(4,12,28,0.97);padding:11px 0;border-bottom:1px solid var(--db)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:0 28px}
 .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-icon{width:44px;height:44px;background:transparent;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-icon{width:52px;height:52px;background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:10px;border:1.5px solid rgba(20,184,166,0.5);box-shadow:0 0 12px rgba(20,184,166,0.25),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px}
 .logo-text{display:flex;flex-direction:column;line-height:1}
 .logo-main{font-family:'Sora',sans-serif;font-size:19px;font-weight:700;color:#fff}
 .logo-sub{font-size:9px;font-weight:500;letter-spacing:0.3px;text-transform:none;color:#14b8a6;margin-top:2px}
@@ -634,11 +634,11 @@ body{background:#f8fafb !important}
 .navbar{background:#ffffff !important;border-bottom:1px solid #dce8f2 !important;box-shadow:0 1px 3px rgba(13,124,110,0.07) !important;top:0 !important}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1200px;margin:0 auto;padding:0 28px}
 .nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;flex-shrink:0;text-decoration:none}
-.logo-icon{width:48px;height:48px;flex-shrink:0;background:#fff;border-radius:8px;padding:2px;border:1.5px solid #dce8f2;box-shadow:0 1px 3px rgba(13,124,110,0.08)}
-.logo-text{display:flex;flex-direction:column;line-height:1.1}
-.logo-main{font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#1e2f4a;letter-spacing:-0.3px}
-.logo-main span.teal{color:#0d7c6e}
-.logo-sub{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7a93b0;margin-top:2px}
+.logo-icon{width:52px;height:52px;flex-shrink:0;background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:10px;border:1.5px solid rgba(20,184,166,0.5);box-shadow:0 0 12px rgba(20,184,166,0.25),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px}
+.logo-text{display:flex;flex-direction:column;line-height:1.2}
+.logo-main{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#1e2f4a;letter-spacing:-0.3px}
+.logo-main span.teal{color:#1d9bd1}.logo-main::after{content:'';display:block;height:2px;background:linear-gradient(to right,#14b8a6,#f59e0b);border-radius:1px;margin-top:4px;margin-bottom:3px}
+.logo-sub{font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;color:#5a6e87;margin-top:0}
 .nav-links{display:flex;align-items:stretch;gap:0;list-style:none;margin:0;padding:0}
 .nav-item{position:relative;list-style:none}
 .nav-link{display:flex;align-items:center;gap:4px;padding:0 15px;height:62px;font-size:13.5px;font-weight:600;color:#4a6285;cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none}
@@ -1078,7 +1078,7 @@ body { overflow-x: hidden; }
   <div class="nav-inner">
     <div class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer;display:flex;align-items:center;gap:11px">
       <div class="logo-icon">
-        <img src="Ardia_Logo.png" alt="Ardia Precision Health Logo" style="width:44px;height:44px;object-fit:contain;display:block;border-radius:8px">
+        <img src="Ardia_Logo.png" alt="Ardia Precision Health Logo" style="width:100%;height:100%;object-fit:contain;display:block">
       </div>
       <div class="logo-text">
         <span class="logo-main">ARDIA <span class="teal">PRECISION HEALTH</span></span>
