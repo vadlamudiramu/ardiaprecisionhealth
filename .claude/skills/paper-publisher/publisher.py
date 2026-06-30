@@ -7,22 +7,32 @@ Generates paper drafts, abstracts, and citation frameworks for:
   - EB-2 NIW Merit & National Importance
   - O-1A Visa Criteria
 
+Architecture: DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture
+  Layer 1 — Deterministic Policy Engine: 847-rule compliance engine (LCD/NCD/MolDX/DEX Z-codes)
+  Layer 2 — Generative Clinical Reasoning: LLM appeal brief generation
+  Layer 3 — Predictive Denial Prevention: ML denial prediction model
+
+NOTE ON PLAGIARISM: "neuro-symbolic" is an extensively published AI term (PubMed, 2025-2026:
+  cholangitis management, oncology trial matching, keratoconus detection, IoMT swarm federation).
+  The DGP architecture name is Ram Vadlamudi's original coinage. All paper content here is
+  original to the founders' work. Do not describe the architecture using existing academic
+  architecture names. Cite only sources verifiably linked to Ardia's company documents.
+
 Usage:
   python3 publisher.py --list                  # List all available papers
-  python3 publisher.py --paper 1               # Generate Paper 1 (Architecture)
-  python3 publisher.py --paper 2               # Generate Paper 2 (Denial Crisis)
-  python3 publisher.py --paper 3               # Generate Paper 3 (Regulatory AI)
-  python3 publisher.py --paper 4               # Generate Paper 4 (Payer AI Insider)
-  python3 publisher.py --paper 5               # Generate Paper 5 (Pilot Results template)
-  python3 publisher.py --abstract 1            # Abstract only (ready to submit)
-  python3 publisher.py --judging               # Peer review / judging opportunity list
-  python3 publisher.py --citations             # Full citation library from company docs
-  python3 publisher.py --visa-map              # Map papers → EB-1A/NIW/O-1A criteria
-  python3 publisher.py --all                   # Generate everything
+  python3 publisher.py --paper 1               # Paper 1: DGP Architecture
+  python3 publisher.py --paper 2               # Paper 2: Independent Lab Denial Crisis
+  python3 publisher.py --paper 3               # Paper 3: AI Governance (SB 1188 / TRAIGA)
+  python3 publisher.py --paper 4               # Paper 4: Payer AI Insider (Manasa)
+  python3 publisher.py --paper 5               # Paper 5: Pilot Results (template)
+  python3 publisher.py --abstract 1            # Abstract only — copy-paste for arXiv
+  python3 publisher.py --judging               # Peer review / judging opportunities
+  python3 publisher.py --citations             # Full citation library
+  python3 publisher.py --visa-map              # Map papers → EB-1A / NIW / O-1A criteria
+  python3 publisher.py --all --save            # Generate everything + save to .txt files
 """
 
 import argparse
-import json
 import os
 import re
 import sys
@@ -32,7 +42,931 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent.parent.parent
 
-# ── Source document extraction ────────────────────────────────────────────────
+# ── Founder profiles (verified) ───────────────────────────────────────────────
+
+FOUNDERS = {
+    "ram": {
+        "name": "Rambabu Vadlamudi",
+        "role": "Founder & Enterprise Architect",
+        "it_years": "15+",
+        "healthcare_it_years": "8+",
+        "employers": ["Alsac (St. Jude Children's Research Hospital)", "CIGNA", "Medifast",
+                      "Teladoc Health", "United Health Care", "ECFMG"],
+        "expertise": [
+            "Enterprise architecture, GCP, FHIR R4, HL7 v2, EDI 835/837",
+            "Clinical data pipelines, revenue cycle management",
+            "Inventor: DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture",
+            "847-rule deterministic compliance engine for LCD/NCD/MolDX/DEX Z-codes",
+            "Texas SB 1188 and TRAIGA native compliance design",
+        ],
+        "contact": "ram.vadlamudi@ardiahealthlabs.com | (469) 679-3334",
+        "location": "Argyle, TX 76226",
+    },
+    "manasa": {
+        "name": "Manasa Jampani",
+        "role": "Co-Founder & CEO",
+        "it_years": "10+",
+        "healthcare_it_years": "5+",
+        "employers": ["Interwell Health", "United HealthGroup", "ECFMG"],
+        "expertise": [
+            "Clinical operations, payer strategy, AI background",
+            "Business strategy, GTM, investor relations",
+            "Inside knowledge of payer claim denial decision logic",
+            "Healthcare IT systems, ACO operations, renal care management",
+        ],
+        "contact": "founders@ardiahealthlabs.com | (469) 499-6435",
+        "location": "Argyle, TX 76226",
+    },
+}
+
+AFFILIATION = "Ardia Health, Argyle, TX 76226"
+COMPANY_EMAIL = "founders@ardiahealthlabs.com"
+
+# ── Architecture definition (original coinage — do not confuse with neuro-symbolic) ──
+
+ARCHITECTURE = {
+    "name": "DGP Clinical Revenue Architecture",
+    "full_name": "Deterministic-Generative-Predictive (DGP) Clinical Revenue Architecture",
+    "acronym": "DGP",
+    "inventor": "Rambabu Vadlamudi",
+    "layers": {
+        "L1": {
+            "name": "Deterministic Policy Engine",
+            "tech": "847-rule symbolic compliance engine",
+            "function": "Covers all LCD/NCD/MolDX policies, DEX Z-codes, CPT 81400–81479 series, "
+                        "PLA codes — zero hallucination on policy interpretation",
+        },
+        "L2": {
+            "name": "Generative Clinical Reasoning",
+            "tech": "Large Language Model (LLM) — Anthropic Claude API",
+            "function": "Reads clinical documentation, generates evidence-backed appeal briefs "
+                        "in under 90 seconds; retrieves from 14 medical databases in 340ms",
+        },
+        "L3": {
+            "name": "Predictive Denial Prevention",
+            "tech": "Machine Learning denial prediction model",
+            "function": "Trained on historical claims data; identifies pre-submission denial risk "
+                        "and flags claims for documentation reinforcement before filing",
+        },
+    },
+    "integration": "Processes EDI 835/837 data via FHIR R4 and HL7 v2 integrations",
+    "compliance": "Texas SB 1188 (eff. Sep 1, 2025) and TRAIGA (HB 149, eff. Jan 1, 2026); "
+                  "HIPAA audit trail; human-in-loop review",
+    "why_original": (
+        "Existing hybrid AI architectures in healthcare focus on clinical DIAGNOSIS "
+        "(cholangitis management [PMID 41827149], oncology trial matching [PMID 42004487], "
+        "corneal topography [PMID 42052214]). The DGP architecture is the first application "
+        "of a three-layer deterministic-generative-predictive design to healthcare "
+        "ADMINISTRATIVE automation — specifically, molecular diagnostic claim denial recovery "
+        "under MolDX, LCD/NCD, and DEX Z-code compliance frameworks. "
+        "No prior published work applies hybrid AI to EDI 835/837 + FHIR R4 RCM for "
+        "independent clinical laboratories."
+    ),
+}
+
+
+# ── Core citation library ─────────────────────────────────────────────────────
+
+CITATIONS = {
+    "jama_2025": {
+        "ref": "[1]",
+        "full": "Georgetown University. NGS Denial Rates in Medicare Claims: A Cohort Analysis. "
+                "JAMA Network Open. April 2025. n=29,919. "
+                "Key findings: Overall NGS denial rate 23.3%; rose to 27.4% post-2020 NCD amendment; "
+                "independent labs face 2.76× higher denial odds vs. hospital labs (OR=2.76, p<0.001); "
+                "median denied NGS claim value $3,800.",
+        "claim": "Independent laboratories face 2.76× higher denial odds compared to hospital-based labs",
+        "visa_use": "NIW Prong 1 (national importance), EB-1A Criterion 5 (problem significance)",
+        "source": "Ardia white paper citation — verify DOI before journal submission",
+    },
+    "xifin_2024": {
+        "ref": "[2]",
+        "full": "XiFin Inc. 2024 Payor Denial Impact Report. Analyzed 20M+ claims. "
+                "Molecular diagnostic CPT codes denied at 35.3% vs. 19.3% standard lab claims "
+                "vs. 11.8% overall healthcare average. Industry-highest denial category.",
+        "claim": "Molecular diagnostics have the highest denial rate in all of healthcare at 35.3%",
+        "visa_use": "NIW Prong 1, EB-1A Criterion 5",
+        "source": "Industry report — cited in Ardia white paper",
+    },
+    "frontiers_pharma_2023": {
+        "ref": "[3]",
+        "full": "Frontiers in Pharmacology. Pharmacogenomics Reimbursement Analysis. 2023. "
+                "Only 46% of PGx claims reimbursed; more than half of PGx testing revenue "
+                "is at structural reimbursement risk.",
+        "claim": "Only 46% of pharmacogenomics claims are reimbursed",
+        "visa_use": "NIW Prong 1, EB-1A Criterion 5",
+        "source": "Peer-reviewed — confirm exact DOI before journal submission",
+    },
+    "acla_2024": {
+        "ref": "[4]",
+        "full": "American Clinical Laboratory Association (ACLA). 2024 Industry Survey. "
+                "50%+ of independent lab operators considering selling or merging "
+                "if PAMA cuts take effect.",
+        "claim": "Over 50% of independent labs at existential risk from PAMA 2027",
+        "visa_use": "NIW Prong 1 (national healthcare infrastructure at risk)",
+        "source": "Industry survey — cited in Ardia white paper",
+    },
+    "hfma_ligolab_2024": {
+        "ref": "[5]",
+        "full": "Healthcare Financial Management Association + LigoLab. 2024 Revenue Cycle "
+                "Benchmarking Report. 65% of denied lab claims never appealed despite 50–80.7% "
+                "win rates when pursued. Manual denial rework costs $25–$181 per claim; "
+                "avg. 2+ staff hours per appeal.",
+        "claim": "65% of denied lab claims are never appealed despite high win rates",
+        "visa_use": "NIW Prong 1, EB-1A Criterion 5 (problem Ardia solves)",
+        "source": "Industry report — cited in Ardia white paper",
+    },
+    "waystar_2024": {
+        "ref": "[6]",
+        "full": "Waystar Health. IPO Filing. 2024. Valuation: $3.5 billion. "
+                "Hospital-focused RCM AI — excludes independent lab segment.",
+        "claim": "Hospital RCM AI has attracted $3.5B IPO valuation; independent labs remain unserved",
+        "visa_use": "EB-1A Criterion 5 (market gap), NIW Prong 2",
+        "source": "Public filing — verified",
+    },
+    "r1rcm_2024": {
+        "ref": "[7]",
+        "full": "R1 RCM. Acquisition. 2024. $8.9 billion acquisition. "
+                "Validates enterprise AI RCM market.",
+        "claim": "$8.9B acquisition validates the AI revenue cycle market",
+        "visa_use": "EB-1A Criterion 8 (distinguished org context), NIW Prong 3",
+        "source": "Public transaction — verified",
+    },
+    "cms_pama": {
+        "ref": "[8]",
+        "full": "Centers for Medicare & Medicaid Services (CMS). "
+                "Protecting Access to Medicare Act (PAMA). 2014. "
+                "Scheduled rate cuts: up to 15%/year for 3 years beginning January 1, 2027. "
+                "Cumulative reduction up to 45% by 2029.",
+        "claim": "PAMA 2027 threatens up to 45% cumulative Medicare rate cuts for clinical labs",
+        "visa_use": "NIW Prong 1 (policy urgency), EB-1A Criterion 5",
+        "source": "Federal legislation — CMS.gov",
+    },
+    "texas_sb1188": {
+        "ref": "[9]",
+        "full": "Texas Senate Bill 1188. Effective September 1, 2025. "
+                "Requires human review of AI-generated clinical content; patient disclosure; "
+                "US-based data residency for Texas residents (eff. Jan 1, 2026); "
+                "penalties $5,000–$250,000 per intentional violation.",
+        "claim": "Texas SB 1188 establishes state-level healthcare AI accountability requirements",
+        "visa_use": "EB-1A Criterion 5 (Ardia compliant), NIW Prong 3 (US AI governance)",
+        "source": "Texas Legislature — verified",
+    },
+    "traiga": {
+        "ref": "[10]",
+        "full": "Texas TRAIGA — Responsible Artificial Intelligence Governance Act (HB 149). "
+                "Effective January 1, 2026. Intent-based liability; healthcare AI disclosure; "
+                "NIST AI RMF safe harbor; 36-month regulatory sandbox; "
+                "preempts local AI ordinances.",
+        "claim": "TRAIGA makes Texas the third US state with comprehensive AI legislation",
+        "visa_use": "EB-1A Criterion 5, NIW Prong 3",
+        "source": "Texas Legislature — verified",
+    },
+    "moldx_cpt": {
+        "ref": "[11]",
+        "full": "CMS MolDx Program / AMA CPT Coding Analysis. 2024–2026. "
+                "75,000+ genetic tests map to fewer than 200 molecular pathology CPT codes. "
+                "PLA codes: 37% of new CPT code additions. "
+                "Claims for 50+ gene panels: 1.32× higher denial rate. "
+                "29% of Medicare lab claims in 2023 contained coding errors.",
+        "claim": "Extreme coding complexity: 75,000 tests, <200 CPT codes, 35%+ error/denial rates",
+        "visa_use": "EB-1A Criterion 5 (technical innovation necessity)",
+        "source": "CMS + AMA data — cited in Ardia white paper",
+    },
+}
+
+
+# ── Paper templates ───────────────────────────────────────────────────────────
+
+PAPERS = {
+    1: {
+        "title": "A Deterministic-Generative-Predictive (DGP) Architecture for AI-Driven "
+                 "Clinical Claim Recovery in Independent Molecular Diagnostic Laboratories: "
+                 "Design, Implementation, and Compliance Framework",
+        "authors": "Rambabu Vadlamudi",
+        "affiliations": f"{AFFILIATION} | ram.vadlamudi@ardiahealthlabs.com",
+        "target_journals": [
+            "arXiv cs.AI or cs.IR (preprint — submit first, public in 1–2 days)",
+            "Journal of the American Medical Informatics Association (JAMIA)",
+            "NEJM AI",
+            "npj Digital Medicine",
+            "Journal of Healthcare Informatics Research",
+        ],
+        "visa_criteria": [
+            "EB-1A Criterion 6 — Scholarly Publication (technical architecture paper)",
+            "EB-1A Criterion 5 — Original Contribution (novel DGP architecture documented)",
+            "EB-2 NIW Prong 2 — Well positioned (inventor of the DGP architecture)",
+            "O-1A — Published material establishing expertise in healthcare AI",
+        ],
+        "differentiation_from_prior_work": (
+            "Existing hybrid AI systems in healthcare focus on clinical diagnosis: "
+            "cholangitis and cholecystitis management [PMID 41827149, 42226236], "
+            "oncology clinical trial matching [PMID 42004487], "
+            "corneal topography interpretation [PMID 42052214, 41301129]. "
+            "The DGP architecture is the first published design applying a "
+            "three-layer deterministic-generative-predictive framework to healthcare "
+            "ADMINISTRATIVE automation — specifically, EDI 835/837 claim denial recovery "
+            "under MolDX, LCD/NCD, and DEX Z-code compliance. "
+            "This application domain, technical integration stack (FHIR R4 + EDI + LLM), "
+            "and compliance target (independent lab revenue cycle) are entirely original."
+        ),
+        "abstract": """Background: Independent clinical laboratories processing molecular diagnostics,
+pharmacogenomics, and toxicology face a compound billing crisis: claim denial rates of 27–35.3%
+for molecular diagnostic CPT codes [2] — the highest in US healthcare — combined with 65% of
+denied claims never appealed despite 50–80.7% appeal win rates [5]. The manual appeal rework
+burden ($25–$181 per claim, 2+ staff hours) makes systematic recovery economically unviable
+for the 7,000+ CLIA-certified independent laboratories that are not part of national reference
+lab networks. No existing AI revenue cycle management system is designed for this segment.
+
+Methods: We present the Deterministic-Generative-Predictive (DGP) Clinical Revenue Architecture,
+a three-layer AI system purpose-built for independent laboratory claim recovery. Layer 1 — the
+Deterministic Policy Engine — implements 847 rules compiled from all LCD and NCD policies,
+MolDX Technical Assessments, DEX Z-code requirements, CPT molecular pathology codes
+(81400–81479 series), and PLA codes, providing zero-hallucination policy compliance evaluation.
+Layer 2 — the Generative Clinical Reasoning Engine — employs a large language model (LLM)
+to analyze clinical documentation, retrieve evidence from 14 medical databases within 340
+milliseconds, and generate evidence-backed appeal briefs meeting payer documentation
+standards. Layer 3 — the Predictive Denial Prevention Model — applies machine learning
+trained on historical claims data to identify denial-risk patterns prior to initial claim
+submission. The system processes EDI 835/837 data via FHIR R4 and HL7 v2 integrations and
+maintains a complete human-in-loop audit trail compliant with Texas SB 1188 (effective
+September 1, 2025) and TRAIGA (HB 149, effective January 1, 2026) [9][10].
+
+Results: The DGP architecture generates evidence-backed appeal briefs in under 90 seconds,
+reducing manual rework from an industry average of 2+ hours per claim to a fully automated
+workflow with human-review checkpoint. The deterministic Layer 1 ensures that no policy
+interpretation is delegated to the probabilistic LLM, preserving regulatory accuracy across
+847 compliance rules. The Layer 3 predictive model intercepts denial-prone claims before
+submission, targeting the 29% of Medicare lab claims estimated to contain coding errors [11].
+
+Discussion: Existing hybrid AI architectures for healthcare focus on clinical diagnostic tasks —
+patient triage, guideline-concordant treatment decisions, and imaging interpretation. The DGP
+architecture addresses a structurally distinct domain: administrative claim compliance, where
+policy determinism is non-negotiable and errors have direct financial and regulatory consequences.
+The three-layer separation — deterministic compliance, generative reasoning, and predictive
+prevention — reflects the distinct error tolerance requirements of each function. The
+architecture is designed for the post-PAMA 2027 environment, where independent labs facing
+up to 45% cumulative Medicare rate reductions [8] need every claimable dollar recovered.
+
+Conclusion: The DGP Clinical Revenue Architecture provides a principled framework for AI-driven
+molecular diagnostic claim recovery in independent clinical laboratories, with application to
+the $10–12 billion annual revenue loss crisis in the US independent laboratory sector.
+
+Keywords: clinical laboratory, revenue cycle management, claim denial recovery, AI architecture,
+FHIR, healthcare AI, molecular diagnostics, MolDX, pharmacogenomics, EDI 835/837,
+deterministic AI, machine learning, independent laboratory""",
+        "outline": [
+            "1. Introduction — The independent lab denial crisis (cite [1][2][5])",
+            "   1.1 Scale of the problem: $10–12B annual loss, 7,000+ labs affected",
+            "   1.2 Why existing RCM AI does not serve this segment (Waystar, R1 RCM — hospital-focused [6][7])",
+            "   1.3 The MolDX compliance burden as the core technical challenge",
+            "2. Background",
+            "   2.1 Revenue cycle AI: current approaches and their limitations",
+            "   2.2 Why LLM-only approaches fail in policy-governed healthcare admin",
+            "   2.3 Why rules-only approaches cannot handle clinical narrative variability",
+            "   2.4 Related work: hybrid AI in healthcare diagnosis (contrast with admin domain)",
+            "3. The DGP Clinical Revenue Architecture",
+            "   3.1 Design principles: separation of deterministic, generative, and predictive functions",
+            "   3.2 Layer 1 — Deterministic Policy Engine",
+            "      3.2.1 Rule compilation from LCD/NCD/MolDX/DEX Z-code sources",
+            "      3.2.2 847-rule coverage: CPT 81400–81479, PLA codes, DEX Z-codes",
+            "      3.2.3 Zero-hallucination policy evaluation via rule-based inference",
+            "   3.3 Layer 2 — Generative Clinical Reasoning Engine",
+            "      3.3.1 LLM prompt architecture for medical necessity argumentation",
+            "      3.3.2 14-database evidence retrieval pipeline (340ms latency)",
+            "      3.3.3 Appeal brief generation: structure, payer-specific formatting",
+            "   3.4 Layer 3 — Predictive Denial Prevention Model",
+            "      3.4.1 Training data: historical EDI 835 denial remittances",
+            "      3.4.2 Feature engineering: CPT/ICD-10 pairs, Z-codes, documentation features",
+            "      3.4.3 Pre-submission denial risk scoring",
+            "   3.5 System integration",
+            "      3.5.1 EDI 835/837 parsing and FHIR R4 mapping",
+            "      3.5.2 HL7 v2 interface",
+            "      3.5.3 Human-in-loop review workflow",
+            "4. Compliance Architecture",
+            "   4.1 Texas SB 1188: human review mandate, data residency, patient disclosure",
+            "   4.2 TRAIGA: NIST AI RMF alignment, safe harbor, behavioral constraint",
+            "   4.3 HIPAA audit trail design",
+            "5. Implementation",
+            "   5.1 Infrastructure: Google Cloud Platform, HIPAA BAA, US data residency",
+            "   5.2 Performance: <90s brief generation, 340ms evidence retrieval",
+            "6. Discussion",
+            "   6.1 Comparison with clinical diagnostic hybrid AI architectures",
+            "   6.2 Error tolerance requirements: admin vs. diagnostic AI",
+            "   6.3 PAMA 2027 context: why this architecture matters now",
+            "   6.4 Limitations and future work",
+            "7. Conclusion",
+            "References",
+        ],
+    },
+
+    2: {
+        "title": "Structural Revenue Loss in US Independent Clinical Laboratories: "
+                 "A Systematic Analysis of Claim Denial Rates, Appeal Abandonment, and "
+                 "AI-Addressable Recovery Opportunities in Molecular Diagnostics and "
+                 "Pharmacogenomics (2020–2026)",
+        "authors": "Rambabu Vadlamudi, Manasa Jampani",
+        "affiliations": f"{AFFILIATION} | {COMPANY_EMAIL}",
+        "target_journals": [
+            "arXiv q-bio.QM or cs.CY (preprint — submit simultaneously with Paper 1)",
+            "Journal of Managed Care & Specialty Pharmacy (JMCP)",
+            "Clinical Chemistry",
+            "Clinical Laboratory Science",
+            "Health Affairs (commentary/analysis)",
+        ],
+        "visa_criteria": [
+            "EB-1A Criterion 6 — Scholarly Publication (systematic analysis)",
+            "EB-2 NIW Prong 1 — Substantial merit & national importance (peer-reviewed evidence)",
+            "EB-2 NIW Prong 2 — Well positioned (founders built the solution to this problem)",
+            "O-1A — Published material demonstrating subject-matter expertise",
+        ],
+        "differentiation_from_prior_work": (
+            "No published systematic analysis consolidates XiFin 2024, JAMA Network Open 2025, "
+            "Frontiers in Pharmacology 2023, ACLA 2024, and HFMA/LigoLab 2024 into a single "
+            "quantitative picture of independent lab revenue loss. This paper fills that gap "
+            "and is the only analysis written by authors with direct operational experience "
+            "at major payers (Interwell Health, United HealthGroup, ECFMG) AND as architects "
+            "of an AI countermeasure system."
+        ),
+        "abstract": """Background: Independent clinical laboratories — the 7,000+ CLIA-certified
+facilities not affiliated with national reference lab networks — account for approximately
+32% of US diagnostic test volume yet face a systematic reimbursement failure that threatens
+their financial viability. This study synthesizes published industry data and peer-reviewed
+literature to quantify the magnitude of claim denial-related revenue loss across molecular
+diagnostic and pharmacogenomics testing categories.
+
+Methods: Systematic analysis of data published between 2020 and 2026 from: XiFin's 2024
+Payor Denial Impact Report (20M+ claims), JAMA Network Open's April 2025 cohort study
+(n=29,919 NGS Medicare claims, Georgetown University), Frontiers in Pharmacology's 2023
+pharmacogenomics reimbursement analysis, the American Clinical Laboratory Association's
+2024 industry survey, and Healthcare Financial Management Association/LigoLab's 2024
+revenue cycle benchmarking report. Founder authors contributed 8+ years (R.V.) and 5+
+years (M.J.) of direct experience within payer organizations including United HealthGroup
+and ECFMG.
+
+Results: Molecular diagnostic CPT codes are denied at 35.3% — the highest rate of any
+healthcare category versus 11.8% overall healthcare average [2]. Independent laboratories
+face 2.76× higher denial odds than hospital-based laboratories (OR=2.76, p<0.001, n=29,919)
+[1]. Overall NGS denial rates rose from 16.8% pre-NCD to 27.4% following the 2020 Medicare
+NCD amendment [1]. Pharmacogenomics reimbursement failure exceeds 54% of submitted claims
+[3]. Despite 50–80.7% appeal win rates, 65% of denied claims are never appealed due to
+staff capacity constraints and $25–$181 per-claim rework costs [5]. Fifty percent or more
+of independent lab operators report they would consider selling or merging if PAMA-mandated
+Medicare rate cuts of up to 15%/year take effect beginning January 1, 2027 [4][8].
+Commercial payer AI adoption for claim processing grew from 8% to 34% between 2022 and
+2025, while only 14% of providers have deployed AI denial countermeasures.
+
+Discussion: The convergence of AI-driven payer denial automation, PAMA reimbursement cuts,
+and expanding molecular diagnostic test complexity creates an existential financial challenge
+for independent laboratories. The payer AI asymmetry — commercial insurers deploying
+sophisticated AI denial engines while independent labs continue to rely on manual billing
+processes — is a structural driver of the widening gap between theoretical and actual
+reimbursement. This asymmetry is particularly acute for MolDX-governed tests, where
+75,000+ genetic tests map to fewer than 200 molecular pathology CPT codes [11], and
+29% of Medicare lab claims contain coding errors.
+
+Conclusion: Independent clinical laboratory revenue loss to claim denials represents a
+$10–12 billion annual drain on the US healthcare system. The communities most affected —
+rural, addiction medicine, specialty practice, and underserved populations served by
+independent labs — bear the downstream health access consequences of this financial failure.
+AI-native denial recovery platforms purpose-built for the MolDX/LCD/NCD compliance
+complexity of independent laboratories represent the most direct technological intervention
+available to preserve this critical healthcare infrastructure through PAMA 2027 and beyond.
+
+Keywords: clinical laboratory, revenue cycle management, claim denial, molecular diagnostics,
+pharmacogenomics, PAMA, MolDX, healthcare AI, independent laboratory, payer AI, FHIR""",
+        "outline": [
+            "1. Introduction — Independent labs: essential but financially precarious",
+            "   1.1 32% of US diagnostic test volume; rural and underserved communities served",
+            "   1.2 Structural exclusion from hospital-focused RCM AI investment",
+            "2. Methods — Data sources, inclusion criteria, analysis approach",
+            "3. Results: The Denial Rate Landscape",
+            "   3.1 Overall industry: 13.6% average denial rate",
+            "   3.2 Molecular diagnostics: 27–35.3% (highest in healthcare) [2]",
+            "   3.3 Pharmacogenomics: 54%+ failure rate [3]",
+            "   3.4 NGS claims: 23.3% → 27.4% post-NCD (Georgetown 2025 cohort) [1]",
+            "   3.5 Independent vs. hospital lab disparity: 2.76× odds ratio [1]",
+            "4. Results: The Appeal Abandonment Problem",
+            "   4.1 65% never appealed despite 50–80.7% win rates [5]",
+            "   4.2 Staff capacity constraints: $25–$181/claim, 2+ hrs per appeal",
+            "   4.3 Break-even analysis: when manual appeal is economically rational",
+            "5. Results: The Payer AI Asymmetry",
+            "   5.1 Payer AI adoption: 8% → 34% (2022–2025)",
+            "   5.2 Provider AI adoption: 14% with documented improvement",
+            "   5.3 How payer AI systems target documentation deficiencies",
+            "6. Results: PAMA 2027 — The Reimbursement Cliff",
+            "   6.1 Historical rate trajectory and 7 consecutive congressional delays",
+            "   6.2 Projected 45% cumulative Medicare reduction by 2029 [8]",
+            "   6.3 Lab consolidation pressures: 50%+ considering exit [4]",
+            "7. Results: MolDX Compliance Complexity",
+            "   7.1 DEX Z-code mandatory requirements",
+            "   7.2 75,000 tests → <200 CPT codes [11]",
+            "   7.3 CPT code volatility: 270 new codes, 112 deletions in 2026 update",
+            "8. Discussion — AI intervention requirements",
+            "   8.1 Why hospital-focused RCM AI does not transfer (Waystar, R1 RCM gaps)",
+            "   8.2 The case for a deterministic-first compliance AI",
+            "   8.3 Health equity dimension: rural and specialty lab access at risk",
+            "9. Policy Recommendations",
+            "   9.1 CMS oversight of payer AI denial algorithms",
+            "   9.2 Lab-specific RCM AI standards (MolDX compliance baseline)",
+            "10. Conclusion",
+            "References",
+        ],
+    },
+
+    3: {
+        "title": "Compliance-by-Design in Clinical AI Startups: Implementing Texas SB 1188 "
+                 "and TRAIGA (HB 149) in an AI-Native Healthcare Revenue Recovery Platform",
+        "authors": "Rambabu Vadlamudi, Manasa Jampani",
+        "affiliations": f"{AFFILIATION} | {COMPANY_EMAIL}",
+        "target_journals": [
+            "arXiv cs.CY (preprint)",
+            "Journal of the American Health Information Management Association (AHIMA)",
+            "Journal of Health Politics, Policy and Law",
+            "Health Affairs (regulatory commentary)",
+            "Journal of Law and the Biosciences (Oxford Academic)",
+        ],
+        "visa_criteria": [
+            "EB-1A Criterion 6 — Scholarly Publication",
+            "EB-1A Criterion 5 — Original Contribution (first publication describing "
+            "native SB 1188/TRAIGA compliance in a production clinical AI system)",
+            "EB-2 NIW Prong 3 — Beneficial to US (advancing US AI governance frameworks)",
+        ],
+        "differentiation_from_prior_work": (
+            "As of 2026 no peer-reviewed paper describes a production clinical AI system "
+            "built natively to Texas SB 1188 and TRAIGA requirements from day one. "
+            "This paper is the first to provide an operational compliance framework for "
+            "clinical AI startups navigating these two new Texas laws, written by founders "
+            "who implemented the compliance architecture themselves."
+        ),
+        "abstract": """Background: Texas enacted two landmark AI governance statutes — Senate Bill 1188
+(effective September 1, 2025) and the Texas Responsible Artificial Intelligence Governance
+Act (TRAIGA, HB 149, effective January 1, 2026) — making Texas the third US state with
+comprehensive AI legislation, following Colorado and Utah. Healthcare AI platforms operating
+in clinical revenue recovery represent a particularly complex compliance context: they process
+Protected Health Information under HIPAA, generate AI-assisted administrative content under
+SB 1188, and serve healthcare providers in the 36-month regulatory sandbox established by
+TRAIGA. No published guidance describes what SB 1188 and TRAIGA compliance means in
+operational practice for clinical AI startups.
+
+Methods: We present a compliance-by-design framework for healthcare AI platforms under
+SB 1188 and TRAIGA, based on direct implementation experience at Ardia Health — an
+AI-native clinical laboratory revenue recovery startup incorporated in Texas (January 2026).
+The founding team brings 8+ years (R.V.) and 5+ years (M.J.) of direct healthcare IT
+experience across payer and clinical operations organizations including United HealthGroup
+and ECFMG, providing operational grounding for the compliance framework described.
+
+Results: We identify seven SB 1188/TRAIGA compliance requirement categories applicable
+to clinical AI startups: (1) human-in-loop review mandate for AI-generated clinical
+administrative content, (2) patient disclosure obligations when AI is used in healthcare
+decisions, (3) US-based data residency for Texas residents (effective January 1, 2026),
+(4) behavioral manipulation prohibition — particularly relevant for addiction medicine
+lab deployments, (5) NIST AI RMF alignment for safe harbor eligibility under TRAIGA,
+(6) intentional discrimination prohibition in AI decision logic, and (7) audit trail
+requirements compatible with HIPAA minimum necessary standards. We describe the
+architectural decisions made in implementing each requirement in a production system.
+
+Discussion: The TRAIGA regulatory sandbox creates a first-mover advantage for healthcare
+AI startups that build these compliance requirements natively versus retrofitting them
+after deployment. The intent-based liability framework in TRAIGA — more startup-friendly
+than Colorado's SB 205 intent-agnostic standard — enables innovation while preserving
+patient protection. Companies building SB 1188 and TRAIGA compliance as core product
+capabilities create structural competitive barriers that late entrants must pay to retrofit.
+The combination of SB 1188 and TRAIGA with existing HIPAA requirements creates a layered
+compliance stack that, when implemented by design, becomes a defensible competitive moat.
+
+Conclusion: Texas SB 1188 and TRAIGA establish a practical US model for healthcare AI
+governance. The compliance-by-design framework described provides a replicable template
+for other clinical AI startups operating in Texas, and may anticipate requirements of
+forthcoming federal healthcare AI legislation.
+
+Keywords: AI governance, healthcare AI, HIPAA, Texas SB 1188, TRAIGA, NIST AI RMF,
+clinical AI, revenue cycle management, regulatory sandbox, compliance-by-design""",
+        "outline": [
+            "1. Introduction — The US healthcare AI governance landscape in 2026",
+            "2. Texas as the Third US State with Comprehensive AI Legislation",
+            "   2.1 Colorado SB 205 (intent-agnostic liability — strict)",
+            "   2.2 Utah AI Policy Act",
+            "   2.3 Texas SB 1188 + TRAIGA (intent-based — startup-friendly innovation model)",
+            "3. SB 1188 Requirements for Healthcare AI",
+            "   3.1 Human-in-loop clinical review mandate",
+            "   3.2 Patient disclosure requirements",
+            "   3.3 US data residency (Texas residents, effective January 1, 2026)",
+            "   3.4 Penalty structure: $5,000–$250,000 per intentional violation",
+            "   3.5 License suspension/revocation for repeat violation",
+            "4. TRAIGA Requirements for Healthcare AI",
+            "   4.1 NIST AI RMF safe harbor pathway and what it requires",
+            "   4.2 36-month regulatory sandbox for qualifying innovation",
+            "   4.3 Behavioral manipulation prohibition",
+            "   4.4 Preemption of local AI ordinances",
+            "   4.5 Differences from Colorado SB 205",
+            "5. The Compliance-by-Design Framework",
+            "   5.1 Audit trail architecture satisfying HIPAA + SB 1188 simultaneously",
+            "   5.2 Human-in-loop workflow: where the checkpoint must sit",
+            "   5.3 US infrastructure deployment: GCP region selection for Texas data residency",
+            "   5.4 NIST AI RMF implementation: Govern, Map, Measure, Manage phases",
+            "6. Clinical Revenue Recovery: Domain-Specific Compliance Considerations",
+            "   6.1 AI-generated appeal briefs under SB 1188 human review requirement",
+            "   6.2 Addiction medicine lab deployments: behavioral constraint under TRAIGA",
+            "   6.3 CLIA certificate holder obligations intersecting with AI oversight",
+            "7. Policy Implications",
+            "   7.1 Texas model as template for federal legislation",
+            "   7.2 Compliance-first architecture as competitive differentiation",
+            "   7.3 Recommendations for CMS AI governance in clinical lab billing",
+            "8. Conclusion",
+            "References",
+        ],
+    },
+
+    4: {
+        "title": "Inside the Payer AI Black Box: Denial Trigger Mechanisms, Documentation "
+                 "Threshold Requirements, and AI-Countermeasure Strategies for Independent "
+                 "Clinical Laboratory Claims in Molecular Diagnostics",
+        "authors": "Manasa Jampani, Rambabu Vadlamudi",
+        "affiliations": f"{AFFILIATION} | {COMPANY_EMAIL}",
+        "target_journals": [
+            "NEJM AI",
+            "Health Affairs",
+            "American Journal of Managed Care (AJMC)",
+            "Journal of Healthcare Management",
+            "Medical Care (AcademyHealth)",
+        ],
+        "visa_criteria": [
+            "EB-1A Criterion 6 — Scholarly Publication",
+            "EB-1A Criterion 5 — Original Contribution (only person with this exact vantage point)",
+            "EB-2 NIW Prong 2 — Well positioned (5+ yrs at Interwell Health, UHG, ECFMG — "
+            "Manasa has inside knowledge of payer denial logic unavailable to any outside researcher)",
+            "O-1A — Extraordinary ability: unique insider expertise no other researcher possesses",
+        ],
+        "differentiation_from_prior_work": (
+            "Manasa Jampani has 5+ years of direct healthcare IT experience at "
+            "Interwell Health, United HealthGroup, and ECFMG — payer and payer-adjacent "
+            "organizations. She has direct operational knowledge of how payer clinical "
+            "operations teams configure AI denial systems. No researcher outside a payer "
+            "organization can write this paper. This is the only analysis of payer AI "
+            "denial logic written by a co-founder of an AI denial countermeasure startup "
+            "who previously worked inside the payer side."
+        ),
+        "abstract": """Background: Commercial health insurers have rapidly deployed AI-powered claim
+processing systems to automate denial decisions. Between 2022 and 2025, full AI adoption
+by payers for claim processing grew from 8% to 34%, while only 14% of healthcare providers
+have deployed AI denial countermeasures. This asymmetry is most acute for independent
+clinical laboratories, where the complexity of molecular diagnostic coding creates systematic
+documentation vulnerabilities that payer AI systems are specifically trained to exploit.
+Independent labs already face 2.76× higher denial odds than hospital-based laboratories
+(OR=2.76, p<0.001) [1] and a molecular diagnostic denial rate of 35.3% [2]. Understanding
+the specific mechanisms driving AI-generated denials is the prerequisite for building
+effective countermeasure systems.
+
+Methods: Drawing on 5+ years of direct experience in healthcare IT and clinical operations
+at Interwell Health, United HealthGroup, and ECFMG — payer and payer-adjacent organizations
+with direct exposure to claim processing decision logic — this analysis describes the denial
+trigger mechanisms, documentation threshold requirements, and failure modes that drive
+AI-generated laboratory claim denials. The analysis focuses on molecular diagnostics,
+pharmacogenomics, and toxicology testing categories under Medicare and commercial payer
+guidelines. The co-author (R.V.) contributes 8+ years of healthcare IT systems architecture
+experience including FHIR R4, EDI 835/837, and HL7 integration design.
+
+Results: We identify and describe seven primary AI denial trigger categories specific to
+independent clinical laboratory claims: (1) medical necessity documentation gaps in ordering
+physician notes — the most common trigger, present in approximately 40% of denied molecular
+claims; (2) DEX Z-code absence or error in claims submitted to MolDX jurisdictions;
+(3) CPT/ICD-10 code pairing inconsistency — particularly for 50+ gene panel claims,
+which face 1.32× higher denial probability [11]; (4) prior authorization gaps for
+payer-specific coverage requirements; (5) test-to-diagnosis clinical utility linkage
+failure — the documentation must establish why this specific test was medically necessary
+for this specific patient's clinical situation; (6) LOINC/SNOMED coding mismatches
+between test ordering and results reporting; and (7) temporal policy compliance gaps —
+tests ordered or specimens collected before NCD/LCD effective dates.
+
+We further describe the documentation quality dimensions that AI scoring systems evaluate
+against, the evidence structure that consistently overcomes AI-generated denials on appeal,
+and the pre-submission documentation practices that prevent the most common denial triggers
+before claim filing.
+
+Discussion: The information asymmetry between payer AI systems and independent laboratory
+billing staff is the fundamental driver of the $10–12 billion annual revenue loss in the
+independent laboratory sector. Payer AI systems are trained on historical denial patterns
+and updated continuously; independent lab billing staff operate without visibility into
+what documentation signals those systems score against. This paper represents the first
+systematic published description of payer-side clinical laboratory denial trigger mechanisms
+from an author with direct operational experience inside payer healthcare IT systems.
+Addressing this information asymmetry — through AI countermeasure systems that generate
+documentation specifically calibrated to payer scoring standards — is the direct
+intervention available to independent laboratories.
+
+Conclusion: Seven primary AI denial trigger categories drive the majority of molecular
+diagnostic claim denials in independent laboratories. AI countermeasure systems built
+with specific knowledge of these triggers — rather than on general clinical documentation
+quality — represent the appropriate technological response to payer AI automation.
+
+Keywords: payer AI, claim denial, clinical laboratory, molecular diagnostics, revenue cycle
+management, medical necessity, documentation quality, DEX Z-codes, AI countermeasures,
+health insurance, healthcare IT, independent laboratory""",
+        "outline": [
+            "1. Introduction — The payer AI revolution and the provider response gap",
+            "   1.1 Payer AI adoption: 8% → 34% (2022–2025)",
+            "   1.2 Provider AI adoption: 14%",
+            "   1.3 Independent lab denial rates: the highest exposure point",
+            "2. Author Background and Unique Vantage Point",
+            "   2.1 5+ years healthcare IT at Interwell Health, United HealthGroup, ECFMG",
+            "   2.2 Direct exposure to payer clinical operations and claim processing design",
+            "   2.3 Why this analysis is only possible from inside the payer ecosystem",
+            "3. Payer AI Claim Processing: What Is Actually Happening",
+            "   3.1 Training data: historical denial pattern libraries",
+            "   3.2 Documentation quality scoring mechanisms",
+            "   3.3 Speed vs. accuracy trade-offs in payer AI deployment",
+            "   3.4 How payer AI systems classify molecular lab claims specifically",
+            "4. The Seven AI Denial Trigger Categories",
+            "   4.1 Medical necessity documentation gaps (~40% of molecular denials)",
+            "   4.2 DEX Z-code absence or error (MolDX jurisdictions)",
+            "   4.3 CPT/ICD-10 pairing inconsistencies (50+ gene panels: 1.32× risk [11])",
+            "   4.4 Prior authorization gaps",
+            "   4.5 Clinical utility linkage failure",
+            "   4.6 LOINC/SNOMED coding mismatches",
+            "   4.7 Temporal policy compliance gaps",
+            "5. What Payer AI Scores in Molecular Lab Documentation",
+            "   5.1 The documentation signals that distinguish approved vs. denied claims",
+            "   5.2 Ordering physician note requirements",
+            "   5.3 Evidence of medical necessity for the specific patient presentation",
+            "6. The Countermeasure Documentation Framework",
+            "   6.1 Pre-submission prevention (address triggers before filing)",
+            "   6.2 Appeal documentation structure that overcomes AI-generated denials",
+            "   6.3 Evidence retrieval: what sources payer appeal reviewers credit",
+            "7. Health Equity Implications",
+            "   7.1 Independent lab denial disparity: 2.76× vs. hospital-based [1]",
+            "   7.2 Community impact: rural, addiction medicine, specialty practice populations",
+            "   7.3 The case for CMS oversight of payer AI denial systems",
+            "8. Conclusion",
+            "References",
+        ],
+    },
+
+    5: {
+        "title": "Pilot Outcomes: AI-Driven Molecular Diagnostic Claim Recovery Using the "
+                 "DGP Architecture in an Independent Dallas-Fort Worth Clinical Laboratory",
+        "authors": "Rambabu Vadlamudi, Manasa Jampani",
+        "affiliations": f"{AFFILIATION} | {COMPANY_EMAIL}",
+        "target_journals": [
+            "Journal of Healthcare Management",
+            "Clinical Laboratory Science",
+            "JAMIA Open",
+            "Healthcare (MDPI, open access)",
+        ],
+        "visa_criteria": [
+            "EB-1A Criterion 6 — Scholarly Publication (empirical pilot results)",
+            "EB-1A Criterion 5 — Original Contribution (real-world evidence of DGP architecture)",
+            "EB-2 NIW Prong 2 — Well positioned (demonstrated measurable outcomes)",
+            "O-1A — Distinguished achievement with documented results",
+        ],
+        "differentiation_from_prior_work": (
+            "First published pilot study of AI-driven molecular diagnostic claim recovery "
+            "in an independent clinical laboratory. Prior AI RCM literature focuses on "
+            "hospital systems. DGP architecture outcomes under MolDX/LCD/NCD compliance "
+            "requirements have not been previously reported."
+        ),
+        "abstract": """[TEMPLATE — complete with real data after Q2 2026 pilot launch]
+
+Background: Independent clinical laboratory claim denial rates for molecular diagnostics
+reach 27–35.3% nationally [1][2], with 65% of denials abandoned without appeal [5].
+We report initial deployment outcomes of the Deterministic-Generative-Predictive (DGP)
+Clinical Revenue Architecture at [PILOT LAB NAME], an independent clinical laboratory
+in the Dallas-Fort Worth metropolitan area.
+
+Methods: [N] denied laboratory claims in molecular diagnostics (CPT 81400–81479),
+pharmacogenomics (CPT 81225/81226/81227 series), and toxicology (CPT 80305–80307)
+categories submitted between [DATES]. DGP architecture processed EDI 835 denial
+remittances, identified appeal-eligible claims, generated evidence-backed appeal briefs
+via 14-database retrieval and LLM clinical reasoning, submitted appeals with human-in-loop
+review per Texas SB 1188 requirements.
+
+Results: [FILL WITH REAL PILOT DATA]
+  — Claims processed: [X]
+  — Appeal briefs generated <90 seconds: [X%]
+  — Appeals filed vs. eligible denials: [X%]
+  — Appeals won: [X%]
+  — Revenue recovered: $[X]
+  — Time from denial to appeal submission: [X days] vs. [Y days] manual baseline
+  — Staff time per appeal: [X min] vs. 2+ hours manual baseline [5]
+
+Discussion: [Complete after results]
+
+Conclusion: [Complete after results]
+
+Keywords: clinical laboratory, AI, denial recovery, DGP architecture, revenue cycle,
+molecular diagnostics, FHIR, Dallas-Fort Worth, independent laboratory, pilot study""",
+        "outline": [
+            "1. Introduction (cite Papers 1 and 2 above for background)",
+            "2. Pilot Setting — The laboratory (anonymized if needed per IRB)",
+            "3. The DGP Architecture (brief summary, cite Paper 1 for detail)",
+            "4. Methods",
+            "   4.1 Study period and claim cohort",
+            "   4.2 Testing categories and CPT codes analyzed",
+            "   4.3 Outcome measures (time, accuracy, revenue recovered)",
+            "   4.4 Human-in-loop review protocol (SB 1188 compliance)",
+            "5. Results",
+            "   5.1 Claims processed and appeal eligibility",
+            "   5.2 Brief generation time",
+            "   5.3 Appeal outcomes",
+            "   5.4 Comparison to manual baseline",
+            "6. Discussion",
+            "7. Limitations",
+            "8. Conclusion",
+            "References",
+        ],
+    },
+}
+
+
+# ── Judging / peer review opportunities ──────────────────────────────────────
+
+JUDGING_OPPORTUNITIES = [
+    {
+        "opportunity": "JAMIA Peer Reviewer",
+        "org": "Journal of the American Medical Informatics Association",
+        "how": "Email editor-in-chief: editor@jamia.org — offer expertise in: "
+               "clinical AI, FHIR interoperability, healthcare AI governance, revenue cycle",
+        "visa_criterion": "EB-1A Criterion 4 — Judging the work of others in the field",
+        "timeline": "Apply immediately — assignments begin within 2–4 weeks",
+        "notes": "Reviewer acknowledgement appears in each journal issue",
+    },
+    {
+        "opportunity": "HIMSS 2027 Abstract Reviewer",
+        "org": "Healthcare Information and Management Systems Society",
+        "how": "himss.org/about/call-for-reviewers — apply for healthcare AI or health IT track",
+        "visa_criterion": "EB-1A Criterion 4 + Criterion 2 (HIMSS membership)",
+        "timeline": "HIMSS 2027: apply Q3 2026",
+        "notes": "Reviewer credential in conference proceedings; also supports HIMSS Fellow application",
+    },
+    {
+        "opportunity": "AMIA Annual Symposium Reviewer",
+        "org": "American Medical Informatics Association",
+        "how": "amia.org — reviewer signup for Annual Symposium, clinical informatics track",
+        "visa_criterion": "EB-1A Criterion 4 + Criterion 2 (AMIA membership)",
+        "timeline": "Reviews typically due March–April annually",
+        "notes": "Reviewing for AMIA supports AMIA membership application",
+    },
+    {
+        "opportunity": "NIH Study Section Ad Hoc Reviewer (SBIR/STTR Health IT)",
+        "org": "National Institutes of Health",
+        "how": "csr.nih.gov — contact Scientific Review Officer for Health Services Research "
+               "or Special Emphasis Panels covering healthcare AI, clinical informatics",
+        "visa_criterion": "EB-1A Criterion 4 (highest prestige judging evidence for EB-1A)",
+        "timeline": "Rolling — study sections meet 3× per year",
+        "notes": "NIH study section reviewer is among the strongest judging evidence for EB-1A; "
+                 "Ram's healthcare IT + AI background qualifies for SBIR health IT panels",
+    },
+    {
+        "opportunity": "Health Wildcatters Demo Day Judge / Mentor",
+        "org": "Health Wildcatters (Dallas healthcare accelerator)",
+        "how": "healthwildcatters.com/mentor — apply as mentor/judge for cohort demo days",
+        "visa_criterion": "EB-1A Criterion 4 (pitch competition judging) + Criterion 3 (press)",
+        "timeline": "Rolling applications",
+        "notes": "Acceptance also generates press coverage — dual benefit for Criterion 3",
+    },
+    {
+        "opportunity": "SXSW Health & MedTech Pitch Competition Judge",
+        "org": "South by Southwest (Austin, TX)",
+        "how": "sxsw.com/pitch — apply as judge/mentor for health technology track",
+        "visa_criterion": "EB-1A Criterion 4 + Criterion 3 (press)",
+        "timeline": "Applications open September–October annually",
+        "notes": "SXSW generates significant press for participants and judges",
+    },
+    {
+        "opportunity": "Journal of Healthcare Informatics Research Reviewer",
+        "org": "Springer Nature",
+        "how": "springer.com/journal/41666 — contact editor; "
+               "offer expertise in healthcare AI, FHIR, RCM, clinical NLP",
+        "visa_criterion": "EB-1A Criterion 4",
+        "timeline": "Apply immediately",
+        "notes": "Springer sends official reviewer acknowledgement letters per review",
+    },
+    {
+        "opportunity": "DFW Tech & Innovation Awards Judge",
+        "org": "Dallas Business Journal / Dallas Regional Chamber",
+        "how": "Apply as judge for healthcare AI or digital health category",
+        "visa_criterion": "EB-1A Criterion 4 + Criterion 1 (award context)",
+        "timeline": "Annual — applications Q1 each year",
+        "notes": "Local recognition still qualifies for EB-1A; often generates press",
+    },
+]
+
+
+# ── Visa criteria mapping ─────────────────────────────────────────────────────
+
+VISA_MAP = {
+    "EB-1A Criterion 5 — Original Contributions": {
+        "status": "STRONG — documented now",
+        "evidence": [
+            "DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture "
+            "— original coinage by Ram Vadlamudi; no prior published work applies this "
+            "three-layer deterministic/generative/predictive design to healthcare RCM",
+            "847-rule deterministic engine covering ALL LCD/NCD/MolDX policies, DEX Z-codes, "
+            "CPT 81400–81479, PLA codes",
+            "FHIR R4 + EDI 835/837 + LLM integration for molecular diagnostic claim recovery "
+            "— no existing published architecture covers this integration stack",
+            "First AI platform purpose-built for independent lab PGx + NGS + MolDX compliance",
+            "Native Texas SB 1188 + TRAIGA compliance architecture (first-mover)",
+        ],
+        "documents": ["White paper", "Paper 1 (submit to arXiv)", "GitHub architecture docs"],
+    },
+    "EB-1A Criterion 8 — Leading Role in Distinguished Org": {
+        "status": "MODERATE — strengthens as pilots launch",
+        "evidence": [
+            "Ram: Founder & Enterprise Architect, Ardia Health (Delaware LLC, Jan 2026)",
+            "Manasa: Co-Founder & CEO, Ardia Health",
+            "GCP infrastructure, HIPAA BAA, HITRUST CSF / SOC 2 roadmap",
+            "$3.5M Seed raise at $18M valuation cap",
+        ],
+        "documents": ["Company incorporation docs", "Pitch deck slide 7", "GCP agreement"],
+    },
+    "EB-1A Criterion 6 — Scholarly Publications": {
+        "status": "GAP — submit Paper 1 to arXiv this week",
+        "evidence": [
+            "Paper 1: DGP Architecture (arXiv cs.AI — live in 1–2 days after submission)",
+            "Paper 2: Lab Denial Crisis systematic analysis (arXiv q-bio.QM)",
+            "Paper 3: AI governance under SB 1188/TRAIGA",
+            "Paper 4: Payer AI insider analysis (Manasa — NEJM AI target)",
+            "Paper 5: Pilot results (after Q2 2026 lab launch)",
+        ],
+        "documents": ["arXiv submission receipts", "Journal acceptance letters"],
+    },
+    "EB-1A Criterion 4 — Judging Others' Work": {
+        "status": "GAP — apply now",
+        "evidence": [
+            "JAMIA peer reviewer (email editor@jamia.org this week)",
+            "AMIA Annual Symposium reviewer",
+            "NIH SBIR/STTR study section (highest prestige)",
+            "Health Wildcatters mentor/judge (DFW — local connection)",
+        ],
+        "documents": ["Official reviewer acknowledgement letters from journals/NIH"],
+    },
+    "EB-1A Criterion 3 — Press / Published Material About You": {
+        "status": "GAP — pitch proactively",
+        "evidence": [
+            "Pitch PAMA 2027 story to Becker's Hospital Review, MedCity News, Healthcare IT Today",
+            "DFW Business Journal — local angle on DFW healthcare AI",
+            "Health Wildcatters acceptance = automatic press release",
+            "STAT News / POLITICO Health — payer AI vs. provider AI angle",
+        ],
+        "documents": ["Published article URLs/PDFs with Ram or Manasa quoted or profiled"],
+    },
+    "EB-1A Criterion 2 — Membership in Distinguished Associations": {
+        "status": "GAP — apply now",
+        "evidence": [
+            "HIMSS (Healthcare Information and Management Systems Society)",
+            "AMIA (American Medical Informatics Association)",
+            "Forbes Technology Council",
+            "ACLA (American Clinical Laboratory Association)",
+        ],
+        "documents": ["Membership acceptance letters/certificates"],
+    },
+    "EB-1A Criterion 1 — Awards/Prizes": {
+        "status": "GAP — apply now",
+        "evidence": [
+            "Fast Company Most Innovative Companies in Healthcare",
+            "Dallas Innovation Awards / DFW Tech & Innovation Awards",
+            "Google Cloud for Startups showcase",
+            "ADLM (Association for Diagnostics & Laboratory Medicine) awards",
+        ],
+        "documents": ["Award certificates, finalist notifications, press releases"],
+    },
+    "EB-2 NIW Prong 1 — National Importance": {
+        "status": "STRONG — all citations ready",
+        "evidence": [
+            "$10–12B annual lab revenue loss (XiFin 2024 [2], HFMA 2024 [5])",
+            "35.3% molecular Dx denial rate — highest in all of healthcare [2]",
+            "2.76× denial disparity: independent vs. hospital labs [1]",
+            "7,000+ independent CLIA labs at PAMA 2027 existential risk [4][8]",
+            "65% of denials never appealed [5]",
+        ],
+        "documents": ["Paper 2 (systematic analysis)", "Market intelligence PDF"],
+    },
+    "EB-2 NIW Prong 2 — Well Positioned": {
+        "status": "STRONG",
+        "evidence": [
+            "Ram: 15+ yrs IT, 8+ yrs healthcare IT (Alsac/CIGNA/Medifast/Teladoc/UHC/ECFMG); "
+            "inventor of DGP architecture; platform complete March 2026",
+            "Manasa: 10+ yrs IT, 5+ yrs healthcare IT (Interwell Health/UHG/ECFMG); "
+            "direct payer-side knowledge of denial systems that Ardia defeats",
+        ],
+        "documents": ["White paper", "LinkedIn profiles", "Paper 4 (Manasa's insider analysis)"],
+    },
+    "EB-2 NIW Prong 3 — Beneficial to US to Waive Labor Cert": {
+        "status": "STRONG",
+        "evidence": [
+            "No comparable AI-native platform for independent labs — genuine market white space",
+            "Solving $12B/yr drain on US healthcare system",
+            "Preserves lab access for rural, underserved, addiction medicine communities",
+            "Native Texas SB 1188 + TRAIGA compliance — advancing US AI governance frameworks",
+            "Preserves 32% of US diagnostic test volume (7,000+ labs)",
+        ],
+        "documents": ["Paper 3 (regulatory AI)", "Market intelligence PDF", "White paper"],
+    },
+}
+
+
+# ── Output functions ──────────────────────────────────────────────────────────
 
 def extract_docx(path):
     try:
@@ -62,725 +996,6 @@ def load_source_docs():
     return docs
 
 
-# ── Core citation library ─────────────────────────────────────────────────────
-
-CITATIONS = {
-    "jama_2025": {
-        "ref": "[1]",
-        "full": "Georgetown University. NGS Denial Rates in Medicare Claims: A Cohort Analysis. "
-                "JAMA Network Open. April 2025. n=29,919. "
-                "Key findings: Overall NGS denial rate 23.3%; rose to 27.4% post-2020 NCD amendment; "
-                "independent labs face 2.76× higher denial odds vs. hospital labs (OR=2.76, p<0.001); "
-                "median denied NGS claim value $3,800.",
-        "claim": "Independent laboratories face 2.76× higher denial odds compared to hospital-based labs",
-        "visa_use": "NIW Prong 1 (national importance), EB-1A Criterion 5 (problem significance)",
-    },
-    "xifin_2024": {
-        "ref": "[2]",
-        "full": "XiFin Inc. 2024 Payor Denial Impact Report. Analyzed 20M+ claims. "
-                "Molecular diagnostic CPT codes denied at 35.3% vs. 19.3% standard lab claims "
-                "vs. 11.8% overall healthcare average. "
-                "Industry-highest denial category.",
-        "claim": "Molecular diagnostics have the highest denial rate in all of healthcare at 35.3%",
-        "visa_use": "NIW Prong 1, EB-1A Criterion 5",
-    },
-    "frontiers_pharma_2023": {
-        "ref": "[3]",
-        "full": "Frontiers in Pharmacology. Pharmacogenomics Reimbursement Analysis. 2023. "
-                "Only 46% of PGx claims reimbursed; more than half of PGx testing revenue "
-                "is at structural reimbursement risk.",
-        "claim": "Only 46% of pharmacogenomics claims are reimbursed",
-        "visa_use": "NIW Prong 1, EB-1A Criterion 5",
-    },
-    "acla_2024": {
-        "ref": "[4]",
-        "full": "American Clinical Laboratory Association (ACLA). 2024 Industry Survey. "
-                "50%+ of independent lab operators considering selling or merging if PAMA cuts take effect.",
-        "claim": "Over 50% of independent labs at existential risk from PAMA 2027",
-        "visa_use": "NIW Prong 1 (national healthcare infrastructure at risk)",
-    },
-    "hfma_ligolab_2024": {
-        "ref": "[5]",
-        "full": "Healthcare Financial Management Association + LigoLab. 2024 Revenue Cycle Benchmarking Report. "
-                "65% of denied lab claims never appealed despite 50–80.7% win rates when pursued. "
-                "Manual denial rework costs $25–$181 per claim; avg. 2+ staff hours per appeal.",
-        "claim": "65% of denied lab claims are never appealed despite high win rates",
-        "visa_use": "NIW Prong 1, EB-1A Criterion 5 (problem Ardia solves)",
-    },
-    "waystar_2024": {
-        "ref": "[6]",
-        "full": "Waystar Health. IPO Filing. 2024. Valuation: $3.5 billion. "
-                "Hospital-focused RCM AI — excludes independent lab segment.",
-        "claim": "Hospital RCM AI has attracted $3.5B IPO valuation while independent labs remain unserved",
-        "visa_use": "EB-1A Criterion 5 (market gap), NIW Prong 2",
-    },
-    "r1rcm_2024": {
-        "ref": "[7]",
-        "full": "R1 RCM. Acquisition. 2024. $8.9 billion acquisition. Validates enterprise AI RCM market.",
-        "claim": "$8.9B acquisition validates the AI revenue cycle market",
-        "visa_use": "EB-1A Criterion 8 (distinguished org), NIW Prong 3",
-    },
-    "cms_pama": {
-        "ref": "[8]",
-        "full": "Centers for Medicare & Medicaid Services (CMS). Protecting Access to Medicare Act (PAMA). 2014. "
-                "Scheduled rate cuts: up to 15%/year for 3 years beginning January 1, 2027. "
-                "Cumulative reduction up to 45% by 2029.",
-        "claim": "PAMA 2027 threatens up to 45% cumulative Medicare rate cuts for clinical labs",
-        "visa_use": "NIW Prong 1 (policy urgency), EB-1A Criterion 5",
-    },
-    "texas_sb1188": {
-        "ref": "[9]",
-        "full": "Texas Senate Bill 1188. Effective September 1, 2025. "
-                "Requires human review of AI-generated clinical content; patient disclosure; "
-                "US-based data residency for Texas residents; penalties $5,000–$250,000 per violation.",
-        "claim": "Texas SB 1188 establishes the first state-level healthcare AI accountability framework",
-        "visa_use": "EB-1A Criterion 5 (Ardia compliant), NIW Prong 3 (US AI governance)",
-    },
-    "traiga": {
-        "ref": "[10]",
-        "full": "Texas TRAIGA — Responsible Artificial Intelligence Governance Act (HB 149). Effective January 1, 2026. "
-                "Intent-based liability; healthcare AI disclosure; NIST AI RMF safe harbor; "
-                "36-month regulatory sandbox; preempts local AI ordinances.",
-        "claim": "TRAIGA makes Texas the third US state with comprehensive AI legislation",
-        "visa_use": "EB-1A Criterion 5, NIW Prong 3",
-    },
-    "moldx_cpt": {
-        "ref": "[11]",
-        "full": "CMS MolDx Program / AMA CPT Coding Analysis. 2024–2026. "
-                "75,000+ genetic tests map to fewer than 200 molecular pathology CPT codes. "
-                "PLA codes: 37% of new CPT code additions. Claims for 50+ gene panels: 1.32× higher denial rate. "
-                "29% of Medicare lab claims in 2023 contained coding errors.",
-        "claim": "Extreme coding complexity: 75,000 tests, <200 CPT codes, 35%+ error/denial rates",
-        "visa_use": "EB-1A Criterion 5 (technical innovation necessity)",
-    },
-}
-
-
-# ── Paper templates ───────────────────────────────────────────────────────────
-
-PAPERS = {
-    1: {
-        "title": "Neuro-Symbolic Sandwich Architecture for Healthcare Revenue Cycle Management: "
-                 "Combining Large Language Model Clinical Reasoning, Deterministic Policy Engines, "
-                 "and Machine Learning Denial Prediction",
-        "authors": "Rambabu Vadlamudi",
-        "affiliations": "Ardia Health, Argyle, TX 76226 | ram.vadlamudi@ardiahealthlabs.com",
-        "target_journals": [
-            "arXiv cs.AI (preprint — submit first, public in 1–2 days)",
-            "Journal of the American Medical Informatics Association (JAMIA)",
-            "NEJM AI",
-            "npj Digital Medicine",
-            "Journal of Healthcare Informatics Research",
-        ],
-        "visa_criteria": [
-            "EB-1A Criterion 6 — Scholarly Publication (peer-reviewed technical paper)",
-            "EB-1A Criterion 5 — Original Contribution (novel architecture documented)",
-            "EB-2 NIW Prong 2 — Well positioned (inventor of the architecture)",
-            "O-1A — Published material in the field",
-        ],
-        "abstract": """Background: Healthcare revenue cycle management (RCM) for independent clinical
-laboratories represents a $10–12 billion annual revenue loss problem in the United States, driven
-by claim denial rates of 27–35.3% in molecular diagnostics [1,2] and the structural inability of
-smaller laboratory operators to manually rework denied claims at scale [5].
-
-Methods: We present the Neuro-Symbolic Sandwich Architecture (NSSA), a three-layer hybrid AI
-system designed for autonomous clinical claim recovery. Layer 1 employs a large language model
-(LLM) for clinical documentation reasoning and appeal brief generation. Layer 2 implements a
-deterministic symbolic policy engine encoding 847 rules derived from LCD/NCD/MolDX policies,
-DEX Z-code requirements, CPT molecular pathology codes (81400–81479 series), and PLA codes.
-Layer 3 applies a machine learning denial prediction model trained on historical claims data to
-identify pre-submission denial risk. The system processes EDI 835/837 claims data via FHIR R4
-and HL7 v2 integrations and retrieves supporting evidence from 14 medical databases within 340
-milliseconds. Architecture is compliant with Texas SB 1188 [9] and TRAIGA (HB 149) [10],
-maintaining a complete human-in-loop audit trail.
-
-Results: The NSSA generates evidence-backed appeal briefs in under 90 seconds, reducing manual
-rework from an industry average of 2+ hours per claim [5] to a fully automated workflow. The
-symbolic layer eliminates hallucination risk in policy interpretation by encoding all
-deterministic compliance rules outside the neural network pathway. Initial platform deployment
-targets independent laboratory operators facing 2.76× higher denial odds than hospital-based
-peers [1].
-
-Discussion: The neuro-symbolic hybrid approach addresses the fundamental tension between the
-generative flexibility required for clinical narrative generation and the zero-error tolerance
-required for regulatory compliance. Purely LLM-based approaches risk policy hallucination;
-purely rules-based approaches cannot handle the natural language variability of clinical
-documentation. The sandwich architecture resolves this by assigning each function to the
-appropriate computational substrate. This architecture represents a novel application of
-neuro-symbolic AI to healthcare administrative automation and may serve as a template for
-other high-compliance healthcare AI domains.
-
-Conclusion: The Neuro-Symbolic Sandwich Architecture provides a viable technical framework for
-AI-driven clinical claim recovery in independent clinical laboratories, with direct implications
-for addressing the $12 billion annual revenue loss crisis in US independent laboratory medicine.
-
-Keywords: neuro-symbolic AI, revenue cycle management, clinical laboratory, claim denial,
-FHIR, healthcare AI, molecular diagnostics, MolDX, pharmacogenomics""",
-        "outline": [
-            "1. Introduction — The independent lab denial crisis (cite [1][2][5])",
-            "2. Background — Current RCM approaches and their limitations",
-            "   2.1 Rules-based billing systems (cannot handle clinical narrative)",
-            "   2.2 Pure LLM approaches (hallucination risk in policy interpretation)",
-            "   2.3 The MolDX compliance burden (847+ rules, 75,000 tests, 200 CPT codes [11])",
-            "3. The Neuro-Symbolic Sandwich Architecture",
-            "   3.1 Layer 1: LLM Clinical Reasoning",
-            "   3.2 Layer 2: Symbolic Policy Engine (847 rules, LCD/NCD/MolDX/DEX Z-codes)",
-            "   3.3 Layer 3: ML Denial Prediction Model",
-            "   3.4 System integration (FHIR R4, EDI 835/837, HL7 v2, 14 medical DBs)",
-            "   3.5 Compliance architecture (SB 1188, TRAIGA, HIPAA audit trail)",
-            "4. Implementation",
-            "   4.1 Data pipeline design",
-            "   4.2 LLM prompt engineering for medical necessity arguments",
-            "   4.3 Symbolic rule compilation from LCD/NCD/MolDX policies",
-            "   4.4 ML model training on historical claim outcomes",
-            "5. Results (initial deployment / pilot data)",
-            "   5.1 Appeal brief generation time (<90s vs. 2hr+ manual)",
-            "   5.2 Policy coverage (all LCD/NCD/MolDX covered)",
-            "   5.3 Compliance audit trail",
-            "6. Discussion — Comparison with prior RCM AI approaches",
-            "7. Limitations and Future Work",
-            "8. Conclusion",
-            "References",
-        ],
-    },
-
-    2: {
-        "title": "The Independent Laboratory Revenue Crisis: A Systematic Analysis of Claim Denial Rates, "
-                 "Appeal Abandonment, and AI-Addressable Revenue Loss in US Molecular Diagnostics "
-                 "and Pharmacogenomics (2020–2026)",
-        "authors": "Rambabu Vadlamudi, Manasa Jampani",
-        "affiliations": "Ardia Health, Argyle, TX 76226 | founders@ardiahealthlabs.com",
-        "target_journals": [
-            "arXiv q-bio.QM or cs.CY (preprint)",
-            "Journal of Managed Care & Specialty Pharmacy (JMCP)",
-            "Clinical Chemistry",
-            "Journal of the American Health Information Management Association (AHIMA)",
-            "Health Affairs (commentary/brief)",
-        ],
-        "visa_criteria": [
-            "EB-1A Criterion 6 — Scholarly Publication (systematic review)",
-            "EB-2 NIW Prong 1 — Substantial merit & national importance (cites peer-reviewed evidence)",
-            "EB-2 NIW Prong 2 — Well positioned (founders analyzed this data to build the platform)",
-            "O-1A — Published material in the field",
-        ],
-        "abstract": """Background: Independent clinical laboratories account for 32% of US diagnostic test
-volume yet face a systematic reimbursement failure that threatens their financial viability.
-This study synthesizes available data on claim denial rates, appeal behavior, and revenue
-loss across independent laboratory segments, with specific focus on molecular diagnostics
-and pharmacogenomics.
-
-Methods: We performed a systematic review of industry reports, peer-reviewed literature,
-and regulatory data published between 2020 and 2026. Data sources included XiFin's 2024
-Payor Denial Impact Report (20M+ claims), JAMA Network Open's 2025 cohort study of 29,919
-NGS claims, Frontiers in Pharmacology's 2023 PGx reimbursement analysis, CMS PAMA
-implementation data, HFMA/LigoLab 2024 revenue cycle benchmarking, and ACLA 2024 industry
-survey data.
-
-Results: Molecular diagnostic CPT codes are denied at 35.3%, compared to 11.8% for all
-healthcare claims [2]. Independent laboratories face 2.76× higher denial odds than hospital-
-based laboratories (OR=2.76, p<0.001, n=29,919) [1]. Pharmacogenomics reimbursement failure
-exceeds 54% of submitted claims [3]. Despite 50–80.7% appeal win rates, 65% of denied claims
-are never appealed due to staff capacity constraints and $25–$181 per-claim rework costs [5].
-PAMA-mandated Medicare rate cuts of up to 15% annually beginning January 1, 2027, threaten
-to accelerate the financial distress already causing 50%+ of independent lab operators to
-consider consolidation [4][8].
-
-Discussion: The convergence of AI-driven payer denial automation, PAMA reimbursement cuts,
-and expanding molecular diagnostic test complexity creates an existential financial challenge
-for independent laboratories. Between 2022 and 2025, full payer AI adoption for claim
-processing grew from 8% to 34%, while only 14% of providers have deployed AI denial
-countermeasures. This asymmetry — payer AI sophistication vastly exceeding provider AI
-adoption — explains the widening gap between theoretical and actual reimbursement. The
-7,000+ independent CLIA-certified laboratories serving rural, underserved, and specialty
-medicine communities are disproportionately exposed to this asymmetry.
-
-Conclusion: Independent clinical laboratory revenue loss to claim denials represents a
-$10–12 billion annual drain on US healthcare infrastructure. AI-native denial recovery
-platforms purpose-built for independent laboratory compliance complexity — MolDX DEX
-Z-codes, 847+ LCD/NCD rules, PGx CPT code mapping — represent the most direct
-intervention available to preserve independent laboratory financial viability through
-PAMA 2027 and beyond.
-
-Keywords: clinical laboratory, revenue cycle management, claim denial, molecular diagnostics,
-pharmacogenomics, PAMA, MolDX, healthcare AI, independent laboratory""",
-        "outline": [
-            "1. Introduction — Independent labs: essential but financially precarious",
-            "2. Methods — Systematic review protocol, data sources, inclusion criteria",
-            "3. The Denial Rate Landscape",
-            "   3.1 Overall industry denial rates (13.6% average)",
-            "   3.2 Molecular diagnostics: 27–35.3% (highest in healthcare)",
-            "   3.3 Pharmacogenomics: 54%+ failure rate",
-            "   3.4 NGS claims: 23.3% → 27.4% post-NCD (Georgetown 2025 cohort)",
-            "   3.5 Independent vs. hospital lab disparity (2.76× OR)",
-            "4. The Appeal Abandonment Problem",
-            "   4.1 65% never appealed despite 50–80.7% win rates",
-            "   4.2 Staff capacity constraints ($25–$181/claim, 2+ hrs)",
-            "   4.3 Economic break-even analysis for manual vs. AI-assisted appeal",
-            "5. The Payer AI Asymmetry",
-            "   5.1 Payer AI adoption: 8% → 34% (2022–2025)",
-            "   5.2 Provider AI adoption: 14% with measurable improvement",
-            "   5.3 UHG NaviHealth, Cigna eviCore — denial automation mechanisms",
-            "6. PAMA 2027: The Reimbursement Cliff",
-            "   6.1 Historical rate trajectory and PAMA delay history",
-            "   6.2 Projected 45% cumulative reduction by 2029",
-            "   6.3 Lab consolidation pressures (50%+ considering sale/merger)",
-            "7. MolDX Compliance Complexity",
-            "   7.1 DEX Z-code mandatory requirements",
-            "   7.2 75,000 tests → <200 CPT codes mapping challenge",
-            "   7.3 CPT code volatility: 270 new codes, 112 deletions in 2026 update",
-            "8. AI Intervention Framework",
-            "   8.1 Requirements for AI-native denial recovery in independent labs",
-            "   8.2 Comparison of existing RCM AI (hospital-focused gap)",
-            "   8.3 Neuro-Symbolic Sandwich Architecture as proposed solution",
-            "9. Policy Recommendations",
-            "10. Conclusion",
-            "References",
-        ],
-    },
-
-    3: {
-        "title": "AI Governance in Clinical Revenue Recovery: Compliance Frameworks Under Texas SB 1188 "
-                 "and TRAIGA for Healthcare AI Startups Operating in Molecular Diagnostics",
-        "authors": "Rambabu Vadlamudi, Manasa Jampani",
-        "affiliations": "Ardia Health, Argyle, TX 76226 | founders@ardiahealthlabs.com",
-        "target_journals": [
-            "arXiv cs.CY (preprint)",
-            "Journal of Health Politics, Policy and Law",
-            "Journal of the American Health Information Management Association (AHIMA)",
-            "Health Affairs (regulatory commentary)",
-            "Journal of Law and the Biosciences (Oxford)",
-        ],
-        "visa_criteria": [
-            "EB-1A Criterion 6 — Scholarly Publication",
-            "EB-1A Criterion 5 — Original Contribution (policy framework application)",
-            "EB-2 NIW Prong 3 — Beneficial to US (advancing AI governance frameworks)",
-            "O-1A — Distinguished achievement in healthcare AI policy",
-        ],
-        "abstract": """Background: Texas enacted two landmark artificial intelligence governance statutes —
-Senate Bill 1188 (effective September 1, 2025) and the Texas Responsible Artificial
-Intelligence Governance Act (TRAIGA, HB 149, effective January 1, 2026) — making Texas
-the third US state with comprehensive AI legislation. Healthcare AI startups operating in
-clinical revenue recovery represent a particularly complex compliance context: they process
-Protected Health Information under HIPAA, generate AI-assisted clinical documentation under
-SB 1188, and operate in the 36-month regulatory sandbox established by TRAIGA.
-
-Methods: We analyze the operational compliance requirements for healthcare AI platforms
-under SB 1188 and TRAIGA, focusing on clinical revenue cycle management applications in
-molecular diagnostics. We describe a compliance-by-design framework implemented in a
-production AI-native clinical laboratory revenue recovery platform.
-
-Results: We identify seven categories of SB 1188 and TRAIGA compliance requirements
-applicable to healthcare AI startups: (1) human-in-loop review mandate, (2) patient
-disclosure obligations, (3) US data residency requirements for Texas residents,
-(4) behavioral manipulation prohibition (particularly relevant for addiction medicine
-lab deployments), (5) NIST AI RMF alignment for safe harbor eligibility,
-(6) intentional discrimination prohibition in AI decision logic, and
-(7) audit trail requirements compatible with HIPAA minimum necessary standards.
-
-Discussion: We argue that the TRAIGA regulatory sandbox creates a first-mover advantage
-for healthcare AI startups that build these compliance requirements natively into their
-architecture versus retrofitting them after deployment. The intent-based liability
-framework in TRAIGA — more startup-friendly than Colorado's SB 205 intent-agnostic
-standard — enables AI innovation while preserving patient protection. Companies building
-SB 1188 and TRAIGA compliance as core product capabilities create structural competitive
-barriers that cannot be overcome without significant engineering investment.
-
-Conclusion: Texas SB 1188 and TRAIGA establish a practical US model for healthcare AI
-governance. Healthcare AI platforms built on this compliance foundation — combining HIPAA,
-NIST AI RMF, SB 1188, and TRAIGA — represent the emerging standard for responsible AI
-deployment in clinical settings.
-
-Keywords: AI governance, healthcare AI, HIPAA, Texas SB 1188, TRAIGA, NIST AI RMF,
-clinical AI, molecular diagnostics, revenue cycle management, regulatory compliance""",
-        "outline": [
-            "1. Introduction — The US healthcare AI governance landscape",
-            "2. Texas as the Third US State with Comprehensive AI Legislation",
-            "   2.1 Colorado SB 205 (intent-agnostic liability model)",
-            "   2.2 Utah AI Policy Act",
-            "   2.3 Texas SB 1188 + TRAIGA (intent-based, startup-friendly)",
-            "3. SB 1188 Requirements for Healthcare AI",
-            "   3.1 Human-in-loop clinical review mandate",
-            "   3.2 Patient disclosure requirements",
-            "   3.3 US data residency (Texas residents, effective Jan 1, 2026)",
-            "   3.4 Penalty structure ($5K–$250K per intentional violation)",
-            "4. TRAIGA Requirements for Healthcare AI",
-            "   4.1 NIST AI RMF safe harbor pathway",
-            "   4.2 36-month regulatory sandbox for innovation",
-            "   4.3 Behavioral manipulation prohibition",
-            "   4.4 Preemption of local AI ordinances",
-            "5. The Compliance-by-Design Framework",
-            "   5.1 Audit trail architecture (HIPAA + SB 1188)",
-            "   5.2 Human-in-loop workflow integration",
-            "   5.3 US infrastructure deployment requirements",
-            "   5.4 NIST AI RMF implementation in production systems",
-            "6. Molecular Diagnostics-Specific Compliance Considerations",
-            "   6.1 CLIA requirements intersection with AI oversight",
-            "   6.2 MolDX + SB 1188: AI-generated clinical appeals under human review",
-            "   6.3 Addiction medicine / behavioral health AI constraints under TRAIGA",
-            "7. Policy Implications for National AI Governance",
-            "   7.1 Texas model as template for federal legislation",
-            "   7.2 First-mover compliance as competitive moat",
-            "8. Conclusion",
-            "References",
-        ],
-    },
-
-    4: {
-        "title": "Payer AI Denial Algorithms in Clinical Laboratory Claims: An Insider Analysis of "
-                 "Decision Logic, Documentation Requirements, and AI-Countermeasure Strategies "
-                 "for Independent Laboratories",
-        "authors": "Manasa Jampani, Rambabu Vadlamudi",
-        "affiliations": "Ardia Health, Argyle, TX 76226 | founders@ardiahealthlabs.com",
-        "target_journals": [
-            "NEJM AI",
-            "Health Affairs",
-            "American Journal of Managed Care (AJMC)",
-            "Journal of Healthcare Management",
-            "Medical Care (AcademyHealth)",
-        ],
-        "visa_criteria": [
-            "EB-1A Criterion 6 — Scholarly Publication (unique insider perspective)",
-            "EB-1A Criterion 5 — Original Contribution (only person with this vantage point)",
-            "EB-2 NIW Prong 2 — Well positioned (12+ yrs at Cigna, UHG, Optum, Teladoc)",
-            "O-1A — Extraordinary ability through unique expertise no one else possesses",
-        ],
-        "abstract": """Background: Commercial health insurance payers have rapidly deployed AI-powered
-claim processing systems to automate denial decisions. UnitedHealth Group's NaviHealth
-algorithms and Cigna's eviCore platform represent well-documented examples of AI systems
-trained to identify documentation deficiencies and medical necessity gaps. Between 2022
-and 2025, full payer AI adoption for claim processing grew from 8% to 34%, while provider
-AI countermeasure adoption reached only 14%. This asymmetry is particularly acute in
-clinical laboratory claims, where the complexity of molecular diagnostic coding (75,000+
-tests, <200 CPT codes) creates systematic documentation vulnerabilities.
-
-Methods: Drawing on 12+ years of direct experience in payer clinical operations at Cigna,
-UnitedHealth Group, Optum, and Teladoc Health, this analysis describes the decision logic,
-documentation threshold requirements, and failure modes that drive AI-generated laboratory
-claim denials. We analyze denial triggers specific to molecular diagnostics,
-pharmacogenomics, toxicology, and NGS testing categories.
-
-Results: We identify seven primary AI denial trigger categories in laboratory claims:
-(1) medical necessity documentation gaps in ordering physician notes, (2) DEX Z-code
-absence or error, (3) CPT/ICD-10 code pairing inconsistency, (4) missing prior
-authorization or coverage determination, (5) test-to-diagnosis clinical utility linkage
-failure, (6) LOINC/SNOMED coding mismatch, and (7) temporal policy compliance gaps
-(tests ordered before NCD/LCD effective dates). We further describe the documentation
-quality standards that AI systems score against and the countermeasure documentation
-elements that consistently overcome AI-initiated denials.
-
-Discussion: The information asymmetry between payer AI systems and independent laboratory
-billing staff is the fundamental driver of the $10–12 billion annual revenue loss in the
-independent laboratory segment. Payer AI systems are trained on successful denial patterns;
-provider teams operate without visibility into what those patterns are. This paper
-represents the first systematic publication of payer-side AI denial logic from the vantage
-point of someone who built and operated these systems.
-
-Conclusion: Independent clinical laboratories can systematically recover AI-denied claims
-by building documentation processes that specifically address the seven denial trigger
-categories identified. AI countermeasure systems trained on payer denial logic — rather
-than general clinical documentation — represent the appropriate technological response to
-payer AI deployment.
-
-Keywords: payer AI, claim denial, clinical laboratory, revenue cycle management,
-medical necessity, molecular diagnostics, documentation quality, AI countermeasures,
-health insurance""",
-        "outline": [
-            "1. Introduction — The payer AI revolution in claim processing",
-            "2. Background: The Author's Vantage Point",
-            "   2.1 Clinical operations at national payers (Cigna, UHG, Optum, Teladoc)",
-            "   2.2 Why this perspective is unique (built the denial logic being described)",
-            "3. Payer AI Denial System Architecture",
-            "   3.1 NaviHealth and eviCore: known algorithmic frameworks",
-            "   3.2 Training data: historical denial pattern learning",
-            "   3.3 Documentation scoring mechanisms",
-            "   3.4 Speed vs. accuracy trade-offs (8% → 34% AI adoption 2022–2025)",
-            "4. The Seven AI Denial Trigger Categories in Laboratory Claims",
-            "   4.1 Medical necessity documentation gaps",
-            "   4.2 DEX Z-code compliance failures",
-            "   4.3 CPT/ICD-10 pairing inconsistencies",
-            "   4.4 Prior authorization gaps",
-            "   4.5 Clinical utility linkage failures",
-            "   4.6 LOINC/SNOMED coding mismatches",
-            "   4.7 Temporal policy compliance gaps",
-            "5. Molecular Diagnostics-Specific Denial Patterns",
-            "   5.1 NGS: NCD compliance documentation (23.3% → 27.4% post-NCD [1])",
-            "   5.2 PGx: clinical utility justification requirements",
-            "   5.3 Toxicology: medical necessity + treatment plan linkage",
-            "6. The Countermeasure Documentation Framework",
-            "   6.1 Elements that consistently overcome AI-generated denials",
-            "   6.2 Evidence retrieval: 14 medical databases + LCD/NCD policy alignment",
-            "   6.3 AI appeal brief generation: matching the scoring criteria",
-            "7. Policy Implications",
-            "   7.1 Information asymmetry as a health equity issue",
-            "   7.2 CMS oversight of payer AI systems",
-            "   7.3 NAIC model bulletin on AI in insurance",
-            "8. Conclusion",
-            "References",
-        ],
-    },
-
-    5: {
-        "title": "Pilot Outcomes: AI-Driven Molecular Diagnostic Claim Recovery in an Independent "
-                 "Dallas-Fort Worth Clinical Laboratory — A Case Study of Neuro-Symbolic "
-                 "Architecture Deployment",
-        "authors": "Rambabu Vadlamudi, Manasa Jampani",
-        "affiliations": "Ardia Health, Argyle, TX 76226 | founders@ardiahealthlabs.com",
-        "target_journals": [
-            "Journal of Healthcare Management",
-            "Clinical Laboratory Science",
-            "JAMIA Open",
-            "Healthcare (MDPI, open access)",
-        ],
-        "visa_criteria": [
-            "EB-1A Criterion 6 — Scholarly Publication (pilot results = empirical evidence)",
-            "EB-1A Criterion 5 — Original Contribution (real-world evidence of novel arch.)",
-            "EB-2 NIW Prong 2 — Well positioned (demonstrated measurable results)",
-            "O-1A — Distinguished achievement with documented outcomes",
-        ],
-        "abstract": """[TEMPLATE — complete after Q2 2026 pilot launch with real data]
-
-Background: Independent clinical laboratory claim denial rates for molecular diagnostics
-reach 27–35.3% nationally [1][2], with 65% of denials abandoned without appeal [5].
-We report the initial deployment outcomes of an AI-native denial recovery platform using
-the Neuro-Symbolic Sandwich Architecture (NSSA) at [PILOT LAB NAME], a [SIZE]-test-per-month
-independent clinical laboratory in the Dallas-Fort Worth metropolitan area.
-
-Methods: Retrospective cohort of [N] denied laboratory claims submitted between [DATES]
-across molecular diagnostics (CPT 81400–81479), pharmacogenomics (CPT 81225, 81226,
-81227 series), and toxicology (CPT 80305–80307) categories. The NSSA system processed
-EDI 835 denial remittances, identified appeal-eligible claims, generated evidence-backed
-appeal briefs from 14 medical database queries and LLM clinical reasoning, and submitted
-appeals with human-in-loop review per SB 1188 requirements.
-
-Results: [FILL WITH REAL DATA]:
-  - N claims processed: [X]
-  - Appeal briefs generated within 90 seconds: [X%]
-  - Appeals filed: [X%] of eligible denials
-  - Appeals won: [X%]
-  - Revenue recovered: $[X]
-  - Time from denial to appeal submission: [X days] vs. [Y days] manual baseline
-  - Staff time per appeal: [X minutes] vs. 2+ hours manual baseline
-
-Discussion: [Complete after results]
-
-Conclusion: [Complete after results]
-
-Keywords: clinical laboratory, AI, denial recovery, revenue cycle management,
-neuro-symbolic AI, molecular diagnostics, FHIR, Dallas-Fort Worth, pilot study""",
-        "outline": [
-            "1. Introduction (cite Papers 1 and 2 above)",
-            "2. Setting — The pilot laboratory (anonymized if needed)",
-            "3. The NSSA System (brief summary, cite Paper 1 for detail)",
-            "4. Methods",
-            "   4.1 Study period and claim cohort",
-            "   4.2 Denial categories analyzed",
-            "   4.3 Outcome measures",
-            "5. Results",
-            "   5.1 Claims processed and appeal eligibility determination",
-            "   5.2 Appeal brief generation time",
-            "   5.3 Appeal outcomes (win rate, revenue recovered)",
-            "   5.4 Comparison to manual baseline",
-            "6. Discussion",
-            "7. Limitations",
-            "8. Conclusion",
-            "References",
-        ],
-    },
-}
-
-
-# ── Judging / peer review opportunities ──────────────────────────────────────
-
-JUDGING_OPPORTUNITIES = [
-    {
-        "opportunity": "JAMIA Peer Reviewer",
-        "org": "Journal of the American Medical Informatics Association",
-        "how": "Email editor-in-chief: editor@jamia.org — offer to review submissions in: "
-               "clinical NLP, AI in revenue cycle, FHIR interoperability, healthcare AI governance",
-        "visa_criterion": "EB-1A Criterion 4 — Judging the work of others in the field",
-        "timeline": "Apply immediately — takes 2–4 weeks for assignment",
-        "notes": "Even reviewing 1–2 papers generates an official acknowledgement from the journal",
-    },
-    {
-        "opportunity": "HIMSS 2027 Abstract Reviewer",
-        "org": "Healthcare Information and Management Systems Society",
-        "how": "Apply at himss.org/about/call-for-reviewers — typically opens 6 months before conference",
-        "visa_criterion": "EB-1A Criterion 4 + Criterion 2 (HIMSS membership)",
-        "timeline": "HIMSS 2027: apply Q3 2026",
-        "notes": "Reviewer credential appears in conference proceedings",
-    },
-    {
-        "opportunity": "AMIA Annual Symposium Reviewer",
-        "org": "American Medical Informatics Association",
-        "how": "amia.org — sign up as reviewer for Annual Symposium (clinical informatics track)",
-        "visa_criterion": "EB-1A Criterion 4 + Criterion 2 (AMIA membership)",
-        "timeline": "Annual Symposium: typically reviews in March–April",
-        "notes": "Reviewing for AMIA is a recognized qualifier for AMIA membership application",
-    },
-    {
-        "opportunity": "Health Wildcatters Demo Day Judge / Mentor",
-        "org": "Health Wildcatters (Dallas healthcare accelerator)",
-        "how": "healthwildcatters.com/mentor — apply as mentor/judge for cohort demo days",
-        "visa_criterion": "EB-1A Criterion 4 (judging pitch competition) + press coverage",
-        "timeline": "Rolling applications",
-        "notes": "Also generates press coverage on acceptance — dual benefit for Criterion 3",
-    },
-    {
-        "opportunity": "SXSW Health & MedTech Pitch Competition Judge",
-        "org": "South by Southwest (Austin, TX)",
-        "how": "sxsw.com/pitch — nominate yourself or apply as judge/mentor for health track",
-        "visa_criterion": "EB-1A Criterion 4 (judging) + Criterion 3 (press coverage)",
-        "timeline": "Applications open: September–October annually",
-        "notes": "SXSW generates significant press for participants and judges",
-    },
-    {
-        "opportunity": "Google Cloud for Startups Mentor / Judge",
-        "org": "Google Cloud",
-        "how": "cloud.google.com/startup — apply to mentor network; Ardia's GCP use creates a connection",
-        "visa_criterion": "EB-1A Criterion 4 + Criterion 8 (association with distinguished org)",
-        "timeline": "Rolling",
-        "notes": "Google Cloud judge/mentor credential carries significant weight for EB-1A",
-    },
-    {
-        "opportunity": "Journal of Healthcare Informatics Research Reviewer",
-        "org": "Springer Nature",
-        "how": "springer.com/journal/41666 — contact editor-in-chief; offer expertise in "
-               "healthcare AI, FHIR, revenue cycle, clinical NLP",
-        "visa_criterion": "EB-1A Criterion 4",
-        "timeline": "Apply immediately",
-        "notes": "Springer journals send official reviewer acknowledgement letters",
-    },
-    {
-        "opportunity": "DFW Tech & Innovation Awards Judge",
-        "org": "Dallas Business Journal / Dallas Regional Chamber",
-        "how": "Apply as judge for healthcare AI or digital health category",
-        "visa_criterion": "EB-1A Criterion 4 (judging) + Criterion 1 (associated with awards)",
-        "timeline": "Annual cycle — typically applications Q1",
-        "notes": "Local recognition still counts for EB-1A; often generates press",
-    },
-    {
-        "opportunity": "NIH Study Section Ad Hoc Reviewer (SBIR/STTR Health IT)",
-        "org": "National Institutes of Health",
-        "how": "csr.nih.gov/Panels/SummarizedMeetings — contact Scientific Review Officer for "
-               "Health Services Research panels; SBIR/STTR study sections for health AI",
-        "visa_criterion": "EB-1A Criterion 4 (highest prestige judging evidence)",
-        "timeline": "Rolling — each study section meets 3x/year",
-        "notes": "NIH study section reviewer is among the strongest possible judging evidence for EB-1A",
-    },
-]
-
-
-# ── Visa criteria mapping ─────────────────────────────────────────────────────
-
-VISA_MAP = {
-    "EB-1A Criterion 5 — Original Contributions": {
-        "status": "STRONG — documented now",
-        "evidence": [
-            "Neuro-Symbolic Sandwich Architecture (novel, described in white paper + Paper 1)",
-            "847-rule symbolic engine covering all LCD/NCD/MolDX policies",
-            "FHIR R4 + EDI 835/837 + LLM integration for clinical claim recovery",
-            "First AI platform purpose-built for independent lab PGx + NGS + MolDX compliance",
-            "Texas SB 1188 + TRAIGA native compliance architecture (first-mover)",
-        ],
-        "documents": ["White paper", "Paper 1 (submit now)", "GitHub architecture docs"],
-    },
-    "EB-1A Criterion 8 — Leading Role in Distinguished Org": {
-        "status": "MODERATE — strengthens as pilots launch",
-        "evidence": [
-            "Ram: Founder & Enterprise Architect, Ardia Health (Delaware LLC, Jan 2026)",
-            "Manasa: Co-Founder & CEO, Ardia Health",
-            "GCP infrastructure, HIPAA BAA, HITRUST CSF / SOC 2 roadmap",
-            "Targeting $3.5M Seed at $18M valuation",
-        ],
-        "documents": ["Pitch deck slide 7", "Company incorporation docs", "GCP agreement"],
-    },
-    "EB-1A Criterion 6 — Scholarly Publications": {
-        "status": "GAP — submit Papers 1 + 2 now",
-        "evidence": [
-            "Paper 1: Architecture paper (arXiv preprint — 1–2 days to public)",
-            "Paper 2: Systematic review (arXiv preprint)",
-            "Paper 3: Regulatory AI (AHIMA / Health Affairs)",
-            "Paper 4: Payer AI insider (NEJM AI / Health Affairs) — Manasa's unique value",
-            "Paper 5: Pilot results (after Q2 2026 launch)",
-        ],
-        "documents": ["arXiv submission receipts", "Journal acceptance letters"],
-    },
-    "EB-1A Criterion 4 — Judging Others' Work": {
-        "status": "GAP — act now",
-        "evidence": [
-            "JAMIA peer reviewer (apply immediately)",
-            "AMIA Annual Symposium reviewer",
-            "Health Wildcatters mentor/judge",
-            "NIH SBIR/STTR study section (highest prestige)",
-        ],
-        "documents": ["Official reviewer acknowledgement letters from journals/conferences"],
-    },
-    "EB-1A Criterion 3 — Press / Published Material About You": {
-        "status": "GAP — proactive pitching needed",
-        "evidence": [
-            "Pitch PAMA 2027 story to: Becker's Hospital Review, MedCity News, Healthcare IT Today",
-            "DFW Business Journal (local business press, easier entry point)",
-            "Health Wildcatters / accelerator acceptance generates automatic press",
-            "STAT News, POLITICO Health on AI vs. payer AI angle",
-        ],
-        "documents": ["Published article URLs/PDFs with Ram/Manasa quoted or profiled"],
-    },
-    "EB-1A Criterion 2 — Membership in Distinguished Associations": {
-        "status": "GAP — apply now",
-        "evidence": [
-            "HIMSS (Healthcare Information and Management Systems Society) — Fellow track",
-            "AMIA (American Medical Informatics Association)",
-            "Forbes Technology Council",
-            "ACLA (American Clinical Laboratory Association) — industry membership",
-        ],
-        "documents": ["Membership acceptance letters/certificates"],
-    },
-    "EB-1A Criterion 1 — Awards/Prizes": {
-        "status": "GAP — apply now",
-        "evidence": [
-            "Fast Company Most Innovative Companies in Healthcare (annual)",
-            "Dallas Innovation Awards / DFW Tech & Innovation Awards",
-            "Google Cloud for Startups showcase",
-            "ADLM (Association for Diagnostics & Laboratory Medicine) awards",
-        ],
-        "documents": ["Award certificates, press releases, finalist notifications"],
-    },
-    "EB-2 NIW Prong 1 — National Importance": {
-        "status": "STRONG — all citations ready",
-        "evidence": [
-            "$10–12B annual lab revenue loss (XiFin 2024, HFMA 2024)",
-            "35.3% molecular Dx denial rate (highest in healthcare) [XiFin 2024]",
-            "2.76× denial disparity: independent vs. hospital labs [JAMA 2025]",
-            "7,000+ independent CLIA labs at PAMA 2027 existential risk [ACLA 2024]",
-            "65% of denials never appealed [HFMA/LigoLab 2024]",
-        ],
-        "documents": ["Paper 2 (systematic review)", "Market intelligence PDF"],
-    },
-    "EB-2 NIW Prong 2 — Well Positioned": {
-        "status": "STRONG",
-        "evidence": [
-            "Ram: inventor of NSSA, platform architecture complete (March 2026)",
-            "Manasa: 12+ yrs at Cigna, UHG, Optum, Teladoc — built the payer denial logic",
-            "Only founders who simultaneously know payer AI AND built the countermeasure system",
-        ],
-        "documents": ["White paper", "LinkedIn profiles", "Paper 4 (Manasa's unique vantage)"],
-    },
-    "EB-2 NIW Prong 3 — Beneficial to US to Waive Labor Cert": {
-        "status": "STRONG",
-        "evidence": [
-            "No comparable platform exists for independent labs (market white space)",
-            "Solving $12B/yr drain on US healthcare system",
-            "Preserving lab access for rural, underserved, addiction medicine communities",
-            "Native Texas AI governance compliance (advancing US AI governance frameworks)",
-            "Preserves 32% of US diagnostic test volume (7,000+ labs)",
-        ],
-        "documents": ["Paper 3 (regulatory AI)", "Market intelligence PDF"],
-    },
-}
-
-
-# ── Output functions ──────────────────────────────────────────────────────────
-
 def print_paper(paper_id, mode="full"):
     p = PAPERS[paper_id]
     print(f"\n{'═'*72}")
@@ -795,6 +1010,8 @@ def print_paper(paper_id, mode="full"):
     print(f"\nVisa Criteria This Paper Satisfies:")
     for c in p['visa_criteria']:
         print(f"  ✅ {c}")
+    print(f"\nWhat Makes This Paper Original:")
+    print(f"  {p['differentiation_from_prior_work']}")
 
     if mode in ("full", "abstract"):
         print(f"\n{'─'*72}")
@@ -812,8 +1029,7 @@ def print_paper(paper_id, mode="full"):
 
 def print_judging():
     print(f"\n{'═'*72}")
-    print("JUDGING / PEER REVIEW OPPORTUNITIES")
-    print("EB-1A Criterion 4 — Judging the Work of Others")
+    print("JUDGING / PEER REVIEW OPPORTUNITIES — EB-1A Criterion 4")
     print(f"{'═'*72}")
     for i, opp in enumerate(JUDGING_OPPORTUNITIES, 1):
         print(f"\n{i}. {opp['opportunity']}")
@@ -826,14 +1042,47 @@ def print_judging():
 
 def print_citations():
     print(f"\n{'═'*72}")
-    print("COMPLETE CITATION LIBRARY")
-    print("(All citations from Ardia Health source documents)")
+    print("COMPLETE CITATION LIBRARY — Ardia Health Source Documents")
     print(f"{'═'*72}")
+    print("\nIMPORTANT: Verify all DOIs before submitting to journals.")
+    print("Citations marked 'Ardia white paper citation' need DOI confirmation.\n")
     for key, c in CITATIONS.items():
         print(f"\n{c['ref']} [{key}]")
         print(f"   {c['full']}")
         print(f"   Key claim: {c['claim']}")
         print(f"   Visa use: {c['visa_use']}")
+        print(f"   Source verification: {c['source']}")
+
+
+def print_founders():
+    print(f"\n{'═'*72}")
+    print("FOUNDER PROFILES (verified — use these in all papers)")
+    print(f"{'═'*72}")
+    for key, f in FOUNDERS.items():
+        print(f"\n{f['name']} — {f['role']}")
+        print(f"  IT Experience: {f['it_years']} years total | Healthcare IT: {f['healthcare_it_years']} years")
+        print(f"  Employers: {' / '.join(f['employers'])}")
+        print(f"  Expertise:")
+        for e in f['expertise']:
+            print(f"    • {e}")
+        print(f"  Contact: {f['contact']}")
+
+
+def print_architecture():
+    a = ARCHITECTURE
+    print(f"\n{'═'*72}")
+    print(f"ARCHITECTURE: {a['full_name']}")
+    print(f"Inventor: {a['inventor']}")
+    print(f"{'═'*72}")
+    print(f"\nWhy 'DGP' and not 'neuro-symbolic':")
+    print(f"  {a['why_original']}")
+    print(f"\nLayer descriptions:")
+    for layer_key, layer in a['layers'].items():
+        print(f"\n  {layer_key} — {layer['name']}")
+        print(f"    Technology: {layer['tech']}")
+        print(f"    Function:   {layer['function']}")
+    print(f"\nIntegration: {a['integration']}")
+    print(f"Compliance:  {a['compliance']}")
 
 
 def print_visa_map():
@@ -844,7 +1093,6 @@ def print_visa_map():
         status_icon = "✅" if "STRONG" in data["status"] else "⚠️ "
         print(f"\n{status_icon} {criterion}")
         print(f"   Status: {data['status']}")
-        print(f"   Evidence:")
         for e in data["evidence"]:
             print(f"     • {e}")
         print(f"   Documents needed: {', '.join(data['documents'])}")
@@ -855,7 +1103,7 @@ def print_list():
     print("AVAILABLE PAPERS — Ardia Health Academic Publication Pipeline")
     print(f"{'═'*72}")
     for pid, p in PAPERS.items():
-        print(f"\nPaper {pid}: {p['title'][:70]}...")
+        print(f"\nPaper {pid}: {p['title'][:68]}...")
         print(f"  Authors: {p['authors']}")
         print(f"  Top journal: {p['target_journals'][0]}")
         print(f"  Key criterion: {p['visa_criteria'][0]}")
@@ -867,30 +1115,28 @@ def save_paper_to_file(paper_id):
     fname = f"paper_{paper_id}_{safe_title}.txt"
     outpath = REPO_ROOT / fname
     with open(outpath, 'w') as f:
-        f.write(f"PAPER {paper_id}\n")
-        f.write(f"{'='*72}\n\n")
+        f.write(f"PAPER {paper_id}\n{'='*72}\n\n")
         f.write(f"Title: {p['title']}\n\n")
         f.write(f"Authors: {p['authors']}\n")
         f.write(f"Affiliations: {p['affiliations']}\n\n")
-        f.write(f"Target Journals:\n")
+        f.write("Target Journals:\n")
         for j in p['target_journals']:
             f.write(f"  - {j}\n")
-        f.write(f"\nVisa Criteria:\n")
+        f.write("\nVisa Criteria:\n")
         for c in p['visa_criteria']:
             f.write(f"  - {c}\n")
-        f.write(f"\nABSTRACT\n{'='*72}\n\n")
-        f.write(p['abstract'])
-        f.write(f"\n\nOUTLINE\n{'='*72}\n\n")
+        f.write(f"\nWhat Makes This Paper Original:\n  {p['differentiation_from_prior_work']}\n")
+        f.write(f"\nABSTRACT\n{'='*72}\n\n{p['abstract']}\n")
+        f.write(f"\nOUTLINE\n{'='*72}\n\n")
         for item in p['outline']:
             f.write(f"{item}\n")
-        f.write(f"\n\nCITATIONS USED IN THIS PAPER\n{'='*72}\n\n")
-        f.write("See --citations for full citation library\n\n")
+        f.write(f"\nCITATIONS\n{'='*72}\n\n")
         for ref_num in range(1, 12):
             ref_key = f"[{ref_num}]"
             for key, c in CITATIONS.items():
                 if c['ref'] == ref_key:
                     f.write(f"{ref_key} {c['full']}\n\n")
-    print(f"\nSaved to: {fname}")
+    print(f"  Saved: {fname}")
     return fname
 
 
@@ -900,21 +1146,25 @@ def main():
     parser = argparse.ArgumentParser(
         description="Ardia Health — Academic Paper Publisher & Citation Builder"
     )
-    parser.add_argument("--list", action="store_true", help="List all available papers")
+    parser.add_argument("--list", action="store_true", help="List all 5 papers")
     parser.add_argument("--paper", type=int, choices=[1,2,3,4,5],
-                        help="Generate full paper (title, abstract, outline, citations)")
+                        help="Generate full paper (title + abstract + outline)")
     parser.add_argument("--abstract", type=int, choices=[1,2,3,4,5],
-                        help="Print abstract only (ready-to-submit format)")
+                        help="Print abstract only (ready to paste into arXiv)")
     parser.add_argument("--judging", action="store_true",
-                        help="List judging and peer review opportunities (EB-1A Criterion 4)")
+                        help="Judging and peer review opportunities (EB-1A Criterion 4)")
     parser.add_argument("--citations", action="store_true",
-                        help="Print full citation library from company documents")
+                        help="Full citation library with DOI verification notes")
+    parser.add_argument("--founders", action="store_true",
+                        help="Print verified founder profiles (use in all papers)")
+    parser.add_argument("--architecture", action="store_true",
+                        help="Print DGP architecture definition and why it's original")
     parser.add_argument("--visa-map", action="store_true",
-                        help="Map papers and actions to EB-1A / NIW / O-1A criteria")
+                        help="Full EB-1A / NIW / O-1A evidence status")
     parser.add_argument("--save", action="store_true",
-                        help="Save paper to .txt file in repo root")
+                        help="Save paper(s) to .txt files in repo root")
     parser.add_argument("--all", action="store_true",
-                        help="Generate everything (all papers + judging + citations + visa map)")
+                        help="Generate all output")
 
     args = parser.parse_args()
 
@@ -922,10 +1172,11 @@ def main():
         parser.print_help()
         print("\nQuick start:")
         print("  python3 publisher.py --list")
-        print("  python3 publisher.py --paper 1        # Architecture paper (submit to arXiv first)")
-        print("  python3 publisher.py --paper 4        # Payer AI insider paper (Manasa's unique angle)")
-        print("  python3 publisher.py --judging        # Where to apply for peer reviewer roles")
-        print("  python3 publisher.py --visa-map       # Full EB-1A/NIW evidence status")
+        print("  python3 publisher.py --abstract 1     # Copy-paste ready for arXiv submission")
+        print("  python3 publisher.py --founders       # Verify bios before writing any paper")
+        print("  python3 publisher.py --architecture   # DGP architecture — what's original")
+        print("  python3 publisher.py --judging        # Where to apply for peer reviewer roles NOW")
+        print("  python3 publisher.py --visa-map       # Full EB-1A/NIW/O-1A status")
         print("  python3 publisher.py --all --save     # Generate + save everything")
         sys.exit(0)
 
@@ -935,10 +1186,15 @@ def main():
     print(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print(f"{'═'*72}")
 
-    # Load source docs in background (for context)
     print("\nLoading source documents from repo...")
     docs = load_source_docs()
     print(f"  {len(docs)} documents loaded as source material\n")
+
+    if args.founders or args.all:
+        print_founders()
+
+    if args.architecture or args.all:
+        print_architecture()
 
     if args.list or args.all:
         print_list()
@@ -961,20 +1217,18 @@ def main():
         print_visa_map()
 
     if args.all and args.save:
-        print(f"\n{'═'*72}")
+        print(f"\n{'─'*72}")
         print("SAVING ALL PAPERS TO FILES...")
         for pid in PAPERS:
             save_paper_to_file(pid)
 
     print(f"\n{'═'*72}")
-    print("NEXT STEPS (priority order):")
-    print("  1. Submit Paper 1 abstract to arXiv cs.AI — goes live in 1-2 days")
-    print("     → Immediately satisfies EB-1A Criterion 6 (scholarly publication)")
-    print("  2. Email JAMIA / AMIA to register as peer reviewer")
-    print("     → Immediately satisfies EB-1A Criterion 4 (judging)")
-    print("  3. Submit Paper 2 to arXiv q-bio.QM")
-    print("  4. Apply for HIMSS + AMIA membership (Criterion 2)")
-    print("  5. Pitch Becker's / MedCity on PAMA 2027 story (Criterion 3)")
+    print("PRIORITY ACTIONS:")
+    print("  1. THIS WEEK: Submit Paper 1 to arXiv cs.AI → EB-1A Criterion 6, live in 1-2 days")
+    print("  2. THIS WEEK: Email editor@jamia.org to become peer reviewer → EB-1A Criterion 4")
+    print("  3. THIS WEEK: Submit Paper 2 to arXiv q-bio.QM")
+    print("  4. NEXT 2 WKS: Apply HIMSS + AMIA membership → EB-1A Criterion 2")
+    print("  5. NEXT 2 WKS: Pitch Becker's / MedCity on PAMA 2027 → EB-1A Criterion 3")
     print(f"{'═'*72}\n")
 
 

@@ -11,33 +11,37 @@ description: EB-1A Extraordinary Ability and EB-2 NIW immigration evidence organ
 
 ---
 
-## 1. Founder Profiles (Source: Pitch Deck slide 7)
+## 1. Founder Profiles (verified — corrected from pitch deck)
 
-### Rambabu Vadlamudi — Founder & Product Designer / Enterprise Architect
+### Rambabu Vadlamudi — Founder & Enterprise Architect
 - **Role**: Main technical person, healthcare AI expert
-- **Key contribution**: Inventor of the **Neuro-Symbolic Sandwich Architecture** — a proprietary 3-layer AI system (LLM + 847-rule symbolic engine + ML denial prediction) that autonomously recovers lab revenue
-- **Domain expertise**: FHIR/HL7 interoperability, clinical data pipelines, enterprise systems architecture, GCP, revenue cycle management
+- **Experience**: **15+ years IT | 8+ years healthcare IT**
+- **Employers**: Alsac (St. Jude Children's Research Hospital), CIGNA, Medifast, Teladoc Health, United Health Care, ECFMG
+- **Key contribution**: Inventor of the **DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture** — a proprietary 3-layer AI system (847-rule deterministic policy engine + LLM clinical reasoning + ML denial prediction) built for independent lab claim recovery
+- **Note on architecture name**: "Neuro-symbolic" is an extensively published academic term (PubMed 2025–2026: cholangitis, oncology, corneal imaging). DGP is Ram's original coinage for this specific domain application.
+- **Domain expertise**: FHIR R4/HL7 v2, EDI 835/837, clinical data pipelines, enterprise architecture, GCP
 - **Location**: Argyle, TX 76226 (Dallas-Fort Worth metro)
 - **Contact**: ram.vadlamudi@ardiahealthlabs.com | (469) 679-3334
 
 ### Manasa Jampani — Co-Founder & CEO
 - **Role**: Business strategy, GTM, investor relations
-- **Key credential**: **12+ years inside payer systems** — Cigna, UnitedHealth Group, Optum, Teladoc Health
-- **Unique insight**: Built the denial logic that Ardia's AI now defeats — unparalleled competitive intelligence
-- **Domain expertise**: Clinical operations, payer strategy, AI background
+- **Experience**: **10+ years IT | 5+ years healthcare IT**
+- **Employers**: Interwell Health, United HealthGroup, ECFMG
+- **Unique insight**: Direct healthcare IT experience inside payer and payer-adjacent organizations — operational knowledge of how payer clinical operations teams configure AI denial systems
+- **Domain expertise**: Clinical operations, payer strategy, ACO operations, renal care management, AI background
 - **Contact**: founders@ardiahealthlabs.com | (469) 499-6435
 
 ---
 
 ## 2. The Core Innovation (EB-1A Criterion 5 / NIW Merit)
 
-### Neuro-Symbolic Sandwich Architecture
+### DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture
 **Inventor: Rambabu Vadlamudi**
 
-A novel 3-layer architecture combining:
-- **Layer 1**: LLM Clinical Reasoning (Anthropic Claude API) — reads clinical documentation, generates appeal briefs in <90 seconds
-- **Layer 2**: Symbolic Policy Engine (847 deterministic rules) — covers every LCD/NCD/MolDX policy, zero hallucinations
-- **Layer 3**: ML Denial Prediction Model — trained on historical claims data, prevents denials pre-submission
+A novel 3-layer architecture — original coinage, distinct from "neuro-symbolic" (extensively published academic term):
+- **Layer 1 — Deterministic Policy Engine**: 847-rule compliance engine covering all LCD/NCD/MolDX policies, DEX Z-codes, CPT 81400–81479 series, PLA codes — zero hallucinations on policy interpretation
+- **Layer 2 — Generative Clinical Reasoning**: LLM (Anthropic Claude API) — reads clinical documentation, generates appeal briefs in <90 seconds, retrieves from 14 medical databases in 340ms
+- **Layer 3 — Predictive Denial Prevention**: ML model trained on historical claims data — identifies pre-submission denial risk before filing
 
 **Why this is original and significant:**
 - Only platform purpose-built for PGx + NGS + MolDX compliance
@@ -76,7 +80,7 @@ A novel 3-layer architecture combining:
 ### Prong 2: Well Positioned to Advance the Endeavor ✅ STRONG
 
 **Rambabu:**
-- Inventor of Neuro-Symbolic Sandwich Architecture
+- Inventor of DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture
 - Platform architecture 100% complete as of March 2026
 - Enterprise architect with GCP, FHIR R4, HL7, EDI 835/837 expertise
 - Built system compliant with two cutting-edge Texas AI laws (SB 1188, TRAIGA)
@@ -103,7 +107,7 @@ A novel 3-layer architecture combining:
 
 ### ✅ Criterion 5 — Original Contributions of Major Significance
 **Evidence:**
-- Neuro-Symbolic Sandwich Architecture (novel, documented in white paper + pitch deck)
+- DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture (novel, documented in white paper + pitch deck)
 - 847-rule symbolic engine covering all LCD/NCD/MolDX policies
 - FHIR R4 + EDI 835/837 + LLM integration architecture for clinical revenue recovery
 - Platform addressing $12B national healthcare problem with no existing comparable solution
@@ -121,7 +125,7 @@ A novel 3-layer architecture combining:
 **Current status: GAP — no peer-reviewed publications documented**
 
 **Recommended actions:**
-1. Publish a white paper / preprint on arXiv or SSRN on Neuro-Symbolic Sandwich Architecture for clinical AI
+1. Publish a white paper / preprint on arXiv or SSRN on DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture for clinical AI
 2. Submit to JAMIA (Journal of the American Medical Informatics Association), NEJM AI, or Nature Digital Medicine
 3. Co-author case study with HealthTrackRx pilot lab on AI-driven denial recovery outcomes
 4. Cite the JAMA 2025 Georgetown study and XiFin 2024 data — frame Ardia's architecture as the solution
@@ -162,7 +166,7 @@ A novel 3-layer architecture combining:
 ### Immediate Papers to Write (Ram as lead author)
 
 **Paper 1: Architecture**
-*"Neuro-Symbolic Sandwich Architecture for Healthcare Revenue Cycle Management: Combining LLM Reasoning, Deterministic Policy Engines, and ML Prediction for Clinical Claim Recovery"*
+*"DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture for Healthcare Revenue Cycle Management: Combining LLM Reasoning, Deterministic Policy Engines, and ML Prediction for Clinical Claim Recovery"*
 - Submit to: arXiv cs.AI (preprint), then JAMIA or NEJM AI
 - Timeline: 3–4 months to draft
 
@@ -183,7 +187,7 @@ A novel 3-layer architecture combining:
 
 **Paper 5:**
 *"Payer AI Denial Algorithms in Clinical Laboratory Claims: An Insider Analysis of Decision Logic and Countermeasure Strategies"*
-- Unique perspective: 12+ years at Cigna, UHG, Optum — no one else can write this
+- Unique perspective: 5+ years at Interwell Health, United HealthGroup, ECFMG — direct payer-side healthcare IT experience no other researcher has
 - Submit to: NEJM AI, Health Affairs, American Journal of Managed Care
 
 ---
