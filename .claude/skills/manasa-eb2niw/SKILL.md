@@ -61,9 +61,9 @@ Manasa has direct healthcare IT experience inside payer and payer-adjacent organ
 | Payer AI Denial System Analysis (insider) | ✅ Paper drafted | Paper 4 | NEJM AI / Health Affairs → UNIQUE paper |
 | Independent Lab Revenue Crisis | ✅ Paper drafted | Paper 2 | Co-authored with Ram |
 | AI Governance / TX SB 1188 + TRAIGA | ✅ Paper drafted | Paper 3 | Co-authored with Ram |
-| ACO Operations + Independent Lab AI | 🔬 Research pending | Paper M1 | Manasa's ACO + Interwell expertise angle |
-| Payer AI Accountability / Algorithmic Fairness | 🔬 Research pending | Paper M2 | Health Affairs; policy + equity angle |
-| Renal Care + Molecular Diagnostics Billing | 🔬 Research pending | Paper M3 | Interwell Health domain expertise |
+| ACO Operations + Independent Lab AI | ✅ Paper drafted | Paper M1 | `papers/paperM1_aco_independent_lab_ai.md` |
+| Payer AI Accountability / Algorithmic Fairness | ✅ Paper drafted | Paper M2 | `papers/paperM2_payer_ai_accountability.md` |
+| Renal Care + Molecular Diagnostics Billing | ✅ Paper drafted | Paper M3 | `papers/paperM3_renal_care_molecular_diagnostics.md` |
 | Value-Based Care Lab Economics | 🔬 Research pending | Paper M4 | ACO lab participation economics |
 | Pilot Outcomes — CEO Perspective | ⏳ After Q2 2026 pilot | Paper M5 | Revenue recovery outcomes from CEO lens |
 
@@ -149,6 +149,9 @@ Manasa's press angle is different from Ram's. Hers is the **"insider who crossed
 | Paper 4 (Payer AI Black Box) | `immigration/manasa_eb2niw/papers/paper4_payer_ai_insider.md` | Submit medRxiv then NEJM AI |
 | Paper 2 (Lab Revenue Crisis) | `immigration/manasa_eb2niw/papers/paper2_lab_revenue_crisis.md` | Co-authored with Ram |
 | Paper 3 (AI Governance) | `immigration/manasa_eb2niw/papers/paper3_ai_governance_sb1188.md` | Co-authored with Ram |
+| Paper M1 (ACO + Independent Lab AI) | `immigration/manasa_eb2niw/papers/paperM1_aco_independent_lab_ai.md` | arXiv → J Healthcare Management |
+| Paper M2 (Payer AI Accountability) | `immigration/manasa_eb2niw/papers/paperM2_payer_ai_accountability.md` | arXiv → Health Affairs |
+| Paper M3 (Renal Care Mol Dx) | `immigration/manasa_eb2niw/papers/paperM3_renal_care_molecular_diagnostics.md` | arXiv → Clinical Chemistry |
 | Dhanasar Analysis | `immigration/manasa_eb2niw/visa_evidence/eb2niw_dhanasar_analysis.md` | Full 3-prong legal argument |
 | I-140 Petition Narrative | `immigration/manasa_eb2niw/visa_evidence/niw_petition_narrative.md` | Draft cover letter + checklist |
 | Expert Witness Templates | `immigration/manasa_eb2niw/visa_evidence/expert_witness_letter_templates.md` | 2 templates |

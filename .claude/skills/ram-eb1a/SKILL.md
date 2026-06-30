@@ -54,12 +54,12 @@ Inventor: Rambabu Vadlamudi
 | DGP Architecture (core) | ✅ Paper drafted | Paper 1 | arXiv cs.AI — submit ASAP |
 | Independent Lab Revenue Crisis | ✅ Paper drafted | Paper 2 | Co-authored with Manasa |
 | AI Governance / TX SB 1188 + TRAIGA | ✅ Paper drafted | Paper 3 | Co-authored with Manasa |
-| PAMA Cliff + AI solutions | 🔬 Research pending | Paper 6 | Verify no prior art first |
-| Precision Medicine / PGx AI for independent labs | 🔬 Research pending | Paper 7 | Verify no prior art first |
-| Toxicology RCM AI (ToxIQ™) | 🔬 Research pending | Paper 8 | Likely white space |
-| MolDX Compliance AI | 🔬 Research pending | Paper 9 | Likely white space |
+| PAMA 2027 Medicare Reimbursement + AI | ✅ Paper drafted | Paper 6 | `papers/paper6_pama_ai_solutions.md` |
+| Precision Medicine / PGx AI for independent labs | 🔬 Research pending | Paper 7 | Confirmed white space — draft next |
+| Toxicology RCM AI (ToxIQ™) | ✅ Paper drafted | Paper 8 | `papers/paper8_toxiq_toxicology_rcm.md` |
+| MolDX Compliance AI | ✅ Paper drafted | Paper 9 | `papers/paper9_moldx_compliance_ai.md` |
 | Pilot Outcomes (post-launch) | ⏳ After Q2 2026 pilot | Paper 5 | Strongest evidence — data-driven |
-| Behavioral Health Billing AI (BehaviorIQ™) | 🔬 Research pending | Paper 10 | Likely white space |
+| Behavioral Health Billing AI (BehaviorIQ™) | ✅ Paper drafted | Paper 10 | `papers/paper10_behavioriq_behavioral_health.md` |
 
 ---
 
@@ -181,6 +181,10 @@ Publish every 6–8 weeks. Topics should reflect genuine expertise, not immigrat
 | Paper 1 (DGP Architecture) | `immigration/ram_eb1a/papers/paper1_dgp_architecture.md` | Submit arXiv NOW |
 | Paper 2 (Lab Revenue Crisis) | `immigration/ram_eb1a/papers/paper2_lab_revenue_crisis.md` | Co-authored w/ Manasa |
 | Paper 3 (AI Governance) | `immigration/ram_eb1a/papers/paper3_ai_governance_sb1188.md` | Co-authored w/ Manasa |
+| Paper 6 (PAMA 2027 + AI) | `immigration/ram_eb1a/papers/paper6_pama_ai_solutions.md` | arXiv → Health Affairs |
+| Paper 8 (ToxIQ) | `immigration/ram_eb1a/papers/paper8_toxiq_toxicology_rcm.md` | arXiv → Clinical Chemistry/JALM |
+| Paper 9 (MolDX Compliance AI) | `immigration/ram_eb1a/papers/paper9_moldx_compliance_ai.md` | arXiv cs.AI → JAMIA |
+| Paper 10 (BehaviorIQ) | `immigration/ram_eb1a/papers/paper10_behavioriq_behavioral_health.md` | arXiv → J Behavioral Health Services |
 | Citation Library | `immigration/ram_eb1a/citations/reference_library.md` | NLM/APA/Chicago formats |
 | EB-1A Criteria Map | `immigration/ram_eb1a/visa_evidence/eb1a_criteria_map.md` | Per-criterion evidence |
 | Expert Witness Templates | `immigration/ram_eb1a/visa_evidence/expert_witness_letter_templates.md` | 2 templates |
