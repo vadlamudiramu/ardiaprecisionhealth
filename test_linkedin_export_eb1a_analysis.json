@@ -1,0 +1,118 @@
+{
+  "total_findings": 12,
+  "criteria_counts": {
+    "criterion_5_contributions": 9,
+    "niw_national_importance": 11,
+    "criterion_8_leadership": 3,
+    "criterion_6_publications": 5,
+    "criterion_1_awards": 1,
+    "criterion_4_judging": 2,
+    "criterion_2_membership": 2
+  },
+  "findings": [
+    {
+      "type": "Posts.csv",
+      "content": "2026-03-15 https://linkedin.com/posts/ram1 I invented the Neuro-Symbolic Sandwich Architecture for clinical AI revenue recovery \u2014 combining LLM reasoning with a 847-rule deterministic symbolic engine for FHIR/HL7 healthcare claims. Independent labs lose $12B/year. We're fixing that. #HealthcareAI #RCM #Innovation  ",
+      "criteria": [
+        "criterion_5_contributions",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Posts.csv",
+      "content": "2026-02-20 https://linkedin.com/posts/ram2 Excited to share: Ardia Health Labs is building the first AI-native revenue recovery platform for independent clinical laboratories. As founder and enterprise architect, I designed the system that defeats payer denial algorithms. #Founder #HealthcareAI  ",
+      "criteria": [
+        "criterion_5_contributions",
+        "criterion_8_leadership",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Posts.csv",
+      "content": "2026-01-10 https://linkedin.com/posts/ram3 PAMA 2027 threatens to cut Medicare lab reimbursements by 45% over 3 years. I published a white paper analyzing this crisis and our AI architecture solution. The JAMA 2025 Georgetown study (n=29,919) shows 2.76x higher denial rates for independent labs. #PrecisionMedicine  ",
+      "criteria": [
+        "criterion_5_contributions",
+        "criterion_6_publications",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Posts.csv",
+      "content": "2025-12-01 https://linkedin.com/posts/ram4 Honored to be invited as a judge at the DFW Healthcare Innovation Hackathon. Evaluating AI solutions for clinical workflow optimization. Great to see the talent in this space! #Judge #HealthcareAI  ",
+      "criteria": [
+        "criterion_1_awards",
+        "criterion_4_judging",
+        "criterion_5_contributions",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Posts.csv",
+      "content": "2025-11-15 https://linkedin.com/posts/ram5 My article on Neuro-Symbolic AI for healthcare revenue cycle has been accepted for peer review at JAMIA. First paper on combining LLMs with deterministic policy engines for clinical RCM. #Publication #Research  ",
+      "criteria": [
+        "criterion_2_membership",
+        "criterion_4_judging",
+        "criterion_5_contributions",
+        "criterion_6_publications",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Articles.csv",
+      "content": "Why Independent Labs Are Losing $12 Billion Annually https://linkedin.com/pulse/ram-article1 2026-02-01 Ram Vadlamudi A deep dive into molecular diagnostic denial rates, PAMA 2027, and how AI can recover lost revenue for independent clinical laboratories.",
+      "criteria": [
+        "criterion_5_contributions",
+        "criterion_6_publications",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Articles.csv",
+      "content": "The Neuro-Symbolic Sandwich: A Novel Architecture for Healthcare AI https://linkedin.com/pulse/ram-article2 2026-01-15 Ram Vadlamudi Explaining the three-layer architecture combining LLM clinical reasoning, a 847-rule symbolic engine, and ML denial prediction.",
+      "criteria": [
+        "criterion_5_contributions",
+        "criterion_6_publications",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Profile.csv",
+      "content": "Ram Vadlamudi  Argyle TX  Founder & Enterprise Architect at Ardia Health Labs | Healthcare AI | Neuro-Symbolic Architecture | FHIR/HL7 | Clinical Revenue Recovery Building the first AI-native revenue recovery platform for independent clinical laboratories. Inventor of the Neuro-Symbolic Sandwich Architecture.",
+      "criteria": [
+        "criterion_5_contributions",
+        "criterion_8_leadership",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Certifications.csv",
+      "content": "Google Cloud Professional Data Engineer  Google 2024 2027  ",
+      "criteria": []
+    },
+    {
+      "type": "Certifications.csv",
+      "content": "HL7 FHIR Proficiency  HL7 International 2023   ",
+      "criteria": [
+        "criterion_5_contributions",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Honors.csv",
+      "content": "Google Cloud for Startups Google 2026-01 Selected for GCP healthcare startup program",
+      "criteria": [
+        "criterion_2_membership",
+        "niw_national_importance"
+      ]
+    },
+    {
+      "type": "Honors.csv",
+      "content": "DFW Healthcare Innovator Spotlight DFW Business Journal 2026-03 Featured as emerging healthcare AI founder",
+      "criteria": [
+        "criterion_6_publications",
+        "criterion_8_leadership",
+        "niw_national_importance"
+      ]
+    }
+  ]
+}
