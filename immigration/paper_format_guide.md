@@ -2,13 +2,15 @@
 ## Ardia Health Labs — Ram Vadlamudi & Manasa Jampani
 ## For arXiv, medRxiv, JAMIA, Health Affairs, NEJM AI, Clinical Chemistry, JALM
 
-This guide defines the format for all papers. The format described here is accepted by arXiv, medRxiv, JAMIA, Health Affairs, NEJM AI, Clinical Chemistry, JALM, and all other target venues without modification to the paper body.
+**Revised 2026-07-01.** The original version of this guide claimed a single 3,500–5,000-word IMRAD draft would fit every venue unmodified. A live-search audit against each venue's actual current author guidelines and a real recently published article per venue found that claim was wrong for several major targets — see the corrected Word Count table below. The Methods/Results/Discussion prose can stay largely the same across a preprint and its eventual journal submission, but **the abstract style and total length must be trimmed per venue before submission.**
+
+**Preprints are not peer review — do not describe them as such.** Both arXiv and medRxiv explicitly disclaim peer review. medRxiv's preprint banner states papers "have not been certified by peer review and should not be relied on to guide clinical practice." In any immigration filing or petition narrative, describe an arXiv/medRxiv posting as a preprint, and describe journal review status separately and accurately — journal review is not guaranteed, can take months, and rejection is common (Health Affairs desk-rejects roughly two-thirds of submissions within days).
 
 ---
 
 ## Core Principle
 
-Write the paper in IMRAD format with NLM numbered references and a word count of 3,500–5,000. This fits within the acceptable range of every target venue. Submit the same manuscript to arXiv/medRxiv (preprint) and then to the journal — no reformatting required.
+Write the paper in IMRAD format with NLM numbered references. Draft the body once, then trim the abstract and total length to the specific venue's cap before submission — see the per-venue table below for actual caps (they range from ~2,000 words at JAMIA to no limit at all on arXiv/medRxiv).
 
 Journal-specific requirements (cover letters, submission system fields, supplementary forms) go in **separate** submission documents, never inside the paper body.
 
@@ -29,19 +31,28 @@ Journal-specific requirements (cover letters, submission system fields, suppleme
 - Corresponding author email at the bottom of the author block
 - ORCID iD encouraged (create at orcid.org — free; adds credibility)
 
-### Abstract (PROVIDE BOTH — use the right one per venue)
+### Abstract (PROVIDE BOTH — use the right one per venue; caps differ significantly, see table)
 
-**Structured abstract** (for JAMIA, Clinical Chemistry, most medical journals):
+**Structured, 4-part** (JAMIA — Objective / Materials and Methods / Results / Discussion / Conclusion, capped at ~150 words; NEJM AI — Background / Methods / Results / Conclusions, ~300–310 words):
 ```
 Background: [1–2 sentences — the problem]
 Methods: [2–3 sentences — what you built/studied]
 Results: [2–3 sentences — quantitative findings]
 Conclusions: [1–2 sentences — implications]
 ```
-Word limit: 250–300 words
 
-**Unstructured abstract** (for arXiv, NEJM AI Perspective, Health Affairs):
-Single paragraph, 200–250 words. Same content, no section headers.
+**Structured, 5-part** (Clinical Chemistry only — adds a distinct "Summary" section beyond standard IMRaD):
+```
+Background: [...]
+Methods: [...]
+Results: [...]
+Conclusions: [...]
+Summary: [1 sentence — plain-language takeaway]
+```
+
+**Unstructured** (arXiv, medRxiv, Health Affairs — single paragraph, no headers). Health Affairs specifically caps this at 150–180 words as part of its 3,250-word total article cap; arXiv/medRxiv have no fixed length.
+
+Draft one long structured version first, then cut to whichever venue-specific cap applies — do not assume 250–300 words is universal; JAMIA's ~150-word cap and Health Affairs' 150–180-word cap are both tighter than that.
 
 ### Keywords
 5–8 keywords separated by semicolons.  
@@ -123,7 +134,7 @@ For pilot outcome papers (Paper 5/M5):
 - Patient/claim volume
 - Baseline denial rate vs. post-intervention denial rate
 - Revenue recovery rate
-- Comparison to industry benchmark (65% of denials never appealed; 50–80.7% win rate when appealed)
+- Comparison to an industry benchmark — **do not use the "65% of denials never appealed / 50–80.7% win rate" figures.** The citation audit (2026-07-01) traced these to a non-existent "HFMA/LigoLab 2024 Laboratory Revenue Recovery Report" — no real source was found for either number across any of the 11 papers that used them. Use only verified figures (the 35.3% XiFin molecular diagnostics denial rate, or the 2.76× Georgetown/JAMA Network Open disparity, PMID 40249617) until a real appeal-rate source is located.
 
 **Figures and Tables:**
 - Tables: numbered Table 1, Table 2, etc.; caption below the table
@@ -178,39 +189,35 @@ This is the required format for arXiv (default), medRxiv, JAMIA, Clinical Chemis
 - Maximum 35–40 references for a full research article; 15–20 for a short communication
 - Do NOT use author-date (APA) format in the paper body — journals format their published version; you submit in NLM and let them convert
 
-**Citations for every paper (must include):**
-- XiFin 2024 Payor Denial Impact Report (non-peer-reviewed; cite as industry report)
-- JAMA Network Open 2025 Georgetown study (cite as peer-reviewed journal article)
-- Deep Claim, Kim 2020, arXiv 2007.06229 (cite for differentiation)
-- Health Affairs 2025 payer AI paper, DOI: 10.1377/hlthaff.2025.00897 (for Manasa's papers)
+**Citations for every paper (must include) — verified exact forms, 2026-07-01 audit:**
+- XiFin, Inc. *2024 Payor Denial Impact Report* (industry report, no DOI — cite as gray literature; 20M+ claims, 35.3% molecular diagnostics denial rate — confirmed accurate)
+- Kang SY, Odouard I, Gresenz CR. "Claim Denials for Cancer-Related Next-Generation Sequencing in Medicare." *JAMA Netw Open.* 2025;8(4):e255785. doi:10.1001/jamanetworkopen.2025.5785. PMID 40249617. (n=29,919 claims, 24,443 beneficiaries; OR 2.76 independent vs. hospital labs — this is a **cohort study**, not "cross-sectional," and the authors are Georgetown University School of Health/McCourt School of Public Policy + Johns Hopkins Bloomberg School of Public Health, not "Georgetown University Medical Center")
+- Kim BH, Sridharan S, Atwal A, Ganapathi V. "Deep Claim: Payer Response Prediction from Claims Data with Deep Learning." arXiv preprint arXiv:2007.06229. 2020.
+- Mello MM, Trotsyuk AA, Djiberou Mahamadou AJ, Char D. "The AI Arms Race In Health Insurance Utilization Review: Promises Of Efficiency And Risks Of Supercharged Flaws." *Health Affairs.* 2026;45(1):6-13. doi:10.1377/hlthaff.2025.00897. PMID 41494115. **This is the only real article behind this DOI** — the audit found it fabricated with different author names in 7 of the 11 generated papers. Never attach a different author list to this DOI.
+
+**Do not reuse a DOI/PMID/arXiv ID across papers with different author names or titles.** If a citation needs re-derivation for a new paper, look it up fresh — do not recall it from memory or from how a prior paper cited it.
 
 ---
 
 ## Word Count Guidelines
 
-| Section | Target |
-|---------|--------|
-| Abstract | 250–300 (structured) or 200–250 (unstructured) |
-| Introduction | 500–700 |
-| Background | 400–600 |
-| Methods/Architecture | 900–1,200 |
-| Results/Evaluation | 600–900 |
-| Discussion | 500–700 |
-| Conclusion | 150–250 |
-| **Total body** | **3,300–4,650** |
-| References (not counted) | varies |
-| **Total with abstract** | **~3,500–5,000** |
+**Draft the full-length version first** (Introduction 500–700 / Background 400–600 / Methods 900–1,200 / Results 600–900 / Discussion 500–700 / Conclusion 150–250 ≈ 3,300–4,650-word body). This full-length draft is what goes to arXiv/medRxiv as a preprint (no limit). **Before submitting to any journal below, cut to that journal's real cap** — several are far tighter than the original body:
 
-This range fits:
-- arXiv: no word limit
-- medRxiv: no word limit
-- JAMIA: 3,500–5,000 (research articles)
-- Health Affairs: 3,500–6,000 (full articles)
-- NEJM AI: 2,500–4,000 (Original Investigation) or 1,500–2,500 (Perspective)
-- Clinical Chemistry: 2,500–4,000 (Technical Briefs/Articles)
-- JALM: 3,000–5,000 (research articles)
+| Venue | Verified actual cap (2026-07-01 audit) | Abstract style | Peer-reviewed? |
+|-------|------------------------------------------|----------------|-----------------|
+| arXiv (cs.AI) | No limit — but as of Oct 2025, review/survey/"position" papers are declined unless already peer-reviewed elsewhere; original research is fine | Unstructured, author's own format | **No** — moderation/screening only |
+| medRxiv | No limit — but requires ethics/IRB statement, trial registry ID if applicable, data availability statement, 36-month conflict-of-interest lookback | Structured IMRaD, incl. explicit Limitations subsection | **No** — administrative + scope screening only |
+| JAMIA (Research and Applications) | **~2,000 words** (excl. abstract/acknowledgments/references) | Structured, ~150-word cap: Objective / Materials and Methods / Results / Discussion / Conclusion | Yes |
+| Health Affairs (flagship) | **3,250 words total** (incl. abstract), up to 4 exhibits | **Unstructured**, 150–180 words | Yes — ~2/3 of submissions desk-rejected within days; external review adds 6–8 weeks |
+| NEJM AI (Original Investigation) | ~3,000–3,800-word body, ~310-word abstract | Structured: Background / Methods / Results / Conclusions | Yes |
+| Clinical Chemistry | Est. 4,000–7,000 words (based on page count of a verified example; not independently confirmed) | Structured **5-part**: Background / Methods / Results / Conclusions / **Summary** | Yes |
+| JALM | **≤3,500 words**, ≤40 references, ≤6 tables/figures combined | Unstructured confirmed for review-type articles; original-research abstract policy unconfirmed — verify before submitting | Yes, ~4-week decision typical |
+| Journal of Healthcare Management | Est. 4,000–6,000 words (indirect estimate; guidelines page could not be independently verified — reverify before submitting) | Unconfirmed — appears to support IMRaD headers for empirical work | Yes (per secondary sources; not independently confirmed) |
+| J Behavioral Health Services & Research | See workflow follow-up — lookup pending re-run | — | Yes (Springer) |
 
-For NEJM AI Perspective (Manasa's Paper 4): trim to 2,500 words; cut methods section to 400 words, focus on analysis and implications.
+Note the direction of the correction: this guide previously stated JAMIA accepts 3,500–5,000 words and Health Affairs 3,500–6,000 — both were wrong. JAMIA's real cap (~2,000 words) is less than half what was stated; Health Affairs' real cap (3,250 words *including* abstract) is also lower, and its abstract is unstructured, not structured as many other medical journals use.
+
+For NEJM AI Perspective (shorter format): trim to ~1,500–2,500 words; cut methods section to ~400 words, focus on analysis and implications.
 
 ---
 
