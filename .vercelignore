@@ -1,0 +1,15 @@
+# Internal/draft files that must never be part of the public deployment.
+# These are not linked from any page nav, but Vercel's static file server
+# will happily serve any file present in the deployment output at its exact
+# path if it isn't excluded here — file-not-linked is not the same as
+# file-not-reachable.
+#
+# email-audit.html and google-cloud-email-response.html were flagged CRITICAL
+# / HIGH by the 2026-07-01 compliance audit: email-audit.html exposes dozens
+# of real named third parties' (NIH/NSF/HHS/ARPA-H officials) direct email
+# addresses from an internal investor-outreach tracking doc, and
+# google-cloud-email-response.html exposes an internal draft business email
+# with a real support case number. Neither belongs on a public site.
+_internal-team-details.html
+email-audit.html
+google-cloud-email-response.html
