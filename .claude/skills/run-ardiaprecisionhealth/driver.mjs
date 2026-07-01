@@ -6,10 +6,32 @@
 //   node driver.mjs shot-all [outDir]               screenshot every top-level page
 //   node driver.mjs check <page.html>               print title, console errors, nav-brand check
 //   node driver.mjs check-all                       run `check` over every top-level page
+//   node driver.mjs tag-check <page.html>           verify page-category-tag colour matches
+//                                                    .claude/rules/coding-style.md's assignment
+//   node driver.mjs tag-check-all                   run `tag-check` over every top-level page
+//
+// tag-check/tag-check-all are deterministic (no LLM judgment) — they only
+// confirm the page-category-tag pill exists with the right colour. They do
+// NOT replace the security/claims audit, which needs an agent reading the
+// page against reference/source-of-truth.md — see SKILL.md's "Compliance &
+// Security Audit" section for that process.
 //
 // Env:
 //   PORT       port for the static server (default 8123)
 //   BASE_URL   skip the built-in server and hit an already-running one
+
+// Keep in sync with the table in .claude/rules/coding-style.md
+// ("Page-category colour system"). null = no tag expected on this page.
+const PAGE_CATEGORIES = {
+  'about.html': '#7c6ee6', 'ardia-profile.html': '#7c6ee6', 'vision.html': '#7c6ee6', 'roadmap.html': '#7c6ee6',
+  'our-product.html': '#0ea5e9', 'architecture.html': '#0ea5e9', 'how-it-works.html': '#0ea5e9',
+  'how-software-works.html': '#0ea5e9', 'mobile-app.html': '#0ea5e9', 'plg-sandbox.html': '#0ea5e9',
+  'product-demo.html': '#0ea5e9', 'dashboard.html': '#0ea5e9', 'solutions.html': '#0ea5e9',
+  'security.html': '#22c55e', 'pama.html': '#22c55e', 'precision-medicine.html': '#22c55e',
+  'case-studies.html': '#22c55e', 'research.html': '#22c55e',
+  'investors.html': '#d946ef', 'contact.html': '#d946ef',
+  'index.html': null, 'email-audit.html': null, 'google-cloud-email-response.html': null,
+};
 
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
@@ -76,6 +98,68 @@ async function checkPage(page, base, name) {
   return { name, status, title, hasLogoIcon, hasGradientUnderline, consoleErrors: errors };
 }
 
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+}
+
+async function tagCheckPage(page, base, name) {
+  const expected = Object.prototype.hasOwnProperty.call(PAGE_CATEGORIES, name) ? PAGE_CATEGORIES[name] : undefined;
+  if (expected === undefined) return { name, expected: 'unknown-page', status: 'skip' };
+  if (expected === null) return { name, expected: null, status: 'not-applicable' };
+
+  await page.goto(`${base}/${name}`, { waitUntil: 'networkidle', timeout: 20000 });
+  const expectedRgb = hexToRgb(expected);
+  const found = await page.evaluate((rgb) => {
+    for (const el of document.querySelectorAll('.page-category-tag, [class*="category-tag"]')) {
+      const cs = getComputedStyle(el);
+      if (cs.color.includes(rgb) || cs.borderColor.includes(rgb) || cs.backgroundColor.includes(rgb)) return true;
+    }
+    return false;
+  }, expectedRgb).catch(() => false);
+
+  return { name, expected, status: found ? 'ok' : 'missing-or-wrong-colour' };
+}
+
+async function linkCheckPage(page, base, name) {
+  await page.goto(`${base}/${name}`, { waitUntil: 'networkidle', timeout: 20000 });
+  const links = await page.evaluate(() => {
+    const footer = document.querySelector('footer, .footer');
+    if (!footer) return null;
+    return [...footer.querySelectorAll('a, span[onclick], button[onclick]')].map((el, i) => ({
+      i, text: el.textContent.trim().slice(0, 40), href: el.getAttribute('href') || null,
+      onclick: el.getAttribute('onclick') || null,
+    }));
+  });
+  if (links === null) return { name, error: 'no <footer> found on this page' };
+
+  const results = [];
+  for (const link of links) {
+    if (link.href && link.href.startsWith('mailto:')) {
+      results.push({ ...link, result: 'mailto (not clicked)', targetUrl: link.href });
+      continue;
+    }
+    if (!link.href && !link.onclick) {
+      results.push({ ...link, result: 'dead — no href and no onclick' });
+      continue;
+    }
+    await page.goto(`${base}/${name}`, { waitUntil: 'networkidle', timeout: 20000 });
+    const before = page.url();
+    try {
+      const footer = page.locator('footer, .footer');
+      const el = footer.locator('a, span[onclick], button[onclick]').nth(link.i);
+      await el.click({ timeout: 5000 });
+      await page.waitForTimeout(400);
+      const after = page.url();
+      const title = await page.title();
+      results.push({ ...link, result: after === before ? 'click had no effect (no navigation)' : 'navigated', targetUrl: after, title });
+    } catch (e) {
+      results.push({ ...link, result: `click failed: ${String(e).split('\n')[0]}` });
+    }
+  }
+  return { name, links: results };
+}
+
 async function main() {
   const [, , cmd, arg1, arg2] = process.argv;
   const { base, close } = await startServer();
@@ -110,8 +194,25 @@ async function main() {
       const results = [];
       for (const name of pages) results.push(await checkPage(page, base, name));
       console.log(JSON.stringify(results, null, 2));
+    } else if (cmd === 'tag-check') {
+      const name = arg1 || 'index.html';
+      console.log(JSON.stringify(await tagCheckPage(page, base, name), null, 2));
+    } else if (cmd === 'tag-check-all') {
+      const pages = await listPages();
+      const results = [];
+      for (const name of pages) results.push(await tagCheckPage(page, base, name));
+      const bad = results.filter((r) => r.status === 'missing-or-wrong-colour');
+      console.log(JSON.stringify({ results, summary: `${bad.length} page(s) missing/wrong colour tag` }, null, 2));
+    } else if (cmd === 'link-check') {
+      const name = arg1 || 'index.html';
+      console.log(JSON.stringify(await linkCheckPage(page, base, name), null, 2));
+    } else if (cmd === 'link-check-all') {
+      const pages = await listPages();
+      const results = [];
+      for (const name of pages) results.push(await linkCheckPage(page, base, name));
+      console.log(JSON.stringify(results, null, 2));
     } else {
-      console.error('Usage: node driver.mjs <shot|shot-all|check|check-all> [args]');
+      console.error('Usage: node driver.mjs <shot|shot-all|check|check-all|tag-check|tag-check-all|link-check|link-check-all> [args]');
       process.exitCode = 1;
     }
   } finally {
