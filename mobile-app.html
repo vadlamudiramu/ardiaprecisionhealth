@@ -387,9 +387,9 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
             <div class="kpi-delta up">↑ +12% today</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-label">Win Rate</div>
-            <div class="kpi-value" style="color:#2DD4BF">89%</div>
-            <div class="kpi-delta up">↑ L1 appeals</div>
+            <div class="kpi-label">Manual Appeal Success</div>
+            <div class="kpi-value" style="color:#2DD4BF">45%</div>
+            <div class="kpi-delta up">industry avg · HFMA 2024</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-label">Open Claims</div>
@@ -520,10 +520,10 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
           </div>
           <div style="flex:1">
             <div style="font-size:13px;font-weight:700;margin-bottom:4px">AI Appeal Viability</div>
-            <div style="font-size:11.5px;color:var(--muted);line-height:1.6">Strong CO-50 defense identified. LCD L35391 supports medical necessity for opioid monitoring in substance use disorder treatment.</div>
+            <div style="font-size:11.5px;color:var(--muted);line-height:1.6">Strong CO-50 defense identified. LCD L38016 §3.2 supports medical necessity for definitive drug testing in substance use disorder treatment.</div>
             <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
               <span style="background:rgba(74,222,128,.12);color:#4ade80;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">Appeal Viable</span>
-              <span style="background:rgba(59,130,246,.12);color:var(--blue);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">5 Citations Found</span>
+              <span style="background:rgba(59,130,246,.12);color:var(--blue);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">Grounded in Record</span>
             </div>
           </div>
         </div>
@@ -531,25 +531,22 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
         <!-- Evidence -->
         <div class="sec-head"><div class="sec-title">Evidence Retrieved</div></div>
         <div class="ev-list">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Demo · synthetic data · no PHI · citations resolved from the policy/RAG layer at runtime</div>
           <div class="ev-item">
             <span class="ev-tag ev-lcd">LCD</span>
-            <div class="ev-text"><strong>L35391</strong> — Drug Testing, Urine (Palmetto GBA J-M). Supports definitive tox testing for patients with documented SUD diagnosis ICD-10 F11.10.</div>
+            <div class="ev-text"><strong>L38016 §3.2</strong> — Definitive drug testing (Palmetto GBA J-M). Medical necessity established for documented SUD monitoring per the LCD's stated criteria.</div>
           </div>
           <div class="ev-item">
             <span class="ev-tag ev-nccn">ASCO</span>
-            <div class="ev-text">ASCO 2025 Guidelines support quantitative urine drug monitoring for opioid-dependent patients in structured outpatient treatment programs.</div>
+            <div class="ev-text">ASCO guidelines support quantitative urine drug monitoring for opioid-dependent patients in structured outpatient treatment programs.</div>
           </div>
           <div class="ev-item">
-            <span class="ev-tag ev-pub">PMID</span>
-            <div class="ev-text"><strong>38412847</strong> — Milligan et al. (2025) "Quantitative toxicology in opioid use disorder management: clinical outcomes data." PMID supports G0481 necessity.</div>
+            <span class="ev-tag ev-pub">LIT</span>
+            <div class="ev-text">Peer-reviewed toxicology literature supports definitive testing for opioid use disorder monitoring (citation retrieved from the RAG layer at runtime).</div>
           </div>
           <div class="ev-item">
             <span class="ev-tag ev-ehr">EHR</span>
-            <div class="ev-text">Patient has 6-month documented treatment history in EHR with treating physician order for monthly monitoring. Continuity of care established.</div>
-          </div>
-          <div class="ev-item">
-            <span class="ev-tag ev-pub">ALJ</span>
-            <div class="ev-text">ALJ Precedent ALJ-2025-TOX-089 — Similar G0481 CO-50 denial overturned for SUD patient. Applied here as supporting precedent.</div>
+            <div class="ev-text">Patient record shows a documented treatment history with a treating-physician order for monitoring — grounded directly in the record, no invented facts.</div>
           </div>
         </div>
 
@@ -567,7 +564,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
             <div class="tl-circle tl-done"><i class="fas fa-check"></i></div>
             <div class="tl-content">
               <div class="tl-label">AI Analysis Complete</div>
-              <div class="tl-desc">88% confidence · 5 citations · 1.4s</div>
+              <div class="tl-desc">Grounded in the patient record · demo · 1.4s</div>
             </div>
           </div>
           <div class="tl-step">
@@ -625,13 +622,13 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
           </div>
           <div class="stat-card">
             <div class="stat-icon">🎯</div>
-            <div class="stat-val" style="color:#2DD4BF">89%</div>
-            <div class="stat-lbl">Win Rate</div>
+            <div class="stat-val" style="color:#2DD4BF">45%</div>
+            <div class="stat-lbl">Manual Appeal Success (HFMA)</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">⚡</div>
-            <div class="stat-val" style="color:#FBBF24">47×</div>
-            <div class="stat-lbl">Cost Advantage</div>
+            <div class="stat-val" style="color:#FBBF24">$118</div>
+            <div class="stat-lbl">Avg Manual Appeal</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">⏱️</div>
@@ -662,14 +659,14 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
               <div style="margin-bottom:14px">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
                   <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#a78bfa">CO-151</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Freq. Limit</span></div>
-                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$43K</div><div style="font-size:10px;color:var(--muted)">78% win</div></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$43K</div><div style="font-size:10px;color:var(--muted)">demo</div></div>
                 </div>
                 <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:78%;background:linear-gradient(90deg,#a78bfa,#a78bfa88);border-radius:3px"></div></div>
               </div>
               <div>
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
                   <div><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#fbbf24">CO-197</span><span style="font-size:11px;color:var(--muted);margin-left:6px">Contractual</span></div>
-                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$31K</div><div style="font-size:10px;color:var(--muted)">72% win</div></div>
+                  <div style="text-align:right"><div style="font-size:13px;font-weight:800;color:#4ade80">$31K</div><div style="font-size:10px;color:var(--muted)">demo</div></div>
                 </div>
                 <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:72%;background:linear-gradient(90deg,#fbbf24,#fbbf2488);border-radius:3px"></div></div>
               </div>
@@ -718,7 +715,7 @@ button{font-family:inherit;border:none;cursor:pointer;background:none;color:inhe
               <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
                 <div style="flex:1;font-size:13px;font-weight:600">United HC</div>
                 <div style="font-size:11px;color:var(--muted);margin-right:12px">112 claims</div>
-                <div style="font-size:14px;font-weight:800;color:#3b82f6">84%</div>
+                <div style="font-size:14px;font-weight:800;color:#3b82f6">demo</div>
               </div>
               <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04) ">
                 <div style="flex:1;font-size:13px;font-weight:600">BCBS</div>

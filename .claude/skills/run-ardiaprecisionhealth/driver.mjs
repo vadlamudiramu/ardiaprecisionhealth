@@ -27,9 +27,10 @@ const PAGE_CATEGORIES = {
   'our-product.html': '#0ea5e9', 'architecture.html': '#0ea5e9', 'how-it-works.html': '#0ea5e9',
   'how-software-works.html': '#0ea5e9', 'mobile-app.html': '#0ea5e9', 'plg-sandbox.html': '#0ea5e9',
   'product-demo.html': '#0ea5e9', 'dashboard.html': '#0ea5e9', 'solutions.html': '#0ea5e9',
+  'tara-framework.html': '#0ea5e9',
   'security.html': '#22c55e', 'pama.html': '#22c55e', 'precision-medicine.html': '#22c55e',
-  'case-studies.html': '#22c55e', 'research.html': '#22c55e',
-  'investors.html': '#d946ef', 'contact.html': '#d946ef',
+  'case-studies.html': '#22c55e', 'research.html': '#22c55e', 'compliance.html': '#22c55e',
+  'investors.html': '#d946ef', 'contact.html': '#d946ef', 'market-validation.html': '#d946ef',
   'index.html': null, 'email-audit.html': null, 'google-cloud-email-response.html': null,
 };
 

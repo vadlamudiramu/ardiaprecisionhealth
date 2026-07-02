@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
-<title>Platform Architecture | Ardia Health</title>
+<title>Compliance | Ardia Health</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -1141,140 +1141,171 @@ body { overflow-x: hidden; }
     </div>
   </div>
 </nav>
-<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Product &amp; Platform</div>
-<div id="page-arch" >
+<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#22c55e;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Clinical &amp; Compliance</div>
+<div id="page-main" >
 <div class="back-nav-wrap"><div class="container"><span class="back-nav" onclick="window.location='index.html'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back to Home</span></div></div>
 
 <div class="page-hero">
   <div class="grid"></div>
   <div class="container ph-inner">
-    <span class="ph-tag">Technical Architecture</span>
-    <h1 class="ph-title">Clinical Intelligence Engine<br><span class="gradient-text">Architecture</span></h1>
-    <p class="ph-sub">A HIPAA-compliant, quantum-ready AI platform built on Google Cloud Platform (Vertex AI, Cloud Healthcare API) with multi-layer clinical reasoning, real-time payer rules intelligence, and FHIR-native EHR integration.</p>
+    <span class="ph-tag">Clinical &amp; Compliance</span>
+    <h1 class="ph-title">Compliance,<br><span class="gradient-text">Built Into the Architecture</span></h1>
+    <p class="ph-sub">Ardia is engineered around the regulations that govern AI in Texas healthcare — Texas SB 1188, TRAIGA, HIPAA, the NIST AI Risk Management Framework, CLIA/CAP, and the False Claims Act. This page maps each requirement to how Ardia is designed to meet it.</p>
   </div>
 </div>
 
-<section class="arch-layers">
+<section class="sol-section" style="background:#fff">
   <div class="container">
-
-    <!-- Layer 1: Data Sources -->
-    <div class="arch-layer reveal">
-      <div class="arch-layer-title"><i class="fas fa-database" style="color:#14b8a6"></i> Layer 1 · Data Ingestion &amp; Sources</div>
-      <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">📄</div><h4>EDI Claims Data</h4><p>ANSI X12 835/837 denial files. Real-time clearinghouse API connections. Bulk historical upload.</p><div class="ab-tags"><span class="ab-tag">835 ERA</span><span class="ab-tag">837P/I</span><span class="ab-tag">Real-time</span></div></div>
-        <div class="arch-block"><div class="ab-icon">🏥</div><h4>EHR Clinical Data</h4><p>SMART-on-FHIR R4 API for physician notes, Rx history, lab orders, diagnoses.</p><div class="ab-tags"><span class="ab-tag">FHIR R4</span><span class="ab-tag">Epic</span><span class="ab-tag">Cerner</span></div></div>
-        <div class="arch-block"><div class="ab-icon">🧬</div><h4>Genomic &amp; Lab Results</h4><p>HL7 v2.x LIS interfaces. VCF/FASTQ genomic data parsing. Structured result ingestion.</p><div class="ab-tags"><span class="ab-tag">HL7 v2</span><span class="ab-tag">VCF</span><span class="ab-tag">ORU</span></div></div>
-        <div class="arch-block"><div class="ab-icon">💊</div><h4>Pharmacy &amp; PBM Data</h4><p>NCPDP SCRIPT prescription data. PBM formulary feeds. Drug-gene interaction database.</p><div class="ab-tags"><span class="ab-tag">NCPDP</span><span class="ab-tag">RxNorm</span><span class="ab-tag">SCRIPT</span></div></div>
-      </div>
-    </div>
-
-    <!-- Layer 2: Processing -->
-    <div class="arch-layer reveal">
-      <div class="arch-layer-title"><i class="fas fa-cog" style="color:#14b8a6"></i> Layer 2 · Processing &amp; Normalization</div>
-      <div class="arch-blocks cols-3">
-        <div class="arch-block highlight"><div class="ab-icon">⚙️</div><h4>Data Normalization Engine</h4><p>Multi-format parser normalizing EDI, HL7, FHIR, and proprietary formats into a unified clinical-financial data model. Deduplication, entity resolution, and temporal alignment.</p><div class="ab-tags"><span class="ab-tag">Mirth Connect</span><span class="ab-tag">FHIR Mapper</span><span class="ab-tag">NLP Pre-processing</span></div></div>
-        <div class="arch-block highlight"><div class="ab-icon">🗂️</div><h4>Clinical Document Analyzer</h4><p>NLP-powered extraction of structured data from unstructured physician notes. Entity recognition for diagnoses, medications, procedures, and clinical findings with medical ontology mapping.</p><div class="ab-tags"><span class="ab-tag">SNOMED CT</span><span class="ab-tag">LOINC</span><span class="ab-tag">RxNorm</span><span class="ab-tag">ICD-10</span></div></div>
-        <div class="arch-block highlight"><div class="ab-icon">🔗</div><h4>Patient Identity Resolution</h4><p>Master Patient Index with probabilistic matching across payer, EHR, and lab systems. EMPI integration. HIPAA-safe tokenization for analytics.</p><div class="ab-tags"><span class="ab-tag">EMPI</span><span class="ab-tag">Tokenization</span><span class="ab-tag">MPI</span></div></div>
-      </div>
-    </div>
-
-    <!-- Layer 3: Intelligence -->
-    <div class="arch-layer reveal">
-      <div class="arch-layer-title"><i class="fas fa-brain" style="color:#14b8a6"></i> Layer 3 · AI Clinical Reasoning Core (The Differentiator)</div>
-      <div class="arch-blocks cols-4">
-        <div class="arch-block highlight"><div class="ab-icon">🤖</div><h4>Claude AI Engine</h4><p>Anthropic Claude API powers clinical reasoning. Healthcare-context prompting with payer-specific LCD rule injection. Mechanistic explanation generation.</p><div class="ab-tags"><span class="ab-tag">Claude API</span><span class="ab-tag">Anthropic</span><span class="ab-tag">RAG</span></div></div>
-        <div class="arch-block highlight"><div class="ab-icon">📚</div><h4>Payer Rules Knowledge Base</h4><p>400+ commercial payer policies. All 7 MAC LCD/NCA databases. MolDX dossier requirements. Updated weekly via CMS feeds.</p><div class="ab-tags"><span class="ab-tag">7 MACs</span><span class="ab-tag">MolDX</span><span class="ab-tag">400+ Payers</span></div></div>
-        <div class="arch-block highlight"><div class="ab-icon">🧬</div><h4>Genomic Intelligence Module</h4><p>Multi-omics data interpretation. PGx CYP enzyme metabolism modeling. Biomarker-to-coverage-policy mapping. Clinical trial eligibility matching.</p><div class="ab-tags"><span class="ab-tag">CYP2D6/2C19</span><span class="ab-tag">NGS</span><span class="ab-tag">PGx</span></div></div>
-        <div class="arch-block highlight"><div class="ab-icon">📖</div><h4>Clinical Guidelines Engine</h4><p>NCCN, ASCO, AHA, ACC, and 40+ specialty society guidelines mapped to payer coverage policies. Real-time citation generation for evidence-based rebuttals.</p><div class="ab-tags"><span class="ab-tag">NCCN</span><span class="ab-tag">ASCO</span><span class="ab-tag">AHA</span></div></div>
-      </div>
-    </div>
-
-    <!-- Layer 4: Output -->
-    <div class="arch-layer reveal">
-      <div class="arch-layer-title"><i class="fas fa-file-alt" style="color:#14b8a6"></i> Layer 4 · Output &amp; Workflow</div>
-      <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">✍️</div><h4>Recovery Narrative Generator</h4><p>Payer-formatted appeal letters with clinical reasoning, evidence citations, and structured attestation. Generated in &lt;90 seconds per claim.</p></div>
-        <div class="arch-block"><div class="ab-icon">🔄</div><h4>Workflow Orchestrator</h4><p>Configurable reviewer queues, auto-submit rules, deadline tracking, and escalation workflows. Runs on Cloud Run.</p></div>
-        <div class="arch-block"><div class="ab-icon">📊</div><h4>Revenue Analytics Dashboard</h4><p>Real-time recovery tracking, ROI calculation, denial pattern analysis, and payer performance benchmarking.</p></div>
-        <div class="arch-block"><div class="ab-icon">🔌</div><h4>Clearinghouse Submission</h4><p>Direct integration with major clearinghouses for electronic appeal submission. Paper submission PDF generation for payers requiring it.</p></div>
-      </div>
-    </div>
-
-    <!-- Layer 5: Infrastructure -->
-    <div class="arch-layer reveal">
-      <div class="arch-layer-title"><i class="fas fa-cloud" style="color:#14b8a6"></i> Layer 5 · Infrastructure &amp; Platform</div>
-      <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">☁️</div><h4>Cloud Healthcare API &amp; Healthcare Data Engine</h4><p>HIPAA-eligible GCP services (BAA signed). FHIR R4 store native APIs. US data residency in us-central1.</p><div class="ab-tags"><span class="ab-tag">Cloud Healthcare API</span><span class="ab-tag">Healthcare Data Engine</span><span class="ab-tag">FHIR R4</span></div></div>
-        <div class="arch-block"><div class="ab-icon">🌐</div><h4>Google Cloud Platform</h4><p>GCP Healthcare API. BigQuery for analytics. Vertex AI for custom ML models. HIPAA-eligible services.</p><div class="ab-tags"><span class="ab-tag">GCP</span><span class="ab-tag">BigQuery</span><span class="ab-tag">Vertex AI</span></div></div>
-        <div class="arch-block"><div class="ab-icon">🔐</div><h4>Security Stack</h4><p>AES-256 at rest. TLS 1.3 in transit. Zero-trust network. SOC 2 Type II target (Month 18). HITRUST roadmap.</p><div class="ab-tags"><span class="ab-tag">Zero Trust</span><span class="ab-tag">SOC 2</span><span class="ab-tag">HITRUST</span></div></div>
-        <div class="arch-block" style="border-color:rgba(180,83,9,0.4);background:rgba(180,83,9,0.08)"><div class="ab-icon">⚛️</div><h4>Quantum-Ready Layer (Phase 4)</h4><p>Architecture designed for quantum-classical hybrid computing. Post-quantum cryptography. Q2 2032+ target for quantum ML model integration.</p><div class="ab-tags"><span class="ab-tag">Post-Quantum Crypto</span><span class="ab-tag">QML Ready</span><span class="ab-tag">2032+</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Data Flow -->
-<section class="arch-flow">
-  <div class="container">
-    <div class="sh reveal">
-      <span class="section-tag-d">Data Flow</span>
-      <h2 class="st st-d">Claim-to-Recovery in 6 Steps</h2>
-    </div>
-    <div class="arch-flow-inner reveal">
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px">
-        <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #0d7c6e">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#0d7c6e,#0fa58e);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">1</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Denied Claim Received</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">835 ERA or direct API delivers denial with reason code, payer, claim details, and service line breakdown.</div>
+    <div class="sh"><span class="section-tag-l">Texas Law · Effective Sept 1, 2025</span><h2 class="st st-l">Texas SB 1188</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">Texas's law governing the use of AI in health care. It sets guardrails for how AI may participate in clinical workflows, where patient data must live, and what patients must be told.</p></div>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:10px">What the law requires</h4>
+        <div class="stack-items">
+          <div class="stack-item">Practitioner review before any clinical action is taken on an AI output</div>
+          <div class="stack-item">Disclosure to patients that AI is being used</div>
+          <div class="stack-item">US data residency for the data involved</div>
+          <div class="stack-item">Penalties of up to $250,000</div>
         </div>
-        <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #7c3aed">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">2</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Rules Engine Routing</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">Payer identified → MAC jurisdiction → applicable LCD/NCA retrieved → denial code classification established.</div>
-        </div>
-        <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #059669">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#059669,#10b981);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">3</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Clinical Context Retrieval</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">FHIR query pulls clinical documents — notes, Rx, labs, genomic reports — scoped to the patient and clinical question.</div>
-        </div>
-        <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #d97706">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">4</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">AI Reasoning &amp; Gap Analysis</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">Claude API reasons documentation against LCD medical necessity criteria. Identifies specific gaps. Selects optimal evidence from clinical guidelines.</div>
-        </div>
-        <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #0ea5e9">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">5</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Narrative &amp; Appeal Assembly</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">Structured appeal letter generated. Evidence package assembled. Confidence score calculated. High-confidence appeals flagged for auto-submit.</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#0d7c6e,#0b6b60);border:2px solid #0d7c6e;border-radius:14px;padding:22px;border-top:4px solid #5eead4">
-          <div style="width:36px;height:36px;background:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">6</div>
-          <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:8px">Submit &amp; Track Outcomes</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.65">Appeal submitted via clearinghouse. Outcome tracked on ERA receipt. Model learns from wins. ROI calculated and reported.</div>
-          <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;font-size:10px;color:#5eead4;font-weight:700">✓ Recovery Complete</div>
+      </div>
+      <div class="stack-card" style="grid-column:span 2;background:rgba(13,124,110,0.04)">
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#0d7c6e;margin-bottom:10px">How Ardia complies</h4>
+        <div class="stack-items">
+          <div class="stack-item">Every AI output requires practitioner attestation before it is submitted — a human is in the loop by design, not by policy alone</div>
+          <div class="stack-item">Patient-facing AI disclosure is part of the workflow</div>
+          <div class="stack-item">All processing runs on Google Cloud in the <strong>us-central1</strong> region, keeping data inside the United States</div>
+          <div class="stack-item">A full timestamped audit trail records each review and attestation</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Tech Stack -->
-<section class="arch-stack">
+<section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
   <div class="container">
-    <div class="sh reveal">
-      <span class="section-tag-d">Tech Stack</span>
-      <h2 class="st st-d">Built on Best-in-Class Healthcare Infrastructure</h2>
-    </div>
-    <div class="stack-grid reveal">
-      <div class="stack-card"><h4><i class="fas fa-brain"></i> AI &amp; Machine Learning</h4><div class="stack-items"><div class="stack-item">Claude API (Anthropic) — primary reasoning engine</div><div class="stack-item">Google Vertex AI — custom ML models &amp; fine-tuning</div><div class="stack-item">RAG (Retrieval-Augmented Generation) — payer policy context injection</div><div class="stack-item">spaCy + Hugging Face — clinical NLP pre-processing</div></div></div>
-      <div class="stack-card"><h4><i class="fas fa-exchange-alt"></i> Healthcare Interoperability</h4><div class="stack-items"><div class="stack-item">HL7 FHIR R4 — EHR clinical data integration</div><div class="stack-item">ANSI X12 835/837 — claims and remittance EDI</div><div class="stack-item">SMART-on-FHIR — EHR app launch &amp; authorization</div><div class="stack-item">Mirth Connect — HL7 v2 message transformation</div><div class="stack-item">NCPDP SCRIPT — pharmacy data exchange</div></div></div>
-      <div class="stack-card"><h4><i class="fas fa-cloud"></i> Cloud &amp; Data</h4><div class="stack-items"><div class="stack-item">Google Cloud Platform (GCP) — primary platform (us-central1)</div><div class="stack-item">BigQuery — analytics &amp; reporting data warehouse</div><div class="stack-item">GCP Cloud Healthcare API — FHIR R4-native data store</div><div class="stack-item">Cloud Run — serverless microservices</div><div class="stack-item">Salesforce Health Cloud — CRM / distribution only</div></div></div>
+    <div class="sh"><span class="section-tag-l">Texas Law · Effective Jan 1, 2026</span><h2 class="st st-l">TRAIGA / HB 149</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">The Texas Responsible Artificial Intelligence Governance Act. It establishes statewide obligations for AI systems and offers a path for responsible innovators to operate and demonstrate safety.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div class="card">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0d7c6e;margin-bottom:8px">Core Obligations</div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.75">Disclosure that AI is in use, a prohibition on manipulation, and a prohibition on discrimination.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0d7c6e;margin-bottom:8px">36-Month Sandbox</div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.75">A 36-month regulatory sandbox for AI systems to operate while demonstrating responsible practice.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0d7c6e;margin-bottom:8px">NIST AI RMF Safe Harbor</div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.75">Alignment with the NIST AI Risk Management Framework provides a safe harbor under the Act.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#b45309;margin-bottom:8px">Civil Penalty</div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.75">Civil penalties ranging from $10,000 to $200,000.</p>
+      </div>
+      <div class="card" style="grid-column:span 2;background:rgba(13,124,110,0.04);border-color:rgba(13,124,110,0.18)">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0d7c6e;margin-bottom:8px">How Ardia aligns</div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.75">Ardia is built to meet TRAIGA's disclosure, no-manipulation, and no-discrimination obligations, and follows the NIST AI Risk Management Framework 1.0 to operate within the Act's safe harbor.</p>
+      </div>
     </div>
   </div>
 </section>
-</div><!-- /arch -->
 
-<!-- ===== PAGE: DASHBOARD ===== -->
+<section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">Federal · Protected Health Information</span><h2 class="st st-l">HIPAA Security Rule</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">Ardia's handling of Protected Health Information is built on Google Cloud with a signed Business Associate Agreement and encryption in transit and at rest.</p></div>
+    <div class="sec-grid">
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-file-signature"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Signed GCP BAA</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">A Business Associate Agreement is signed with Google Cloud Platform, the infrastructure Ardia runs on.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-server"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">US Data Residency</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">Workloads run in the <strong>us-central1</strong> region, keeping PHI inside the United States.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-lock"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Encryption</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">AES-256 at rest and TLS 1.3 in transit, with customer-managed encryption keys (CMEK).</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Audit Logs</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">Access to PHI is recorded in audit logs for traceability.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-user-clock"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Auto-Logoff</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">Sessions automatically log off after 15 minutes of inactivity.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon"><i class="fas fa-user-shield"></i></div>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Least-Privilege IAM</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">Identity and access management follows a least-privilege model.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">Governance Framework</span><h2 class="st st-l">NIST AI RMF 1.0</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">Ardia follows the NIST AI Risk Management Framework 1.0, organized around its four core functions. Alignment with the framework also underpins Ardia's TRAIGA safe-harbor posture.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <div class="card" style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#0d7c6e;margin-bottom:6px">GOVERN</div>
+        <p style="font-size:12.5px;color:#4a6285;line-height:1.7">A culture of risk management across the AI lifecycle.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#0d7c6e;margin-bottom:6px">MAP</div>
+        <p style="font-size:12.5px;color:#4a6285;line-height:1.7">Context is recognized and risks are identified.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#0d7c6e;margin-bottom:6px">MEASURE</div>
+        <p style="font-size:12.5px;color:#4a6285;line-height:1.7">Risks are assessed, analyzed, and tracked.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#0d7c6e;margin-bottom:6px">MANAGE</div>
+        <p style="font-size:12.5px;color:#4a6285;line-height:1.7">Risks are prioritized and acted on over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div class="card">
+        <span class="section-tag-l">Laboratory Certification</span>
+        <h3 class="st st-l" style="font-size:22px;margin:8px 0 10px">CLIA / CAP</h3>
+        <p style="font-size:13.5px;color:#4a6285;line-height:1.8">CLIA and CAP are certifications that clinical laboratories must hold to perform testing. <strong>Ardia does not perform testing</strong> — it works on administrative claim and denial data after care. The certified laboratory remains responsible for the testing it performs.</p>
+      </div>
+      <div class="card">
+        <span class="section-tag-l">Anti-Kickback &amp; False Claims Act</span>
+        <h3 class="st st-l" style="font-size:22px;margin:8px 0 10px">AKS / FCA</h3>
+        <p style="font-size:13.5px;color:#4a6285;line-height:1.8">Ardia's 15% contingency is structured as a <strong>software fee</strong> on recovered revenue — not a referral fee — which is the relevant distinction under the Anti-Kickback Statute. Under the False Claims Act, the human-in-the-loop attestation required before every submission functions as a safe-harbor control: a licensed practitioner reviews and stands behind each appeal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">Roadmap · Honest Status</span><h2 class="st st-l">SOC 2 Type II</h2></div>
+    <div style="max-width:720px;margin:0 auto">
+      <div class="card" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2)">
+        <div style="display:flex;align-items:flex-start;gap:16px">
+          <div style="width:44px;height:44px;border-radius:10px;background:rgba(180,83,9,0.1);color:#b45309;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px"><i class="fas fa-hourglass-half"></i></div>
+          <div>
+            <h4 style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Not yet certified — targeted Q1 2027</h4>
+            <p style="font-size:13.5px;color:#4a6285;line-height:1.8">Ardia is <strong>not yet SOC 2 Type II certified</strong>. Certification is targeted for Q1 2027. We state this plainly rather than imply a certification we do not hold.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /main -->
+
+<!-- ===== PAGE: RESEARCH ===== -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">

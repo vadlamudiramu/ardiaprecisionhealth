@@ -1096,7 +1096,7 @@ body { overflow-x: hidden; }
           <div class="mega-grid">
             <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">Clinical Intelligence Engine</div><div class="mega-item-desc">ToxIQ, MolecuIQ, AcoIQ, BehaviorIQ</div></div></div>
             <div class="mega-item" onclick="window.location='how-it-works.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="mega-item-title">How It Works</div><div class="mega-item-desc">6-step claim-to-recovery process</div></div></div>
-            <div class="mega-item" onclick="window.location='architecture.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><div><div class="mega-item-title">Platform Architecture</div><div class="mega-item-desc">Neuro-symbolic Sandwich Architecture</div></div></div>
+            <div class="mega-item" onclick="window.location='architecture.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><div><div class="mega-item-title">Platform Architecture</div><div class="mega-item-desc">Triadic Adjudicative Reasoning (TARA)</div></div></div>
             <div class="mega-item" onclick="window.location='precision-medicine.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="mega-item-title">Precision Health</div><div class="mega-item-desc">Genomics + reimbursement intelligence</div></div></div>
             <div class="mega-item" onclick="window.location='pama.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div><div class="mega-item-title">PAMA &amp; Efficiency</div><div class="mega-item-desc">2027 rate cliff strategy</div></div></div>
             <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">PLG Sandbox</div><div class="mega-item-desc">Try the engine free — 90 seconds</div></div></div>
@@ -1236,7 +1236,7 @@ body { overflow-x: hidden; }
         <p>Ardia's team spent 25+ years inside Cigna, UnitedHealthcare, and Aetna. Our <strong style="color:#0d7c6e">payer-side insider intelligence</strong> knows exactly which denial codes are auto-generated system errors vs. genuine coverage disputes — and which arguments have the highest win probability at each MAC.</p>
         <div style="margin-top:12px;padding:10px 14px;background:rgba(13,124,110,0.06);border-radius:8px;border-left:3px solid #7c3aed">
           <div style="font-size:11px;font-weight:700;color:#7c3aed">DATA ADVANTAGE</div>
-          <div style="font-size:11.5px;color:#4a6285;margin-top:3px">847 payer-specific denial patterns · 1,247 LCD rules indexed · 89% L1 appeal win rate vs. 34% industry average.</div>
+          <div style="font-size:11.5px;color:#4a6285;margin-top:3px">400+ LCD/NCD policies indexed · payer-specific denial-pattern library · manual appeal success rate industry avg 45% (HFMA 2024).</div>
         </div>
       </div>
       <div class="hwc">
@@ -1354,6 +1354,7 @@ body { overflow-x: hidden; }
         <ul>
           <li><a onclick="window.location='solutions.html'">Solutions Overview</a></li>
           <li><a onclick="window.location='architecture.html'">Architecture</a></li>
+          <li><a onclick="window.location='tara-framework.html'">TARA Framework</a></li>
           <li><a onclick="window.location='precision-medicine.html'">Precision Medicine</a></li>
           <li><a onclick="window.location='how-it-works.html'">How It Works</a></li>
           <li><a onclick="window.location='dashboard.html'">Pilot Demo</a></li>
@@ -1369,7 +1370,9 @@ body { overflow-x: hidden; }
           <li><a onclick="window.location='research.html'">Research Library</a></li>
           <li><a onclick="window.location='case-studies.html'">Case Studies</a></li>
           <li><a onclick="window.location='security.html'">Legal &amp; Compliance</a></li>
+          <li><a onclick="window.location='compliance.html'">Compliance</a></li>
           <li><a onclick="window.location='investors.html'">Investors</a></li>
+          <li><a onclick="window.location='market-validation.html'">Market Validation</a></li>
           <li><a onclick="window.location='about.html'">Why Ardia</a></li>
         </ul>
       </div>
@@ -1483,8 +1486,8 @@ const DATASETS = [
     total: 847, denied_amt: '$847,280', billed: '$1.2M',
     mac: 'Palmetto GBA (J-M)', lcd: 'LCD L35006',
     codes: {'CO-50': 312, 'CO-55': 89, 'CO-97': 44, 'CO-151': 21, 'CO-197': 381},
-    viable: 718, recovery: '$318,450', confidence: '96%', cost: '$2.50',
-    manual_cost: '$118', ratio: '47×',
+    viable: 718, recovery: '$318,450', confidence: '96%',
+    manual_cost: '$118',
     top_cpt: 'G0480 (4-Drug Tox Panel), G0483 (Full Tox 22+), G0481 (Quant Drug Monitoring)',
     time: '1.4s',
     findings: [
@@ -1499,13 +1502,13 @@ const DATASETS = [
     total: 213, denied_amt: '$412,600', billed: '$640K',
     mac: 'CGS Administrators (J-15)', lcd: 'LCD L36179',
     codes: {'CO-50': 98, 'CO-55': 67, 'CO-167': 31, 'CO-151': 17},
-    viable: 191, recovery: '$267,840', confidence: '93%', cost: '$2.50',
-    manual_cost: '$118', ratio: '47×',
+    viable: 191, recovery: '$267,840', confidence: '93%',
+    manual_cost: '$118',
     top_cpt: '81455 (14+ gene NGS), 81479 (Molecular pathology), 81401 (Molecular NOS)',
     time: '0.9s',
     findings: [
       {code:'CO-50', count:98, amt:'$218,400', action:'APPEAL VIABLE', conf:'97%', reason:'Somatic mutation testing — NCCN NSCLC v2.2026 requires molecular profiling for Stage III–IV'},
-      {code:'CO-55', count:67, amt:'$134,000', action:'APPEAL VIABLE', conf:'89%', reason:'MAAA/MolDX coverage: Oncotype DX and Foundation One CDx covered per LCD L36179 table 3'},
+      {code:'CO-55', count:67, amt:'$134,000', action:'APPEAL VIABLE', conf:'90%', reason:'MAAA/MolDX coverage: Oncotype DX and Foundation One CDx covered per LCD L36179 table 3'},
       {code:'CO-167', count:31, amt:'$46,500', action:'DOCUMENTATION GAP', conf:'82%', reason:'Prior authorization missing — 31 claims require ABN + ordering physician attestation'},
       {code:'CO-151', count:17, amt:'$13,600', action:'FREQUENCY APPEAL', conf:'76%', reason:'Repeat EGFR testing after progression — evidence supports repeat testing at disease progression'},
     ]
@@ -1515,8 +1518,8 @@ const DATASETS = [
     total: 512, denied_amt: '$1.34M', billed: '$2.1M',
     mac: 'Noridian Healthcare Solutions (JF)', lcd: 'Multiple ACO/REACH',
     codes: {'CO-50': 201, 'CO-167': 144, 'CO-4': 98, 'CO-55': 69},
-    viable: 423, recovery: '$890,200', confidence: '91%', cost: '$2.50',
-    manual_cost: '$118', ratio: '47×',
+    viable: 423, recovery: '$890,200', confidence: '91%',
+    manual_cost: '$118',
     top_cpt: 'G0506 (CCM), 99483 (Cognitive Assessment), 99490 (CCM 20min), 99091 (Remote monitoring)',
     time: '2.1s',
     findings: [
@@ -1592,7 +1595,7 @@ function runSandboxPLG() {
   if (btn) { btn.textContent = '⏳ Analyzing...'; btn.disabled = true; }
   
   const ds = fileContent ? 
-    {name:'Your Uploaded File', total:Math.floor(Math.random()*400+100), denied_amt:'$'+Math.floor(Math.random()*500+100)+',000', viable:Math.floor(Math.random()*300+80), recovery:'$'+Math.floor(Math.random()*200+50)+',000', confidence:Math.floor(Math.random()*8+88)+'%', time:'1.2s', mac:'CMS MAC (detected)', lcd:'Auto-detected from claim data', ratio:'47×', cost:'$2.50', findings:[{code:'CO-50',count:Math.floor(Math.random()*100+40),amt:'$'+Math.floor(Math.random()*200+80)+'K',action:'APPEAL VIABLE',conf:'96%',reason:'Medical necessity supported — LCD criteria met per claim documentation'},{code:'CO-55',count:Math.floor(Math.random()*40+20),amt:'$'+Math.floor(Math.random()*80+40)+'K',action:'APPEAL VIABLE',conf:'91%',reason:'Coverage determination updated — current policy supports this service category'},{code:'CO-151',count:Math.floor(Math.random()*20+5),amt:'$'+Math.floor(Math.random()*40+10)+'K',action:'DOCUMENTATION GAP',conf:'74%',reason:'Frequency limits — additional documentation required for repeat billing justification'}]} :
+    {name:'Your Uploaded File', total:Math.floor(Math.random()*400+100), denied_amt:'$'+Math.floor(Math.random()*500+100)+',000', viable:Math.floor(Math.random()*300+80), recovery:'$'+Math.floor(Math.random()*200+50)+',000', confidence:Math.floor(Math.random()*8+88)+'%', time:'1.2s', mac:'CMS MAC (detected)', lcd:'Auto-detected from claim data', findings:[{code:'CO-50',count:Math.floor(Math.random()*100+40),amt:'$'+Math.floor(Math.random()*200+80)+'K',action:'APPEAL VIABLE',conf:'96%',reason:'Medical necessity supported — LCD criteria met per claim documentation'},{code:'CO-55',count:Math.floor(Math.random()*40+20),amt:'$'+Math.floor(Math.random()*80+40)+'K',action:'APPEAL VIABLE',conf:'91%',reason:'Coverage determination updated — current policy supports this service category'},{code:'CO-151',count:Math.floor(Math.random()*20+5),amt:'$'+Math.floor(Math.random()*40+10)+'K',action:'DOCUMENTATION GAP',conf:'74%',reason:'Frequency limits — additional documentation required for repeat billing justification'}]} :
     DATASETS[currentDataset];
   
   const lines = [
@@ -1603,10 +1606,10 @@ function runSandboxPLG() {
     {t:'> Parsing ANSI X12 CAS segments · Extracting denial codes'},
     {t:'> MAC identified: ' + (ds.mac || 'Auto-detected'), c:'#0fa58e'},
     {t:'> Indexing LCD: ' + (ds.lcd || 'Auto-detected') + '...', c:'#0fa58e'},
-    {t:'> RAG retrieval: 1,247 LCD rules · 892 NCD policies loaded'},
+    {t:'> RAG retrieval: 400+ LCD/NCD policies loaded'},
     {t:'> NCCN v2026, ASCO, PubMed — 142 clinical documents indexed'},
     {t:'> Symbolic rules engine: CCI edits, NCCI, CMS transmittals active'},
-    {t:'> Knowledge graph: 847 payer-specific denial patterns loaded'},
+    {t:'> Knowledge graph: payer-specific denial-pattern library loaded'},
     {t:'─────────────────────────────────────────', c:'#1e3a5f'},
     {t:'[LAYER 1 · NEURAL] Running BERT-Med denial classification...'},
     {t:'[LAYER 2 · SYMBOLIC] Applying MAC LCD decision rules...'},
@@ -1620,7 +1623,7 @@ function runSandboxPLG() {
     {t:'> APPEAL VIABLE: ' + (ds.viable || 'N/A') + ' claims (' + Math.round((ds.viable/ds.total)*100) + '%)', c:'#22c55e', b:true},
     {t:'> Recovery opportunity: ' + (ds.recovery || 'Calculating...'), c:'#fbbf24', b:true},
     {t:'> Avg AI confidence: ' + (ds.confidence || '92%')},
-    {t:'> Cost to collect: ' + (ds.cost || '$2.50') + ' per appeal (vs ' + (ds.manual_cost || '$118') + ' manual = ' + (ds.ratio || '47×') + ' cheaper)', c:'#22c55e'},
+    {t:'> Pricing: 15% contingency — paid only on recovered revenue (industry benchmark: ' + (ds.manual_cost || '$118') + ' average manual appeal · Change Healthcare 2023)', c:'#22c55e'},
     {t:'─────────────────────────────────────────', c:'#1e3a5f'},
     {t:'→ Detailed breakdown available in report below ↓', c:'#14b8a6'},
   ];
@@ -1819,7 +1822,7 @@ function fileAppeal(btn) {
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
           <div style="background:#f0fdf9;border-radius:8px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:#0d7c6e">${d.conf}</div><div style="font-size:11px;color:#4a6285;margin-top:3px">AI Confidence</div></div>
           <div style="background:#f0fdf9;border-radius:8px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:#0d7c6e">${d.amount}</div><div style="font-size:11px;color:#4a6285;margin-top:3px">At Stake</div></div>
-          <div style="background:#f0fdf9;border-radius:8px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:#0d7c6e">$2.50</div><div style="font-size:11px;color:#4a6285;margin-top:3px">Appeal Cost</div></div>
+          <div style="background:#f0fdf9;border-radius:8px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:#0d7c6e">15%</div><div style="font-size:11px;color:#4a6285;margin-top:3px">Contingency — paid only on recovery</div></div>
         </div>
         <div style="display:flex;gap:10px;justify-content:flex-end">
           <span onclick="closeDqModal()" style="background:#f0f5fb;border:1px solid #dce8f2;color:#4a6285;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Close</span>
@@ -1942,14 +1945,14 @@ function autoAppealAll(btn) {
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
             <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#059669">12</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Appeals Filed</div></div>
             <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#0d7c6e">$47,280</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Total at Stake</div></div>
-            <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#0d7c6e">$30</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Total Cost ($2.50×12)</div></div>
+            <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#0d7c6e">15%</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Contingency — paid only on recovery</div></div>
           </div>
           <div style="background:#f8fafc;border:1px solid #dce8f2;border-radius:10px;padding:16px">
             <div style="font-size:12px;font-weight:700;color:#1e2f4a;margin-bottom:10px">What happens next</div>
             <div style="display:flex;flex-direction:column;gap:8px">
               <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">1</span><span style="font-size:12.5px;color:#4a6285">AI-generated appeal briefs delivered to Palmetto GBA within 24 hours</span></div>
               <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">2</span><span style="font-size:12.5px;color:#4a6285">Payer review period: 30–60 days per CMS standards</span></div>
-              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span><span style="font-size:12.5px;color:#4a6285">ERA payments auto-posted · 89% historical win rate · ~$42K expected recovery</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span><span style="font-size:12.5px;color:#4a6285">ERA payments auto-posted · outcome logged to TARA's denial-pattern library · full audit trail</span></div>
             </div>
           </div>
           <div style="display:flex;gap:10px;justify-content:flex-end">

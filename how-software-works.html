@@ -179,7 +179,7 @@ a{color:inherit;text-decoration:none}
     <p class="hero-sub">A complete technical and operational walkthrough of every stage in the Ardia Health platform — from raw EDI data ingestion through AI-powered appeal generation to final payment posting. Six steps. Fully autonomous.</p>
     <div class="hero-pills">
       <span class="hpill"><i class="fas fa-circle"></i> ANSI X12 EDI Ingestion</span>
-      <span class="hpill"><i class="fas fa-circle"></i> Neuro-Symbolic AI Engine</span>
+      <span class="hpill"><i class="fas fa-circle"></i> TARA Engine</span>
       <span class="hpill"><i class="fas fa-circle"></i> CMS LCD/NCD Matching</span>
       <span class="hpill"><i class="fas fa-circle"></i> Auto-Appeal Generation</span>
       <span class="hpill"><i class="fas fa-circle"></i> ERA Payment Posting</span>
@@ -218,7 +218,7 @@ a{color:inherit;text-decoration:none}
       <div class="flow-intro-icon"><i class="fas fa-info-circle"></i></div>
       <div>
         <h3>What makes Ardia different from manual billing</h3>
-        <p>Traditional RCM cycles take 45–90 days per claim with human billers charging $118+ per appeal. Ardia's Neuro-Symbolic Sandwich Architecture processes the same claim in under 2 seconds, cross-references 847 active CMS LCDs, generates a clinically grounded appeal brief, and delivers it to the MAC — all for $2.50 per claim. The <strong>47× cost advantage</strong> compounds across a lab processing 50,000+ claims per year.</p>
+        <p>Traditional RCM cycles take 45–90 days per claim with human billers charging $118+ per appeal (industry benchmark · Change Healthcare 2023). Ardia's Triadic Adjudicative Reasoning Architecture (TARA) processes the same claim in seconds, cross-references active CMS LCDs, generates a clinically grounded appeal brief, and delivers it to the MAC. By automating a costly, slow manual process, Ardia's model is a <strong>15% contingency fee — paid only on recovered revenue</strong>, so the value compounds across a lab processing tens of thousands of claims per year.</p>
       </div>
     </div>
 
@@ -277,9 +277,9 @@ a{color:inherit;text-decoration:none}
           <div class="step-num" style="background:linear-gradient(135deg,#7c3aed,#5b21b6)">2</div>
         </div>
         <div class="step-right">
-          <div class="step-tag" style="color:#7c3aed">Neuro-Symbolic AI Core</div>
+          <div class="step-tag" style="color:#7c3aed">TARA Core</div>
           <h3 class="step-title">AI Denial Classification & Viability Scoring</h3>
-          <p class="step-desc">Ardia's Neuro-Symbolic Sandwich Architecture deploys three AI model tiers simultaneously. The top tier uses a large language model for natural language understanding of clinical context. The middle tier applies symbolic reasoning — rules-based logic over CMS coverage policies. The bottom tier uses a deep neural network trained on 2.4M historical claim outcomes to predict appeal success probability.</p>
+          <p class="step-desc">Ardia's TARA deploys three AI model tiers simultaneously. The top tier uses a large language model for natural language understanding of clinical context. The middle tier applies symbolic reasoning — rules-based logic over CMS coverage policies. The bottom tier uses a deep neural network trained on the denial-pattern corpus as it grows (Layer 3) to predict appeal success probability.</p>
           <div class="step-detail-grid">
             <div class="detail-chip">
               <h5><i class="fas fa-brain"></i> LLM Clinical Context Layer</h5>
@@ -287,18 +287,18 @@ a{color:inherit;text-decoration:none}
             </div>
             <div class="detail-chip">
               <h5><i class="fas fa-code-branch"></i> Symbolic Rules Engine</h5>
-              <p>847 active CMS Local Coverage Determinations (LCDs) encoded as formal logic rules. Maps each claim to applicable LCDs by payer, MAC jurisdiction, and CPT code.</p>
+              <p>400+ active CMS Local Coverage Determinations (LCDs) encoded as formal logic rules. Maps each claim to applicable LCDs by payer, MAC jurisdiction, and CPT code.</p>
             </div>
             <div class="detail-chip">
               <h5><i class="fas fa-chart-bar"></i> ML Outcome Predictor</h5>
-              <p>Trained on 2.4M historical claims. Predicts appeal success probability (0–100%) using 140+ features: payer behavior, MAC, denial code, CPT, diagnoses, and claim history.</p>
+              <p>Trained on the denial-pattern corpus as it compounds (Layer 3). Predicts appeal success probability (0–100%) using 140+ features: payer behavior, MAC, denial code, CPT, diagnoses, and claim history.</p>
             </div>
             <div class="detail-chip">
               <h5><i class="fas fa-filter"></i> Viability Threshold</h5>
               <p>Claims scoring ≥72% appeal confidence are queued for automated appeal. Claims below threshold are flagged for human review — never silently abandoned.</p>
             </div>
           </div>
-          <span class="step-metric"><i class="fas fa-bolt"></i> Analyzes 847 claims/minute · 98.4% classification accuracy</span>
+          <span class="step-metric"><i class="fas fa-bolt"></i> Analyzes claims against 400+ LCD/NCD policies · deterministic rule execution</span>
           <div class="tech-pills">
             <span class="tech-pill">LLM (Clinical Fine-tuned)</span><span class="tech-pill">Symbolic Reasoning</span><span class="tech-pill">Decision Forest</span><span class="tech-pill">LCD/NCD Engine</span><span class="tech-pill">ICD-10 NLP</span>
           </div>
@@ -317,7 +317,7 @@ a{color:inherit;text-decoration:none}
           <div class="step-detail-grid">
             <div class="detail-chip">
               <h5><i class="fas fa-database"></i> CMS Coverage Corpus</h5>
-              <p>Full text of 847 active LCDs, all NCDs, and MAC-specific billing articles. Updated weekly via CMS Coverage Database API.</p>
+              <p>Full text of 400+ active LCDs, all NCDs, and MAC-specific billing articles. Updated weekly via CMS Coverage Database API.</p>
             </div>
             <div class="detail-chip">
               <h5><i class="fas fa-flask"></i> Clinical Guidelines</h5>
@@ -368,13 +368,13 @@ a{color:inherit;text-decoration:none}
           </div>
           <span class="step-metric"><i class="fas fa-clock"></i> Draft ready in &lt;90 seconds · Human review avg 4 minutes</span>
           <div class="code-snippet">
-<span class="comment">// Generated appeal brief metadata</span>
+<span class="comment">// Generated appeal brief metadata — Demo · synthetic data · no PHI</span>
 {
   <span class="kw">appeal_id</span>: <span class="str">"ARD-AP-2026-00441"</span>,
   <span class="kw">type</span>: <span class="str">"Level 1 Redetermination"</span>,
   <span class="kw">mac</span>: <span class="str">"Palmetto GBA J-M"</span>,
-  <span class="kw">ai_confidence</span>: <span class="num">0.98</span>,
-  <span class="kw">evidence_citations</span>: [<span class="str">"LCD L35391"</span>, <span class="str">"NCCN 2026"</span>, <span class="str">"PMID 38412847"</span>],
+  <span class="kw">denial_code</span>: <span class="str">"CO-197"</span>,
+  <span class="kw">evidence_citations</span>: [<span class="str">"LCD L38016 §3.2"</span>, <span class="str">"LCD L38016 §4.1"</span>, <span class="str">"NCCN guidelines"</span>],
   <span class="kw">human_reviewer</span>: <span class="str">"Dr. Jane Smith, MD"</span>,
   <span class="kw">review_status</span>: <span class="str">"APPROVED"</span>,
   <span class="kw">sb1188_compliant</span>: <span class="fn">true</span>
@@ -410,7 +410,7 @@ a{color:inherit;text-decoration:none}
               <p>Dashboard tracks every appeal's position in the appeals process. Providers receive push notifications on status changes, decisions, and payment notifications.</p>
             </div>
           </div>
-          <span class="step-metric"><i class="fas fa-check-circle"></i> 89% Level 1 win rate · 94% within 60 days</span>
+          <span class="step-metric"><i class="fas fa-check-circle"></i> 45% manual appeal success rate — industry avg (HFMA 2024)</span>
         </div>
       </div>
 
@@ -441,7 +441,7 @@ a{color:inherit;text-decoration:none}
               <p>Ardia charges 15% of recovered revenue only. No recovery = no fee. Monthly statements itemize every recovery, Ardia fee, and net-to-lab amount with full claim-level detail.</p>
             </div>
           </div>
-          <span class="step-metric"><i class="fas fa-dollar-sign"></i> Avg $3,200 recovered per tox claim · $47× ROI</span>
+          <span class="step-metric"><i class="fas fa-dollar-sign"></i> 15% contingency — paid only on recovered revenue</span>
         </div>
       </div>
 
@@ -454,7 +454,7 @@ a{color:inherit;text-decoration:none}
   <div class="container">
     <div class="sh" style="padding-top:0">
       <div class="stag">Technical Architecture</div>
-      <h2 class="st">Neuro-Symbolic Sandwich Architecture</h2>
+      <h2 class="st">TARA</h2>
       <p class="ss">Three AI tiers operating in concert — each compensating for the others' weaknesses to produce medically accurate, legally sound, and highly successful appeal briefs.</p>
     </div>
     <div class="arch-diagram">
@@ -484,7 +484,7 @@ a{color:inherit;text-decoration:none}
         <div class="arch-layer" style="background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.25)">
           <div class="layer-label" style="color:#38bdf8">AI Tier 2 — Symbolic Rules Engine</div>
           <div class="layer-nodes">
-            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">847 LCD Rules</span>
+            <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">400+ LCD/NCD Policies</span>
             <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">NCD Coverage Logic</span>
             <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">Payer Policy Encoder</span>
             <span class="layer-node" style="background:rgba(56,189,248,0.12);color:#38bdf8;border:1px solid rgba(56,189,248,0.2)">CPT/ICD Crosswalk</span>
@@ -495,7 +495,7 @@ a{color:inherit;text-decoration:none}
         <div class="arch-layer" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25)">
           <div class="layer-label" style="color:#f59e0b">AI Tier 3 — ML Outcome Predictor</div>
           <div class="layer-nodes">
-            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">2.4M Claim Dataset</span>
+            <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Denial-Pattern Corpus</span>
             <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">140+ Feature Model</span>
             <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Payer Behavior Model</span>
             <span class="layer-node" style="background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.2)">Confidence Scoring</span>
@@ -543,14 +543,14 @@ a{color:inherit;text-decoration:none}
   <div class="container">
     <div class="metrics-inner">
       <div class="metric-item">
-        <div class="m-val">47×</div>
-        <div class="m-lbl">Cost Advantage</div>
-        <div class="m-sub">$2.50 vs $118 manual</div>
+        <div class="m-val">$118</div>
+        <div class="m-lbl">Manual Appeal Cost</div>
+        <div class="m-sub">industry benchmark · Change Healthcare 2023</div>
       </div>
       <div class="metric-item">
-        <div class="m-val">89%</div>
-        <div class="m-lbl">Level 1 Win Rate</div>
-        <div class="m-sub">vs 34% industry avg</div>
+        <div class="m-val">45%</div>
+        <div class="m-lbl">Manual Appeal Success Rate</div>
+        <div class="m-sub">industry avg · HFMA 2024</div>
       </div>
       <div class="metric-item">
         <div class="m-val">&lt;90s</div>
