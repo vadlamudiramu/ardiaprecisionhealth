@@ -78,6 +78,8 @@ The APOL1 genetic risk story intersects directly with health equity. APOL1 G1 an
 
 RenalIQ implements a Deterministic-Generative-Predictive (DGP) three-layer architecture designed for serial execution at multiple points in the claims lifecycle: pre-submission risk screening, automated appeal generation for denied claims, and predictive prior authorization intelligence. Each layer addresses a distinct failure mode in renal molecular diagnostic billing, and together they provide coverage across the full denial taxonomy.
 
+![Figure 1: RenalIQ System Architecture](figures/paperM3_figure1.png)
+
 **Figure 1.** RenalIQ System Architecture. The figure depicts a three-layer pipeline processing a molecular diagnostic claim from order receipt through final adjudication. Layer 1 (Deterministic Renal Molecular Policy Engine) applies rule-based MolDX and LCD logic at claim construction, flagging policy gaps prior to submission. Layer 2 (Generative Clinical Reasoning Module) activates upon denial receipt, accessing a retrieval-augmented knowledge base of nephrology clinical guidelines and peer-reviewed literature to synthesize individualized appeal letters. Layer 3 (Predictive Renal Billing Risk Classifier) operates concurrently with Layer 1 during pre-submission screening, generating denial probability scores by payer, test category, and diagnosis code combination. Feedback loops from adjudicated claims populate the Layer 3 training corpus on a rolling basis.
 
 ### 3.2 Layer 1: Deterministic Renal Molecular Policy Engine

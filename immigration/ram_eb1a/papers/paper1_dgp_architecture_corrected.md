@@ -83,36 +83,11 @@ Texas Senate Bill 1188 (effective September 1, 2025) establishes accountability 
 
 ### 3.1 Architecture Overview
 
-The DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture consists of three sequential processing layers operating on a shared clinical-administrative data model. Data ingestion occurs via FHIR R4 APIs, HL7 v2 ADT/ORU message processing, and direct EDI 835/837 transaction parsing. The three layers process each claim lifecycle event — from pre-authorization through denial receipt through appeal resolution.
+The DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture consists of three sequential processing layers operating on a shared clinical-administrative data model. Data ingestion occurs via FHIR R4 APIs, HL7 v2 ADT/ORU message processing, and direct EDI 835/837 transaction parsing. The three layers process each claim lifecycle event — from pre-authorization through denial receipt through appeal resolution. Figure 1 illustrates the complete architecture and claim data flow.
 
-```
-Patient Clinical Data → FHIR R4 / HL7 v2 Ingestion
-                                ↓
-Claim Submission Data → EDI 837 Parser
-                                ↓
-        ┌───────────────────────────────────┐
-        │  LAYER 1: DETERMINISTIC ENGINE     │
-        │  847 rules (LCD/NCD/MolDX/DEX/    │
-        │  CPT 81400–81479/PLA codes)        │
-        │  Output: Policy compliance flag,   │
-        │  denial risk classification        │
-        └───────────────┬───────────────────┘
-                        ↓
-        ┌───────────────────────────────────┐
-        │  LAYER 2: GENERATIVE REASONING     │
-        │  LLM clinical appeal brief gen    │
-        │  14-database evidence retrieval   │
-        │  (<90 sec brief / 340ms retrieval)│
-        └───────────────┬───────────────────┘
-                        ↓
-        ┌───────────────────────────────────┐
-        │  LAYER 3: PREDICTIVE PREVENTION    │
-        │  ML model on EDI 835 history      │
-        │  Pre-submission denial scoring    │
-        └───────────────┬───────────────────┘
-                        ↓
-                EDI 835 / Payer Response
-```
+![Figure 1: DGP Clinical Revenue Architecture](figures/paper1_figure1.png)
+
+**Figure 1. DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture — end-to-end claim flow across the three layers.** A claim enters Layer 1 (deterministic policy compliance) and Layer 3 (predictive risk scoring) in parallel; clean claims are submitted via EDI 837, flagged claims return to correction. Denied claims (EDI 835) route to Layer 2 for human-reviewed appeal brief generation before resubmission; all remittance data feeds back into Layer 3's training pipeline.
 
 ### 3.2 Layer 1 — Deterministic Policy Engine
 

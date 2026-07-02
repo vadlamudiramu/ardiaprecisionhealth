@@ -1,0 +1,54 @@
+digraph DGP {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  claim [label="Claim Construction\n(FHIR R4 / HL7 v2)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1 [label="847-rule compliance engine\nLCD / NCD / MolDX DEX Z-codes\nCPT 81400–81479 / PLA codes\n(zero-hallucination policy check)", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive Denial Prevention";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    l3 [label="ML model on historical\nEDI 835 remittance data\nPre-submission denial\nrisk score", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  decision [label="Pre-Submission Decision", fillcolor="white", color="#595959"];
+  correction [label="Correction Loop\n(returned to claim construction)", fillcolor="white", color="#595959", style="rounded,dashed"];
+  submit [label="Claim Submission\n(EDI 837)", fillcolor="white", color="#595959"];
+  payer [label="Payer Adjudication", fillcolor="white", color="#595959"];
+  paid [label="Paid", fillcolor="white", color="#595959"];
+  denied [label="Denied\n(EDI 835)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    l2 [label="LLM + 14 medical databases\n(340ms query)\nAppeal brief draft (<90 sec)\n+ mandatory human review", fillcolor="#d9f0ec", color="#0f6657"];
+  }
+
+  resubmit [label="Appeal Resubmission", fillcolor="white", color="#595959"];
+
+  claim -> l1;
+  claim -> l3;
+  l1 -> decision;
+  l3 -> decision [label="risk score"];
+  decision -> correction [label="flagged"];
+  correction -> claim [style=dashed];
+  decision -> submit [label="clean"];
+  submit -> payer;
+  payer -> paid;
+  payer -> denied;
+  denied -> l2;
+  l2 -> resubmit;
+  denied -> l3 [style=dashed, label="training feedback", constraint=false];
+  paid -> l3 [style=dashed, constraint=false];
+
+  label="Figure 1. DGP (Deterministic-Generative-Predictive) Clinical Revenue Architecture — end-to-end claim flow across the three layers.";
+}

@@ -1,0 +1,46 @@
+digraph RenalIQ {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  order [label="Molecular Diagnostic\nClaim / Order Receipt", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic Renal Molecular Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1 [label="MolDX + LCD rule logic\nat claim construction\n(APOL1, PGx transplant panels,\nrenal biomarker coverage)", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive Renal Billing Risk Classifier";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    l3 [label="Denial probability by payer,\ntest category, diagnosis code\n(concurrent with Layer 1)", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  gapflag [label="Policy Gap Flagged\nPrior to Submission", fillcolor="white", color="#595959"];
+  submit [label="Claim Submitted", fillcolor="white", color="#595959"];
+  denial [label="Denial Received", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning Module";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    l2 [label="RAG over nephrology\nguidelines (KDIGO, ASN, NKF)\n+ peer-reviewed literature", fillcolor="#d9f0ec", color="#0f6657"];
+  }
+
+  appeal [label="Individualized\nAppeal Letter", fillcolor="white", color="#595959"];
+
+  order -> l1;
+  order -> l3;
+  l1 -> gapflag;
+  l1 -> submit;
+  l3 -> submit [label="risk score"];
+  submit -> denial;
+  denial -> l2 [label="activates on denial"];
+  l2 -> appeal;
+  denial -> l3 [style=dashed, label="rolling training feedback", constraint=false];
+
+  label="Figure 1. RenalIQ system architecture. Layer 1 applies MolDX/LCD rule logic at claim construction while Layer 3 concurrently scores denial probability; Layer 2 activates only on denial receipt, drawing on a nephrology-specific retrieval-augmented knowledge base.";
+}

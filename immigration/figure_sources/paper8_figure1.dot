@@ -1,0 +1,45 @@
+digraph ToxIQ {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  lims [label="LIMS / EHR / Clearinghouse\n(FHIR R4, HL7 v2)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1 [label="DEA Schedule IV/V rules\nUDS CPT 80305/80306/80307, G-codes\nLCD/medical-necessity validation\nReal-time compliance check", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive Denial Prevention";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    l3 [label="ML on EDI 835 remittance\npatterns for UDS/toxicology\nPre-submission denial risk score", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  mode1 [label="Mode 1: Pre-Submission\nCompliance", fillcolor="white", color="#595959"];
+  mode2 [label="Mode 2: Denial Recovery\n(EDI 835 CO/PR/OA codes)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    l2 [label="Appeal brief generation\ncitng DEA/SAMHSA guidelines\nClinical documentation assist", fillcolor="#d9f0ec", color="#0f6657"];
+  }
+
+  output [label="Compliant Claim Submission\nor Completed Appeal Brief", fillcolor="white", color="#595959"];
+
+  lims -> l1;
+  lims -> l3;
+  l1 -> mode1;
+  l3 -> mode1;
+  mode1 -> output;
+  lims -> mode2 [style=dashed];
+  mode2 -> l2 [label="anchored by\nLayer 1 policy context"];
+  l2 -> output;
+  mode2 -> l3 [style=dashed, label="training feedback", constraint=false];
+
+  label="Figure 1. ToxIQ system architecture. The three-layer DGP stack operates in two modes: pre-submission compliance (Layers 1 and 3) and denial recovery (Layer 2, anchored by Layer 1 policy context), bidirectionally integrated via FHIR R4 with LIMS, EHR, and clearinghouse systems.";
+}

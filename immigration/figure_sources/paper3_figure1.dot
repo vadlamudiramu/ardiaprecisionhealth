@@ -1,0 +1,23 @@
+digraph ComplianceByDesign {
+  rankdir=TB;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  aidecision [label="AI-Assisted Decision Point\n(e.g., denial appeal draft,\nclaim risk score)", fillcolor="#dce6f1", color="#1f3864"];
+  disclosure [label="SB 1188 Disclosure Check\n(practitioner AI-use disclosure\nrequirement, eff. Sep 1, 2025)", fillcolor="#d9f0ec", color="#0f6657"];
+  humanreview [label="Mandatory Human Review Gate\n(no fully autonomous\nconsequential decision)", fillcolor="#fdf0d5", color="#8a5a12"];
+  localization [label="Data Localization Check\n(SB 1188 EHR data\nresidency requirement,\neff. Jan 1, 2026)", fillcolor="#d9f0ec", color="#0f6657"];
+  auditlog [label="Immutable Audit Log Entry\n(decision, reviewer,\ntimestamp, rationale)", fillcolor="white", color="#595959"];
+  output [label="Approved Output\n(appeal brief, risk flag,\nor documentation aid)", fillcolor="white", color="#595959"];
+
+  aidecision -> disclosure;
+  disclosure -> humanreview;
+  humanreview -> localization;
+  localization -> auditlog;
+  auditlog -> output;
+
+  label="Figure 1. Compliance-by-design control flow mapping each AI-assisted decision point in the DGP architecture to its applicable Texas SB 1188 requirement before the output is released.";
+}

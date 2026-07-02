@@ -78,7 +78,11 @@ Laboratory operations in Texas face additional AI governance requirements applic
 
 ### 3.1 DGP Framework Architecture Overview
 
-The Deterministic-Generative-Predictive (DGP) framework is a three-layer artificial intelligence architecture in which each layer addresses a distinct failure mode in the clinical laboratory revenue cycle. Layer 1 (Deterministic Policy Engine) eliminates errors of regulatory misclassification. Layer 2 (Generative Clinical Reasoning) reduces appeal burden and accelerates documentation synthesis. Layer 3 (Predictive Denial Prevention) shifts the intervention point from post-denial correction to pre-submission risk mitigation. The layers operate in sequence for new claim processing and independently for appeal workflows triggered by existing denials.
+The Deterministic-Generative-Predictive (DGP) framework is a three-layer artificial intelligence architecture in which each layer addresses a distinct failure mode in the clinical laboratory revenue cycle. Layer 1 (Deterministic Policy Engine) eliminates errors of regulatory misclassification. Layer 2 (Generative Clinical Reasoning) reduces appeal burden and accelerates documentation synthesis. Layer 3 (Predictive Denial Prevention) shifts the intervention point from post-denial correction to pre-submission risk mitigation. The layers operate in sequence for new claim processing and independently for appeal workflows triggered by existing denials. Figure 1 shows the complete architecture, including the PAMA-specific financial scenario modeling extension described in Section 3.5.
+
+![Figure 1: PAMA-IQ architecture](figures/paper6_figure1.png)
+
+**Figure 1. PAMA-IQ architecture** — the DGP three-layer core extended with a PAMA-specific financial scenario modeling module that projects laboratory revenue under CMS-published 2027–2029 fee schedule scenarios, producing pre-submission interventions, revenue projection reports, and human-reviewed appeal briefs.
 
 ### 3.2 Layer 1: Deterministic Policy Engine
 

@@ -62,6 +62,10 @@ This systematic review synthesizes published evidence on:
 - Despite FDA pharmacogenomics labeling for 200+ drugs across cardiology, psychiatry, oncology, and pain management
 - PGx clinical utility evidence base is robust; reimbursement denial reflects documentation and coding barriers, not clinical evidence gaps
 
+![Figure 1: Molecular diagnostic claim outcomes and the independent-laboratory disparity](figures/paper2_figure1.png)
+
+**Figure 1. Molecular diagnostic claim outcomes and the disparity gap this review documents.** Only figures with an independently verified source are shown: the 35.3% molecular diagnostics denial rate (XiFin 2024, 20M+ claims) and the 2.76× independent-vs-hospital denial disparity (JAMA Network Open 2025, PMID 40249617). This funnel represents the AI-addressable gap this review's technology assessment (Section 3) is scoped against.
+
 ### 2.2 The Appeal Gap
 
 Clinical documentation requirements represent a significant burden in the laboratory appeals process:

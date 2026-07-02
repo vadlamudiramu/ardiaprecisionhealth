@@ -1,0 +1,46 @@
+digraph PAMAIQ {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  claim [label="Claim + Current\nCLFS Fee Schedule Data", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic PAMA Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1 [label="CLFS payment rates by CPT code\nLCD/NCD + MolDX DEX Z-code rules\nPAMA financial impact score", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive PAMA Risk Scoring";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    l3 [label="ML on historical EDI 835 claims\nPAMA Risk Score (0-100)\ncomposite of denial + reimbursement", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  scenario [label="PAMA Financial Scenario\nModeling Module\n(5-year revenue trajectory,\nbest/base/worst case)", fillcolor="#e2d9f3", color="#4b2e83"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    l2 [label="LLM + 14 medical databases (340ms)\nAppeal brief + utilization report\nfor ACO partners, human-reviewed", fillcolor="#d9f0ec", color="#0f6657"];
+  }
+
+  output1 [label="Pre-Submission\nIntervention\n(documentation fix,\nABN, or hold-for-review)", fillcolor="white", color="#595959"];
+  output2 [label="5-Year Revenue\nProjection Report", fillcolor="white", color="#595959"];
+  output3 [label="Appeal Brief\n(human-reviewed)", fillcolor="white", color="#595959"];
+
+  claim -> l1;
+  claim -> l3;
+  l1 -> scenario;
+  l3 -> scenario;
+  l1 -> output1;
+  l3 -> output1;
+  scenario -> output2;
+  l1 -> l2 [label="denied claim"];
+  l2 -> output3;
+
+  label="Figure 1. PAMA-IQ architecture — the DGP three-layer core extended with a PAMA-specific financial scenario modeling module that projects laboratory revenue under CMS-published 2027-2029 fee schedule scenarios.";
+}

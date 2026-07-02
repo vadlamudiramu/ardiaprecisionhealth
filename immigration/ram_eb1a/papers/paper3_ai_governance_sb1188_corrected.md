@@ -71,7 +71,11 @@ TRAIGA establishes general-purpose AI governance requirements applicable across 
 
 ### 3.1 Design Principle: Deterministic-First
 
-The foundational compliance insight from the DGP architecture implementation is that **placing a deterministic rule engine upstream of any generative AI component inherently satisfies the explainability and auditability requirements of SB 1188**.
+The foundational compliance insight from the DGP architecture implementation is that **placing a deterministic rule engine upstream of any generative AI component inherently satisfies the explainability and auditability requirements of SB 1188**. Figure 1 illustrates this control flow.
+
+![Figure 1: Compliance-by-design control flow](figures/paper3_figure1.png)
+
+**Figure 1. Compliance-by-design control flow** mapping each AI-assisted decision point in the DGP architecture to its applicable Texas SB 1188 requirement before the output is released — disclosure check, mandatory human review, data localization check, and immutable audit logging occur in sequence prior to any consequential output.
 
 A purely LLM-based system that prompts the model with policy text and requests a coverage determination produces an output traceable only to token probabilities — not to specific regulatory citations. A deterministic-first system produces outputs where every coverage determination traces to a specific, versioned rule in the policy engine.
 

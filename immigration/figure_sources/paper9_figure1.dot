@@ -1,0 +1,41 @@
+digraph MolDXAI {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=11, margin="0.2,0.12"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  subgraph cluster_l1 {
+    label="Layer 1 (left): Deterministic MolDX Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    zcode [label="DEX Z-code\nassignment logic", fillcolor="#dce6f1", color="#1f3864"];
+    lcd [label="LCD policy\nrequirement graph", fillcolor="#dce6f1", color="#1f3864"];
+    physician [label="Physician specialty\nverification", fillcolor="#dce6f1", color="#1f3864"];
+    evidence [label="Clinical evidence\nthreshold check", fillcolor="#dce6f1", color="#1f3864"];
+    zcode -> lcd -> physician -> evidence [style=invis];
+  }
+
+  subgraph cluster_l2 {
+    label="Layer 2 (center): Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    llm [label="LLM inference pipeline\n(receives Layer 1\ncompliance flags)", fillcolor="#d9f0ec", color="#0f6657"];
+    dbs [label="14 medical databases\nPubMed, NCCN, ACMG, AMP,\nClinVar, ClinGen, FDA device\nregistry, Palmetto/Noridian LCD,\nHGMD, OMIM, PharmGKB,\nDailyMed, CMS Coverage DB", fillcolor="#d9f0ec", color="#0f6657"];
+    appeal [label="Appeal brief with\nLCD citation anchors", fillcolor="#d9f0ec", color="#0f6657"];
+    llm -> dbs -> appeal;
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3 (right): Predictive Denial Prevention";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    features [label="EDI 835 feature vectors:\ndenial reason, CPT, DEX Z-code,\nordering specialty, ICD-10,\nprior claim history", fillcolor="#fdf0d5", color="#8a5a12"];
+    gbdt [label="Gradient-boosted\nclassifier", fillcolor="#fdf0d5", color="#8a5a12"];
+    score [label="Calibrated denial\nprobability + feature\nattribution", fillcolor="#fdf0d5", color="#8a5a12"];
+    features -> gbdt -> score;
+  }
+
+  evidence -> llm [label="compliance flags"];
+  evidence -> features [style=dashed];
+
+  label="Figure 1. MolDX-AI three-layer architecture. Layer 1 (left) encodes MolDX/LCD compliance as a rule graph; Layer 2 (center) generates LCD-anchored appeal briefs via retrieval across 14 medical databases; Layer 3 (right) scores pre-submission denial probability from EDI 835 feature vectors.";
+}

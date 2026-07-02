@@ -101,7 +101,11 @@ This paper characterizes four categories of payer AI denial logic based on opera
 
 The four categories of payer AI denial logic described above share a common structural characteristic: they operationalize knowledge that is available to payer clinical operations professionals but not to independent laboratory billing staff.
 
-This is not analogous to a laboratory with inferior medical expertise losing an appeal on clinical grounds. It is analogous to one party in a contract dispute having access to the other party's legal strategy before filing. The information asymmetry is structural, not the result of the laboratory's clinical or administrative competence.
+This is not analogous to a laboratory with inferior medical expertise losing an appeal on clinical grounds. It is analogous to one party in a contract dispute having access to the other party's legal strategy before filing. The information asymmetry is structural, not the result of the laboratory's clinical or administrative competence. Figure 1 contrasts the two sides of this asymmetry directly.
+
+![Figure 1: Payer-side denial workflow vs. provider-side countermeasure](figures/paper4_figure1.png)
+
+**Figure 1. Structural information asymmetry** between the payer-side AI denial workflow — configured by clinical operations teams with direct policy visibility (coverage determination matrix, automated screening, claim edit library) — and the provider-side countermeasure, which must reverse-engineer denial logic from EOB codes alone before it can generate a policy-grounded appeal.
 
 ### 3.2 Quantitative Evidence of the Asymmetry
 

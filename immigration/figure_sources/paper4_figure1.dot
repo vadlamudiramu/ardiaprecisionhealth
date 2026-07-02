@@ -1,0 +1,33 @@
+digraph PayerInsider {
+  rankdir=TB;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  subgraph cluster_payer {
+    label="Payer-Side: Configured AI Denial Workflow";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8b2e2e"; style="rounded"; labeljust="l";
+    matrix [label="Coverage Determination Matrix\n(ICD-10 -> CPT/PLA -> prior-auth\nand documentation thresholds)", fillcolor="#f8d7da", color="#8b2e2e"];
+    screen [label="Automated Pre-Review Screening\n(auto-deny if diagnosis code\nnot in coverage matrix)", fillcolor="#f8d7da", color="#8b2e2e"];
+    edits [label="Claim Edit Library\n(adjudication edits trigger\ndenial or manual pend)", fillcolor="#f8d7da", color="#8b2e2e"];
+    matrix -> screen -> edits;
+  }
+
+  edits -> denialout [label="denial (EOB)", color="#8b2e2e"];
+  denialout [label="Denial Issued to Provider\n(EOB codes only —\nno decision-logic visibility)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_provider {
+    label="Provider-Side: DGP Countermeasure";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1c [label="Layer 1: reverse-map denial\nagainst known LCD/NCD/MolDX\nrule patterns", fillcolor="#dce6f1", color="#1f3864"];
+    l2c [label="Layer 2: generate appeal citing\napplicable coverage policy\nand clinical evidence", fillcolor="#d9f0ec", color="#0f6657"];
+    l3c [label="Layer 3: score future claims\nfor this payer's denial\npatterns pre-submission", fillcolor="#fdf0d5", color="#8a5a12"];
+    l1c -> l2c -> l3c;
+  }
+
+  denialout -> l1c;
+
+  label="Figure 1. Structural information asymmetry between the payer-side AI denial workflow (configured by clinical operations teams with direct policy visibility) and the provider-side countermeasure, which must reverse-engineer denial logic from EOB codes alone.";
+}

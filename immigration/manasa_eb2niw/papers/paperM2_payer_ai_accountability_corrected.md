@@ -133,6 +133,8 @@ Current practice: CMS regulations nominally require clinical review of prior aut
 
 For the comparative payer analysis presented in Section 4, we reviewed: (1) publicly available prior authorization process descriptions from nine major payers; (2) sample denial notices obtained through provider advocacy organization disclosures; (3) CMS Medicare Advantage plan data for 2023–2024; (4) state insurance department complaints data where available; and (5) a KFF survey of health plan AI disclosure practices.[7] Payer AI system documentation was assessed only from public sources; no non-public information was used.
 
+![Figure 1: Payer AI Accountability Framework](figures/paperM2_figure1.png)
+
 **Figure 1: Payer AI Accountability Framework — Four-Component Structure.** A schematic illustrating the four PAAF components (System Disclosure, Outcome Monitoring, Calibration Transparency, Challenge Mechanism Adequacy) arranged as nested accountability layers, with independent laboratory providers and patient beneficiaries positioned at the exterior receiving layer where accountability deficits are most consequential.
 
 ---

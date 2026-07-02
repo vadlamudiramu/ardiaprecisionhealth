@@ -94,6 +94,8 @@ ToxIQ adapts the DGP architecture to the toxicology domain, replacing the MolDX/
 
 ToxIQ is a modular, three-layer AI system designed for integration with laboratory information management systems (LIMS) and billing platforms via FHIR R4 / HL7 v2 interfaces and EDI 835/837 transaction processing. Figure 1 illustrates the system architecture.
 
+![Figure 1: ToxIQ system architecture](figures/paper8_figure1.png)
+
 **Figure 1: ToxIQ system architecture.** The three-layer DGP stack for toxicology claim compliance. Layer 1 (Deterministic Policy Engine) performs real-time regulatory compliance verification at claim creation. Layer 2 (Generative Clinical Reasoning) generates appeal briefs and clinical documentation assistance for denied claims. Layer 3 (Predictive Denial Prevention) scores pre-submission denial risk on EDI 835 remittance patterns. Bidirectional FHIR R4 interfaces connect to LIMS, EHR, and clearinghouse systems. EDI 835 remittance feeds Layer 3's training pipeline.
 
 The system processes claims in two modes: (1) pre-submission compliance mode, in which a claim under construction passes through Layers 1 and 3 to identify compliance issues and denial risk before submission; and (2) denial recovery mode, in which a received denial (EDI 835 CO/PR/OA adjustment reason codes) triggers Layer 2 appeal brief generation anchored by Layer 1 policy context.

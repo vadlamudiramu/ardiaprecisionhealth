@@ -1,0 +1,23 @@
+digraph RevenueLeakage {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  claims [label="Molecular Diagnostic\nClaims Submitted", fillcolor="white", color="#595959"];
+  adjud [label="Payer Adjudication", fillcolor="white", color="#595959"];
+  paid [label="Paid on\nFirst Submission\n(~64.7% of claims)", fillcolor="#d9f0ec", color="#0f6657"];
+  denied [label="Denied\n(35.3% of molecular\ndiagnostics claims)\nXiFin 2024, 20M+ claims", fillcolor="#fdf0d5", color="#8a5a12"];
+  indep [label="Independent Laboratories:\n2.76× higher denial odds\nvs. hospital-based labs\n(JAMA Netw Open 2025;\nn=29,919)", fillcolor="#f8d7da", color="#8b2e2e"];
+  gap [label="AI-Addressable Gap:\nno domain-specific compliance\nautomation exists today for\nindependent molecular\ndiagnostic laboratories", fillcolor="#dce6f1", color="#1f3864"];
+
+  claims -> adjud;
+  adjud -> paid;
+  adjud -> denied;
+  denied -> indep;
+  indep -> gap;
+
+  label="Figure 1. Molecular diagnostic claim outcomes and the disparity gap this paper documents. Only figures with an independently verified source (XiFin 2024; JAMA Network Open 2025, PMID 40249617) are shown.";
+}

@@ -80,6 +80,8 @@ AcoIQ extends the Deterministic-Generative-Predictive (DGP) architecture previou
 
 AcoIQ is a three-layer AI framework designed for deployment at independent clinical laboratories participating in, or seeking to participate in, ACO networks. The three layers operate sequentially and in parallel depending on use case: the deterministic policy engine provides real-time order guidance and compliance checking; the generative clinical reasoning layer produces periodic population health reports; the predictive analytics layer scores attributed beneficiary populations for quality measure gap risk. Figure 1 illustrates the overall architecture and data flows.
 
+![Figure 1: AcoIQ Three-Layer Architecture](figures/paperM1_figure1.png)
+
 **Figure 1: AcoIQ Three-Layer Architecture.** Data flows from laboratory information management systems (LIMS) and ACO-provided beneficiary attribution lists into three processing layers. Layer 1 (Deterministic Policy Engine) enforces quality measure specifications at the point of order entry. Layer 2 (Generative Clinical Reasoning) produces natural-language utilization and population health reports for ACO care coordinators. Layer 3 (Predictive Analytics) scores attributed beneficiaries for quality measure compliance risk, driving outreach prioritization. Output feeds into ACO population health dashboards via HL7 FHIR R4 interfaces.
 
 ### 3.2 Layer 1 — Deterministic Policy Engine

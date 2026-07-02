@@ -1,0 +1,56 @@
+digraph BehaviorIQ {
+  rankdir=TB;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=11, margin="0.2,0.12"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  claim [label="Denied Behavioral Health\nLaboratory Claim", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic Policy Engine (parallel modules)";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    consent [label="42 CFR Part 2\nconsent status check", fillcolor="#dce6f1", color="#1f3864"];
+    mhpaea [label="MHPAEA parity\nanalysis", fillcolor="#dce6f1", color="#1f3864"];
+    uds [label="UDS CPT code\ncompliance", fillcolor="#dce6f1", color="#1f3864"];
+    addiction [label="Addiction medicine\nbilling code alignment", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  route_full [label="Full Input Pathway\n(consent obtained)", fillcolor="white", color="#595959"];
+  route_restricted [label="Restricted Input Pathway\n(no consent — Part 2\ndata excluded)", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    rag [label="SAMHSA / ASAM guideline\nretrieval (RAG)", fillcolor="#d9f0ec", color="#0f6657"];
+    brief [label="Structured appeal\nbrief generation", fillcolor="#d9f0ec", color="#0f6657"];
+    rag -> brief;
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive Denial Prevention";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    risk [label="Denial risk score\n+ SHAP explanation", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  approved [label="Approved Claim\n(Layer 1 compliant,\nLayer 3 low-risk)", fillcolor="white", color="#595959"];
+  correction [label="Pre-Submission\nCorrection Request", fillcolor="white", color="#595959"];
+  appealout [label="Completed Appeal Brief", fillcolor="white", color="#595959"];
+
+  claim -> consent;
+  claim -> mhpaea;
+  claim -> uds;
+  claim -> addiction;
+  consent -> route_full [label="consent = yes"];
+  consent -> route_restricted [label="consent = no"];
+  route_full -> rag;
+  route_restricted -> rag [label="restricted set only"];
+  brief -> appealout;
+  claim -> risk;
+  risk -> approved [label="low-risk"];
+  risk -> correction [label="high-risk"];
+  mhpaea -> brief [style=dashed, label="violation flag"];
+
+  label="Figure 1. BehaviorIQ processing workflow. The 42 CFR Part 2 consent-status check at Layer 1 branches into a full or restricted input pathway before any data reaches Layer 2's generative reasoning step.";
+}

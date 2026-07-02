@@ -1,0 +1,43 @@
+digraph PAAF {
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  compound=true;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=11, margin="0.2,0.14"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  subgraph cluster_outer {
+    label="Layer 4 (exterior — highest exposure): Challenge Mechanism Adequacy";
+    fontname="Helvetica-Bold"; fontsize=10; color="#8b2e2e"; style="rounded"; labeljust="l";
+    labelloc="t";
+
+    subgraph cluster_3 {
+      label="Layer 3: Calibration Transparency";
+      fontname="Helvetica-Bold"; fontsize=10; color="#8a5a12"; style="rounded"; labeljust="l";
+      labelloc="t";
+
+      subgraph cluster_2 {
+        label="Layer 2: Outcome Monitoring";
+        fontname="Helvetica-Bold"; fontsize=10; color="#0f6657"; style="rounded"; labeljust="l";
+        labelloc="t";
+
+        subgraph cluster_1 {
+          label="Layer 1 (core): System Disclosure";
+          fontname="Helvetica-Bold"; fontsize=10; color="#1f3864"; style="rounded"; labeljust="l";
+          labelloc="t";
+          core [label="Payer AI Denial\nSystem Configuration", fillcolor="#dce6f1", color="#1f3864"];
+        }
+        monitor [label="(monitoring instrumentation)", fillcolor="#d9f0ec", color="#0f6657", style="rounded,filled,dashed"];
+      }
+      calib [label="(calibration disclosure)", fillcolor="#fdf0d5", color="#8a5a12", style="rounded,filled,dashed"];
+    }
+    challenge [label="(appeal / challenge process)", fillcolor="#f8d7da", color="#8b2e2e", style="rounded,filled,dashed"];
+  }
+
+  exterior [label="Independent Laboratory Providers\n+ Patient Beneficiaries\n(accountability deficits are\nmost consequential here)", fillcolor="white", color="#595959", shape=box];
+
+  challenge -> exterior [lhead=cluster_outer, ltail=cluster_outer, style=invis];
+  core -> exterior [style=invis];
+
+  label="Figure 1. Payer AI Accountability Framework (PAAF) — four nested components (System Disclosure, Outcome Monitoring, Calibration Transparency, Challenge Mechanism Adequacy), with independent laboratories and patients positioned at the exterior layer where accountability deficits are most consequential.";
+}
