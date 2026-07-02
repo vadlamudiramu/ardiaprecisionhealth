@@ -1,5 +1,19 @@
 # Source-of-truth reference for claims audits
 
+> **2026-07-01 UPDATE — superseded in part by [tara-integration-spec.md](tara-integration-spec.md).**
+> The site was redesigned around **TARA (Triadic Adjudicative Reasoning
+> Architecture)** — the renamed, canonical form of what was previously called
+> the "Neuro-Symbolic Sandwich Architecture" (same three-layer neuro-symbolic
+> system). Fabricated claims flagged in [audit-2026-07-01.md](audit-2026-07-01.md)
+> (89% win rate, $2.50/appeal, 47×, Salesforce-as-AI-platform, $537B/$1T market
+> figures, fake PMID/ALJ/LCD citations, live-customer framing, RareSense) were
+> corrected to the honest, pre-revenue framing. **For any new audit, treat
+> `tara-integration-spec.md` as the authoritative fact base** (approved benchmark
+> whitelist, TARA layer definitions, honest Ardia facts). The conflicts table
+> below is retained for history; where it disagrees with the TARA spec, the spec
+> wins.
+
+
 This file is the grounding data the `claims-check` driver command (and any
 agent doing a manual audit) cross-references site copy against. It was built
 by extracting text directly from the company's own internal documents — not
