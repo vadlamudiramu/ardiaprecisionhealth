@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ardia-models"
+version = "0.1.0"
+description = "Ardia model layer — real, tested, reproducible (Meridian, Cadence, Sentinel, Crucible)."
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+# Cadence (ml-wellbeing) training/eval only; core math + tests need no deps.
+ml = ["scikit-learn>=1.3", "numpy>=1.24", "pandas>=2.0"]
+dev = ["pytest>=7.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
