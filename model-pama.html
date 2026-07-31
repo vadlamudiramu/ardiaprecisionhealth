@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Meridian — PAMA Rate-Cliff Model | Ardia</title>
+<meta name="description" content="Meridian: Ardia's deterministic PAMA rate-cliff model for independent labs. Enter your test mix and forecast the 2027–2029 CLFS cuts (up to 15%/yr) and the revenue at risk — in the browser, no PHI.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+ --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;--pama:#e11d48;--pama2:#fb7185;--tara:#0d9488;--amber:#d97706;--ok:#16a34a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;letter-spacing:-.02em;font-weight:700}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+.mono{font-family:'JetBrains Mono',monospace}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--pama)}
+/* nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(9,15,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-in{display:flex;align-items:center;gap:14px;height:64px;max-width:1300px;margin:0 auto;padding:0 26px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:17px;color:#fff}.brand-txt span{color:#5eb0f0}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:#9fb2cc;padding:8px 12px;border-radius:9px}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:linear-gradient(90deg,var(--pama),var(--pama2));color:#fff!important;padding:9px 16px;border-radius:10px}
+@media(max-width:920px){.nav-links a:not(.nav-cta){display:none}}
+/* hero — cinematic dark */
+.hero{position:relative;background:#070b14;color:#fff;overflow:hidden;padding:80px 0 70px}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;background:
+ radial-gradient(60% 60% at 78% 30%,rgba(225,29,72,.28),transparent 60%),
+ radial-gradient(50% 60% at 20% 80%,rgba(217,119,6,.18),transparent 60%),
+ radial-gradient(40% 50% at 55% 5%,rgba(251,113,133,.14),transparent 60%)}
+.hero::after{content:'';position:absolute;inset:0;z-index:0;opacity:.5;background-image:
+ repeating-linear-gradient(90deg,rgba(251,113,133,.06) 0 1px,transparent 1px 46px)}
+.hero .wrap{position:relative;z-index:1}
+.hero .kick{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#fda4af;background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.25);padding:6px 14px;border-radius:100px;margin-bottom:22px}
+.hero h1{font-size:clamp(46px,9vw,104px);line-height:.95;font-weight:800;background:linear-gradient(180deg,#fff,#fecdd3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero .role{font-family:'Sora';font-size:clamp(18px,2.4vw,24px);font-weight:600;color:#f7a6b4;margin-bottom:18px}
+.hero p{font-size:18px;color:#b7c6da;max-width:640px;line-height:1.6;margin-bottom:26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:'Sora';font-weight:600;font-size:15px;padding:13px 24px;border-radius:12px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-p{background:linear-gradient(90deg,var(--pama),var(--pama2));color:#fff}.btn-p:hover{transform:translateY(-1px)}
+.btn-s{background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.16)}.btn-s:hover{border-color:var(--pama2)}
+.hero-chips{display:flex;gap:26px;flex-wrap:wrap;margin-top:38px;padding-top:26px;border-top:1px solid rgba(255,255,255,.09)}
+.hchip .v{font-family:'Sora';font-size:30px;font-weight:800;color:#fff}
+.hchip .v small{font-size:16px;color:#fda4af}
+.hchip .l{font-size:12.5px;color:#8ba0bb;margin-top:2px}
+/* sections */
+section.block{padding:74px 0}
+.center{text-align:center;max-width:720px;margin:0 auto 48px}
+.center h2{font-size:clamp(27px,3.6vw,40px);line-height:1.12;margin:12px 0;color:var(--txt)}
+.center p{font-size:17px;color:var(--mut)}
+/* capabilities */
+.cap{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:26px 0;border-top:1px solid var(--line)}
+.cap:last-child{border-bottom:1px solid var(--line)}
+.cap .num{font-family:'Sora';font-size:30px;font-weight:800;color:var(--pama);opacity:.55}
+.cap h3{font-size:22px;margin-bottom:8px;color:var(--txt)}
+.cap p{font-size:15px;color:var(--mut);line-height:1.65;max-width:760px}
+.cap .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag{font-family:'JetBrains Mono';font-size:11.5px;font-weight:600;background:var(--panel);border:1px solid var(--line);color:var(--mut);padding:5px 10px;border-radius:7px}
+/* live calculator */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 2px 6px rgba(14,28,48,.05)}
+.tool-bar{display:flex;align-items:center;gap:12px;padding:0 0 16px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.dots{display:flex;gap:6px}.dots .d{width:11px;height:11px;border-radius:50%}
+.dr{background:#f87171}.dy{background:#fbbf24}.dg{background:#34d399}
+.tool-bar-title{font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim)}
+.tool-live{margin-left:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:var(--pama);letter-spacing:.4px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:760px){.calc-grid{grid-template-columns:1fr}}
+.tool-panel-label{font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.calc-table{width:100%;border-collapse:collapse;font-size:13px}
+.calc-table th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);padding:0 8px 8px}
+.calc-table td{padding:5px 8px 5px 0}
+.calc-input{width:100%;border:1.5px solid var(--line2);border-radius:8px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--txt);transition:.15s;background:#fff}
+.calc-input:focus{outline:none;border-color:var(--pama);box-shadow:0 0 0 3px rgba(225,29,72,.1)}
+.calc-cpt{font-family:'JetBrains Mono',monospace;font-weight:700;color:#334155;white-space:nowrap;font-size:12.5px}
+.slider-wrap{margin:18px 0 8px}
+.slider-wrap label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:#334155;margin-bottom:8px}
+.slider-wrap label span{color:var(--pama);font-family:'JetBrains Mono',monospace}
+input[type=range]{width:100%;accent-color:var(--pama)}
+.calc-out{background:#0a1f35;border-radius:14px;padding:22px;color:#fff}
+.calc-out-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.calc-out-row:last-child{border-bottom:none}
+.calc-out-lab{font-size:12.5px;color:rgba(255,255,255,.6)}
+.calc-out-val{font-family:'Sora',sans-serif;font-weight:800;font-size:17px}
+.calc-out-val.base{color:#5eead4}
+.calc-out-val.risk{color:#fca5a5}
+.pbars{display:flex;align-items:flex-end;gap:14px;height:120px;margin:18px 0 6px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bar{width:100%;border-radius:6px 6px 0 0;transition:height .5s ease;min-height:4px}
+.bar-yr{font-size:11px;font-weight:700;color:rgba(255,255,255,.55)}
+.bar-amt{font-size:10.5px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.8)}
+.disclosure{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:15px 18px;font-size:12.5px;color:#78350f;line-height:1.55;margin-top:22px}
+.disclosure strong{color:var(--amber)}
+/* honesty */
+.honest{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:14px;padding:22px 24px;max-width:900px;margin:0 auto}
+.honest h3{color:#b45309;font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.honest p{font-size:14px;color:#78350f;line-height:1.65}
+.honest p+p{margin-top:10px}
+.honest b{color:#92400e}
+/* cta/footer */
+.finalcta{text-align:center;padding:80px 0}
+.finalcta h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px;color:var(--txt)}
+.finalcta p{font-size:17px;color:var(--mut);margin-bottom:26px}
+footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-size:13px;background:var(--panel2)}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
+</head>
+<body>
+<nav><div class="nav-in">
+ <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+ <div class="nav-links">
+  <a href="ardia-platform-light.html">Platform</a><a class="active" href="ardia-models.html">Models</a>
+  <a href="ardia-agents.html">Agents</a><a href="tools.html">Tools</a><a href="investors.html">Investors</a>
+  <a class="nav-cta" href="contact.html">Book a demo</a>
+ </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+ <div class="kick">◧ Ardia Models · reimbursement intelligence</div>
+ <h1>Meridian</h1>
+ <div class="role">The PAMA rate-cliff model for independent labs</div>
+ <p>PAMA lets CMS cut Clinical Laboratory Fee Schedule rates by up to 15% a year across 2027, 2028 and 2029. Meridian is a deterministic model of that cliff: enter your real test mix and it compounds the statutory cuts, year by year, and shows exactly how much revenue is at risk — entirely in the browser, with no PHI and no clinical data.</p>
+ <div class="hero-cta">
+  <a class="btn btn-p" href="#calc">Run the calculator ↓</a>
+  <a class="btn btn-s" href="ardia-models.html">All models</a>
+ </div>
+ <div class="hero-chips">
+  <div class="hchip"><div class="v">15<small>%/yr</small></div><div class="l">Statutory cut ceiling · 2027–2029</div></div>
+  <div class="hchip"><div class="v">3</div><div class="l">Compounding cut years modelled</div></div>
+  <div class="hchip"><div class="v">$10k<small>/day</small></div><div class="l">Reporting-penalty ceiling checked</div></div>
+  <div class="hchip"><div class="v">0</div><div class="l">PHI · runs 100% in your browser</div></div>
+ </div>
+</div></header>
+
+<!-- CAPABILITIES -->
+<section class="block"><div class="wrap">
+ <div class="center"><div class="eyebrow">What it does</div><h2>Two agents, one exposure number</h2>
+  <p>Meridian is not an LLM — it's a deterministic financial model. It applies the statute the way CMS will, so the number it hands a lab CFO is one they can plan against.</p></div>
+ <div class="cap"><div class="num">01</div><div>
+  <h3>CLFS Calculator</h3>
+  <p>Takes your annual test mix — CPT/HCPCS codes, 2025 CLFS rates and volumes — and applies the compounding statutory cuts across 2027, 2028 and 2029. Each year's cut lands on the <b>prior year's already-reduced rate</b>, exactly as PAMA compounds it, and the model surfaces the cumulative revenue at risk and your 2029 run-rate versus today.</p>
+  <div class="tags"><span class="tag">CLFS 2027–2029</span><span class="tag">compounding cuts</span><span class="tag">revenue-at-risk</span></div></div></div>
+ <div class="cap"><div class="num">02</div><div>
+  <h3>Reporting Agent</h3>
+  <p>Checks a lab's exposure to the PAMA private-payor <b>data-reporting</b> requirement — the obligation that sets those rates in the first place — and the <b>$10,000-per-day</b> civil monetary penalty ceiling for failing to report or misreporting. It flags reporting-window exposure so the compliance risk is on the same page as the revenue risk.</p>
+  <div class="tags"><span class="tag">reporting window</span><span class="tag">$10k/day ceiling</span><span class="tag">CMP exposure</span></div></div></div>
+ <div class="cap"><div class="num">03</div><div>
+  <h3>Planning, not PHI</h3>
+  <p>Everything runs client-side on public rate data and the numbers you type. No patient data, no upload, no server round-trip — so a lab can model a worst-case cliff in a sales or budgeting meeting without any compliance overhead. It is a <b>planning tool</b>, never a substitute for the CMS-published fee schedule.</p>
+  <div class="tags"><span class="tag">in-browser</span><span class="tag">no PHI</span><span class="tag">public CMS data</span></div></div></div>
+</div></section>
+
+<!-- LIVE CALCULATOR -->
+<section class="block" id="calc" style="background:var(--bg2)"><div class="wrap">
+ <div class="center"><div class="eyebrow">Live model</div><h2>Model the cliff on your test mix</h2>
+  <p>Rates and volumes are pre-filled with 2025 CLFS figures for five common lab codes. Edit any cell, drag the cut slider, and watch the revenue at risk compound in real time.</p></div>
+ <div class="card" style="max-width:1000px;margin:0 auto">
+  <div class="tool-bar"><div class="dots"><span class="d dr"></span><span class="d dy"></span><span class="d dg"></span></div><span class="tool-bar-title">meridian://pama-clfs-model</span><span class="tool-live">● LIVE · your numbers</span></div>
+  <div class="calc-grid">
+   <div>
+    <div class="tool-panel-label">Your test mix (annual)</div>
+    <table class="calc-table">
+     <thead><tr><th>CPT / HCPCS</th><th>2025 rate ($)</th><th>Volume / yr</th></tr></thead>
+     <tbody id="calcBody"></tbody>
+    </table>
+    <div class="slider-wrap">
+     <label>Annual CLFS cut applied <span id="cutVal">15%</span></label>
+     <input type="range" id="cutSlider" min="0" max="15" step="1" value="15" oninput="renderCalc()">
+     <div style="font-size:11px;color:var(--dim);margin-top:4px">Statutory ceiling is 15%/yr for 2027–2029.</div>
+    </div>
+   </div>
+   <div>
+    <div class="tool-panel-label">Projected CLFS revenue</div>
+    <div class="calc-out">
+     <div class="calc-out-row"><span class="calc-out-lab">Baseline (2025 rates)</span><span class="calc-out-val base" id="outBase">$0</span></div>
+     <div class="pbars" id="bars"></div>
+     <div class="calc-out-row"><span class="calc-out-lab">Cumulative revenue at risk by 2029</span><span class="calc-out-val risk" id="outRisk">$0</span></div>
+     <div class="calc-out-row"><span class="calc-out-lab">2029 run-rate vs. baseline</span><span class="calc-out-val" id="outPct" style="color:#fff">—</span></div>
+    </div>
+    <div style="font-size:11.5px;color:var(--dim);margin-top:12px;line-height:1.5">Cuts compound: each year applies to the prior year's reduced rate. This is a planning model, not a CMS-published fee schedule.</div>
+   </div>
+  </div>
+  <div class="disclosure"><strong>Planning model.</strong> Seed rates reflect 2025 CLFS national limits for the listed codes and are illustrative. Actual cuts, floors, and code-level exceptions are set by CMS. Use this to frame exposure, then model your specific fee schedule with our team.</div>
+ </div>
+</div></section>
+
+<!-- DATA / METHODOLOGY -->
+<section class="block"><div class="wrap">
+ <div class="center"><div class="eyebrow">Where the numbers come from</div><h2>Deterministic, and sourced</h2>
+  <p>No forecast magic. Meridian applies a public statute to public rates and the mix you enter — so the same inputs always give the same answer.</p></div>
+ <div class="cap"><div class="num">◆</div><div>
+  <h3>2025 CLFS national rates (public CMS data)</h3>
+  <p>The seed rates are 2025 Clinical Laboratory Fee Schedule national limits for the listed codes — <span class="mono" style="font-size:13px">80307</span>, <span class="mono" style="font-size:13px">G0483</span>, <span class="mono" style="font-size:13px">82306</span>, <span class="mono" style="font-size:13px">81225</span>, <span class="mono" style="font-size:13px">82607</span>. They are published by CMS and are illustrative defaults; you replace them with your own fee schedule.</p></div></div>
+ <div class="cap"><div class="num">◆</div><div>
+  <h3>The PAMA statute, applied literally</h3>
+  <p>The Protecting Access to Medicare Act caps CLFS reductions at <b>15% per year</b> for 2027, 2028 and 2029. Meridian compounds them — 2028's cut applies to 2027's reduced rate, and so on — because that is how the reduction actually stacks. Nothing here is a prediction of what CMS <i>will</i> set; it models the ceiling the statute allows.</p></div></div>
+</div></section>
+
+<!-- HONESTY -->
+<section class="block" style="padding-top:0"><div class="wrap">
+ <div class="honest">
+  <h3>⚠ What this is, and what it isn't</h3>
+  <p>Meridian is a <b>planning model</b>, not the CMS fee schedule and not financial advice. The seed rates are illustrative 2025 CLFS figures; the real cuts, statutory floors, and code-level exceptions are set by CMS and can differ from the flat ceiling modelled here.</p>
+  <p>Ardia is <b>pre-revenue</b>. This tool claims no client results — it exists so a lab can frame its own PAMA exposure on its own numbers, then validate against its specific fee schedule. It handles <b>no PHI</b> and sends nothing to a server.</p>
+ </div>
+</div></section>
+
+<section class="finalcta"><div class="wrap">
+ <div class="eyebrow">One model in the constellation</div>
+ <h2>See where Meridian fits</h2>
+ <p>Meridian is the reimbursement layer for independent labs — alongside MolecuIQ's denial recovery. Explore the full model lineup or talk with the team.</p>
+ <div class="hero-cta" style="justify-content:center">
+  <a class="btn btn-p" href="ardia-models.html">All models →</a>
+  <a class="btn btn-s" href="contact.html" style="color:var(--txt);border-color:var(--line2)">Book a demo</a>
+ </div>
+</div></section>
+<footer><div class="wrap foot-in"><div>Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · Rates: 2025 CLFS national limits (public CMS data)</div></div></footer>
+
+<script>
+/* ── Meridian · PAMA CLFS model ── */
+var CLFS = [
+  {cpt:'80307', rate:62.14, vol:4200, label:'Presumptive drug test'},
+  {cpt:'G0483', rate:246.92, vol:1100, label:'Definitive drug test (22+)'},
+  {cpt:'82306', rate:36.55, vol:5200, label:'Vitamin D 25-OH'},
+  {cpt:'81225', rate:128.00, vol:900, label:'CYP2C19 (PGx)'},
+  {cpt:'82607', rate:18.61, vol:3100, label:'Vitamin B12'}
+];
+function fmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+function buildCalc(){
+  var b = document.getElementById('calcBody'); b.innerHTML='';
+  CLFS.forEach(function(r,i){
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="calc-cpt" title="'+r.label+'">'+r.cpt+'</td>'+
+      '<td><input class="calc-input" type="number" step="0.01" min="0" value="'+r.rate.toFixed(2)+'" oninput="CLFS['+i+'].rate=parseFloat(this.value)||0;renderCalc()"></td>'+
+      '<td><input class="calc-input" type="number" step="1" min="0" value="'+r.vol+'" oninput="CLFS['+i+'].vol=parseInt(this.value)||0;renderCalc()"></td>';
+    b.appendChild(tr);
+  });
+}
+function renderCalc(){
+  var cut = parseInt(document.getElementById('cutSlider').value,10)/100;
+  document.getElementById('cutVal').textContent = (cut*100).toFixed(0)+'%';
+  var base = CLFS.reduce(function(s,r){ return s + r.rate*r.vol; }, 0);
+  var y1 = base*(1-cut), y2 = y1*(1-cut), y3 = y2*(1-cut);
+  document.getElementById('outBase').textContent = fmt(base);
+  var risk = (base-y1)+(base-y2)+(base-y3); // cumulative annual shortfall vs baseline, 2027+2028+2029
+  document.getElementById('outRisk').textContent = fmt(risk);
+  document.getElementById('outPct').textContent = base>0 ? (y3/base*100).toFixed(0)+'%' : '—';
+  var max = base || 1;
+  var yrs = [{y:'Baseline',v:base,c:'#5eead4'},{y:'2027',v:y1,c:'#fbbf24'},{y:'2028',v:y2,c:'#fb923c'},{y:'2029',v:y3,c:'#f87171'}];
+  document.getElementById('bars').innerHTML = yrs.map(function(o){
+    var h = Math.max(4, (o.v/max)*100);
+    return '<div class="bar-col"><div class="bar-amt">'+fmt(o.v)+'</div><div class="bar" style="height:'+h+'%;background:'+o.c+'"></div><div class="bar-yr">'+o.y+'</div></div>';
+  }).join('');
+}
+buildCalc(); renderCalc();
+</script>
+</body>
+</html>
