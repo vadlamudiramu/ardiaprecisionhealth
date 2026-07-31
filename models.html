@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Models | Ardia Precision Health</title>
+<meta name="description" content="The models behind Ardia — the single clear answer to what Ardia has built. Lumen, Aria, MolecuIQ, ToxIQ, PulmoIQ, Cadence, TARA, Meridian, Sentinel and Crucible, each with its AI engine, the standards it uses, and an honest status: measured, live demo, or modelled target. Pre-revenue, seed-stage, Dallas–Fort Worth.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy2:#0e2040;--teal:#14b8a6;--blue:#1d9bd1;--green:#16a34a;--amber:#d97706;--rose:#e11d48;--violet:#7c6ee6;--ink:#0f172a;--mut:#54677f;--dim:#8697ac;--line:rgba(14,28,48,.10);--bg:#eef3f8;--panel:#fff}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-.02em;font-weight:800}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace}
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:12px;height:60px;max-width:1180px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-badge{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 12px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:15px;color:var(--navy)}.brand-txt span{color:var(--blue)}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{font-size:13.5px;font-weight:600;color:var(--mut);padding:8px 11px;border-radius:9px;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--navy);background:rgba(14,28,48,.05)}
+.nav-cta{background:linear-gradient(135deg,var(--teal),#0fa58e);color:#fff!important}
+/* hero */
+.hero{padding:56px 0 24px;text-align:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);background:rgba(20,184,166,.09);border:1px solid rgba(20,184,166,.28);padding:6px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,4.6vw,50px);line-height:1.05;color:var(--navy);margin-bottom:14px}
+.hero h1 span{color:var(--teal)}
+.hero p{font-size:17px;color:var(--mut);max-width:720px;margin:0 auto}
+.honest{max-width:900px;margin:22px auto 0;background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:14px 18px;font-size:13.5px;color:#78350f;text-align:left}
+.honest b{color:#92400e}
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0}
+@media(max-width:760px){.strip{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;box-shadow:0 2px 8px rgba(14,28,48,.05)}
+.kpi .v{font-family:'Sora';font-weight:800;font-size:30px;color:var(--navy)}
+.kpi .v small{font-size:16px;color:var(--teal)}
+.kpi .l{font-size:12px;color:var(--mut);margin-top:4px}
+/* section */
+section.blk{padding:30px 0}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.dot{width:12px;height:12px;border-radius:50%}
+.sec-head h2{font-size:clamp(22px,3vw,30px);color:var(--navy)}
+.sec-sub{color:var(--mut);font-size:15px;margin-bottom:22px;max-width:840px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono';font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px}
+.b-green{background:rgba(22,163,74,.1);color:var(--green);border:1px solid rgba(22,163,74,.3)}
+.b-teal{background:rgba(20,184,166,.1);color:#0d9488;border:1px solid rgba(20,184,166,.3)}
+.b-blue{background:rgba(29,155,209,.1);color:var(--blue);border:1px solid rgba(29,155,209,.3)}
+.b-amber{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.3)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 2px 8px rgba(14,28,48,.05)}
+.card h3{font-size:15px;color:var(--navy);margin-bottom:3px}
+.card .sub{font-size:12px;color:var(--dim);margin-bottom:16px}
+.note{font-size:12px;color:var(--dim);margin-top:12px;line-height:1.5}
+/* focus groups */
+.group{margin-top:26px}
+.group-h{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.group-h .dot{width:10px;height:10px}
+.group-h h3{font-family:'Sora';font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--navy)}
+.group-h .cnt{font-family:'JetBrains Mono';font-size:11px;color:var(--dim)}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+/* model card */
+.mcard{display:flex;flex-direction:column}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mc-top h3{font-size:17px;margin-bottom:2px}
+.mc-tag{font-family:'JetBrains Mono';font-size:11px;color:var(--dim);margin-bottom:12px}
+.mc-what{font-size:13.5px;color:var(--mut);line-height:1.6;margin-bottom:14px}
+.mc-meta{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.mc-row{display:flex;flex-direction:column;gap:3px}
+.mk{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--dim)}
+.mv{font-size:12.5px;color:var(--navy);line-height:1.5}
+.mv.eng{font-family:'JetBrains Mono';font-size:11.5px;color:#0d9488}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-family:'JetBrains Mono';font-size:10.5px;color:var(--mut);background:#eef3f8;border:1px solid var(--line);border-radius:5px;padding:2px 7px}
+/* table */
+table.mt{width:100%;border-collapse:collapse;font-size:13px}
+table.mt th{text-align:left;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);padding:0 8px 8px;border-bottom:1px solid var(--line)}
+table.mt td{padding:10px 8px;border-bottom:1px solid var(--line);color:var(--mut);vertical-align:top}
+table.mt td:first-child{font-weight:700;color:var(--navy);white-space:nowrap}
+table.mt tr:last-child td{border-bottom:none}
+/* spine */
+.spine{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.spine{grid-template-columns:1fr}}
+.spine-item{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;gap:14px;box-shadow:0 2px 8px rgba(14,28,48,.05)}
+.spine-num{flex:none;width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#5eead4;font-family:'JetBrains Mono';font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(20,184,166,.4)}
+.spine-item h4{font-size:14px;color:var(--navy);margin-bottom:4px}
+.spine-item p{font-size:12.5px;color:var(--mut);line-height:1.55}
+/* phases */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+@media(max-width:820px){.phases{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.phases{grid-template-columns:1fr}}
+.phase{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.phase::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--teal),#0fa58e)}
+.phase .q{font-family:'JetBrains Mono';font-size:11px;font-weight:600;color:#0d9488}
+.phase .t{font-size:12.5px;color:var(--navy);font-weight:600;margin-top:5px;line-height:1.45}
+.infobar{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.infobar .ib{flex:1 1 260px;background:#fff8ec;border:1px solid #fcd34d;border-radius:12px;padding:14px 16px;font-size:12.5px;color:#78350f;line-height:1.6}
+.infobar .ib b{color:#92400e}
+.infobar .ib.cool{background:#eff8fb;border-color:rgba(29,155,209,.35);color:#0c4a6e}
+.infobar .ib.cool b{color:#0369a1}
+/* cta */
+.cta-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:820px){.cta-row{grid-template-columns:1fr}}
+.cta-card{background:var(--navy);border-radius:16px;padding:22px;color:#cfe;display:flex;flex-direction:column;gap:6px;border:1px solid rgba(20,184,166,.25);transition:transform .15s,box-shadow .15s}
+.cta-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(10,22,40,.28)}
+.cta-card .ct{font-family:'Sora';font-weight:800;font-size:16px;color:#fff}
+.cta-card .cd{font-size:12.5px;color:#9fb6cf;line-height:1.5}
+.cta-card .cg{font-family:'JetBrains Mono';font-size:12px;color:#5eead4;margin-top:6px}
+footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size:12.5px;color:var(--dim);text-align:center;margin-top:20px}
+footer b{color:var(--mut)}
+</style>
+</head>
+<body>
+<nav><div class="nav-in">
+ <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+ <div class="nav-links">
+  <a href="index.html">Home</a><a href="model-demos.html">Watch Models</a><a href="test-results.html">Test Results</a><a class="on" href="models.html">Models</a><a href="aging.html">Aging &amp; Elder Care</a><a href="solutions.html">Solutions</a><a class="nav-cta" href="contact.html">Book a Demo</a>
+ </div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+ <div class="eyebrow">● The models behind Ardia</div>
+ <h1>Every model we've <span>built</span>, in one place</h1>
+ <p>Ardia is an AI healthcare-infrastructure company building governed models for lab reimbursement, precision medicine and elder care. This is the single, honest answer to "what has Ardia actually built?" — each model, its AI engine, the standards it works to, and exactly how far along it is.</p>
+ <div class="honest"><b>The honest line:</b> Ardia is <b>pre-revenue, seed-stage, Dallas–Fort Worth, founded January 2026</b> — no clients, no revenue, no clinical results. Only two things here are measured: <b>Cadence</b> (95.45% held-out on public UCI HAR) and <b>Meridian</b>'s unit-tested PAMA math. The persona models (Lumen, Aria, MolecuIQ, ToxIQ, PulmoIQ, TARA) run on a frontier model under guardrails and have <b>no published accuracy yet</b> — anything not measured is labelled a <b>modelled target</b>. Never a diagnosis; emergencies escalate to 911.</div>
+ <div class="strip">
+  <div class="kpi"><div class="v">10</div><div class="l">Named models in the stack</div></div>
+  <div class="kpi"><div class="v">2</div><div class="l">Measured today (Cadence · Meridian)</div></div>
+  <div class="kpi"><div class="v">4</div><div class="l">Focus areas served</div></div>
+  <div class="kpi"><div class="v">Seed</div><div class="l">Pre-revenue · DFW · Jan 2026</div></div>
+ </div>
+</div></header>
+
+<!-- ROSTER -->
+<section class="blk"><div class="wrap">
+ <div class="sec-head"><span class="dot" style="background:var(--teal)"></span><h2>The roster, by focus</h2></div>
+ <p class="sec-sub">Ten models across four focus areas plus a governed core. Each carries an honest status badge: <span class="badge b-green">● measured</span> = real numbers you can reproduce, <span class="badge b-blue">● live demo</span> = runs today on a frontier model under guardrails (watchable, no published accuracy), <span class="badge b-amber">◐ modelled target</span> = specified and being built, not yet measured.</p>
+
+ <!-- Lab reimbursement -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--teal)"></span><h3>Lab reimbursement (RCM)</h3><span class="cnt">2 models</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>ToxIQ</h3><div class="mc-tag">Toxicology revenue-cycle model</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">Reads a toxicology lab's orders and claims and reasons about coverage, coding and medical necessity before a claim goes out — so definitive and presumptive drug-testing claims are clean the first time instead of denied.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">CPT G0480–G0483</span><span class="chip">Presumptive 80305–80307</span><span class="chip">LCD / NCD</span><span class="chip">MolDX / DEX Z-codes</span><span class="chip">NCCI / UDT edits</span><span class="chip">EDI 835 / 837</span></div></div>
+    </div>
+   </div>
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>MolecuIQ</h3><div class="mc-tag">Molecular &amp; genomic revenue-cycle model</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">The molecular-diagnostics counterpart to ToxIQ: maps molecular and NGS orders to the right CPT and MolDX Z-code, checks the governing LCD/NCD, and flags necessity gaps before submission.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">CPT 81xxx molecular</span><span class="chip">MolDX / DEX Z-codes</span><span class="chip">LCD / NCD</span><span class="chip">Tier 1 / Tier 2</span><span class="chip">EDI 835 / 837</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Precision medicine -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--green)"></span><h3>Precision medicine</h3><span class="cnt">1 model</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>MolecuIQ — genomics &amp; pharmacogenomics</h3><div class="mc-tag">The same MolecuIQ engine, viewed through its genomics capability</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">Interprets next-generation-sequencing and pharmacogenomic results against published clinical guidance — matching NGS panels and PGx variants to the relevant NCCN and CPIC recommendations so a clinician sees the guideline-backed context. It is decision <b>support</b>, never a diagnosis.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">NGS 81445 / 81455</span><span class="chip">PGx CYP2C19 / CYP2D6</span><span class="chip">NCCN guidelines</span><span class="chip">CPIC guidelines</span><span class="chip">Non-diagnostic</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- PAMA -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--rose)"></span><h3>PAMA rate cliff</h3><span class="cnt">1 model</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Meridian</h3><div class="mc-tag">Deterministic PAMA / CLFS rate-cliff model</div></div><span class="badge b-green">● measured</span></div>
+    <p class="mc-what">Not an LLM — a deterministic engine that models the PAMA Clinical Lab Fee Schedule rate cuts and shows a lab exactly how much revenue is at risk as rates step down. The math is unit-tested so the numbers can never drift from the code, and it runs entirely in the browser with no PHI.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Deterministic Python engine — no LLM</span></div>
+     <div class="mc-row"><span class="mk">Standards &amp; measured facts</span><div class="chips"><span class="chip">PAMA / CLFS · CAA 2026 §6226</span><span class="chip">2025 CMS national rates</span><span class="chip">7 unit tests passing</span><span class="chip">$895,551 → $728,419 at risk</span><span class="chip">61% run-rate</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Pulmonary -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--blue)"></span><h3>Pulmonary care</h3><span class="cnt">1 model</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>PulmoIQ</h3><div class="mc-tag">Pulmonary / respiratory model</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">Focuses the reimbursement and documentation reasoning of the IQ family on pulmonary and respiratory care — pulmonary-function testing, spirometry and related services — checking coverage and coding before a claim is filed. Non-diagnostic.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">CPT 94xxx (PFT / spirometry)</span><span class="chip">LCD / NCD</span><span class="chip">EDI 835 / 837</span><span class="chip">Non-diagnostic</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Elder care -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--amber)"></span><h3>Elder care</h3><span class="cnt">2 models</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Aria</h3><div class="mc-tag">Voice-first elder companion</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">A warm, voice-first companion for older adults — conversation, reminders and a gentle daily check-in. It listens for concerns, keeps a caregiver in the loop, and hands off to a human. It never diagnoses, and a suspected emergency is escalated to 911.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards &amp; guardrails</span><div class="chips"><span class="chip">Voice-first</span><span class="chip">Emergencies → 911</span><span class="chip">Non-diagnostic</span><span class="chip">HIPAA guardrails</span></div></div>
+    </div>
+   </div>
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Cadence</h3><div class="mc-tag">Trained movement / activity-recognition model</div></div><span class="badge b-green">● measured</span></div>
+    <p class="mc-what">The one genuinely trained-and-measured model in the stack: a movement classifier that recognises daily activity from motion signals to give a picture of an older adult's routine. Trained from scratch and scored subject-independently on a public benchmark — the test people never appear in training.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">scikit-learn — trained logistic-regression classifier</span></div>
+     <div class="mc-row"><span class="mk">Measured facts</span><div class="chips"><span class="chip">95.45% held-out (UCI HAR)</span><span class="chip">macro-F1 0.9545</span><span class="chip">A/S/R 99.63%</span><span class="chip">worst-subject 85.71%</span><span class="chip">subject-independent</span><span class="chip">Not a fall detector</span></div></div>
+    </div>
+    <p class="note">Full numbers, confusion matrix and reproduction steps on <a href="test-results.html" style="color:#0d9488;font-weight:600">Test Results →</a></p>
+   </div>
+  </div>
+ </div>
+
+ <!-- Plain-language reports -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:var(--blue)"></span><h3>Plain-language reports</h3><span class="cnt">1 model</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Lumen</h3><div class="mc-tag">Patient report &amp; scan explainer</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">Turns a dense lab report or imaging summary into plain, calm language a patient can actually read — explaining what a result means and what to ask their clinician, always pointing back to the source report. It clarifies, it does not diagnose.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Claude (Opus / Sonnet) or Gemini (Flash / Pro), under guardrails</span></div>
+     <div class="mc-row"><span class="mk">Standards &amp; guardrails</span><div class="chips"><span class="chip">Reading-level simplification</span><span class="chip">Cites source report</span><span class="chip">Non-diagnostic</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Governed core -->
+ <div class="group">
+  <div class="group-h"><span class="dot" style="background:#64748b"></span><h3>The governed core</h3><span class="cnt">3 models</span></div>
+  <div class="mgrid">
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>TARA</h3><div class="mc-tag">Clinical-reasoning core (neuro-symbolic)</div></div><span class="badge b-blue">● live demo</span></div>
+    <p class="mc-what">The reasoning core the persona models run on — a neuro-symbolic design pairing a frontier model's language reasoning with a symbolic policy engine that applies coverage and coding rules deterministically. It is administrative software, not an FDA medical device.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Frontier-model reasoning + symbolic policy rules</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">MolDX Z-code + LCD/NCD + NCCI/UDT rules</span><span class="chip">Administrative software (not FDA SaMD)</span><span class="chip">No published accuracy yet</span></div></div>
+    </div>
+   </div>
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Sentinel</h3><div class="mc-tag">HIPAA de-identification kernel</div></div><span class="badge b-amber">◐ modelled target</span></div>
+    <p class="mc-what">The privacy gate every other model sits behind — a deterministic rule engine that strips identifiers so no PHI reaches a prompt, enabling work on a Limited Data Set under a Data Use Agreement. Being built to the HIPAA Safe Harbor standard.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">Deterministic rule engine — no LLM</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">HIPAA Safe Harbor (18 identifiers)</span><span class="chip">Limited Data Set / DUA</span><span class="chip">No PHI in prompts</span></div></div>
+    </div>
+   </div>
+   <div class="card mcard">
+    <div class="mc-top"><div><h3>Crucible</h3><div class="mc-tag">Evaluation harness</div></div><span class="badge b-amber">◐ modelled target</span></div>
+    <p class="mc-what">The evaluation harness that keeps everyone honest — the same subject-independent, reproducible-from-public-data protocol that produced Cadence's numbers is being generalised so every persona model gets benchmarked the same way, once real data is available under a BAA.</p>
+    <div class="mc-meta">
+     <div class="mc-row"><span class="mk">AI engine</span><span class="mv eng">pytest + scikit-learn metrics — evaluation tooling</span></div>
+     <div class="mc-row"><span class="mk">Standards it uses</span><div class="chips"><span class="chip">Subject-independent protocol</span><span class="chip">Reproducible from public data</span><span class="chip">No test-set peeking</span></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div></section>
+
+<!-- AI TOOLS -->
+<section class="blk"><div class="wrap">
+ <div class="sec-head"><span class="dot" style="background:var(--blue)"></span><h2>AI tools we evaluated &amp; use</h2></div>
+ <p class="sec-sub">The persona models are not a single home-grown neural network — they run on frontier models under guardrails, with one classifier we trained ourselves. Here is exactly which tool does what, and how far each is proven.</p>
+ <div class="card">
+  <div style="overflow-x:auto"><table class="mt">
+   <thead><tr><th>Tool</th><th>Vendor</th><th>Role in the stack</th><th>Status</th></tr></thead>
+   <tbody>
+    <tr><td>Claude (Opus / Sonnet)</td><td>Anthropic</td><td>Primary reasoning engine for the persona models — clinical language and coverage reasoning under guardrails</td><td><span class="badge b-blue">In use · demo</span></td></tr>
+    <tr><td>Gemini (Flash / Pro)</td><td>Google</td><td>Alternate persona engine and fast / low-cost paths; model chosen per task</td><td><span class="badge b-blue">In use · demo</span></td></tr>
+    <tr><td>Cadence classifier</td><td>In-house (scikit-learn)</td><td>Trained movement / activity-recognition model — the one component with measured accuracy</td><td><span class="badge b-green">Trained &amp; measured · 95.45%</span></td></tr>
+    <tr><td>Open models</td><td>Open-source (Llama / Mistral class)</td><td>On-prem and cost-optimised inference for de-identified workloads</td><td><span class="badge b-amber">Roadmap</span></td></tr>
+   </tbody>
+  </table></div>
+  <p class="note">Every persona listed on this page runs on Claude or Gemini under Sentinel's de-identification and TARA's policy guardrails. None has a published accuracy figure yet — that arrives model-by-model through Crucible, once measured on real data under a BAA.</p>
+ </div>
+</div></section>
+
+<!-- FRAMEWORKS WE'RE BUILDING -->
+<section class="blk"><div class="wrap">
+ <div class="sec-head"><span class="dot" style="background:var(--navy)"></span><h2>Frameworks we're building</h2></div>
+ <p class="sec-sub"><b>What we're building (Phase 1):</b> the ingestion-and-adjudication <b>spine</b> that turns a lab's raw claims traffic into governed, auditable decisions. Four pieces, built in order.</p>
+ <div class="spine">
+  <div class="spine-item"><div class="spine-num">1</div><div><h4>EDI 835 / 837 ingestion pipeline</h4><p>Ingests the standard claim (837) and remittance (835) EDI feeds so the system reads a lab's real reimbursement traffic — the raw material every downstream decision is built on.</p></div></div>
+  <div class="spine-item"><div class="spine-num">2</div><div><h4>Symbolic Policy Engine</h4><p>Deterministic coverage logic: MolDX / DEX Z-codes, the governing LCD / NCD, and NCCI / UDT frequency rules applied as explicit rules — so a decision is explainable, not a black box.</p></div></div>
+  <div class="spine-item"><div class="spine-num">3</div><div><h4>Appeal-letter generator + audit trail</h4><p>Drafts a sourced appeal letter when a claim is wrongly denied, backed by a tamper-evident audit trail so every decision and its rationale can be reconstructed after the fact.</p></div></div>
+  <div class="spine-item"><div class="spine-num">4</div><div><h4>HIPAA GCP + SOC 2 foundation</h4><p>Runs on a HIPAA-eligible Google Cloud footprint under BAA — Vertex AI, Cloud Healthcare API, BigQuery, FHIR R4, pinned to <span class="mono">us-central1</span> — on the path to SOC 2.</p></div></div>
+ </div>
+
+ <h3 style="font-family:'Sora';font-size:14px;color:var(--navy);margin:26px 0 4px">Timeline</h3>
+ <div class="phases">
+  <div class="phase"><div class="q">Q3 2026</div><div class="t">Governance &amp; data — Limited Data Set + Data Use Agreement in place</div></div>
+  <div class="phase"><div class="q">Q3–Q4 2026</div><div class="t">Ingestion + policy — EDI pipeline &amp; Symbolic Policy Engine online</div></div>
+  <div class="phase"><div class="q">Q4 2026 – Q1 2027</div><div class="t">Reasoning + appeal + audit — the adjudication spine end-to-end</div></div>
+  <div class="phase"><div class="q">Q2–Q3 2027</div><div class="t">First lab pilot — retrospective backtest first, then live</div></div>
+ </div>
+
+ <div class="infobar">
+  <div class="ib"><b>Phase 4 (future):</b> precision medicine — extending the governed spine into cardiovascular and oncology decision support. Sequenced deliberately after the reimbursement core is proven.</div>
+  <div class="ib cool"><b>Regulatory posture:</b> TARA is <b>administrative software</b>, not an FDA medical device (not SaMD). Built to <b>SB 1188</b> US data-residency and operated inside the <b>TRAIGA / HB 149</b> NIST AI RMF sandbox.</div>
+ </div>
+</div></section>
+
+<!-- CTA -->
+<section class="blk"><div class="wrap">
+ <div class="sec-head"><span class="dot" style="background:var(--teal)"></span><h2>See the models for yourself</h2></div>
+ <p class="sec-sub">Don't take the roster on faith — watch the models run, read the measured numbers, and try the deterministic math live.</p>
+ <div class="cta-row">
+  <a class="cta-card" href="model-demos.html">
+   <div class="ct">Watch the models</div>
+   <div class="cd">See Lumen, Aria and the IQ family run live on a frontier model under guardrails.</div>
+   <div class="cg">model-demos.html →</div>
+  </a>
+  <a class="cta-card" href="test-results.html">
+   <div class="ct">Read the test results</div>
+   <div class="cd">Cadence's 95.45% held-out benchmark and the full passing test suite — measured, not claimed.</div>
+   <div class="cg">test-results.html →</div>
+  </a>
+  <a class="cta-card" href="model-pama.html">
+   <div class="ct">Try the Meridian calculator</div>
+   <div class="cd">Enter a test mix and watch the deterministic PAMA rate-cliff math run in your browser.</div>
+   <div class="cg">model-pama.html →</div>
+  </a>
+ </div>
+</div></section>
+
+<footer><div class="wrap">Ardia Health Labs LLC · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · No clients, revenue or clinical results · Cadence measured on public UCI HAR (CC BY 4.0), subject-independent; Meridian unit-tested · Personas run on a frontier model under guardrails with no published accuracy yet · <b>Not a diagnosis.</b></div></footer>
+</body>
+</html>
