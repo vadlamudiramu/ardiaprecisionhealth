@@ -1,0 +1,132 @@
+{
+  "model": "Cadence (activity recognition)",
+  "dataset": "UCI HAR (Anguita et al. 2013, CC BY 4.0)",
+  "n_train_windows": 7352,
+  "n_test_windows": 2947,
+  "n_features": 561,
+  "subjects_train": 21,
+  "subjects_test": 9,
+  "subject_independent": true,
+  "cv_accuracy_train_only": {
+    "logreg": 0.9846,
+    "random_forest": 0.9804
+  },
+  "selected_model": "logreg",
+  "held_out_accuracy": 0.9545,
+  "held_out_macro_f1": 0.9545,
+  "held_out_balanced_accuracy": 0.9533,
+  "active_sedentary_resting_accuracy": 0.9963,
+  "worst_subject_accuracy": 0.8571,
+  "best_subject_accuracy": 0.9948,
+  "mean_subject_accuracy": 0.9523,
+  "per_class": {
+    "WALKING": {
+      "precision": 0.9426386233269598,
+      "recall": 0.9939516129032258,
+      "f1-score": 0.9676153091265947,
+      "support": 496.0
+    },
+    "WALKING_UPSTAIRS": {
+      "precision": 0.9591397849462365,
+      "recall": 0.9469214437367304,
+      "f1-score": 0.9529914529914529,
+      "support": 471.0
+    },
+    "WALKING_DOWNSTAIRS": {
+      "precision": 0.9899749373433584,
+      "recall": 0.9404761904761905,
+      "f1-score": 0.9645909645909646,
+      "support": 420.0
+    },
+    "SITTING": {
+      "precision": 0.9684684684684685,
+      "recall": 0.8757637474541752,
+      "f1-score": 0.9197860962566845,
+      "support": 491.0
+    },
+    "STANDING": {
+      "precision": 0.886986301369863,
+      "recall": 0.9736842105263158,
+      "f1-score": 0.9283154121863799,
+      "support": 532.0
+    },
+    "LAYING": {
+      "precision": 0.9981203007518797,
+      "recall": 0.9888268156424581,
+      "f1-score": 0.9934518241347053,
+      "support": 537.0
+    },
+    "macro avg": {
+      "precision": 0.957554736034461,
+      "recall": 0.9532706701231826,
+      "f1-score": 0.9544585098811305,
+      "support": 2947.0
+    },
+    "weighted avg": {
+      "precision": 0.9563890062485932,
+      "recall": 0.9545300305395318,
+      "f1-score": 0.9544916100846601,
+      "support": 2947.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      493,
+      0,
+      3,
+      0,
+      0,
+      0
+    ],
+    [
+      24,
+      446,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      6,
+      17,
+      395,
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      2,
+      0,
+      430,
+      58,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      14,
+      518,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      6,
+      531
+    ]
+  ],
+  "activity_labels": {
+    "1": "WALKING",
+    "2": "WALKING_UPSTAIRS",
+    "3": "WALKING_DOWNSTAIRS",
+    "4": "SITTING",
+    "5": "STANDING",
+    "6": "LAYING"
+  },
+  "sklearn_version": "1.6.1",
+  "random_state": 42
+}
