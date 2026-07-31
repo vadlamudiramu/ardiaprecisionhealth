@@ -1213,7 +1213,7 @@ body { overflow-x: hidden; }
     </div>
     <div style="text-align:center;margin-top:16px">
       <span onclick="window.location='model-demos.html'" style="background:rgba(94,234,212,0.15);border:1px solid rgba(94,234,212,0.35);color:#5eead4;font-size:12px;font-weight:700;padding:8px 22px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
-        <i class="fas fa-desktop"></i> Open Full Live Dashboard →
+        <i class="fas fa-circle-play"></i> Watch the Models Work →
       </span>
     </div>
   </div>
@@ -1446,7 +1446,7 @@ body { overflow-x: hidden; }
       </div>
       <div style="background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px">
         <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:4px">Ardia ARR Projection</div>
-        <div style="font-size:11px;color:#7a93b0;margin-bottom:16px">Conservative model · 800+ clients by 2030</div>
+        <div style="font-size:11px;color:#7a93b0;margin-bottom:16px">Conservative model · 340 paying labs by 2030</div>
         <div style="height:200px"><canvas id="revChart"></canvas></div>
       </div>
     </div>
@@ -1609,7 +1609,7 @@ body { overflow-x: hidden; }
         <p style="font-size:12px;color:#4a6285;margin-top:14px;line-height:1.7">Ardia automates a costly manual appeals process. No upfront cost — labs pay a 15% contingency fee only when they recover revenue. Zero customer risk.</p>
       </div>
       <div style="background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px">
-        <h3 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:16px">Client ROI by Segment</h3>
+        <h3 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:16px">Projected ROI by Segment</h3>
         <div style="height:180px"><canvas id="segChart"></canvas></div>
       </div>
       <div style="background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px">
@@ -1617,19 +1617,19 @@ body { overflow-x: hidden; }
         <div style="display:flex;flex-direction:column;gap:10px">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f8fafb;border-radius:8px;border-left:3px solid #0d7c6e">
             <span style="font-size:12px;font-weight:600;color:#1e2f4a">2026 · DFW Pilot</span>
-            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#0d7c6e">$900K</span>
+            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#0d7c6e">$600K</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f8fafb;border-radius:8px;border-left:3px solid #0ea5e9">
             <span style="font-size:12px;font-weight:600;color:#1e2f4a">2027 · National USA</span>
-            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#0284c7">$15M</span>
+            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#0284c7">$3.2M</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f8fafb;border-radius:8px;border-left:3px solid #7c3aed">
             <span style="font-size:12px;font-weight:600;color:#1e2f4a">2028 · Canada + Mexico</span>
-            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#7c3aed">$45M</span>
+            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#7c3aed">$9.8M</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f8fafb;border-radius:8px;border-left:3px solid #d97706">
             <span style="font-size:12px;font-weight:600;color:#1e2f4a">2030 · Global Platform</span>
-            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#d97706">$280M</span>
+            <span style="font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:#d97706">$51M</span>
           </div>
         </div>
       </div>
@@ -2148,12 +2148,12 @@ function initInvestorCharts() {
   const rc = document.getElementById('revChart');
   if (rc && !rc._init) {
     rc._init = true;
-    new Chart(rc, {type:'bar',data:{labels:['2026','2027','2028','2029','2030'],datasets:[{label:'ARR ($M)',data:[0.9,15,45,100,280],backgroundColor:['rgba(13,124,110,0.8)','rgba(13,124,110,0.75)','rgba(14,165,233,0.7)','rgba(124,58,237,0.7)','rgba(217,119,6,0.8)'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a93b0',font:{size:10}}},y:{ticks:{color:'#7a93b0',font:{size:10},callback:v=>'$'+v+'M'},beginAtZero:true}}}});
+    new Chart(rc, {type:'bar',data:{labels:['2026','2027','2028','2029','2030'],datasets:[{label:'ARR ($M)',data:[0.6,3.2,9.8,24.5,51],backgroundColor:['rgba(13,124,110,0.8)','rgba(13,124,110,0.75)','rgba(14,165,233,0.7)','rgba(124,58,237,0.7)','rgba(217,119,6,0.8)'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a93b0',font:{size:10}}},y:{ticks:{color:'#7a93b0',font:{size:10},callback:v=>'$'+v+'M'},beginAtZero:true}}}});
   }
   const sc = document.getElementById('segChart');
   if (sc && !sc._init) {
     sc._init = true;
-    new Chart(sc, {type:'bar',data:{labels:['Tox Lab','Molecular','ACO','Behavioral'],datasets:[{label:'Avg Monthly ROI ($K)',data:[42,118,240,28],backgroundColor:['rgba(13,124,110,0.8)','rgba(14,165,233,0.8)','rgba(124,58,237,0.8)','rgba(245,158,11,0.8)'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a93b0',font:{size:10}}},y:{ticks:{color:'#7a93b0',font:{size:10},callback:v=>'$'+v+'K'},beginAtZero:true}}}});
+    new Chart(sc, {type:'bar',data:{labels:['Tox Lab','Molecular','ACO','Pulmonary'],datasets:[{label:'Avg Monthly ROI ($K)',data:[42,118,240,28],backgroundColor:['rgba(13,124,110,0.8)','rgba(14,165,233,0.8)','rgba(124,58,237,0.8)','rgba(245,158,11,0.8)'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7a93b0',font:{size:10}}},y:{ticks:{color:'#7a93b0',font:{size:10},callback:v=>'$'+v+'K'},beginAtZero:true}}}});
   }
 }
 
