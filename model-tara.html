@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>TARA — The Reasoning Engine | Ardia</title>
+<meta name="description" content="TARA: Ardia's Triadic Adjudicative Reasoning Architecture. Symbolic policy + clinical reasoning + a denial-pattern library — grounded, auditable, and governed. The engine every Ardia model thinks with.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+ --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;--tara:#0d9488;--pulmo:#2563eb;--sentinel:#4f46e5;--crucible:#ea580c;--ok:#16a34a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;letter-spacing:-.02em;font-weight:700}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+.mono{font-family:'JetBrains Mono',monospace}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--tara)}
+nav{position:sticky;top:0;z-index:100;background:rgba(9,15,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-in{display:flex;align-items:center;gap:14px;height:64px;max-width:1300px;margin:0 auto;padding:0 26px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:17px;color:#fff}.brand-txt span{color:#5eb0f0}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:#9fb2cc;padding:8px 12px;border-radius:9px}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:linear-gradient(90deg,var(--tara),#22d3ee);color:#04140d!important;padding:9px 16px;border-radius:10px}
+@media(max-width:920px){.nav-links a:not(.nav-cta){display:none}}
+.hero{position:relative;background:#070b14;color:#fff;overflow:hidden;padding:80px 0 66px}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 60% at 76% 28%,rgba(13,148,136,.30),transparent 60%),radial-gradient(50% 60% at 18% 82%,rgba(79,70,229,.22),transparent 60%),radial-gradient(40% 50% at 52% 4%,rgba(45,212,191,.14),transparent 60%)}
+.hero::after{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg,rgba(94,234,212,.06) 0 1px,transparent 1px 46px)}
+.hero .wrap{position:relative}
+.hero .kick{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#7fe0c4;background:rgba(94,234,212,.08);border:1px solid rgba(94,234,212,.25);padding:6px 14px;border-radius:100px;margin-bottom:22px}
+.hero h1{font-size:clamp(46px,9vw,100px);line-height:.95;font-weight:800;background:linear-gradient(180deg,#fff,#bfe9dc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero .role{font-family:'Sora';font-size:clamp(17px,2.4vw,23px);font-weight:600;color:#8fd8cf;margin-bottom:18px}
+.hero p{font-size:18px;color:#b7c6da;max-width:640px;line-height:1.6;margin-bottom:26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:'Sora';font-weight:600;font-size:15px;padding:13px 24px;border-radius:12px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-p{background:linear-gradient(90deg,var(--tara),#22d3ee);color:#04140d}.btn-p:hover{transform:translateY(-1px)}
+.btn-s{background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.16)}.btn-s:hover{border-color:#22d3ee}
+.flow{display:inline-flex;gap:11px;align-items:center;margin-top:34px;padding:9px 16px;border:1px solid rgba(255,255,255,.14);border-radius:100px;font-family:'Sora';font-size:12px;font-weight:700;letter-spacing:1.4px;color:#9fb2cc}
+.flow b{color:#fff}.flow .a{color:#5fe3a1}
+section.block{padding:72px 0}
+.center{text-align:center;max-width:720px;margin:0 auto 46px}
+.center h2{font-size:clamp(27px,3.6vw,40px);line-height:1.12;margin:12px 0;color:var(--txt)}
+.center p{font-size:17px;color:var(--mut)}
+.cap{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:26px 0;border-top:1px solid var(--line)}
+.cap:last-child{border-bottom:1px solid var(--line)}
+.cap .num{font-family:'Sora';font-size:30px;font-weight:800;color:var(--tara);opacity:.5}
+.cap h3{font-size:22px;margin-bottom:8px;color:var(--txt)}
+.cap p{font-size:15px;color:var(--mut);line-height:1.65;max-width:760px}
+.cap .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag{font-family:'JetBrains Mono';font-size:11.5px;font-weight:600;background:var(--panel);border:1px solid var(--line);color:var(--mut);padding:5px 10px;border-radius:7px}
+/* console */
+.console{background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid #1c2740;border-radius:16px;overflow:hidden;box-shadow:0 40px 100px -40px rgba(0,0,0,.8);max-width:880px;margin:0 auto}
+.c-bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.07)}
+.c-dots{display:flex;gap:6px}.c-dots i{width:11px;height:11px;border-radius:50%;display:block}
+.c-dots i:nth-child(1){background:#ff5f56}.c-dots i:nth-child(2){background:#ffbd2e}.c-dots i:nth-child(3){background:#27c93f}
+.c-url{flex:1;font-family:'JetBrains Mono';font-size:12px;color:#5b7ba0;background:rgba(255,255,255,.04);padding:5px 12px;border-radius:6px}.c-url b{color:#2dd4bf}
+.c-live{font-size:10.5px;font-weight:700;color:#27c93f}
+.c-body{padding:22px;min-height:270px;font-family:'JetBrains Mono';font-size:13.5px;line-height:1.9}
+.c-line{display:flex;gap:11px;opacity:0;transform:translateY(6px);transition:.4s}.c-line.show{opacity:1;transform:none}
+.c-step{color:#5b7ba0;min-width:20px}.c-txt{color:#c9d8ea;flex:1}
+.c-txt .k{color:#7cc4ff}.c-txt .m{color:#b6a4ff}.c-txt .a{color:#ffcf6b}.c-txt .g{color:#5fe3a1}
+.c-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;margin-left:6px}
+.tg-ok{background:rgba(95,227,161,.15);color:#5fe3a1}.tg-gap{background:rgba(255,207,107,.15);color:#ffcf6b}
+.disc{max-width:880px;margin:14px auto 0;font-size:12px;color:var(--dim);text-align:center;line-height:1.6}
+/* methodology */
+.method{background:#0b1120;color:#c9d8ea;border-radius:20px;padding:38px}
+.method .eyebrow{color:#5fe3a1}.method h2{color:#fff;font-size:clamp(24px,3vw,34px);margin:10px 0 8px}
+.method>p{color:#9fb2cc;max-width:720px;margin-bottom:26px}
+.msteps{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:720px){.msteps{grid-template-columns:1fr}}
+.mstep{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:13px;padding:18px}
+.mstep .n{font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:#5fe3a1;margin-bottom:7px}
+.mstep h4{color:#fff;font-size:15.5px;margin-bottom:6px}.mstep p{font-size:13px;color:#9fb2cc;line-height:1.55}.mstep b{color:#e8f1fb}
+/* evidence cards */
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:760px){.ev-grid{grid-template-columns:1fr}}
+.ev-card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:16px;padding:24px;box-shadow:0 2px 6px rgba(14,28,48,.05)}
+.ev-card .v{font-family:'Sora';font-weight:800;font-size:34px;color:var(--c)}
+.ev-card h3{font-size:16px;margin:6px 0 8px;color:var(--txt)}
+.ev-card p{font-size:13.5px;color:var(--mut);line-height:1.6}
+.honest{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:14px;padding:22px 24px;max-width:900px;margin:26px auto 0}
+.honest h3{color:#b45309;font-size:16px;margin-bottom:8px}.honest p{font-size:14px;color:#78350f;line-height:1.65}.honest b{color:#92400e}
+.finalcta{text-align:center;padding:80px 0}
+.finalcta h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px;color:var(--txt)}.finalcta p{font-size:17px;color:var(--mut);margin-bottom:26px}
+footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-size:13px;background:var(--panel2)}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
+</head>
+<body>
+<nav><div class="nav-in">
+ <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+ <div class="nav-links"><a href="ardia-platform-light.html">Platform</a><a class="active" href="models.html">Models</a><a href="ardia-agents.html">Agents</a><a href="tools.html">Tools</a><a href="investors.html">Investors</a><a class="nav-cta" href="contact.html">Book a demo</a></div>
+</div></nav>
+<header class="hero"><div class="wrap">
+ <div class="kick">◈ Ardia Models · the reasoning engine</div>
+ <h1>TARA</h1>
+ <div class="role">Triadic Adjudicative Reasoning Architecture</div>
+ <p>The engine every Ardia model thinks with. Three layers — deterministic policy, clinical reasoning, and a denial-pattern library — so an answer is grounded in the rule it came from, not guessed. Auditable end to end.</p>
+ <div class="hero-cta"><a class="btn btn-p" href="#how">How it reasons ↓</a><a class="btn btn-s" href="tools.html">Run a live tool</a></div>
+ <div class="flow"><b>READ</b><span class="a">→</span><b>REASON</b><span class="a">→</span><b>ACT</b><span class="a">→</span><b>GOVERN</b></div>
+</div></header>
+
+<section class="block"><div class="wrap">
+ <div class="center"><div class="eyebrow">The three layers</div><h2>Grounded, not guessed</h2><p>Each layer does one job, and the boundary between deterministic rules and language-model reasoning is deliberate — it is what keeps TARA auditable.</p></div>
+ <div class="cap"><div class="num">01</div><div><h3>Symbolic Policy Engine</h3><p>Deterministic encoding of payer LCD/NCD and MolDX policy, frequency and panel caps, and bundling logic. Rules are versioned and cited — never hallucinated. When TARA says a claim fails a policy, it can point at the exact clause.</p><div class="tags"><span class="tag">LCD / NCD / MolDX</span><span class="tag">deterministic</span><span class="tag">cited &amp; versioned</span></div></div></div>
+ <div class="cap"><div class="num">02</div><div><h3>Clinical Reasoning Engine</h3><p>A frontier language model (Claude), behind guardrails, reads the de-identified record against the matched policy and finds the medical-necessity gap — then drafts the argument with citations. The model reasons; it does not get to override the policy layer or the safety rules.</p><div class="tags"><span class="tag">Claude, guarded</span><span class="tag">retrieval-grounded</span><span class="tag">human-in-the-loop</span></div></div></div>
+ <div class="cap"><div class="num">03</div><div><h3>Denial-Pattern Library</h3><p>Payer-specific CARC/RARC playbooks — the appeal angle for each denial code, learned from real denial patterns. It is also what lets TARA decline a correct denial rather than paper over it.</p><div class="tags"><span class="tag">CARC / RARC</span><span class="tag">payer-specific</span><span class="tag">merit-gated</span></div></div></div>
+</div></section>
+
+<section class="block" id="how" style="background:var(--bg2)"><div class="wrap">
+ <div class="center"><div class="eyebrow">Watch it reason</div><h2>One run, end to end</h2><p>A denied toxicology claim, reasoned to a recovery narrative. Illustrative, synthetic claim — production runs the full MAC-specific policy set under a BAA.</p></div>
+ <div class="console">
+  <div class="c-bar"><div class="c-dots"><i></i><i></i><i></i></div><div class="c-url">ardia.health/tara/runs/<b>appeal-80307</b></div><div class="c-live">● LIVE</div></div>
+  <div class="c-body" id="cb"></div>
+ </div>
+ <div class="disc">No real patient or claim data is used. TARA is pre-revenue; every figure on the site is a sourced industry number or one generated in a tool.</div>
+</div></section>
+
+<section class="block"><div class="wrap">
+ <div class="method">
+  <div class="eyebrow">How it's built</div>
+  <h2>An architecture, not a black box</h2>
+  <p>TARA is honestly not a trillion-parameter foundation model, and we will not pretend it is. It is an <b>architecture</b>: a deterministic policy engine wrapped around a frontier language model, grounded in retrieval, and gated by governance. That design is the point.</p>
+  <div class="msteps">
+   <div class="mstep"><div class="n">01 · GROUND</div><h4>Retrieval, not recall</h4><p>Every clinical or policy claim is grounded in a retrieved, cited source — payer LCDs, NCCN, CPIC — so the model argues from the record, not from memory.</p></div>
+   <div class="mstep"><div class="n">02 · CONSTRAIN</div><h4>Policy is deterministic</h4><p>The rule layer is code, not prose the model can talk its way around. A frequency cap is a frequency cap.</p></div>
+   <div class="mstep"><div class="n">03 · GOVERN</div><h4>Sentinel wraps every call</h4><p>PHI is de-identified before the model sees it; every access is written to a hash-chained audit trail; access is role-scoped and minimum-necessary.</p></div>
+   <div class="mstep"><div class="n">04 · PROVE</div><h4>Crucible gates the release</h4><p>Nothing ships without passing the safety and regression suite. A broken guardrail blocks the deploy.</p></div>
+  </div>
+ </div>
+</div></section>
+
+<section class="block" style="background:var(--bg2)"><div class="wrap">
+ <div class="center"><div class="eyebrow">Evidence</div><h2>What we actually measure — and what we don't yet</h2><p>A reasoning engine can't honestly be scored like a classifier on one accuracy number. Here is what is measured today, stated plainly.</p></div>
+ <div class="ev-grid">
+  <div class="ev-card" style="--c:var(--sentinel)"><div class="v">42/42</div><h3>Governance (Sentinel)</h3><p>Safety tests passing — PHI de-identification, hash-chained audit, RBAC / minimum-necessary. Measured on Ardia's own suite.</p></div>
+  <div class="ev-card" style="--c:var(--crucible)"><div class="v">49</div><h3>Evaluation (Crucible)</h3><p>Total tests gating every release — refusal, escalation, de-identification, and regression checks. A failing gate blocks the deploy.</p></div>
+  <div class="ev-card" style="--c:var(--tara)"><div class="v">In dev</div><h3>Reasoning accuracy</h3><p>Measured today by policy-match correctness on <b>synthetic</b> cases. End-to-end appeal accuracy will be measured on a design-partner dataset under a BAA before any performance claim is published.</p></div>
+ </div>
+ <div class="honest">
+  <h3>⚠ The honest line</h3>
+  <p>No appeal win-rate, denial-recovery percentage, or clinical-outcome figure is claimed for TARA, because Ardia is <b>pre-revenue</b> and those numbers cannot honestly be known before a pilot. The measured facts above are real; everything else on this page describes the architecture and its intended behaviour, with synthetic examples labelled as such. A published benchmark is on the roadmap — built the same way Cadence's was: honestly, and measured once.</p>
+ </div>
+</div></section>
+
+<section class="finalcta"><div class="wrap">
+ <div class="eyebrow">The core of the constellation</div>
+ <h2>Every model runs on TARA</h2>
+ <p>See the full model lineup, or the trained model with real benchmarks — Cadence.</p>
+ <div class="hero-cta" style="justify-content:center"><a class="btn btn-p" href="models.html" style="color:#04140d">All models →</a><a class="btn btn-s" href="model-cadence.html" style="color:var(--txt);border-color:var(--line2)">See Cadence</a></div>
+</div></section>
+<footer><div class="wrap foot-in"><div>Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · TARA is an architecture, not a foundation model</div></div></footer>
+<script>
+var RUN=[['01','<span class="k">READ</span> retrieving payer LCD for CPT <b>80307</b>…','ok','matched L36037'],
+['02','<span class="k">READ</span> parsing record · dx, order, notes…','ok','3 docs'],
+['03','<span class="m">REASON</span> necessity vs covered indications…','gap','rationale missing'],
+['04','<span class="m">REASON</span> frequency &amp; bundling caps…','ok','within caps'],
+['05','<span class="a">ACT</span> drafting appeal · citing L36037…','ok','narrative built'],
+['06','<span class="g">GOVERN</span> hash-chained audit · PHI de-identified…','ok','#a7f3']];
+var cb=document.getElementById('cb'),i=0;
+function step(){ if(i>=RUN.length){setTimeout(function(){cb.innerHTML='';i=0;setTimeout(step,400);},3200);return;}
+ var r=RUN[i],l=document.createElement('div');l.className='c-line';
+ l.innerHTML='<span class="c-step">'+r[0]+'</span><span class="c-txt">'+r[1]+'<span class="c-tag tg-'+r[2]+'">'+r[3]+'</span></span>';
+ cb.appendChild(l);requestAnimationFrame(function(){l.classList.add('show');});i++;cb.scrollTop=cb.scrollHeight;setTimeout(step,850);}
+setTimeout(step,500);
+</script>
+</body>
+</html>

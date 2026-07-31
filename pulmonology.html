@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>PulmoIQ — Respiratory & Pulmonary Intelligence | Ardia Health</title>
+<meta name="description" content="PulmoIQ — Ardia's Phase 1 respiratory module: longitudinal asthma/COPD tracking, PFT & sleep-study reimbursement, air-quality triggers. Reimbursement-safe today; exacerbation prediction gated behind FDA clearance.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:1.65;overflow-x:hidden}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,30,60,0.08)}
+.nav-inner{max-width:1360px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:14px}
+.nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none;flex-shrink:0}
+.nav-logo-icon{width:52px;height:52px;background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:10px;border:1.5px solid rgba(20,184,166,0.5);box-shadow:0 0 12px rgba(20,184,166,0.25),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.nav-logo-icon img{width:100%;height:100%;object-fit:contain;display:block}
+.logo-text{display:flex;flex-direction:column;line-height:1.2}
+.logo-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#1e2f4a;letter-spacing:-.3px}
+.logo-name span.teal{color:#1d9bd1}
+.logo-name::after{content:'';display:block;height:2px;background:linear-gradient(to right,#14b8a6,#f59e0b);border-radius:1px;margin-top:4px;margin-bottom:3px}
+.logo-sub{font-size:10px;font-weight:400;color:#5a6e87;letter-spacing:0;text-transform:none}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin-left:auto}
+.nav-link{font-size:13px;font-weight:600;color:#334155;padding:6px 5px;border-radius:8px;cursor:pointer;transition:.2s;white-space:nowrap}
+.nav-link:hover,.nav-link.active-page{color:#0d7c6e;background:rgba(13,124,110,.07)}
+.nav-cta{display:flex;align-items:center;gap:7px;margin-left:8px;flex-shrink:0}
+.btn-trial{font-size:13px;font-weight:700;color:#0d7c6e;padding:7px 11px;border-radius:8px;border:1.5px solid #0d7c6e;cursor:pointer;white-space:nowrap}
+.btn-trial:hover{background:#0d7c6e;color:#fff}
+.btn-book{font-size:13px;font-weight:700;color:#fff;background:#1e3a5f;padding:8px 13px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.btn-book:hover{background:#0d7c6e}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#1e3a5f;border-radius:2px}
+@media(max-width:1260px){.nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:16px;gap:4px;border-bottom:1px solid #e2e8f0;box-shadow:0 8px 24px rgba(0,0,0,.1)}.nav-links.open{display:flex}.hamburger{display:flex}}
+.mega-menu{position:absolute;top:calc(100% + 1px);left:-60px;width:580px;background:#fff;border:1px solid #e2e8f0;border-radius:0 0 16px 16px;box-shadow:0 20px 60px rgba(13,124,110,0.10);opacity:0;visibility:hidden;transition:.2s;pointer-events:none;z-index:10000;overflow:hidden}
+.nav-item{position:relative}.nav-item:hover .mega-menu{opacity:1;visibility:visible;pointer-events:auto}
+.mega-header{padding:14px 22px 12px;border-bottom:1px solid #e2e8f0;background:#f8fafb}
+.mega-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#7a93b0;margin-bottom:3px}
+.mega-desc{font-size:12.5px;color:#4a6285}
+.mega-grid{display:grid;grid-template-columns:1fr 1fr;padding:12px;gap:2px}
+.mega-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-radius:10px;cursor:pointer;transition:.18s}
+.mega-item:hover{background:#f0fdf9}
+.mega-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.mi-teal{background:rgba(13,124,110,0.1);color:#0d7c6e}.mi-blue{background:rgba(3,105,161,0.1);color:#0369a1}.mi-amber{background:rgba(180,83,9,0.1);color:#b45309}.mi-purple{background:rgba(124,58,237,0.1);color:#7c3aed}
+.mega-item-title{font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:2px}
+.mega-item-desc{font-size:11.5px;color:#7a93b0;line-height:1.5}
+.hero{padding:118px 24px 60px;background:linear-gradient(135deg,#eef7ff 0%,#e8faf7 55%,#f0fdf4 100%);text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #0369a1;color:#0369a1;font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,52px);font-weight:800;color:#1e3a5f;line-height:1.1;max-width:900px;margin:0 auto 16px}
+.hero h1 span{color:#0369a1}
+.hero-sub{font-size:18px;color:#475569;max-width:760px;margin:0 auto 26px;line-height:1.7}
+.phase-pill{display:inline-flex;align-items:center;gap:8px;background:#dcfce7;color:#15803d;border:1.5px solid #86efac;font-size:13px;font-weight:800;padding:8px 16px;border-radius:100px}
+.section{padding:70px 24px}.container{max-width:1100px;margin:0 auto}
+.section-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0369a1;background:rgba(3,105,161,.08);padding:5px 14px;border-radius:100px;margin-bottom:14px}
+.section-title{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;color:#1e3a5f;line-height:1.15;margin-bottom:14px}
+.section-sub{font-size:16px;color:#64748b;max-width:740px;line-height:1.7}
+.section-header{text-align:center;margin-bottom:46px}.section-header .section-sub{margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.f-card{background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:26px;transition:.2s}
+.f-card:hover{border-color:#0369a1;box-shadow:0 12px 40px rgba(3,105,161,.08);transform:translateY(-3px)}
+.f-ic{width:46px;height:46px;border-radius:12px;background:rgba(3,105,161,.1);color:#0369a1;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.f-t{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#1e3a5f;margin-bottom:8px}
+.f-d{font-size:14px;color:#64748b;line-height:1.6}
+.f-d strong{color:#1e3a5f}
+.codes{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:#f1f5f9;color:#334155;padding:3px 9px;border-radius:6px;border:1px solid #e2e8f0}
+.lane{background:#f0f9ff;border:1.5px solid #bae6fd;border-left:4px solid #0369a1;border-radius:12px;padding:20px 22px;max-width:900px;margin:0 auto}
+.lane h3{font-family:'Sora';font-size:18px;color:#0c4a6e;margin-bottom:8px}
+.lane p{font-size:14.5px;color:#334155;line-height:1.65}
+.lane .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+@media(max-width:640px){.lane .split{grid-template-columns:1fr}}
+.lane .ok{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px}
+.lane .gate{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px}
+.lane .ok b{color:#15803d}.lane .gate b{color:#c2410c}
+.disclosure{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:16px 20px;font-size:13px;color:#78350f;max-width:900px;margin:26px auto 0;line-height:1.6}
+.disclosure strong{color:#d97706}
+.cta-strip{background:linear-gradient(135deg,#0a1f35,#0369a1);padding:70px 24px;text-align:center}
+.cta-strip h2{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:800;color:#fff;margin-bottom:14px}
+.cta-strip p{font-size:16px;color:rgba(255,255,255,.75);max-width:600px;margin:0 auto 30px}
+.cta-strip-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+.cta-primary{background:#f59e0b;color:#fff;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+.cta-primary:hover{background:#d97706}
+.cta-ghost{background:transparent;color:#7dd3fc;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;border:2px solid #7dd3fc;display:inline-flex;gap:8px;align-items:center}
+.cta-ghost:hover{background:#7dd3fc;color:#0a1f35}
+.footer-bar{background:#0a1f35;padding:24px;text-align:center;font-size:13px;color:rgba(255,255,255,.4)}
+.footer-bar a{color:rgba(255,255,255,.5);text-decoration:none}
+</style>
+<style>vercel-live-feedback,#__vercel_toolbar_container,.__vercel-toolbar,vt-toolbar,[id*="vercel-toolbar"],[class*="vercel-live"]{display:none!important}</style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer">
+      <div class="nav-logo-icon"><img src="Ardia_Logo.png" alt="Ardia Precision Health Logo"></div>
+      <div class="logo-text"><span class="logo-name">ARDIA <span class="teal">PRECISION HEALTH</span></span>
+        <span class="logo-sub">Next-Generation Intelligence for Healthcare Infrastructure.</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-item"><span class="nav-link" onclick="window.location='index.html'" style="cursor:pointer">Home</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='solutions.html'" style="cursor:pointer">Solutions Hub</span></li>
+      <li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer" onclick="window.location='ecosystem.html'">Ecosystem <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">The Ardia Ecosystem</div><div class="mega-desc">Seven modules, one TARA reasoning core.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='ecosystem.html'" style="cursor:pointer"><div class="mega-icon mi-teal">🧬</div><div><div class="mega-item-title">All 7 Modules</div><div class="mega-item-desc">Model, use case &amp; phase for each</div></div></div>
+            <div class="mega-item" onclick="window.location='pulmonology.html'" style="cursor:pointer"><div class="mega-icon mi-blue">🫁</div><div><div class="mega-item-title">PulmoIQ — Respiratory</div><div class="mega-item-desc">Phase 1 · pulmonary intelligence</div></div></div>
+            <div class="mega-item" onclick="window.location='tools.html'" style="cursor:pointer"><div class="mega-icon mi-amber">🧪</div><div><div class="mega-item-title">Interactive Tools</div><div class="mega-item-desc">Pre-submission · PAMA · denials</div></div></div>
+            <div class="mega-item" onclick="window.location='report-explainer.html'" style="cursor:pointer"><div class="mega-icon mi-blue">📄</div><div><div class="mega-item-title">Report Explainer</div><div class="mega-item-desc">Upload → plain-language (non-diagnostic)</div></div></div>
+            <div class="mega-item" onclick="window.location='architecture.html'" style="cursor:pointer"><div class="mega-icon mi-teal">⚙️</div><div><div class="mega-item-title">TARA Architecture</div><div class="mega-item-desc">The reasoning core, explained</div></div></div>
+            <div class="mega-item" onclick="window.location='roadmap.html'" style="cursor:pointer"><div class="mega-icon mi-purple">🗺️</div><div><div class="mega-item-title">Roadmap &amp; Business Plan</div><div class="mega-item-desc">Four phases · 2027 → global</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='tools.html'" style="cursor:pointer">Tools</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
+    </ul>
+    <div class="nav-cta">
+      <span class="btn-trial" onclick="window.location='ecosystem.html'" style="cursor:pointer">The Ecosystem</span>
+      <span class="btn-book" onclick="window.location='contact.html'" style="cursor:pointer">BOOK A DEMO</span>
+      <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:8px 0;position:sticky;top:64px;z-index:40"><div style="max-width:1280px;margin:0 auto;padding:0 24px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0d7c6e;cursor:pointer;padding:4px 0" onclick="window.location='ecosystem.html'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back to the Ecosystem</span></div></div>
+
+<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Product &amp; Platform</div>
+
+<section class="hero">
+  <div class="hero-eyebrow">🫁 PULMOIQ — RESPIRATORY &amp; PULMONARY INTELLIGENCE</div>
+  <h1>Breathing is a <span>daily signal.</span><br>PulmoIQ listens to it.</h1>
+  <p class="hero-sub">A Phase 1 respiratory module for asthma and COPD: it builds a longitudinal picture from retrieved history, everyday vitals, FDA-cleared home spirometry, and local air quality — and it powers the reimbursement lane for pulmonary function and sleep testing. Reimbursement-safe today; anything that <em>interprets</em> lung data to flag disease stays behind FDA clearance.</p>
+  <div class="phase-pill">● Phase 1 · Detection · SaMD-gated</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">What PulmoIQ does</span>
+      <h2 class="section-title">A respiratory timeline, not a one-off snapshot</h2>
+      <p class="section-sub">Elderly and chronic-respiratory patients decline gradually — the value is in the trend. PulmoIQ fuses four honest data sources into one picture a clinician can act on.</p>
+    </div>
+    <div class="grid">
+      <div class="f-card"><div class="f-ic">📈</div><div class="f-t">Longitudinal history</div><div class="f-d">Retrieved records + symptom logs build a baseline, so a change is measured against <strong>this person's</strong> normal — not a population average.</div></div>
+      <div class="f-card"><div class="f-ic">⌚</div><div class="f-t">Everyday vitals</div><div class="f-d">Continuous SpO₂, heart rate and activity from HealthKit / Health Connect. <strong>No wearable measures FEV1/FVC</strong> — we don't pretend otherwise.</div></div>
+      <div class="f-card"><div class="f-ic">🌬️</div><div class="f-t">FDA-cleared home spirometry</div><div class="f-d">Where lung-function numbers matter, they come from a <strong>cleared home spirometer</strong>, not an estimate — feeding the record with real PFT values.</div></div>
+      <div class="f-card"><div class="f-ic">🌫️</div><div class="f-t">Air-quality triggers</div><div class="f-d">AirNow / NOAA air-quality and pollen signals give an early, environmental "watch today" nudge for sensitive patients.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#f8fafc">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The regulatory line — a feature, not fine print</span>
+      <h2 class="section-title">Where PulmoIQ operates today, and what's gated</h2>
+    </div>
+    <div class="lane">
+      <h3>Two clearly separated lanes</h3>
+      <p>The same discipline the rest of Ardia uses: the reimbursement/administrative work ships now; anything device-like waits for the proper FDA pathway. We never blur that line.</p>
+      <div class="split">
+        <div class="ok"><b>✓ Reimbursement lane — live in Phase 1</b><br><span style="font-size:14px;color:#334155">Necessity, coding and appeal support for pulmonary function testing and sleep studies. Administrative safe harbor (21st Century Cures §520(o)). No diagnosis.</span>
+          <div class="codes"><span class="chip">94010</span><span class="chip">94060</span><span class="chip">94726–94729</span><span class="chip">95810</span><span class="chip">95811</span></div>
+          <div style="font-size:12px;color:#64748b;margin-top:8px">Note: sleep codes 95800/95801/95806 are flagged for deletion in the AMA CPT 2027 update (verify against the published code set) — PulmoIQ tracks the transition.</div>
+        </div>
+        <div class="gate"><b>⚠ Prediction lane — gated behind FDA clearance</b><br><span style="font-size:14px;color:#334155">Predicting an exacerbation, or interpreting a PFT/scan to flag disease, is <strong>regulated Software as a Medical Device</strong>. That capability follows the <strong>510(k) pathway</strong> with clinical validation before it ever reaches a patient — it is deliberately deferred, not quietly shipped.</span></div>
+      </div>
+    </div>
+    <div class="disclosure"><strong>Non-diagnostic by design.</strong> PulmoIQ organizes respiratory data and supports reimbursement; it does not diagnose disease or predict exacerbations in production until the corresponding FDA clearance is in hand. All patient-facing tracking is assistive and routes to a clinician.</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Connected to the Companion</span>
+      <h2 class="section-title">Respiratory tracking for older adults</h2>
+      <p class="section-sub">PulmoIQ's tracking feeds Ardia's elder-first Companion — so an older adult with COPD gets gentle daily check-ins, medication and inhaler reminders, air-quality heads-ups, and an emergency alert to a trusted contact if their oxygen drops or they fall.</p>
+    </div>
+    <div class="grid">
+      <div class="f-card"><div class="f-ic">💧</div><div class="f-t">Daily check-ins</div><div class="f-d">Breathlessness, cough, inhaler use and SpO₂ tracked simply, by voice or tap.</div></div>
+      <div class="f-card"><div class="f-ic">🔔</div><div class="f-t">Smart reminders</div><div class="f-d">Controller inhaler, rescue-inhaler technique, and "poor air quality today" nudges.</div></div>
+      <div class="f-card"><div class="f-ic">🆘</div><div class="f-t">Emergency escalation</div><div class="f-d">A sustained low-SpO₂ signal alerts a chosen family member — with the person's consent.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2>See PulmoIQ in the full ecosystem</h2>
+  <p>Explore all seven modules, run the interactive tools, or book a working session with our team.</p>
+  <div class="cta-strip-btns">
+    <a href="ecosystem.html" class="cta-primary">🧬 Explore the ecosystem</a>
+    <a href="report-explainer.html" class="cta-ghost">📄 Try the Report Explainer</a>
+    <a href="contact.html" class="cta-ghost">📅 Book a demo</a>
+  </div>
+</section>
+
+<div class="footer-bar">Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com · Pre-Revenue · Seed Stage · Building on Google Cloud</div>
+<script>const _n=document.getElementById('navbar');if(_n)addEventListener('scroll',()=>_n.classList.toggle('scrolled',scrollY>40));</script>
+</body>
+</html>
