@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Watch Ardia's models work | Ardia Precision Health</title>
+<meta name="description" content="Watch each Ardia model reason through a real case — 1× speed, no edits. Governed, auditable AI for lab reimbursement, precision medicine, pulmonary and elder care.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy2:#0e2040;--teal:#14b8a6;--blue:#1d9bd1;--amber:#f59e0b;--ink:#0f172a;--mut:#54677f;--dim:#8697ac;--line:rgba(14,28,48,.10);--bg:#eef3f8;
+ --tox:#0d9488;--molec:#06b6d4;--meridian:#f43f5e;--pulmo:#0ea5e9;--cadence:#22c55e;--aria:#f97316;--lumen:#3b82f6;--tara:#a855f7;--sentinel:#6366f1}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-.02em;font-weight:800}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:12px;height:60px;max-width:1200px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-badge{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy2));border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 12px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:15px;color:var(--navy)}.brand-txt span{color:var(--blue)}
+.nav-links{margin-left:auto;display:flex;gap:4px}
+.nav-links a{font-size:13.5px;font-weight:600;color:var(--mut);padding:8px 12px;border-radius:9px}
+.nav-links a:hover{color:var(--navy);background:rgba(14,28,48,.05)}
+.nav-cta{background:linear-gradient(135deg,var(--teal),#0fa58e);color:#fff!important}
+/* hero */
+.hero{text-align:center;padding:64px 0 30px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);background:rgba(20,184,166,.09);border:1px solid rgba(20,184,166,.25);padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.04;color:var(--navy);margin-bottom:16px}
+.hero h1 span{background:linear-gradient(120deg,var(--teal),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:17px;color:var(--mut);max-width:660px;margin:0 auto 10px}
+.hero .what{font-size:14px;color:var(--dim);max-width:640px;margin:14px auto 0}
+/* layout */
+.stage-grid{display:grid;grid-template-columns:1fr 320px;gap:22px;padding:22px 0 70px}
+@media(max-width:940px){.stage-grid{grid-template-columns:1fr}}
+/* player */
+.player{background:linear-gradient(180deg,color-mix(in srgb,var(--ac,#14b8a6) 9%,#0b1a2e),color-mix(in srgb,var(--ac,#14b8a6) 5%,#0a1628));border:1px solid color-mix(in srgb,var(--ac,#14b8a6) 22%,#16263d);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px color-mix(in srgb,var(--ac,#14b8a6) 16%,rgba(6,15,30,.4));position:relative;transition:background .5s,border-color .5s}
+.pchrome{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#0a1424;border-bottom:1px solid rgba(255,255,255,.06)}
+.dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%;display:block}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.pcurl{font-family:'JetBrains Mono';font-size:12px;color:#64809e}
+.plive{margin-left:auto;display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:11px;font-weight:600;color:var(--ac,#5eead4)}
+.plive .rec{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(94,234,212,.5)}70%{box-shadow:0 0 0 7px rgba(94,234,212,0)}100%{box-shadow:0 0 0 0 rgba(94,234,212,0)}}
+.screen{position:relative;height:474px;overflow:hidden;background:radial-gradient(120% 90% at 82% -5%,color-mix(in srgb,var(--ac,#14b8a6) 22%,transparent),transparent 55%),color-mix(in srgb,var(--ac,#14b8a6) 7%,#0a1628);transition:background .5s}
+.scene{position:absolute;inset:0;overflow-y:auto;padding:22px 24px 30px;scroll-behavior:smooth}
+.scene::-webkit-scrollbar{width:6px}.scene::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
+/* poster */
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;background:radial-gradient(120% 90% at 50% 28%,color-mix(in srgb,var(--ac,#14b8a6) 26%,transparent),transparent 60%),color-mix(in srgb,var(--ac,#14b8a6) 8%,#0a1628);z-index:3;transition:opacity .3s}
+.poster.hide{opacity:0;pointer-events:none}
+.poster .picon{width:66px;height:66px;border-radius:18px;background:color-mix(in srgb,var(--ac) 22%,#0a1628);border:1px solid color-mix(in srgb,var(--ac) 45%,transparent);display:flex;align-items:center;justify-content:center;color:var(--ac)}
+.poster h3{color:#fff;font-size:24px}
+.poster .role{color:var(--ac);font-size:13px;font-weight:600;font-family:'JetBrains Mono'}
+.poster p{color:#9fb2cc;font-size:14px;max-width:440px}
+.playbtn{margin-top:6px;display:inline-flex;align-items:center;gap:10px;background:var(--ac);color:#04121e;font-family:'Sora';font-weight:700;font-size:15px;border:none;padding:12px 22px;border-radius:100px;cursor:pointer;transition:.2s;box-shadow:0 8px 24px color-mix(in srgb,var(--ac) 40%,transparent)}
+.playbtn:hover{transform:translateY(-1px)}
+/* scene content */
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.card.input{border-left:3px solid var(--ac)}
+.card .k{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7f97b4;margin-bottom:6px}
+.card .ttl{color:#e8f1fb;font-family:'Sora';font-weight:700;font-size:14px;margin-bottom:6px}
+.card .bd{color:#b7c6da;font-size:13px;line-height:1.6;white-space:pre-wrap}
+.step{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.06);opacity:0;transform:translateY(8px);animation:rise .4s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.step .lab{width:34px;height:34px;border-radius:9px;background:color-mix(in srgb,var(--ac) 18%,#0a1628);color:var(--ac);font-family:'JetBrains Mono';font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05;padding:2px}
+.step .cap{color:#dbe7f5;font-weight:600;font-size:13.5px;font-family:'Sora'}
+.step .det{color:#9fb2cc;font-size:12.5px;line-height:1.55;margin-top:3px}
+.step .cite{display:inline-block;margin-top:7px;font-family:'JetBrains Mono';font-size:10.5px;color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);border:1px solid color-mix(in srgb,var(--ac) 30%,transparent);border-radius:6px;padding:3px 8px}
+.out{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 16%,#0a1628),#0a1628);border:1px solid color-mix(in srgb,var(--ac) 32%,transparent);border-radius:12px;padding:16px;margin-top:6px;opacity:0;transform:translateY(8px);animation:rise .5s forwards}
+.out .k{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.out .ttl{color:#fff;font-family:'Sora';font-weight:800;font-size:16px;margin-bottom:8px}
+.out .bd{color:#cbd8e8;font-size:13px;line-height:1.65}
+.out .bd b{color:#fff}.out .bd code{font-family:'JetBrains Mono';background:rgba(255,255,255,.08);padding:1px 5px;border-radius:4px;font-size:12px}
+.disc{margin-top:12px;font-size:11.5px;color:#8aa0bb;border-top:1px dashed rgba(255,255,255,.12);padding-top:10px}
+/* controls */
+.controls{display:flex;align-items:center;gap:14px;padding:12px 16px;background:#0a1424;border-top:1px solid rgba(255,255,255,.06)}
+.ctl{width:38px;height:38px;border-radius:50%;background:var(--ac);color:#04121e;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.ctl.ghost{background:rgba(255,255,255,.08);color:#cbd8e8}
+.track{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;cursor:pointer}
+.fill{height:100%;width:0;background:var(--ac);border-radius:4px}
+.time{font-family:'JetBrains Mono';font-size:12px;color:#9fb2cc;min-width:82px;text-align:right}
+.speed{font-family:'JetBrains Mono';font-size:11px;color:#7f97b4;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:3px 8px}
+/* rail */
+.rail{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow-y:auto;padding-right:4px}
+@media(max-width:940px){.rail{flex-direction:row;overflow-x:auto;max-height:none}}
+.thumb{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;cursor:pointer;transition:.16s;flex:0 0 auto;min-width:250px}
+.thumb:hover{border-color:var(--tc);box-shadow:0 8px 22px rgba(14,28,48,.08)}
+.thumb.active{border-color:var(--tc);box-shadow:0 0 0 2px color-mix(in srgb,var(--tc) 25%,transparent)}
+.thumb .tp{width:40px;height:40px;border-radius:11px;background:color-mix(in srgb,var(--tc) 14%,#fff);color:var(--tc);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.thumb .tn{font-family:'Sora';font-weight:700;font-size:14px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.thumb .tt{font-size:11.5px;color:var(--mut);line-height:1.4}
+.thumb .tdur{margin-left:auto;font-family:'JetBrains Mono';font-size:11px;color:var(--dim);flex:0 0 auto}
+.railhd{font-family:'Sora';font-weight:800;font-size:13px;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin:2px 2px 4px}
+footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size:12.5px;color:var(--dim);text-align:center}
+</style>
+</head>
+<body>
+<nav><div class="nav-in">
+ <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+ <div class="nav-links"><a href="index.html">Home</a><a href="solutions.html">Solutions</a><a href="model-demos.html">Watch</a><a class="nav-cta nav-links" href="contact.html" style="padding:8px 14px;border-radius:9px">Book a Demo</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+ <div class="eyebrow">◆ Watch it work · 1× speed</div>
+ <h1>See every Ardia model <span>think</span></h1>
+ <p>Each model reasons through a real case — step by step, naming the exact rule or guideline it relies on. No edits, no black box.</p>
+ <p class="what">Ardia builds governed, auditable AI for the work that quietly drains labs and care teams — recovering wrongly denied lab revenue, modelling the PAMA rate cliff, and supporting pulmonary &amp; elder care. Pre-revenue; every number here is measured, cited, or labelled a modelled target.</p>
+</div></header>
+
+<div class="wrap"><div class="stage-grid">
+ <div>
+  <div class="player" id="player" style="--ac:var(--cadence)">
+   <div class="pchrome"><div class="dots"><i class="dr"></i><i class="dy"></i><i class="dg"></i></div><span class="pcurl mono" id="pcurl">ardia://model/cadence</span><span class="plive" id="plive"><span class="rec"></span>LIVE · 1×</span></div>
+   <div class="screen">
+    <div class="scene" id="scene"></div>
+    <div class="poster" id="poster">
+     <div class="picon" id="posterIcon"></div>
+     <div class="role mono" id="posterRole"></div>
+     <h3 id="posterName"></h3>
+     <p id="posterWhat"></p>
+     <button class="playbtn" id="bigPlay">▶ &nbsp;Watch it work</button>
+    </div>
+   </div>
+   <div class="controls">
+    <button class="ctl" id="playToggle" aria-label="Play/pause">▶</button>
+    <button class="ctl ghost" id="replay" aria-label="Replay">↺</button>
+    <div class="track" id="track"><div class="fill" id="fill"></div></div>
+    <span class="time mono" id="time">0:00 / 0:00</span>
+    <span class="speed mono">1× speed</span>
+   </div>
+  </div>
+ </div>
+ <div>
+  <div class="railhd">The models</div>
+  <div class="rail" id="rail"></div>
+ </div>
+</div></div>
+
+<footer><div class="wrap">Ardia Health Labs LLC · Pre-Revenue · Seed Stage · These are illustrative, non-PHI reasoning demos — <b>not a diagnosis</b>. Cadence's 95.45% is measured on public UCI HAR (subject-independent); all other figures are cited or labelled modelled targets.</div></footer>
+
+<script>
+/* ICONS */
+var ICON={
+ cadence:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13" cy="4" r="1.6"/><path d="M11 8l3 2 2 4M11 8l-2 5-2 4M14 10l-1 5 2 4"/></svg>',
+ meridian:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 8h4v10H7zM14 12l3-3 4 4"/></svg>',
+ tox:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>',
+ molec:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3c0 6 16 6 16 12M20 3c0 6-16 6-16 12M6 5h12M6 19h12"/></svg>',
+ pulmo:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v8M12 12c0 5-3 8-6 8-1 0-2-1-2-3 0-4 3-7 8-9M12 12c0 5 3 8 6 8 1 0 2-1 2-3 0-4-3-7-8-9"/></svg>',
+ aria:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/></svg>',
+ lumen:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+ tara:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 4 3 3 0 0 0 5 1V4.5A2.5 2.5 0 0 0 9 4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-2 4 3 3 0 0 1-5 1"/></svg>',
+ sentinel:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M9 12l2 2 4-4"/></svg>'
+};
+var CVAR={cadence:'--cadence',meridian:'--meridian',tox:'--tox',molec:'--molec',pulmo:'--pulmo',aria:'--aria',lumen:'--lumen',tara:'--tara',sentinel:'--sentinel'};
+
+/* DEMOS — 9 grounded reasoning scripts (generated by parallel agents; honest + cited). */
+var DEMOS=[
+ {
+  "key": "cadence",
+  "name": "Cadence",
+  "tagline": "The earliest quiet drop in an older adult's daily movement — sensed before anyone thinks to look.",
+  "category": "cadence",
+  "what_company_does": "Ardia Precision Health is a pre-revenue, seed-stage company building honest AI healthcare infrastructure. Cadence — its one genuinely trained model — turns everyday smartphone motion into an Active/Sedentary/Resting signal, compares each wearer only to their own history, and routes a gentle check-in to a caregiver when daily movement quietly declines. It never diagnoses.",
+  "duration_seconds": 84,
+  "input": {
+   "title": "Synthetic wearer DEMO-07 — one live motion window + 14 days of history",
+   "body": "Fully synthetic, no PHI. A waist-worn smartphone streams tri-axial accelerometer + gyroscope at 50 Hz. Incoming now: one 2.56 s window (128 samples). Context: this wearer's own last 14 days of daily Active-minutes, median ~210 min/day — but the last 7 days read 205 → 198 → 190 → 185 → 176 → 170 → 168, a gradual ~20% slide. The question Cadence answers: is this wearer's everyday movement quietly dropping below their own normal?"
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Ingest one 2.56-second motion window and engineer 561 features",
+    "detail": "The waist-worn phone streams tri-axial accelerometer and gyroscope at 50 Hz; Cadence takes a 2.56 s window (128 samples) and computes the standard 561 time- and frequency-domain features. Nothing is classified yet — this step just turns raw motion into the model's input vector.",
+    "cite": "UCI HAR signal spec — 2.56 s / 128-sample windows @ 50 Hz, tri-axial accel + gyro, 561 engineered time/frequency features.",
+    "seconds": 11
+   },
+   {
+    "label": "CLASSIFY",
+    "caption": "Predict the activity — this window is WALKING",
+    "detail": "A multinomial logistic-regression classifier (Ardia-reproduced) scores the 6 activities and returns WALKING. Logistic regression was chosen over random forest by cross-validation (98.46% vs 98.04%); on a subject-independent held-out split it reaches 95.45% accuracy, macro-F1 0.9545.",
+    "cite": "Multinomial logistic regression, CV-selected (LR 98.46% vs RF 98.04%); subject-independent held-out 95.45% accuracy, macro-F1 0.9545 (public UCI HAR).",
+    "seconds": 14
+   },
+   {
+    "label": "ROLL UP",
+    "caption": "Collapse 6 activities into Active / Sedentary / Resting",
+    "detail": "WALKING, WALKING_UPSTAIRS and WALKING_DOWNSTAIRS map to Active; SITTING and STANDING to Sedentary; LAYING to Resting — so this window is Active. The three-state rollup is where Cadence is most reliable: 99.63% held-out accuracy.",
+    "cite": "Active/Sedentary/Resting three-state rollup — 99.63% subject-independent held-out accuracy.",
+    "seconds": 11
+   },
+   {
+    "label": "BASELINE",
+    "caption": "Compare today against this wearer's own 14-day history",
+    "detail": "Cadence never compares one person to a population — it compares each wearer to their own rolling 14-day median of daily Active-minutes. Today's ~168 Active-minutes sits well below this wearer's own ~210-minute baseline.",
+    "cite": "Within-subject rolling baseline; subject-independent worst-subject held-out accuracy 85.71% is the honest per-person floor.",
+    "seconds": 13
+   },
+   {
+    "label": "TREND",
+    "caption": "Flag a sustained, 7-day quiet decline",
+    "detail": "A modelled change-detection rule watches for a sustained drop in daily Active-minutes beyond the wearer's normal day-to-day variability. Here Active-minutes fell ~20% across 7 consecutive days — enough to raise a decline flag. This threshold is modelled, not a validated clinical cutoff.",
+    "cite": "Modelled sustained-decline rule on daily Active-minutes vs the wearer's own variability — not a trained or validated clinical threshold.",
+    "seconds": 13
+   },
+   {
+    "label": "DRAFT",
+    "caption": "Compose a plain-language caregiver check-in",
+    "detail": "Cadence drafts a short, observation-only note for the caregiver: what changed, over what window, and a suggestion to check in. It states no cause and makes no diagnosis — it simply surfaces the movement trend a busy caregiver would otherwise miss.",
+    "cite": "Ardia caregiver-copy standard — observation-only, plain language, explicitly non-diagnostic.",
+    "seconds": 10
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Gate the alert behind Ardia's honesty & safety rules",
+    "detail": "Before sending, Cadence attaches its limits: UCI HAR subjects are aged 19–48, so elder deployment needs re-validation on older adults under a BAA; this is non-diagnostic and NOT a fall detector; a suspected emergency is never handled here — the caregiver is told to call 911.",
+    "cite": "Ardia honesty & safety governance + HIPAA BAA requirement; non-diagnostic; not a fall detector; emergencies → 911.",
+    "seconds": 12
+   }
+  ],
+  "output": {
+   "title": "Movement check-in — gentle decline flagged for caregiver",
+   "body_md": "**For:** caregiver of wearer DEMO-07 *(synthetic demo — no real patient)*\n\n**What Cadence noticed**\n- Live window just now classified **WALKING → Active** — the wearer is up and moving.\n- Daily **Active-minutes** have drifted **~20% below this wearer's own 14-day baseline** (≈210 → ≈168 min/day)…\n- …and it has **held for 7 days in a row**, which is what raised this flag.\n\n**Suggested next step**\nConsider a friendly check-in — ask how they're feeling and whether anything has made moving around harder this week.\n\n---\n*This is an observation from movement patterns — **not a diagnosis** and **not a fall alert**. The decline trend is a **modelled** rule, not a measured clinical threshold. If you suspect a medical emergency, **call 911**.*"
+  },
+  "honest_note": "Cadence is the one genuinely trained Ardia model, reproduced on the public UCI HAR dataset with a subject-independent split (95.45% held-out accuracy, macro-F1 0.9545; 99.63% on the Active/Sedentary/Resting rollup; 85.71% worst-subject floor; logistic regression CV-selected at 98.46% over random forest's 98.04%). But UCI HAR subjects are aged 19–48, so these numbers prove the METHOD, not elder performance — before any real elder deployment the model must be re-validated on older adults under a BAA. Cadence is non-diagnostic and is NOT a fall detector; the 7-day decline-trend layer is a modelled rule, not a measured clinical threshold; emergencies escalate to 911. The demo wearer, the single window, and the 14-day history are entirely synthetic — no PHI and no real patient."
+ },
+ {
+  "key": "meridian",
+  "name": "Meridian",
+  "tagline": "See exactly what the 2027 PAMA rate cliff costs your lab — before it hits.",
+  "category": "meridian",
+  "what_company_does": "Ardia Precision Health builds deterministic decision models for healthcare infrastructure. Meridian is its PAMA reimbursement model: an independent lab enters its own annual test mix (public CLFS codes, rates, and volumes) and Meridian computes exactly what the 2027–2029 rate cliff costs — cumulative revenue at risk, 2029 run-rate versus today, and the $10,000/day data-reporting penalty exposure. It is a deterministic financial model (not an LLM), runs entirely in the browser with no PHI and no server round-trip, and hands a lab CFO a number they can plan a budget against.",
+  "duration_seconds": 72,
+  "input": {
+   "title": "Illustrative case — independent lab, 2025 Medicare test mix (synthetic, non-PHI)",
+   "body": "Cedar Hollow Labs (a synthetic, non-PHI stand-in for a mid-size independent lab) pastes its 2025 annual Medicare test mix into Meridian to plan for the PAMA cuts. Five common codes at 2025 CLFS national rates:\n\n- 80307 — Presumptive drug test — $62.14 × 4,200\n- G0483 — Definitive drug test (22+) — $246.92 × 1,100\n- 82306 — Vitamin D 25-OH — $36.55 × 5,200\n- 81225 — CYP2C19 (PGx) — $128.00 × 900\n- 82607 — Vitamin B12 — $18.61 × 3,100\n\nThe CFO's question: \"If CMS applies the full statutory cut every year, what's our revenue at risk by 2029 — and where's our compliance exposure?\" No patient data is entered; only public rate data and the lab's own volumes."
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Meridian reads the lab's test mix — codes, 2025 CLFS rates, annual volumes.",
+    "detail": "Five CPT/HCPCS lines are parsed straight from the lab's own spreadsheet — public rate data and volumes only, no patient records ever touch the model. Everything runs client-side in the browser, so there is no PHI and no server round-trip.",
+    "cite": "2025 Clinical Laboratory Fee Schedule national limits (public CMS data) — CPT/HCPCS 80307, G0483, 82306, 81225, 82607",
+    "seconds": 10
+   },
+   {
+    "label": "BASELINE",
+    "caption": "Sum rate × volume to anchor today's CLFS revenue.",
+    "detail": "Each line's 2025 rate is multiplied by its annual volume and summed — 80307 $260,988 + G0483 $271,612 + 82306 $190,060 + 81225 $115,200 + 82607 $57,691 — for a baseline of $895,551. This deterministic anchor is what every projection is measured against.",
+    "cite": "Σ(rate × volume) — models/meridian/clfs.py::baseline_revenue (unit-tested)",
+    "seconds": 12
+   },
+   {
+    "label": "POLICY",
+    "caption": "Apply the PAMA statutory ceiling: up to 15%/yr for 2027, 2028, 2029.",
+    "detail": "PAMA lets CMS cut CLFS rates by up to 15% per year across three years — Meridian models that ceiling, not a prediction of what CMS will actually set. Critically, each year's cut lands on the prior year's already-reduced rate, so the reductions compound rather than add.",
+    "cite": "PAMA / CAA 2026 §6226 — CLFS reductions capped at 15%/yr for CY2027–2029",
+    "seconds": 14
+   },
+   {
+    "label": "REASON",
+    "caption": "Compound the cuts year by year and total the shortfall.",
+    "detail": "Applying the 15% ceiling compounding gives 2027 $761,218, 2028 $647,036, 2029 $549,980 — a cumulative shortfall of $728,419 versus baseline, leaving the lab at 61% of today's run-rate by 2029. The math is deterministic and pinned by unit tests, so the CFO gets a number to plan against, not an estimate.",
+    "cite": "Compounding per §6226 — clfs.py::revenue_at_risk / run_rate_vs_baseline (unit-tested)",
+    "seconds": 14
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Flag the data-reporting penalty exposure alongside the revenue risk.",
+    "detail": "The same statute that sets these rates requires labs to report private-payor data, backed by a civil monetary penalty of up to $10,000 per day for failing to report or misreporting. Meridian surfaces that ceiling so compliance exposure sits on the same page as the revenue cliff — e.g. a 30-day miss caps at $300,000.",
+    "cite": "PAMA private-payor data-reporting CMP — up to $10,000/day (SSA §1834A; 42 CFR 414.504)",
+    "seconds": 12
+   },
+   {
+    "label": "DELIVER",
+    "caption": "Hand the lab a one-page planning brief it can act on.",
+    "detail": "Meridian outputs the baseline, the three reduced years, revenue-at-risk, run-rate, and the penalty ceiling as a CFO-ready brief. It is an explicit planning model — never the CMS-published fee schedule and never financial advice — so the lab frames its exposure, then validates against its own specific fee schedule.",
+    "cite": "Deterministic planning model — not the CMS fee schedule, not financial advice",
+    "seconds": 10
+   }
+  ],
+  "output": {
+   "title": "PAMA rate-cliff brief — illustrative independent lab",
+   "body_md": "**Baseline 2025 CLFS revenue:** $895,551 _(5-code mix, rate × volume)_\n\n**If CMS applies the full 15%/yr statutory ceiling (compounding, each year on the prior reduced rate):**\n\n| Year | Modelled CLFS revenue |\n|---|---|\n| 2027 | $761,218 |\n| 2028 | $647,036 |\n| 2029 | $549,980 |\n\n- **Cumulative revenue at risk by 2029:** **$728,419**\n- **2029 run-rate:** **61%** of today's baseline\n- **Compliance watch:** data-reporting civil monetary penalty ceiling of **$10,000/day** (a 30-day miss ≈ $300,000)\n\n_Planning model — models the statutory ceiling, not the CMS-published fee schedule. Deterministic, in-browser, no PHI. Model the cliff, then validate against your own fee schedule with our team._"
+  },
+  "honest_note": "Ardia is pre-revenue and seed-stage. This demo uses a synthetic, non-PHI lab and illustrative 2025 CLFS national rates published by CMS. Every figure is produced deterministically by the unit-tested model in models/meridian/clfs.py — nothing is AI-estimated or fabricated, and the numbers ($895,551 baseline, $728,419 at risk, 61% run-rate) are pinned by tests so the site can never drift from the model. Meridian models the 15%/yr statutory ceiling under PAMA / CAA 2026 §6226, which is not a prediction of the exact cuts CMS will set — real cuts, statutory floors, and code-level exceptions can differ. It handles no PHI, makes no diagnosis, claims no clients or results, and is a planning tool, not financial advice or a substitute for the CMS-published fee schedule."
+ },
+ {
+  "key": "toxiq",
+  "name": "ToxIQ",
+  "tagline": "Recovers wrongly denied lab revenue with policy-grounded, auditable appeals.",
+  "category": "tox",
+  "what_company_does": "ToxIQ is Ardia's toxicology revenue-cycle agent for independent labs. It reads a denied drug-test claim, verifies the physician order and the actual test result against Medicare coding rules and the payer's coverage policy, and — when the denial is not defensible — drafts a fully cited appeal a human can review and submit. It turns wrongly denied, well-documented lab work back into recoverable revenue, with every code and policy citation shown so an auditor can follow the logic.",
+  "duration_seconds": 72,
+  "input": {
+   "title": "Denied definitive UDT claim — independent toxicology lab",
+   "body": "Synthetic, non-PHI illustrative case. Medicare Part B claim from an independent tox lab.\n\n- Patient context: risk-stratified chronic pain management, on a chronic opioid-analgesic (drug class; common example: oxycodone) under a documented long-term opioid-therapy monitoring plan. Not a diagnosis — monitoring only.\n- Same date of service, two lines: a presumptive immunoassay screen billed 80307 (paid), and a targeted definitive confirmation billed G0480 — 1–7 drug classes (denied).\n- The presumptive screen was inconsistent with the prescription: the prescribed opioid-analgesic class was not detected, and an unexpected benzodiazepine class was detected.\n- Remittance: G0480 line denied CO-50 (medical necessity not established), remark code N115 (decision based on an LCD). The 80307 line was paid.\n\nLab's question: is this CO-50 denial actually defensible, and if not, draft the appeal with citations."
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Parse the remittance and the original claim lines.",
+    "detail": "ToxIQ ingests the 835/EOB and matches it to the submitted claim: the definitive line G0480 is denied with group/reason CO-50 and remark N115, while the paired presumptive line 80307 on the same date of service was paid. It extracts payer, date of service, ordering provider, and the diagnosis codes billed.",
+    "cite": "CARC/RARC — CO-50 (medical necessity not established) + RARC N115 (decision based on a Local Coverage Determination).",
+    "seconds": 10
+   },
+   {
+    "label": "VERIFY",
+    "caption": "Match a valid physician order to an aberrant screening result.",
+    "detail": "ToxIQ confirms a dated, signed provider order for confirmatory testing, then reads the presumptive immunoassay screen and finds it inconsistent — the prescribed opioid-analgesic class (common example: oxycodone) was not detected and an unexpected benzodiazepine class was detected. That documented inconsistency is the clinical trigger that makes definitive testing reasonable and necessary.",
+    "cite": "Presumptive CPT 80305–80307 (one presumptive test per date of service; here 80307, instrument-based immunoassay).",
+    "seconds": 12
+   },
+   {
+    "label": "POLICY",
+    "caption": "Confirm the correct Medicare G-code tier and LCD coverage.",
+    "detail": "ToxIQ verifies Medicare required the definitive G-code rather than CPT 80320–80377, and that a narrowly targeted two-class confirmation maps to the correct tier, G0480 (1–7 drug classes) — not an over-broad panel. It then checks the ordering diagnosis against the payer LCD's covered-indication list for long-term opioid-therapy monitoring (ICD-10 Z79.891).",
+    "cite": "Medicare definitive tiers G0480–G0483 (G0480 = 1–7 classes, one per DOS); Palmetto GBA LCD L36707, Controlled Substance Monitoring and Drugs of Abuse Testing — covered-indication list.",
+    "seconds": 14
+   },
+   {
+    "label": "REASON",
+    "caption": "Rule out a genuine bundling or frequency problem.",
+    "detail": "ToxIQ runs the coding edits: presumptive 80307 and definitive G0480 are separately reportable (not a PTP-bundled pair), each sits within its MUE of one unit per day, and the testing frequency falls within the LCD's presumptive-UDT frequency limits. So the CO-50 is not a coding error on the lab's side — it is an unestablished-necessity denial that the documentation rebuts.",
+    "cite": "NCCI Procedure-to-Procedure (PTP) edits + Medically Unlikely Edits (MUE, one unit/day) and LCD L36707 frequency limits.",
+    "seconds": 12
+   },
+   {
+    "label": "DRAFT",
+    "caption": "Write a line-item, policy-grounded appeal.",
+    "detail": "ToxIQ drafts a first-level Medicare redetermination letter that ties the denied G0480 line to each element of support — the signed order, the inconsistent presumptive result, the matching LCD indication, the correct tier, and clean NCCI/MUE status — with every code and policy cited inline so a reviewer can trace the reasoning.",
+    "cite": "Medicare redetermination (first-level appeal) process; CO-50 rebuttal referencing the CARC/RARC on the remittance.",
+    "seconds": 14
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Hold for a human to review, sign, and submit.",
+    "detail": "ToxIQ does not submit anything. It attaches the full citation trail and routes the draft to lab staff for review and signature; a person files the appeal. Every source is logged so the packet is auditable end to end.",
+    "cite": "Ardia honesty guarantee — agent drafts only, a human submits; sourced, auditable outputs (no fabricated results or win-rates).",
+    "seconds": 10
+   }
+  ],
+  "output": {
+   "title": "Draft appeal ready for review — CO-50 rebutted",
+   "body_md": "**Draft: Medicare redetermination — line G0480 (definitive UDT), denied CO-50 / N115**\n\n**Why the denial is not defensible:**\n- **Order on file** — signed provider order for confirmatory testing, dated to the same encounter.\n- **Aberrant presumptive** — 80307 screen inconsistent with the prescription: prescribed opioid-analgesic class not detected; unexpected benzodiazepine class detected — the documented trigger for definitive testing.\n- **Correct tier** — G0480 (1–7 drug classes): a targeted confirmation of only the two flagged classes, not a broad panel.\n- **Covered indication** — meets LCD L36707 (long-term opioid-therapy monitoring, ICD-10 Z79.891).\n- **Edits clean** — 80307 + G0480 separately reportable, each within MUE of 1/day; frequency within LCD limits.\n\n**Requested action:** reverse the CO-50 denial and reimburse line G0480.\n\n_Draft only — modelled example on synthetic, non-PHI data. A lab staff member reviews, signs, and submits. Not a diagnosis; monitoring context only._"
+  },
+  "honest_note": "Ardia is pre-revenue and seed-stage; this is an illustrative, synthetic, non-PHI case, not a real patient or a real recovered claim. No clients, results, or win-rates are implied. All codes and policies are real and current: CPT 80305–80307 (presumptive), HCPCS G0480–G0483 (Medicare definitive tiers, which Medicare requires in place of CPT 80320–80377), NCCI PTP/MUE edits, CARC CO-50, RARC N115, ICD-10 Z79.891, and Palmetto GBA LCD L36707 (a real MAC policy; other MACs use L36393/L35006, so the applicable LCD depends on the lab's jurisdiction). Medication is referenced by class with a common example, never as a prescribing or diagnostic recommendation. ToxIQ drafts the appeal and shows its citations; it never submits — a human reviews, signs, and files. Anything not directly documented in the record is treated as unverified, not asserted."
+ },
+ {
+  "key": "molec",
+  "name": "MolecuIQ",
+  "tagline": "Makes precision-medicine testing actually get reimbursed.",
+  "category": "molec",
+  "what_company_does": "Ardia Precision Health is a pre-revenue, seed-stage company building AI infrastructure for healthcare. MolecuIQ is its molecular and genomic revenue-cycle agent: it reads a denied molecular-diagnostics claim, confirms the MolDX/DEX Z-Code and the CPT gene-count tier, checks the governing NCD/LCD coverage criteria, aligns the biomarker result to NCCN guidance, and drafts a cited payer appeal. It drafts only — a human RCM specialist verifies and submits — so precision-medicine testing that is standard-of-care actually gets paid instead of dying at a CO-55 denial.",
+  "duration_seconds": 78,
+  "input": {
+   "title": "Denied NGS solid-tumor panel — CO-55, missing MolDX Z-Code",
+   "body": "Illustrative, synthetic, non-PHI. A community oncology lab runs a 23-gene DNA+RNA next-generation sequencing panel on FFPE tissue from a patient with stage IV lung adenocarcinoma (NSCLC) — a diagnosis already established by the treating oncologist. The panel is billed as CPT 81445. The Medicare MAC (a MolDX jurisdiction) returns an 835 remittance: the line is denied with CARC CO-55 (experimental/investigational), and the claim line is missing its MolDX DEX Z-Code identifier. The panel reported an EGFR exon 19 deletion. The billing team needs the denial worked and a defensible appeal drafted."
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Parse the 835 denial and catch the missing Z-Code",
+    "detail": "MolecuIQ ingests the remittance line — CPT 81445, group/reason CO-55, diagnosis C34.x (lung) — and flags that the claim carries no MolDX DEX Z-Code identifier, a hard requirement in MolDX jurisdictions and a frequent root cause of experimental denials.",
+    "cite": "X12 835 remittance advice · CARC CO-55 (experimental/investigational)",
+    "seconds": 10
+   },
+   {
+    "label": "REGISTRY",
+    "caption": "Retrieve the test's DEX Z-Code from the MolDX registry",
+    "detail": "It looks the lab's exact assay up in the DEX Diagnostics Exchange and pulls the specific Z-Code identifier assigned to that test — the code that should have been on the claim line in the first place.",
+    "cite": "MolDX/DEX Z-Code registry (Palmetto GBA)",
+    "seconds": 11
+   },
+   {
+    "label": "MAP",
+    "caption": "Confirm the gene count matches the billed CPT tier",
+    "detail": "23 reported genes fall in the 5–50 range, so 81445 is the correct tier — 81455 would apply only at 51+ genes. This proves the denial is a coverage/Z-Code problem, not a mis-coded panel.",
+    "cite": "AMA CPT 81445 (5–50 genes) vs 81455 (≥51 genes)",
+    "seconds": 9
+   },
+   {
+    "label": "POLICY",
+    "caption": "Check the governing NCD / MolDX LCD coverage criteria",
+    "detail": "MolecuIQ confirms the case fits the advanced-cancer coverage pathway — metastatic solid tumor, physician intends further therapy, no prior identical test — under NCD 90.2 and the applicable MolDX LCD, and notes the current LCD must be re-verified for this MAC before filing.",
+    "cite": "NCD 90.2 (NGS in advanced cancer) + applicable MolDX LCD (verify current L-code)",
+    "seconds": 13
+   },
+   {
+    "label": "ALIGN",
+    "caption": "Tie the biomarker to a category-1 guideline therapy",
+    "detail": "The reported EGFR exon 19 deletion maps to an EGFR tyrosine-kinase-inhibitor class therapy (for example, osimertinib), an NCCN category 1 first-line option in metastatic NSCLC — direct evidence the test guides standard-of-care treatment and is not experimental.",
+    "cite": "NCCN Biomarkers Compendium / NCCN NSCLC Guidelines — EGFR, category 1",
+    "seconds": 13
+   },
+   {
+    "label": "DRAFT",
+    "caption": "Assemble the cited redetermination letter",
+    "detail": "It drafts a first-level appeal that attaches the retrieved Z-Code, states the CPT tier is correct, shows the NCD/LCD criteria are met, and cites the NCCN category-1 clinical utility to rebut the CO-55 experimental determination point-for-point.",
+    "cite": "Medicare redetermination (appeal level 1) · payer-specific appeal format",
+    "seconds": 12
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Guardrail: a human submits; verify against current policy",
+    "detail": "The draft is routed to an RCM specialist to review and submit — nothing is auto-filed. MolecuIQ labels its work as reimbursement support, not a diagnosis, and requires the Z-Code and LCD to be re-confirmed against current payer policy before submission.",
+    "cite": "Ardia human-in-the-loop guardrail · verify current payer LCD",
+    "seconds": 10
+   }
+  ],
+  "output": {
+   "title": "Appeal draft: reverse the CO-55 experimental denial for CPT 81445",
+   "body_md": "**DRAFT — Medicare redetermination request · for RCM specialist review and submission**\n\n**Claim:** CPT 81445 (targeted NGS panel, solid tumor, 5–50 genes) · **Denial:** CARC CO-55 (experimental/investigational) · **Dx:** stage IV NSCLC (C34.x)\n\n**Corrections & grounds**\n- **Z-Code attached** — the MolDX DEX Z-Code identifier for this assay was missing from the line (a hard stop in MolDX jurisdictions) and is now supplied.\n- **CPT tier confirmed** — 23 genes → 81445 is correct; 81455 applies only at ≥51 genes.\n- **Coverage met** — advanced solid tumor with intent to treat, per **NCD 90.2** and the governing **MolDX LCD** *(re-verify the current L-code for this MAC before filing)*.\n- **Clinical utility** — the reported **EGFR exon 19 deletion** maps to an **EGFR TKI class** therapy (e.g., osimertinib), **NCCN category 1** first-line in metastatic NSCLC — guideline-recommended standard of care, not experimental.\n\n**Ask:** Reverse CO-55 and reprocess CPT 81445 for payment.\n\n*Ardia drafts; a human submits. Reimbursement support, not a diagnosis. No payment is guaranteed — verify the Z-Code and LCD against current payer policy first.*"
+  },
+  "honest_note": "Illustrative synthetic case, no PHI. Ardia is pre-revenue and seed-stage — no clients, recovery amounts, or win-rates are stated or implied. MolecuIQ drafts a cited appeal for a human RCM specialist to verify and submit; it does not auto-file, does not diagnose, and does not guarantee payment. Every element — the DEX Z-Code, CPT gene-tier, NCD 90.2, the MolDX LCD, and the NCCN category-1 citation — must be re-checked against the current payer policy at time of filing. Medication is referenced by class (EGFR TKI) with a single common example (osimertinib), not as a recommendation. Codes used are real and current as of the knowledge cutoff: CPT 81445/81455, CARC CO-55, NCD 90.2, and the Palmetto GBA MolDX/DEX Z-Code program."
+ },
+ {
+  "key": "pulmo",
+  "name": "PulmoIQ",
+  "tagline": "Pulmonary and respiratory intelligence that keeps a chronic-care patient's longitudinal picture and coding aligned — non-diagnostic, clinician-in-the-loop.",
+  "category": "pulmo",
+  "what_company_does": "Ardia keeps chronic respiratory patients' longitudinal picture and their billing codes aligned: PulmoIQ reads the full timeline, computes GOLD/GINA decision-support signals from the clinician's spirometry, checks PFT and sleep-study coding integrity, and flags environmental (air-quality) exacerbation risk — always as non-diagnostic support routed to a clinician, never a diagnosis or a prescription.",
+  "duration_seconds": 78,
+  "input": {
+   "title": "Synthetic case — established COPD, new spirometry (non-PHI)",
+   "body": "68-year-old former smoker (40 pack-years) carrying a clinician-documented COPD diagnosis, on a long-acting muscarinic antagonist (LAMA, e.g., tiotropium). Timeline: 2 moderate exacerbations in the past 12 months, mMRC 2 dyspnea, CAT 14. New post-bronchodilator spirometry: FEV1/FVC 0.58, FEV1 52% predicted, post-BD change +6% / +90 mL. Recent home sleep apnea test (overlap-syndrome workup): AHI 12. Encounter submitted as CPT 94010 with ICD-10 J44.9. Patient's home-ZIP AirNow AQI today: 138 (PM2.5). Every value here is synthetic — no PHI."
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Assemble the longitudinal record and confirm the new spirometry is technically acceptable.",
+    "detail": "PulmoIQ stitches the timeline together — prior spirometry, the two exacerbations, smoking history, current inhaler — and checks the new maneuver meets acceptability and repeatability criteria before anything is staged. A poor-quality test is flagged for repeat, not scored.",
+    "cite": "ATS/ERS 2019 Standardization of Spirometry (Graham et al.) — acceptability & repeatability criteria",
+    "seconds": 12
+   },
+   {
+    "label": "STAGE",
+    "caption": "Compute the GOLD grade and ABE group from the post-bronchodilator spirometry.",
+    "detail": "Post-BD FEV1/FVC 0.58 (<0.70) confirms airflow limitation and FEV1 52% predicted places the patient at GOLD grade 2; two moderate exacerbations in 12 months put them in Group E. This is decision support layered on a clinician-documented COPD diagnosis — PulmoIQ classifies the result, it does not diagnose.",
+    "cite": "GOLD 2025 Report — post-BD FEV1/FVC <0.70; FEV1 %predicted grades 1–4; ABE (Group E = ≥2 moderate exacerbations or ≥1 hospitalization)",
+    "seconds": 15
+   },
+   {
+    "label": "DIFFERENTIATE",
+    "caption": "Confirm the obstruction is fixed, not the reversible pattern typical of asthma.",
+    "detail": "The post-bronchodilator gain (+6%, +90 mL) sits below the ~12% and 200 mL reversibility threshold, consistent with the fixed obstruction of COPD rather than asthma. A large reversibility would instead raise an asthma/overlap flag for the clinician to weigh.",
+    "cite": "GINA 2025 — asthma vs COPD differentiation; significant bronchodilator reversibility ≥12% and ≥200 mL in FEV1",
+    "seconds": 12
+   },
+   {
+    "label": "CODING",
+    "caption": "Reconcile the documented procedures and diagnoses against the codes on the claim.",
+    "detail": "Pre- and post-bronchodilator testing is documented, so 94060 matches the record better than the billed 94010 — which NCCI bundles into 94060, so the two are not billed together — while the exacerbation notes warrant a J44.1-vs-J44.9 review, and the home sleep test is checked for AASM AHI scoring under HSAT code 95806. These surface as coding-integrity signals for the coder, never automatic edits.",
+    "cite": "CPT 94060 vs 94010 + CMS NCCI bundling; ICD-10-CM J44.1 (COPD w/ acute exacerbation) vs J44.9; CPT 95806 (HSAT) + AASM AHI scoring rules",
+    "seconds": 16
+   },
+   {
+    "label": "TRIGGER",
+    "caption": "Raise a modelled exacerbation-risk flag when local air quality turns unhealthy for sensitive groups.",
+    "detail": "Today's AirNow AQI at the patient's ZIP is 138 (PM2.5, Unhealthy for Sensitive Groups), and COPD patients are a listed sensitive group, so PulmoIQ surfaces a modelled elevated-risk flag prompting a proactive check-in or action-plan reminder. The AQI itself is a measured public value; the risk elevation is modelled, not a measured patient outcome.",
+    "cite": "EPA AirNow AQI — Unhealthy for Sensitive Groups (101–150), PM2.5; people with COPD listed among sensitive groups",
+    "seconds": 12
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Wrap every finding in non-diagnostic guardrails and hand a signal packet to the clinician.",
+    "detail": "Nothing produced here is a diagnosis or a prescription; PulmoIQ routes each finding to the clinician, and any red-flag symptom such as severe breathlessness or chest pain is escalated to emergency care — call 911 — rather than tracked. Therapy decisions, including the patient's current LAMA, stay entirely with the clinician.",
+    "cite": "Ardia clinical-safety policy — non-diagnostic, clinician-in-the-loop; emergency red flags → 911; medications referenced by class + example only",
+    "seconds": 11
+   }
+  ],
+  "output": {
+   "title": "PulmoIQ signal packet — for clinician review (non-diagnostic)",
+   "body_md": "**Longitudinal read** — spirometry meets ATS/ERS acceptability; timeline assembled (2 moderate exacerbations / 12 mo).\n\n**GOLD staging** *(decision support, not a diagnosis)*\n- Post-BD FEV1/FVC 0.58 (<0.70) → airflow limitation confirmed\n- FEV1 52% predicted → **GOLD grade 2**\n- 2 moderate exacerbations / 12 mo → **Group E**\n- Post-BD change +6% / +90 mL → fixed obstruction (COPD pattern, not asthma)\n\n**Coding-integrity flags** *(for coder review)*\n- Pre + post BD documented → **94060** fits better than billed **94010** (NCCI-bundled; not billed together)\n- Exacerbation notes present → review **J44.1 vs J44.9**\n- Home sleep test → confirm **AASM AHI** scoring under **CPT 95806**\n\n**Environmental trigger** *(modelled)*\n- AirNow AQI 138 today (PM2.5, Unhealthy for Sensitive Groups) → modelled elevated exacerbation risk → suggest proactive check-in / action-plan reminder\n\n**Guardrails**\n- Non-diagnostic; all findings routed to the clinician\n- Red-flag symptoms (severe breathlessness, chest pain) → **call 911**\n- Therapy decisions (incl. current LAMA) remain with the clinician"
+  },
+  "honest_note": "Ardia is pre-revenue and seed-stage; this is an illustrative demo on a synthetic, non-PHI case — not a real patient, client, or outcome, and no win-rate or result is claimed. PulmoIQ is non-diagnostic decision support: it computes GOLD/GINA signals and coding-integrity flags for a clinician and never diagnoses or prescribes. The AirNow AQI is a measured public value, but the exacerbation-risk elevation is modelled, not a measured result. Every code and threshold cited is real (GOLD 2025, GINA 2025, ATS/ERS 2019 spirometry standard, CPT 94060/94010/95806, ICD-10 J44.1/J44.9, AASM AHI scoring, EPA AirNow AQI); the patient, all values, and any risk figure are synthetic. Emergencies escalate to 911, and medications are referenced only by class with a common example (LAMA, e.g., tiotropium)."
+ },
+ {
+  "key": "aria",
+  "name": "Aria",
+  "tagline": "A warm daily companion that keeps older adults safe and connected.",
+  "category": "aria",
+  "what_company_does": "Ardia Precision Health is a pre-revenue, seed-stage company building AI healthcare infrastructure. Aria is its voice-first elder-care companion and safety spine: a warm daily voice check-in that screens for red-flag emergencies, escalates them to 911, and keeps older adults connected to their caregivers and care team. Aria never diagnoses.",
+  "duration_seconds": 74,
+  "input": {
+   "title": "Daily voice check-in — 7:42 AM (illustrative, synthetic case)",
+   "body": "Rina, 78, lives alone and is enrolled in her clinic's chronic-care program. During Aria's morning check-in she says: \"I feel... off. My right arm went all heavy a few minutes ago and my words are coming out slurry.\" No real patient — synthetic, non-PHI example."
+  },
+  "steps": [
+   {
+    "label": "LISTEN",
+    "caption": "Aria hears the morning check-in and surfaces the exact worrying phrase.",
+    "detail": "During a routine, warm voice check-in Aria transcribes what Rina says and highlights safety-relevant language ('right arm went heavy,' 'words are slurry') without interrupting the conversation.",
+    "cite": "Age-Friendly Health Systems '4Ms' framework (IHI / John A. Hartford Foundation) — Mentation & Mobility check-in",
+    "seconds": 10
+   },
+   {
+    "label": "SCAN",
+    "caption": "A red-flag safety scan runs on every check-in — stroke and mood.",
+    "detail": "The transcript is checked against the FAST stroke screen and screened for mood/self-harm cues. 'One-sided arm weakness + slurred speech' trips FAST's Arm and Speech signs.",
+    "cite": "FAST stroke warning signs (American Stroke Association / AHA); C-SSRS (Columbia-Suicide Severity Rating Scale) for mood/self-harm",
+    "seconds": 14
+   },
+   {
+    "label": "DETECT",
+    "caption": "Two FAST signs present → treat as time-critical, not a symptom to log.",
+    "detail": "Aria classifies this as a possible emergency pattern and stops the normal check-in flow. It is a screen, not a diagnosis — Aria never names a condition.",
+    "cite": "FAST 'T = Time to call 911'; Aria is screen-only and never diagnoses",
+    "seconds": 12
+   },
+   {
+    "label": "ESCALATE",
+    "caption": "Aria opens with a calm call-911 prompt and offers to stay on the line.",
+    "detail": "Instead of giving advice, Aria's first action is to help Rina call 911 immediately and remain present with her, because in a suspected stroke every minute counts.",
+    "cite": "Emergency escalation — call 911 immediately (American Stroke Association: suspected stroke is a 911 emergency)",
+    "seconds": 14
+   },
+   {
+    "label": "NOTIFY",
+    "caption": "The designated caregiver is alerted with time, exact words, and that 911 was advised.",
+    "detail": "Aria sends the emergency contact a plain-language alert and logs the event to the shared care record, meeting care-team communication and 24/7-access expectations.",
+    "cite": "Medicare Chronic Care Management — CPT 99490 (24/7 access & care-team communication)",
+    "seconds": 12
+   },
+   {
+    "label": "GUIDE",
+    "caption": "If no red flag: gentle in-scope guidance + structured questions for the clinician.",
+    "detail": "On a non-emergency day Aria offers supportive, in-scope guidance and drops structured observations and questions into the next remote-monitoring or post-discharge touchpoint — any medication mentioned only by class with a common example, never a dose.",
+    "cite": "Medicare RPM — CPT 99457 & TCM — CPT 99495 care-coordination touchpoints; medication referenced by class only",
+    "seconds": 12
+   }
+  ],
+  "output": {
+   "title": "Possible stroke signs — 911 first, everyone informed",
+   "body_md": "**Spoken to Rina (calm, unhurried):**\n> \"Rina, I'm concerned about the heaviness in your arm and how your speech sounds. I don't want to wait on this. Let's call 911 together right now — I'll stay with you the whole time.\"\n\n**▶ Call 911** — primary action\n\n**Caregiver alert (SMS to daughter, 7:42 AM):**\n> During Aria's check-in, Rina reported sudden right-arm weakness and slurred speech — possible stroke warning signs (FAST). Aria advised calling 911 and is with her now. Please respond.\n\n**For the clinician (added to care record):**\n- 7:42 AM — exact words captured; FAST screen: **Arm + Speech positive**\n- Action: 911 advised/assisted; caregiver notified\n- **No diagnosis made — safety screen only**\n\n*Non-emergency days:* Aria logs the check-in and adds structured questions for the next RPM/TCM touchpoint instead of escalating.\n\n> Aria screens for safety and keeps people connected — it does **not** diagnose. Emergencies go to 911."
+  },
+  "honest_note": "Aria is a safety screen and daily companion, not a diagnostic device. It never diagnoses — it recognizes red-flag patterns (FAST for stroke, C-SSRS for mood/self-harm) and escalates real emergencies straight to 911. This demo uses a synthetic, non-PHI case; any performance figure would be labelled 'modelled,' not measured. The cited CPT codes (99490 CCM, 99457 RPM, 99495 TCM) and the FAST/C-SSRS frameworks are real and used correctly for care-coordination context only, not as a billing or coverage guarantee. Any medication reference is by drug class with a common example — never a dose or specific prescribing instruction."
+ },
+ {
+  "key": "lumen",
+  "name": "Lumen",
+  "tagline": "Turns a scary lab report into plain language a patient can act on — flags what's out of range, names possibilities to confirm with a clinician, and never diagnoses.",
+  "category": "lumen",
+  "what_company_does": "Ardia Precision Health is a pre-revenue, seed-stage healthcare-AI infrastructure company building governed, non-diagnostic reasoning models — de-identified first by its Sentinel kernel — that help patients, labs, and clinicians understand reports, reimbursement, and health data without ever replacing clinical judgment.",
+  "duration_seconds": 72,
+  "input": {
+   "title": "Synthetic CBC — a patient uploads their own results (no PHI)",
+   "body": "A person uploads a Complete Blood Count (CBC) from a routine physical and asks, \"What does this mean?\" Illustrative values only — no name, DOB, MRN, or dates:\n\n- Hemoglobin: 9.1 g/dL  (report range 12.0-15.5)  — flagged LOW\n- MCV (red-cell size): 74 fL  (report range 80-100)  — flagged LOW\n- MCH: 24 pg  (report range 27-33)  — flagged LOW\n- WBC, platelets, RBC count: within the report's ranges\n\nSynthetic, non-PHI. Reference ranges shown are the ones printed on this sample report; real ranges vary by lab."
+  },
+  "steps": [
+   {
+    "label": "SHIELD",
+    "caption": "De-identify the report before Lumen reads a single value",
+    "detail": "The Sentinel kernel strips names, dates, IDs and other identifiers to the HIPAA Safe Harbor standard first, so all downstream reasoning runs on a de-identified report — not on raw PHI.",
+    "cite": "HIPAA Safe Harbor de-identification — 45 CFR 164.514(b)(2)",
+    "seconds": 10
+   },
+   {
+    "label": "READ",
+    "caption": "Match every value to the range printed on the report",
+    "detail": "Lumen parses the CBC and compares each analyte to the reference interval on the patient's own report, flagging Hemoglobin 9.1 g/dL and MCV 74 fL as below range. It reads the report — it does not re-run the lab.",
+    "cite": "CLIA test-report reference intervals — 42 CFR 493.1291(c)",
+    "seconds": 12
+   },
+   {
+    "label": "REASON",
+    "caption": "Name possibilities to confirm — never a diagnosis",
+    "detail": "Low hemoglobin with small red cells (low MCV) is a microcytic pattern. Lumen lists possibilities a clinician commonly checks — iron-deficiency anemia among them, alongside others like thalassemia trait — and states plainly that only the clinician can confirm the cause.",
+    "cite": "WHO haemoglobin thresholds for anaemia (2011) + MCV-based morphologic classification (microcytic <80 fL)",
+    "seconds": 14
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Non-diagnostic guardrail + emergency routing",
+    "detail": "A hard policy stops Lumen from stating a diagnosis or interpreting the labs as a disease; it defers every decision to the clinician and routes red-flag symptoms — chest pain, severe shortness of breath, fainting — to 911.",
+    "cite": "FDA 'General Wellness: Policy for Low Risk Devices' (2019) + Ardia strict non-diagnostic / 911-escalation policy",
+    "seconds": 10
+   },
+   {
+    "label": "EXPLAIN",
+    "caption": "What can be done, in categories the clinician decides",
+    "detail": "Lumen describes options by category: a confirmatory blood test such as iron studies / ferritin, and — if iron deficiency is confirmed — an oral iron supplement (a medicine class) with one common example, ferrous sulfate. No dose, no instruction to start anything.",
+    "cite": "Ardia medication-by-class rule (drug class + one common example, never a dose or prescription)",
+    "seconds": 14
+   },
+   {
+    "label": "DRAFT",
+    "caption": "Plain-language summary + questions to bring to your clinician",
+    "detail": "Finally Lumen writes a short summary at roughly a 6th-8th-grade reading level and a list of questions the patient can bring to their next visit, so a confusing report becomes something they can act on.",
+    "cite": "CDC Clear Communication Index + AHRQ Health Literacy Universal Precautions Toolkit",
+    "seconds": 12
+   }
+  ],
+  "output": {
+   "title": "What your CBC report is showing — in plain language",
+   "body_md": "**Plain-language summary**\nMost of your blood count is in the normal range, but two numbers came back lower than your lab's reference range:\n\n- **Hemoglobin: 9.1 g/dL** (report range 12.0-15.5) — low\n- **Red-cell size (MCV): 74 fL** (report range 80-100) — low, meaning your red cells are smaller than usual\n\n**What this pattern can suggest — to confirm with your clinician (not a diagnosis)**\nA lower hemoglobin together with smaller red cells is a pattern clinicians often look into. One common possibility is iron-deficiency anemia; other causes are possible too. Only your clinician can confirm the cause, usually with a follow-up blood test.\n\n**What can usually be done (your clinician decides)**\n- A confirmatory blood test — for example, iron studies / ferritin — to find the cause\n- If iron deficiency is confirmed, clinicians often consider an **oral iron supplement** (a class of medicine; a common example is *ferrous sulfate*)\n\n**Questions to bring to your clinician**\n- What is most likely causing my low hemoglobin?\n- Do I need iron studies or other follow-up tests?\n- Should I change anything about my diet or current medicines?\n\n**Safety note**\nIf you develop chest pain, severe shortness of breath, fainting, or a fast/pounding heartbeat, treat it as an emergency and **call 911**.\n\n*Lumen explains your report in plain language. It does not diagnose. Your clinician decides.*"
+  },
+  "honest_note": "Illustrative, synthetic CBC — no real patient and no PHI. Ardia is pre-revenue with zero production results, so nothing here is a measured outcome. Lumen never diagnoses: it explains values against the report's own reference ranges, names possibilities to confirm with a clinician, and defers every decision to that clinician. Medicines are named only by class with one common example (never a dose or prescription). Red-flag symptoms escalate to 911. De-identification runs first via the Sentinel kernel to the HIPAA Safe Harbor standard (42/42 internal assertions passing — an engineering eval, not clinical validation). Reference ranges vary by lab; always use the ranges printed on your own report."
+ },
+ {
+  "key": "tara",
+  "name": "TARA",
+  "tagline": "The neuro-symbolic core: policy you can't argue with, reasoning that can't override it, every answer stamped to its rule.",
+  "category": "tara",
+  "what_company_does": "Ardia gives clinical labs an auditable, cited reasoning engine for coding and coverage questions — not a black-box score. TARA is the shared core every Ardia module runs on: a deterministic Symbolic Policy Engine (versioned LCD/NCD/MolDX + NCCI/frequency rules), a guardrailed frontier LLM (Claude) that can explain and draft but can NEVER override policy or safety, and a payer Denial-Pattern Library of CARC/RARC playbooks — with every conclusion de-identified by Sentinel, gated by Crucible, and stamped to the exact rule it relied on. It is administrative software with a human in the loop, not clinical diagnosis.",
+  "duration_seconds": 72,
+  "input": {
+   "title": "Can this definitive urine drug test be billed to Medicare as submitted?",
+   "body": "Illustrative, synthetic, non-PHI claim handed to TARA for pre-submission review.\n\n- Setting: independent clinical lab, Medicare Part B\n- Patient (fictional): 58-year-old on long-term opioid therapy for chronic low back pain — dx M54.50 (low back pain) + Z79.891 (long-term current use of opiate analgesic)\n- Billed together, same date of service: presumptive UDT 80307 + definitive UDT G0483 (22+ drug classes)\n- Pattern: a standing 22-class definitive panel run on every visit — 5th definitive panel in ~90 days\n\nQuestion to TARA: is this billable exactly as billed, and if not, what specifically has to change first?"
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Sentinel de-identifies the claim and extracts the billable facts.",
+    "detail": "Before any reasoning runs, Sentinel strips identifiers and TARA parses the claim into structured facts — HCPCS/CPT codes, ICD-10 diagnoses, date of service, and ordering context. Nothing downstream ever sees PHI.",
+    "cite": "HIPAA Safe Harbor de-identification (45 CFR §164.514(b)); ICD-10-CM M54.50, Z79.891",
+    "seconds": 10
+   },
+   {
+    "label": "POLICY",
+    "caption": "Layer 1 — the Symbolic Policy Engine checks the definitive-UDT coverage rule, deterministically.",
+    "detail": "The versioned MolDX/MAC controlled-substance-monitoring LCD requires each drug class billed to be individually medically necessary for THIS patient; a 22-class panel (G0483) run as a standing order is not automatically covered. This is a lookup against cited policy, not a guess.",
+    "cite": "MolDX / MAC LCD — Controlled Substance Monitoring & Drugs-of-Abuse Testing; HCPCS G0480–G0483 (definitive UDT)",
+    "seconds": 14
+   },
+   {
+    "label": "EDITS",
+    "caption": "Still Layer 1 — it applies NCCI edits and the Medicare frequency limit.",
+    "detail": "NCCI sets the definitive-UDT MUE at 1 unit per date of service (the single G-code here passes), but 5 definitive panels in ~90 days exceeds the documented frequency the LCD expects for the patient's risk tier, tripping a frequency review.",
+    "cite": "CMS NCCI — Procedure-to-Procedure edits & Medically Unlikely Edits (MUE); CPT 80307 presumptive UDT",
+    "seconds": 12
+   },
+   {
+    "label": "REASON",
+    "caption": "Layer 2 — Claude reads the note to test whether documentation supports the panel, and is walled off from the verdict.",
+    "detail": "The Clinical Reasoning Engine checks the clinical narrative for per-class justification and interval rationale. Behind guardrails it can only explain the gap and draft an appeal — it can NEVER flip a policy denial into an approval or invent medical necessity.",
+    "cite": "Ardia guardrail — Clinical Reasoning Engine is subordinate to the Symbolic Policy Engine; human-in-the-loop; EKRA-aware",
+    "seconds": 14
+   },
+   {
+    "label": "PATTERN",
+    "caption": "Layer 3 — the Denial-Pattern Library maps the likely rejection and the exact fix.",
+    "detail": "As billed, this matches a medical-necessity / insufficient-documentation denial pattern; the playbook returns the specific CARC/RARC codes to expect and the documentation the ordering clinician must add before resubmission.",
+    "cite": "X12 remit codes — CARC CO-50 (not medically necessary), CO-16 (missing/incomplete information) + RARC (LCD-based)",
+    "seconds": 12
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Crucible logs every cited rule for audit and routes the case to a human.",
+    "detail": "Each conclusion is stamped with the exact policy version it relied on, producing an auditable trail. TARA emits an administrative recommendation — never a diagnosis — and a certified coder gives the final sign-off.",
+    "cite": "Ardia Crucible governance — versioned citation + reviewer attestation; 21st Century Cures Act §520(o)(1) administrative safe harbor",
+    "seconds": 10
+   }
+  ],
+  "output": {
+   "title": "TARA — administrative coding recommendation (draft, for human review)",
+   "body_md": "**Recommendation: do NOT submit as billed — high denial risk. Repair first.**\n\n| Check | Finding | Rule relied on |\n|---|---|---|\n| Coverage (LCD/MolDX) | 22-class panel `G0483` as a standing order isn't automatically covered — each class must be medically necessary | MolDX/MAC UDT LCD |\n| NCCI / frequency | Definitive-UDT MUE = 1/DOS (passes); 5 panels in ~90 days flags a frequency review | CMS NCCI MUE |\n| Documentation | Note doesn't justify 22 classes or the testing interval for this patient | Reasoning Engine (guardrailed) |\n| Likely denial | Medical-necessity / missing-documentation pattern → **CARC CO-50**, **CO-16** | Denial-Pattern Library |\n\n**Suggested fix:** re-order to the drug classes the clinician can individually justify, document risk-based rationale for the interval, then resubmit.\n\n_Administrative recommendation only — not a diagnosis, not clinical advice. A certified coder makes the final call. Every line above is stamped to its policy version in the Crucible audit log._"
+  },
+  "honest_note": "Every code and framework named is real and used correctly: HCPCS G0480–G0483 (definitive UDT), CPT 80307 (presumptive UDT), ICD-10 M54.50 / Z79.891, CMS NCCI MUE/PTP edits, MolDX/MAC controlled-substance-monitoring LCDs, X12 CARC CO-50/CO-16 (the same denial codes the Ardia site already uses), HIPAA Safe Harbor 45 CFR §164.514(b), and the 21st Century Cures Act §520(o)(1) administrative safe harbor. The case, patient, and 'likely denial' outcome are illustrative and synthetic (non-PHI) — no real claim was adjudicated and no denial rate, win rate, or client result is asserted. Ardia is pre-revenue/seed-stage; this is administrative decision-support software with a human coder in the loop, not clinical diagnosis, medical advice, or a guarantee of payment. Any performance figure would be modelled, not measured — none is claimed here."
+ },
+ {
+  "key": "sentinel",
+  "name": "Sentinel",
+  "tagline": "No PHI reaches a model or a log un-governed — the compliance kernel that runs first.",
+  "category": "sentinel",
+  "what_company_does": "Ardia Precision Health builds governed AI infrastructure for healthcare. Sentinel is the compliance kernel — a deterministic rule engine (not an LLM) that de-identifies protected health information and writes a tamper-evident audit entry before any other model or any log ever sees the data.",
+  "duration_seconds": 78,
+  "input": {
+   "title": "Illustrative input — synthetic clinical note (non-PHI)",
+   "body": "SYNTHETIC — fictional data, not real PHI.\n\nProgress note: Patient Jordan A. Rivera, DOB 04/12/1958, MRN 00847321. Seen 06/15/2026 at 14:00. Contact (214) 555-0142; 4820 Maple Grove Ln, Plano, TX 75024. Chief complaint: chest tightness on exertion ×3 days.\n\nA downstream Ardia model has requested this note. Nothing is released until Sentinel de-identifies and governs it first."
+  },
+  "steps": [
+   {
+    "label": "READ",
+    "caption": "Intake the note at the trust boundary — before any model sees a single character.",
+    "detail": "Sentinel receives the raw note and runs a deterministic pattern-plus-dictionary scan (regex, checksums, lexicons) — no LLM is involved, so the same input always produces the same result and every decision is auditable. It flags candidate identifier spans for classification.",
+    "cite": "HIPAA Privacy Rule, 45 CFR §164.514(b)(2) — Safe Harbor de-identification method",
+    "seconds": 12
+   },
+   {
+    "label": "CLASSIFY",
+    "caption": "Map each flagged span to one of the 18 Safe Harbor identifier types.",
+    "detail": "Six spans resolve to six statutory categories: (A) name, (C) birth date, (H) medical record number, (C) service date/time, (D) telephone, (B) street address & ZIP. Each span is tagged with its category so the correct redaction rule applies.",
+    "cite": "45 CFR §164.514(b)(2)(i)(A)–(R) — the 18 enumerated identifiers",
+    "seconds": 14
+   },
+   {
+    "label": "REDACT",
+    "caption": "Remove or generalize every identifier according to its category rule.",
+    "detail": "Name, MRN, phone and street address become typed tokens; dates collapse to year-only and the 14:00 time is dropped; the ZIP keeps only its first three digits (750, a >20,000-population area) while the city is removed. Any age over 89 would aggregate to '90+' (not triggered here).",
+    "cite": "45 CFR §164.514(b)(2)(i)(B)–(C) — geographic and date generalization rules",
+    "seconds": 14
+   },
+   {
+    "label": "ASSESS",
+    "caption": "Score residual re-identification risk on the quasi-identifiers that survive.",
+    "detail": "Sentinel checks the 'no actual knowledge' prong against what remains — year of birth, 3-digit ZIP, coarse age band — and returns a modelled risk score. If the risk isn't very small, or any span failed to redact, the kernel fails closed and releases nothing.",
+    "cite": "45 CFR §164.514(b)(2)(ii) — no-actual-knowledge standard",
+    "seconds": 13
+   },
+   {
+    "label": "GOVERN",
+    "caption": "Enforce role-based access and minimum-necessary before releasing anything.",
+    "detail": "The requesting model is checked against its role, and only the de-identified fields that role actually needs are passed forward — nothing more. Access control plus the minimum-necessary principle gate the handoff.",
+    "cite": "45 CFR §164.312(a)(1) access control; §164.502(b) minimum necessary",
+    "seconds": 12
+   },
+   {
+    "label": "AUDIT",
+    "caption": "Write a tamper-evident, hash-chained audit entry.",
+    "detail": "Sentinel appends an immutable record — timestamp, requester role, categories redacted, risk verdict — whose SHA-256 hash incorporates the previous entry's hash, so any later edit breaks the chain. This entry is the evidence every downstream Ardia model inherits by default.",
+    "cite": "45 CFR §164.312(b) audit controls; §164.312(c)(1) integrity",
+    "seconds": 13
+   }
+  ],
+  "output": {
+   "title": "Governed note + compliance receipt",
+   "body_md": "**De-identified note (released to the requesting model):**\n\n> Progress note: Patient `[NAME]`, DOB `[YEAR: 1958]`, MRN `[MRN]`. Seen `[DATE: 2026]`, time `[REDACTED]`. Contact `[PHONE]`; `[ADDRESS REMOVED]`, TX 750**. Chief complaint: chest tightness on exertion ×3 days.\n\n**Compliance receipt**\n\n- **Identifiers detected / redacted:** 6 / 6 across 6 Safe Harbor categories — name, birth date, MRN, service date-time, phone, address/ZIP\n- **Method:** Safe Harbor · 45 CFR §164.514(b)(2)\n- **Residual re-identification risk:** LOW *(modelled, not a guarantee)*\n- **Access:** released to role `clinical-nlp` — minimum-necessary fields only\n- **Fail-closed check:** PASS — 0 redaction errors\n- **Audit:** entry #10442 · sha256 `3f9c…a1b7` · prev `8c2e…44df` (append-only, hash-chained)\n\nThe clinical content (\"chest tightness on exertion\") is passed through **de-identified** — Sentinel governs the data, it does not interpret or diagnose it."
+  },
+  "honest_note": "Everything shown is illustrative and synthetic — no real patient data. Sentinel is a deterministic rule engine, not an LLM: it applies HIPAA Safe Harbor mechanically, so the same input always yields the same output. The residual re-identification risk is modelled, not measured — Safe Harbor de-identification lowers risk but never guarantees zero re-identification. The audit entry number, hash values and role name are placeholders that illustrate the record format. Sentinel de-identifies and governs; it does not triage, interpret, or diagnose — a note suggesting possible cardiac symptoms would be routed to clinical review, and any true emergency escalates to 911. This kernel is the default guardrail every other Ardia model inherits: nothing reaches a model or a log until Sentinel passes."
+ }
+];
+
+/* ENGINE */
+var scene=document.getElementById('scene'),poster=document.getElementById('poster'),fill=document.getElementById('fill'),
+ timeEl=document.getElementById('time'),player=document.getElementById('player'),rail=document.getElementById('rail'),
+ playToggle=document.getElementById('playToggle');
+var cur=0,playing=false,t0=0,elapsed=0,raf=null,shown=0,finished=false;
+function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function total(d){return d.steps.reduce(function(a,s){return a+s.seconds;},0);}
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hexOf(cat){return (getComputedStyle(document.documentElement).getPropertyValue('--'+cat)||'').trim()||'#14b8a6';}
+function _rgb(hex){hex=hex.replace('#','');return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)];}
+function tint(hex,pct){var c=_rgb(hex),b=[10,22,40],f=pct/100;return 'rgb('+Math.round(c[0]*f+b[0]*(1-f))+','+Math.round(c[1]*f+b[1]*(1-f))+','+Math.round(c[2]*f+b[2]*(1-f))+')';}
+function rgba(hex,a){var c=_rgb(hex);return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';}
+function setAccent(cat){
+ var hex=hexOf(cat);player.style.setProperty('--ac',hex);
+ player.style.background='linear-gradient(180deg,'+tint(hex,10)+','+tint(hex,5)+')';
+ player.style.borderColor=tint(hex,26);
+ var scr=player.querySelector('.screen');
+ if(scr)scr.style.background='radial-gradient(120% 90% at 82% -6%,'+rgba(hex,.24)+',transparent 55%),'+tint(hex,7);
+ poster.style.background='radial-gradient(120% 90% at 50% 28%,'+rgba(hex,.28)+',transparent 60%),'+tint(hex,9);
+}
+function loadDemo(i,autoplay){
+ cancelAnimationFrame(raf);playing=false;elapsed=0;shown=0;finished=false;cur=i;
+ var d=DEMOS[i];setAccent(d.category);
+ document.getElementById('pcurl').textContent='ardia://model/'+d.key;
+ document.getElementById('posterIcon').innerHTML=ICON[d.category]||'';
+ document.getElementById('posterRole').textContent=d.tagline;
+ document.getElementById('posterName').textContent=d.name;
+ document.getElementById('posterWhat').textContent=d.what_company_does;
+ scene.innerHTML='';poster.classList.remove('hide');
+ fill.style.width='0';playToggle.textContent='▶';
+ timeEl.textContent='0:00 / '+mmss(total(d));
+ Array.prototype.forEach.call(rail.children,function(c,idx){c.classList.toggle('active',idx===i);});
+ if(autoplay) play();
+}
+function renderInput(d){
+ scene.innerHTML='<div class="card input"><div class="k">Input · what the model receives</div><div class="ttl">'+esc(d.input.title)+'</div><div class="bd">'+esc(d.input.body)+'</div></div>';
+}
+function addStep(s){
+ var el=document.createElement('div');el.className='step';
+ el.innerHTML='<div class="lab">'+esc(s.label)+'</div><div><div class="cap">'+esc(s.caption)+'</div><div class="det">'+esc(s.detail)+'</div>'+(s.cite?'<span class="cite">'+esc(s.cite)+'</span>':'')+'</div>';
+ scene.appendChild(el);scene.scrollTop=scene.scrollHeight;
+}
+function addOutput(d){
+ var el=document.createElement('div');el.className='out';
+ el.innerHTML='<div class="k">Output</div><div class="ttl">'+esc(d.output.title)+'</div><div class="bd">'+d.output.body_md+'</div><div class="disc">'+esc(d.honest_note)+'</div>';
+ scene.appendChild(el);scene.scrollTop=scene.scrollHeight;
+}
+function tick(now){
+ if(!playing)return;
+ var d=DEMOS[cur],T=total(d);elapsed=(now-t0)/1000;
+ var p=Math.min(1,elapsed/T);fill.style.width=(p*100)+'%';
+ timeEl.textContent=mmss(elapsed)+' / '+mmss(T);
+ var acc=0;
+ for(var k=0;k<d.steps.length;k++){acc+=d.steps[k].seconds;if(elapsed>=acc-d.steps[k].seconds+0.01 && k>=shown){addStep(d.steps[k]);shown=k+1;}}
+ if(elapsed>=T){playing=false;fill.style.width='100%';timeEl.textContent=mmss(T)+' / '+mmss(T);playToggle.textContent='▶';if(!finished){addOutput(d);finished=true;}return;}
+ raf=requestAnimationFrame(tick);
+}
+function play(){
+ var d=DEMOS[cur],T=total(d);
+ if(finished||elapsed>=T){scene.innerHTML='';shown=0;finished=false;elapsed=0;}
+ if(shown===0)renderInput(d);
+ poster.classList.add('hide');playing=true;playToggle.textContent='❚❚';
+ t0=performance.now()-elapsed*1000;raf=requestAnimationFrame(tick);
+}
+function pause(){playing=false;cancelAnimationFrame(raf);playToggle.textContent='▶';}
+document.getElementById('bigPlay').onclick=function(){play();};
+playToggle.onclick=function(){playing?pause():play();};
+document.getElementById('replay').onclick=function(){loadDemo(cur,true);};
+document.getElementById('track').onclick=function(e){
+ var d=DEMOS[cur],T=total(d),r=this.getBoundingClientRect(),frac=(e.clientX-r.left)/r.width;
+ elapsed=Math.max(0,Math.min(T,frac*T));scene.innerHTML='';shown=0;finished=false;renderInput(d);
+ var acc=0;for(var k=0;k<d.steps.length;k++){acc+=d.steps[k].seconds;if(elapsed>=acc-d.steps[k].seconds+0.01){addStep(d.steps[k]);shown=k+1;}}
+ if(elapsed>=T&&!finished){addOutput(d);finished=true;}
+ fill.style.width=(elapsed/T*100)+'%';timeEl.textContent=mmss(elapsed)+' / '+mmss(T);
+ if(playing){t0=performance.now()-elapsed*1000;}
+};
+function buildRail(){
+ rail.innerHTML='';
+ DEMOS.forEach(function(d,i){
+  var t=document.createElement('div');t.className='thumb';t.style.setProperty('--tc',hexOf(d.category));
+  t.innerHTML='<div class="tp">'+(ICON[d.category]||'').replace('width="30" height="30"','width="22" height="22"')+'</div>'+
+   '<div><div class="tn">'+esc(d.name)+'</div><div class="tt">'+esc(d.tagline)+'</div></div>'+
+   '<div class="tdur">'+mmss(total(d))+'</div>';
+  t.onclick=function(){loadDemo(i,true);};
+  rail.appendChild(t);
+ });
+}
+buildRail();loadDemo(0,false);
+</script>
+</body>
+</html>
