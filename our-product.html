@@ -237,7 +237,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
           <div class="mega-header"><div class="mega-label">Our Product</div><div class="mega-desc">Live AI modules in active development.</div></div>
           <div class="mega-grid">
             <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
-            <div class="mega-item" onclick="window.location='dashboard.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Live Pilot Dashboard</div><div class="mega-item-desc">Real-time denial recovery data</div></div></div>
+            <div class="mega-item" onclick="window.location='model-demos.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Watch Models</div><div class="mega-item-desc">See each model reason — 1× speed</div></div></div>
             <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
             <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
             <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MolecuIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
@@ -247,7 +247,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       </li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
-      <li class="nav-item"><span class="nav-link" onclick="window.location='dashboard.html'" style="cursor:pointer">Pilot Demo</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='model-demos.html'" style="cursor:pointer">Watch Models</span></li>
       <li class="nav-item"><span class="nav-link" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
     </ul>
     <div class="nav-cta">
@@ -276,7 +276,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     <span class="badge badge-green">☁️ Built on Google Cloud (Vertex AI)</span>
   </div>
   <div class="hero-cta">
-    <a href="dashboard.html" class="cta-primary">⚡ Open Live Dashboard</a>
+    <a href="model-demos.html" class="cta-primary">⚡ Watch Models</a>
     <a href="plg-sandbox.html" class="cta-ghost">🧪 Try 90-Second Free Trial</a>
     <a href="mobile-app.html" class="cta-secondary">📱 View Mobile App</a>
   </div>
@@ -396,11 +396,11 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     <div class="demo-frame-wrap">
       <div class="demo-frame-bar">
         <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
-        <div class="demo-frame-url" id="demo-url">ardiahealthlabs.com/dashboard.html</div>
+        <div class="demo-frame-url" id="demo-url">ardiahealthlabs.com/model-demos</div>
         <span class="demo-frame-live">● LIVE</span>
       </div>
       <div class="demo-panel active" id="panel-dashboard">
-        <iframe class="demo-iframe" src="dashboard.html" title="Ardia Pilot Dashboard"></iframe>
+        <iframe class="demo-iframe" src="model-demos.html" title="Ardia Model Demos"></iframe>
       </div>
       <div class="demo-panel" id="panel-trial">
         <iframe class="demo-iframe" src="plg-sandbox.html" title="Ardia 90-Second Trial"></iframe>
@@ -415,7 +415,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="demo-card-icon">⚡</div>
         <div class="demo-card-title">Pilot Dashboard</div>
         <div class="demo-card-desc">Live denial intelligence demo dashboard (synthetic data) showing a denial queue, recovery trend, and AI activity feed.</div>
-        <a href="dashboard.html"  class="demo-card-btn green">Open Full Dashboard →</a>
+        <a href="model-demos.html"  class="demo-card-btn green">Open Full Dashboard →</a>
       </div>
       <div class="demo-card">
         <div class="demo-card-icon">🧪</div>
@@ -452,11 +452,11 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       <div class="ss-wrap">
         <div class="ss-bar">
           <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
-          <div style="background:rgba(255,255,255,.08);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.5);flex:1;font-family:monospace">ardiahealthlabs.com/dashboard.html</div>
+          <div style="background:rgba(255,255,255,.08);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.5);flex:1;font-family:monospace">ardiahealthlabs.com/model-demos</div>
         </div>
-        <img src="img/screenshot-dashboard.png" alt="Ardia Pilot Dashboard — Revenue Recovery Intelligence">
+        <img src="img/screenshot-dashboard.png" alt="Ardia Model Demos — Revenue Recovery Intelligence">
       </div>
-      <p class="ss-caption"><strong>Ardia Pilot Dashboard</strong> — Real-time denial queue, recovery trend chart, denial code breakdown, live AI activity feed. Demo dashboard (synthetic data) — recovery workflow against a $118 avg manual appeal (Change Healthcare 2023).</p>
+      <p class="ss-caption"><strong>Ardia Model Demos</strong> — Real-time denial queue, recovery trend chart, denial code breakdown, live AI activity feed. Demo dashboard (synthetic data) — recovery workflow against a $118 avg manual appeal (Change Healthcare 2023).</p>
     </div>
 
     <div class="ss-panel" id="ss-mob">
@@ -605,7 +605,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
   <p>Try the 90-second free trial, explore the live dashboard, or book a demo with our team directly.</p>
   <div class="cta-strip-btns">
     <a href="plg-sandbox.html" class="cta-primary">🧪 Try Free — No Signup</a>
-    <a href="dashboard.html" class="cta-ghost">⚡ Open Live Dashboard</a>
+    <a href="model-demos.html" class="cta-ghost">⚡ Watch Models</a>
     <a href="contact.html" class="cta-secondary">📅 Book a Demo</a>
   </div>
   <div style="margin-top:32px;display:flex;justify-content:center;flex-wrap:wrap;gap:28px">
@@ -639,7 +639,7 @@ function switchDemo(panel, btn) {
   document.querySelectorAll('.demo-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + panel).classList.add('active');
   btn.classList.add('active');
-  const urls = {dashboard:'ardiahealthlabs.com/dashboard.html', trial:'ardiahealthlabs.com/plg-sandbox.html', mobile:'ardiahealthlabs.com/mobile-app.html'};
+  const urls = {dashboard:'ardiahealthlabs.com/model-demos', trial:'ardiahealthlabs.com/plg-sandbox.html', mobile:'ardiahealthlabs.com/mobile-app.html'};
   document.getElementById('demo-url').textContent = urls[panel];
 }
 function switchSS(tab, btn) {
