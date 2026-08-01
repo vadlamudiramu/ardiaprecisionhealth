@@ -5,7 +5,8 @@
       "name": "ardia-site",
       "runtimeExecutable": "node",
       "runtimeArgs": ["/Users/vadlamudi/Desktop/Precision Health/Claude/PrecisionMedicine/ardiaprecisionhealth/.claude/worktrees/trusting-wiles-32c25a/.claude/launch-static-server.mjs"],
-      "port": 8123
+      "port": 8123,
+      "autoPort": true
     }
   ]
 }

@@ -9,7 +9,7 @@ import { extname, join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-const PORT = 8123;
+const PORT = process.env.PORT || 8123;
 const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json' };
 
