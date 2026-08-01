@@ -188,6 +188,88 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
   </div>
 </section>
 
+<!-- ============================================================ -->
+<!-- SOLUTION BLUEPRINT — pulmonology (generated + honesty-verified)   -->
+<!-- ============================================================ -->
+<section style="padding:72px 0 64px;background:linear-gradient(180deg,#0369a10d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+  <div style="max-width:1080px;margin:0 auto;padding:0 24px">
+    <div style="text-align:center;margin-bottom:34px">
+      <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#0369a1;background:#0369a114;border:1px solid #0369a13a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Solution blueprint · how we build it</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:800;color:#0f172a;line-height:1.12;margin:0 0 12px">Pulmonary &amp; Respiratory Care — the blueprint</h2>
+      <p style="font-size:15px;color:#5a6e87;max-width:760px;margin:0 auto;line-height:1.7">A Phase-1 respiratory decision-support module for asthma and COPD: an in-build reimbursement lane for pulmonary-function and sleep-test coding, plus a separate, FDA-gated prediction lane — non-diagnostic until cleared.</p>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#0369a1;margin:0 0 14px">Four pillars — what it is &amp; how it's built</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🫁</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Longitudinal respiratory record</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">PulmoIQ assembles a read-only, time-ordered record: history via HL7 FHIR R4 per USCDI (labs/observations coded to LOINC, medications to RxNorm), everyday SpO2/HR from Apple HealthKit and Google Health Connect, readings from FDA-cleared home spirometers (FEV1, FVC, FEV1/FVC), and EPA AirNow AQI + NOAA/NWS exposure. Non-diagnostic summary.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🧾</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Reimbursement lane — necessity &amp; coding (in build)</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">A deterministic, rules-based engine maps documentation to CPT 94010 (spirometry), 94060 (post-bronchodilator), 94726–94729 (plethysmography/lung volumes/oscillometry/DLCO), 95810/95811 (attended PSG / PAP titration) and checks NCCI PTP edits; PulmoIQ drafts GOLD/GINA-grounded necessity notes. Runs as billing/admin support under FD&amp;C Act §520(o).</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">⚖️</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Denial defense &amp; appeals</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">When claims deny, the engine parses X12 835 CARC/RARC remittance codes to find root cause (missing spirometry values, frequency/NCCI edits), and PulmoIQ drafts appeal letters citing GOLD/GINA thresholds plus the patient's own FEV1/DLCO trend and air-quality context. Human-in-the-loop — a clinician or biller reviews and signs before anything is sent.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0369a1;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🔬</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Prediction lane — exacerbation &amp; PFT/scan reading (gated)</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Predicting exacerbations and interpreting PFT/imaging is a separate, regulated lane: a scikit-learn classifier over longitudinal vitals, spirometry-trend and AQI features. As Software as a Medical Device it is gated behind an FDA 510(k) with prospective validation — disabled and not shipped until cleared; decision support only, never autonomous diagnosis.</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#0369a1;margin:34px 0 14px">Models &amp; engines</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">PulmoIQ</span>
+          <span style="font-size:10px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.12);border:1px solid #2563eb55;border-radius:20px;padding:3px 9px;white-space:nowrap">Modelled target</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#0369a1;margin-bottom:6px">Claude/Gemini persona under guardrails</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Assembles the longitudinal record and drafts GOLD/GINA-grounded necessity notes and appeal letters; non-diagnostic.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Necessity &amp; coding engine</span>
+          <span style="font-size:10px;font-weight:700;color:#d97706;background:rgba(217,119,6,.12);border:1px solid #d9770655;border-radius:20px;padding:3px 9px;white-space:nowrap">In build</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#0369a1;margin-bottom:6px">deterministic engine</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Maps documentation to PFT/sleep CPT codes, validates NCCI edits, and parses X12 835 CARC/RARC denials — rules-based, auditable, no ML.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Exacerbation risk model</span>
+          <span style="font-size:10px;font-weight:700;color:#64748b;background:rgba(100,116,139,.12);border:1px solid #64748b55;border-radius:20px;padding:3px 9px;white-space:nowrap">Roadmap</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#0369a1;margin-bottom:6px">scikit-learn classifier</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Forecasts COPD/asthma exacerbation from vitals, spirometry and air-quality trends; regulated SaMD, deferred behind FDA 510(k).</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#0369a1;margin:34px 0 14px">Frameworks &amp; standards we build on</div>
+    <div style="display:flex;flex-wrap:wrap;gap:9px"><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">GOLD (Global Initiative for Chronic Obstructive Lung Disease) — COPD</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">GINA (Global Initiative for Asthma)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CMS CPT/HCPCS — 94010 / 94060 / 94726–94729 / 95810 / 95811</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CMS NCCI edits + X12 835 CARC/RARC denial taxonomy</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">21st Century Cures Act §3060 → FD&amp;C Act §520(o) software exclusion</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">HL7 FHIR R4 / USCDI (LOINC observations, RxNorm medications)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">Apple HealthKit &amp; Google Health Connect (SpO2/HR)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">EPA AirNow AQI &amp; NOAA/NWS environmental feeds</span></div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#0369a1;margin:34px 0 14px">Phase roadmap — what's now, next &amp; later</div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #16a34a;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#16a34a"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 1 — Build</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.04em">Now</span></div>
+        <div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:6px">2026</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Reimbursement lane: build the necessity/coding/appeal engine for PFT &amp; sleep tests, plus FHIR, HealthKit/Health Connect and AirNow/NOAA connectors grounded in GOLD/GINA. Internal, de-identified data only.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #d97706;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#d97706"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 2 — Pilot under BAA</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.04em">Next</span></div>
+        <div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:6px">2027</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Operate the reimbursement lane with a design-partner clinic under a BAA; clinician-in-the-loop review of coding packages and appeals. Begin assembling 510(k) evidence for the prediction lane.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 3 — SaMD validation</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:6px">2027–2028</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Prospective clinical validation of the exacerbation-prediction model and PFT/scan interpretation; prepare and submit an FDA 510(k). Prediction lane stays disabled in production.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 4 — Scale</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:6px">post-clearance</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Expand across payers and sites; enable the prediction lane only after 510(k) clearance, always as clinician decision support.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:14px 18px;font-size:13px;color:#78350f;line-height:1.6"><b style="color:#92400e">Honest limitation:</b> PulmoIQ is a guardrailed LLM persona with no published accuracy; only the reimbursement lane (administrative/billing support under FD&amp;C Act §520(o)) is being built now. Exacerbation prediction and PFT/scan interpretation are regulated SaMD, gated behind an FDA 510(k) — disabled and not shipped until cleared.</div>
+  </div>
+</section>
+
 <section class="cta-strip">
   <h2>See PulmoIQ in the full ecosystem</h2>
   <p>Explore all seven modules, run the interactive tools, or book a working session with our team.</p>

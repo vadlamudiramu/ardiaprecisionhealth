@@ -111,6 +111,84 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
  </div>
 </div></header>
 
+<!-- ============================================================ -->
+<!-- SOLUTION BLUEPRINT — aging (generated + honesty-verified)   -->
+<!-- ============================================================ -->
+<section style="padding:72px 0 64px;background:linear-gradient(180deg,#c2410c0d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+  <div style="max-width:1080px;margin:0 auto;padding:0 24px">
+    <div style="text-align:center;margin-bottom:34px">
+      <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#c2410c;background:#c2410c14;border:1px solid #c2410c3a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Solution blueprint · how we build it</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:800;color:#0f172a;line-height:1.12;margin:0 0 12px">Aging &amp; Elder Care — the blueprint</h2>
+      <p style="font-size:15px;color:#5a6e87;max-width:760px;margin:0 auto;line-height:1.7">A non-diagnostic elder-care layer that pairs a guardrailed voice companion with a trained movement classifier to surface safety flags and caregiver alerts — decision support, never a diagnosis.</p>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#c2410c;margin:0 0 14px">Four pillars — what it is &amp; how it's built</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #c2410c;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🗣️</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Aria — voice companion with a deterministic safety spine</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">A Claude/Gemini persona under guardrails runs daily check-ins; the LLM never decides safety. Each turn runs scripted screens — stroke FAST, suicidality via the C-SSRS screener — through a deterministic router that escalates to 911 and the caregiver. Mood prompts feed PHQ-9/GAD-7; cognition concerns route to clinician-administered MoCA. No published accuracy.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #c2410c;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🚶</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Cadence — movement/activity classifier on UCI HAR</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">A scikit-learn classifier on public UCI HAR (phone accelerometer/gyroscope) recognises activity type — measured 95.45% on a subject-independent held-out split of volunteers aged 19–48. That accuracy is activity recognition, not gait, fall, or deterioration detection, and not elders; those are modelled targets pending elder-cohort retraining under BAA.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #c2410c;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">📋</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Elder modules mapped to real programs &amp; guidelines</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Each module rests on named authorities, not invented logic: AGS Beers Criteria for medication-safety flags; PHQ-9/GAD-7 (mood), MoCA (cognition), Braden Scale (pressure-injury risk); mapped to CMS care-management codes — CCM 99490/99439, RPM 99453/99454/99457/99458, TCM 99495/99496, AWV G0438/G0439, ACP 99497/99498.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #c2410c;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🔌</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Interoperability, SDOH &amp; caregiver escalation plumbing</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Findings surface to care teams and caregivers over HL7 FHIR (US Core), with SDOH captured as ICD-10 Z-codes (Z55–Z65) to route social-need referrals. Every red-flag event and PHI access writes an audit log; escalations fan out to 911 and the named caregiver. Anything predictive or device-like is FDA 510(k)-gated and deferred, not shipped.</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#c2410c;margin:34px 0 14px">Models &amp; engines</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Aria</span>
+          <span style="font-size:10px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.12);border:1px solid #2563eb55;border-radius:20px;padding:3px 9px;white-space:nowrap">Modelled target</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#c2410c;margin-bottom:6px">Claude/Gemini persona under guardrails</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Guardrailed voice companion for check-ins; hands every safety call to a deterministic red-flag router, never escalating itself.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Cadence</span>
+          <span style="font-size:10px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.12);border:1px solid #16a34a55;border-radius:20px;padding:3px 9px;white-space:nowrap">Measured</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#c2410c;margin-bottom:6px">scikit-learn classifier</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Recognises activity type on UCI HAR (95.45%, subject-independent, ages 19–48); gait/fall/deterioration on elders unproven.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Safety escalation router</span>
+          <span style="font-size:10px;font-weight:700;color:#d97706;background:rgba(217,119,6,.12);border:1px solid #d9770655;border-radius:20px;padding:3px 9px;white-space:nowrap">In build</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#c2410c;margin-bottom:6px">deterministic engine</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Rules-based spine: FAST/C-SSRS triggers escalate to 911 and caregiver; the LLM never controls emergency escalation.</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#c2410c;margin:34px 0 14px">Frameworks &amp; standards we build on</div>
+    <div style="display:flex;flex-wrap:wrap;gap:9px"><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">AGS Beers Criteria (potentially inappropriate medications in older adults)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CMS CPT/HCPCS care-management codes — CCM 99490/99439, RPM 99453/99454/99457/99458, TCM 99495/99496, AWV G0438/G0439, ACP 99497/99498</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">C-SSRS (Columbia Suicide Severity Rating Scale) &amp; stroke FAST screening</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">PHQ-9, GAD-7 &amp; clinician-administered MoCA screening instruments</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">Braden Scale for pressure-injury risk</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">HL7 FHIR (US Core) + ICD-10 SDOH Z-codes (Z55–Z65)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">UCI HAR dataset + scikit-learn</span></div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#c2410c;margin:34px 0 14px">Phase roadmap — what's now, next &amp; later</div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #16a34a;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#16a34a"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 1 — Build</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.04em">Now</span></div>
+        <div style="font-size:11px;font-weight:700;color:#c2410c;margin-bottom:6px">2026</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Train and test Cadence on public UCI HAR; wire Aria to a deterministic FAST/C-SSRS → 911/caregiver spine; map each module to its CMS codes and guidelines. Non-diagnostic, public data only, no PHI.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #d97706;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#d97706"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 2 — Pilot under BAA</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.04em">Next</span></div>
+        <div style="font-size:11px;font-weight:700;color:#c2410c;margin-bottom:6px">2027</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Under signed BAAs, retrain Cadence on a consented elder cohort and measure elder-specific accuracy; connect care-team/caregiver workflows over FHIR; supervised pilots with clinician oversight on every flag.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 3 — Scale</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#c2410c;margin-bottom:6px">2028+</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Broaden EHR integrations and module coverage; formally evaluate an FDA 510(k) pathway before any predictive or device-like deterioration alerting ships. Everything remains decision-support until cleared.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:14px 18px;font-size:13px;color:#78350f;line-height:1.6"><b style="color:#92400e">Honest limitation:</b> The only measured number is Cadence's 95.45% held-out accuracy on public UCI HAR volunteers aged 19–48 — activity recognition, not elders and not gait/fall detection. Every clinical benefit is an unproven target pending BAA retraining and validation. Nothing here diagnoses.</div>
+  </div>
+</section>
+
 <!-- ARIA -->
 <section class="blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--blue)"></span><h2>Aria — the voice-first companion &amp; safety spine</h2><span class="eng" style="margin-left:auto">runs on Claude / Gemini under guardrails · no published accuracy yet</span></div>

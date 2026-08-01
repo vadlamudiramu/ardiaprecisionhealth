@@ -1197,6 +1197,58 @@ body { overflow-x: hidden; }
   </div>
 </section>
 
+<!-- ============================================================ -->
+<!-- SOLUTION BLUEPRINT — precision (models · frameworks · phases) -->
+<!-- ============================================================ -->
+<section style="padding:66px 0 60px;background:linear-gradient(180deg,#7c3aed0d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+  <div style="max-width:1080px;margin:0 auto;padding:0 24px">
+    <div style="text-align:center;margin-bottom:30px">
+      <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#7c3aed;background:#7c3aed14;border:1px solid #7c3aed3a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Blueprint · how the four pillars are built</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(23px,3vw,34px);font-weight:800;color:#0f172a;line-height:1.12;margin:0 0 12px">The models, frameworks &amp; phases behind precision medicine</h2>
+      <p style="font-size:15px;color:#5a6e87;max-width:760px;margin:0 auto;line-height:1.7">A non-diagnostic reimbursement- and decision-support layer for molecular and genomic testing — grounding coding, MolDX/Z-code dossiers, and pharmacogenomics in NCCN, CPIC, and ACMG across six therapeutic areas.</p>
+    </div>
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#7c3aed;margin:0 0 14px">Models &amp; engines</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px"><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">MolecuIQ</span><span style="font-size:10px;font-weight:700;color:#2563eb;background:rgba(37,99,235,.12);border:1px solid #2563eb55;border-radius:20px;padding:3px 9px;white-space:nowrap">Modelled target</span></div>
+        <div style="font-size:11px;font-weight:600;color:#7c3aed;margin-bottom:6px">Claude/Gemini persona under guardrails</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Drafts variant, coding and medical-necessity rationale; non-diagnostic documentation and reimbursement support</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px"><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Genomic/PGx Rules Engine</span><span style="font-size:10px;font-weight:700;color:#d97706;background:rgba(217,119,6,.12);border:1px solid #d9770655;border-radius:20px;padding:3px 9px;white-space:nowrap">In build</span></div>
+        <div style="font-size:11px;font-weight:600;color:#7c3aed;margin-bottom:6px">deterministic engine</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Encodes CPIC PGx tables, ACMG/AMP tiers and CPT/PLA-to-MolDX code mappings as auditable deterministic rules</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px"><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">MolDX/Z-Code Dossier Checker</span><span style="font-size:10px;font-weight:700;color:#64748b;background:rgba(100,116,139,.12);border:1px solid #64748b55;border-radius:20px;padding:3px 9px;white-space:nowrap">Roadmap</span></div>
+        <div style="font-size:11px;font-weight:600;color:#7c3aed;margin-bottom:6px">deterministic engine</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Checks MolDX/DEX Z-Code dossier completeness and NCCI plus CARC/RARC edits before claim submission</p>
+      </div>
+    </div>
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#7c3aed;margin:32px 0 14px">Frameworks &amp; standards we build on</div>
+    <div style="display:flex;flex-wrap:wrap;gap:9px"><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">NCCN Biomarkers Compendium & Guidelines</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CPIC pharmacogenomics guidelines</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">ACMG/AMP variant classification standards</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">Palmetto GBA MolDX & DEX Z-Code Identifier</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CMS CPT/HCPCS, PLA codes, CLFS & PAMA statute</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">NCCI edits & CARC/RARC denial codes</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">HL7 FHIR Genomics</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">ClinVar variant database</span></div>
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#7c3aed;margin:32px 0 14px">Phase roadmap — what's now, next &amp; later</div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #16a34a;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#16a34a"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 1 — Build</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.04em">Now</span></div>
+        <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:6px">2026</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Build deterministic code-mapping and CPIC/ACMG rule tables, ground the MolecuIQ persona in NCCN/CPIC/MolDX retrieval with guardrails, and stand up dossier and PGx-alert checklists on public references only.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #d97706;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#d97706"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 2 — Pilot under BAA</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.04em">Next</span></div>
+        <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:6px">2027 pilot</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Pilot with a molecular lab under a signed BAA on a limited data set (LDS/DUA), human-in-the-loop, to validate dossier completeness and PGx-alert coverage — no autonomous billing or diagnosis.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 3 — Scale</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:6px">2028+</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Extend across all six therapeutic areas, add payer pre-submission automation, and integrate via HL7 FHIR into LIS/EHR workflows once pilots validate the approach.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 4 — FDA-gated</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:6px">deferred</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Any predictive or device-like scoring is FDA-gated (510(k)) and deferred until validated — kept out of the shipped decision-support product.</p>
+      </div>
+    </div>
+    <div style="margin-top:28px;background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:14px 18px;font-size:13px;color:#78350f;line-height:1.6"><b style="color:#92400e">Honest limitation:</b> Non-diagnostic reimbursement and documentation support only — not a medical device. No accuracy is measured here: the LLM personas have no published accuracy, every target is modelled, and nothing has run on real patient data. Any predictive or device-like feature is FDA-gated (510(k)) and deferred.</div>
+  </div>
+</section>
+
 <!-- Disease Grid -->
 <section class="disease-section">
   <div class="container">

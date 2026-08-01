@@ -213,6 +213,74 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
  </div>
 </div></section>
 
+<!-- ============================================================ -->
+<!-- SOLUTION BLUEPRINT — pama (generated + honesty-verified)   -->
+<!-- ============================================================ -->
+<section style="padding:72px 0 64px;background:linear-gradient(180deg,#e11d480d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+  <div style="max-width:1080px;margin:0 auto;padding:0 24px">
+    <div style="text-align:center;margin-bottom:34px">
+      <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#e11d48;background:#e11d4814;border:1px solid #e11d483a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Solution blueprint · how we build it</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:800;color:#0f172a;line-height:1.12;margin:0 0 12px">PAMA Rate-Cliff &amp; Lab Economics — the blueprint</h2>
+      <p style="font-size:15px;color:#5a6e87;max-width:760px;margin:0 auto;line-height:1.7">A deterministic, in-browser model that compounds PAMA's scheduled 2027–2029 CLFS cuts across a lab's own test mix to show cumulative revenue at risk, plus data-reporting and penalty exposure — unit-tested, no PHI, not the CMS fee schedule.</p>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#e11d48;margin:0 0 14px">Four pillars — what it is &amp; how it's built</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e11d48;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">📉</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Compounding CLFS Rate-Cliff Engine</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Computes the compounding cliff as the statute stacks it: each year's cut of up to 15% — the reduction cap in SSA §1834A(b)(3) — lands on the prior year's reduced rate across the scheduled 2027–2029 window. Deterministic JavaScript mirrored by a Python engine, covered by 7 unit tests — every figure traces to your inputs, not a black-box forecast.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e11d48;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🧮</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Test-Mix Revenue-at-Risk Modeler</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Takes a lab's annual test mix — CPT and HCPCS Level II codes, 2025 CLFS national payment amounts and volumes — in an editable table seeded with five real lab codes (80307, G0483, 82306, 81225, 82607). Multiplies rate × volume per code and recomputes cumulative revenue at risk and the 2029 run-rate in real time as any cell or the cut slider changes.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e11d48;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">⚖️</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Data-Reporting &amp; Penalty Exposure Check</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Puts compliance risk beside revenue risk: flags exposure to the PAMA private-payor data-reporting obligation (42 CFR Part 414, Subpart G) that determines these rates, and the $10,000-per-day civil monetary penalty ceiling (Social Security Act §1834A(a)(9)) for failing to report or misreporting — so reporting-window exposure sits alongside the dollar impact.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #e11d48;border-radius:14px;padding:20px 22px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:8px"><span style="font-size:22px">🔒</span><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:15.5px;color:#0f172a;line-height:1.25">Client-Side, Deterministic &amp; Sourced</div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0">Runs 100% client-side: the test mix never leaves the browser — no PHI, no server round-trip. No LLM is involved; Meridian is a deterministic engine, so results are reproducible and explainable. Seed rates are illustrative defaults from the public CMS 2025 CLFS that you replace with your own fee schedule.</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#e11d48;margin:34px 0 14px">Models &amp; engines</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:15px 17px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px">
+          <span style="font-family:'Sora',sans-serif;font-weight:800;font-size:14.5px;color:#0f172a">Meridian</span>
+          <span style="font-size:10px;font-weight:700;color:#16a34a;background:rgba(22,163,74,.12);border:1px solid #16a34a55;border-radius:20px;padding:3px 9px;white-space:nowrap">Measured</span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#e11d48;margin-bottom:6px">deterministic engine</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Deterministic PAMA/CLFS engine — compounds the statutory (up to 15%/yr) 2027–2029 cuts over a lab's test mix; 7 unit tests, no LLM, no PHI.</p>
+      </div>
+    </div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#e11d48;margin:34px 0 14px">Frameworks &amp; standards we build on</div>
+    <div style="display:flex;flex-wrap:wrap;gap:9px"><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">Protecting Access to Medicare Act (PAMA §216)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CMS Clinical Laboratory Fee Schedule (CLFS) — 2025 national payment amounts</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">CPT &amp; HCPCS Level II code sets (AMA / CMS)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">42 CFR Part 414, Subpart G — private-payor data-reporting rule</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">Social Security Act §1834A — reduction cap (b)(3) &amp; $10,000/day CMP (a)(9)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">MolDX / Palmetto GBA molecular test coverage (Phase-3 overlay)</span><span style="font-size:11.5px;font-weight:600;color:#334155;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:7px;padding:5px 11px">HL7 FHIR (roadmap — billing-system test-mix ingest)</span></div>
+
+    <div style="font:700 12px/1 'Sora',system-ui;letter-spacing:.06em;text-transform:uppercase;color:#e11d48;margin:34px 0 14px">Phase roadmap — what's now, next &amp; later</div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #16a34a;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#16a34a"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 1 — Build</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.04em">Now</span></div>
+        <div style="font-size:11px;font-weight:700;color:#e11d48;margin-bottom:6px">2026</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Ship the deterministic in-browser CLFS engine: compounding 2027–2029 cuts, revenue-at-risk and 2029 run-rate over the seeded codes, plus the $10k/day penalty flag. Grow coverage past the current 7 tests.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #d97706;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#d97706"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 2 — Design-partner pilot</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.04em">Next</span></div>
+        <div style="font-size:11px;font-weight:700;color:#e11d48;margin-bottom:6px">2027</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">A design-partner lab loads its own CMS fee schedule and real test-mix volumes under a data agreement (BAA only if PHI enters scope); its finance team validates outputs. Add FHIR / flat-file billing ingest.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 3 — Deepen accuracy</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#e11d48;margin-bottom:6px">later</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Layer in code-level CMS exceptions, statutory floors, and MolDX / Palmetto GBA coverage overlays; refresh CLFS payment amounts on each annual update so the model tracks the published fee schedule, not just the ceiling.</p>
+      </div>      <div style="background:#fff;border:1px solid #e2e8f0;border-top:3px solid #64748b;border-radius:12px;padding:16px 18px;flex:1;min-width:220px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="width:8px;height:8px;border-radius:50%;background:#64748b"></span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:13.5px;color:#0f172a">Phase 4 — Ecosystem link</span><span style="margin-left:auto;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em">Later</span></div>
+        <div style="font-size:11px;font-weight:700;color:#e11d48;margin-bottom:6px">later</div>
+        <p style="font-size:12px;color:#5a6e87;line-height:1.55;margin:0">Connect revenue-at-risk to the MolecuIQ denial-recovery workflow (a modelled-target module) so a lab sees rate-cliff exposure and recoverable denials in one reimbursement view.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:14px 18px;font-size:13px;color:#78350f;line-height:1.6"><b style="color:#92400e">Honest limitation:</b> Meridian models the ceiling PAMA permits, not the rates CMS will publish. The 2027–2029 window and 15% cap are current statute — delayed before by Congress and subject to change. Seed rates are illustrative CLFS payment amounts; real cuts, floors and exceptions differ. A planning model, not financial advice.</div>
+  </div>
+</section>
+
 <section class="finalcta"><div class="wrap">
  <div class="eyebrow">One model in the constellation</div>
  <h2>See where Meridian fits</h2>
