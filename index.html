@@ -1151,7 +1151,7 @@ body { overflow-x: hidden; }
     <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
   </div>
   <div class="container">
-    <div class="hero-grid">
+    <div class="hero-grid" style="grid-template-columns:1fr;max-width:860px;margin:0 auto">
       <div>
         <div class="hero-badge"><i class="fas fa-map-marker-alt"></i> Dallas-Fort Worth, Texas &nbsp;·&nbsp; Founded Jan 2026</div>
         <h1 class="hero-title">Precision Revenue<br><span class="gradient-text">Intelligence</span><br>for Healthcare</h1>
@@ -1166,38 +1166,6 @@ body { overflow-x: hidden; }
         <div class="hero-btns">
           <span class="btn btn-a btn-lg" onclick="window.location='contact.html'" style="background:linear-gradient(135deg,#0d7c6e,#0fa58e);color:#fff;font-weight:700;font-size:15px;padding:14px 32px;box-shadow:0 4px 24px rgba(13,124,110,0.35)"><i class="fas fa-calendar-check"></i> &nbsp;Book a Demo</span>
           <span class="btn btn-sd btn-lg" onclick="window.location='solutions.html'"><i class="fas fa-shield-alt"></i> See Solutions</span>
-        </div>
-      </div>
-      <div class="platform-preview">
-        <div class="prev-hd">
-          <div class="prev-dots"><span></span><span></span><span></span></div>
-          <span class="prev-title">What we're building · current focus</span>
-        </div>
-        <div class="prev-body" style="padding:6px 4px">
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-bottom:1px solid rgba(148,163,184,0.18)">
-            <i class="fas fa-vial" style="color:#0fa58e;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">Lab reimbursement</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">ToxIQ · MolecuIQ — cited denial appeals for tox &amp; molecular billing</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-bottom:1px solid rgba(148,163,184,0.18)">
-            <i class="fas fa-dna" style="color:#a78bfa;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">Precision medicine</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">Genomics &amp; pharmacogenomics — NGS 81445/81455, CYP2C19/2D6, matched to NCCN &amp; CPIC</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-bottom:1px solid rgba(148,163,184,0.18)">
-            <i class="fas fa-chart-line" style="color:#fb7185;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">PAMA rate cliff</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">Meridian — deterministic CLFS 2027–2029 cut model, live in your browser</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-bottom:1px solid rgba(148,163,184,0.18)">
-            <i class="fas fa-lungs" style="color:#38bdf8;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">Pulmonary care</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">PulmoIQ — asthma &amp; COPD, grounded in GOLD/GINA guidelines</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-bottom:1px solid rgba(148,163,184,0.18)">
-            <i class="fas fa-heart" style="color:#f59e0b;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">Elder care</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">Aria + Cadence — companion, safety escalation, movement model (95.5% UCI HAR)</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:11px 12px">
-            <i class="fas fa-file-medical" style="color:#60a5fa;font-size:15px;margin-top:2px;width:18px;text-align:center"></i>
-            <div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#e2e8f0">Plain-language reports</div><div style="font-size:12px;color:#94a3b8;line-height:1.5">Lumen — non-diagnostic report &amp; scan explainer for patients</div></div>
-          </div>
         </div>
       </div>
     </div>
@@ -1268,6 +1236,55 @@ body { overflow-x: hidden; }
     </div>
     <div class="home-why-cta" style="margin-top:32px">
       <span class="btn btn-sl" onclick="window.location='about.html'">Full Story: Why Ardia is Different <i class="fas fa-arrow-right"></i></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SOLUTIONS — what we're building (surfaced + clickable)       -->
+<!-- ============================================================ -->
+<section style="padding:82px 0 76px;background:#f8fafc;border-bottom:1px solid #e2eaf3">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:44px">
+      <span style="display:inline-block;background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px">What we're building &middot; explore each</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(26px,3.4vw,40px);font-weight:800;color:#0f172a;line-height:1.1;margin-bottom:12px">Solutions, models &amp; real-time demos</h2>
+      <p style="font-size:15.5px;color:#5a6e87;max-width:660px;margin:0 auto">The areas Ardia is focused on today &mdash; click any card to go deep. Pre-revenue; every figure is measured, cited, or a modelled target.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1060px;margin:0 auto">
+      <a href="aging.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #c2410c;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #c2410c22'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#c2410c1a;color:#c2410c;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-heart-pulse"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">Aging &amp; Elder Care</div><div style="font-size:11.5px;color:#c2410c;font-weight:700">Aria + Cadence</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">AI for the aging population &mdash; Aria (voice companion, red-flag safety check, 911 escalation) and Cadence, the trained movement model (95.45% held-out on public UCI HAR data), plus the elder-care modules.</p>
+        <span style="font-size:13px;font-weight:700;color:#c2410c">Explore &rarr;</span>
+      </a>
+      <a href="pulmonology.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #0369a1;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #0369a122'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#0369a11a;color:#0369a1;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-lungs"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">Pulmonary Care</div><div style="font-size:11.5px;color:#0369a1;font-weight:700">PulmoIQ</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">Longitudinal asthma &amp; COPD intelligence &mdash; grounded in the GOLD and GINA guidelines, with pulmonary-function and sleep-study coding integrity. Decision-support, non-diagnostic.</p>
+        <span style="font-size:13px;font-weight:700;color:#0369a1">Explore &rarr;</span>
+      </a>
+      <a href="model-pama.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #e11d48;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #e11d4822'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#e11d481a;color:#e11d48;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-chart-line"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">PAMA Rate-Cliff</div><div style="font-size:11.5px;color:#e11d48;font-weight:700">Meridian</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">A deterministic, in-browser model of the 2027&ndash;2029 CLFS cuts and the exact revenue at risk for your test mix. No PHI; the compounding math is unit-tested.</p>
+        <span style="font-size:13px;font-weight:700;color:#e11d48">Explore &rarr;</span>
+      </a>
+      <a href="precision-medicine.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #7c3aed;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #7c3aed22'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#7c3aed1a;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-dna"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">Precision Medicine</div><div style="font-size:11.5px;color:#7c3aed;font-weight:700">MolecuIQ &middot; genomics</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">Molecular &amp; genomic reimbursement &mdash; NGS panels (81445/81455), pharmacogenomics (CYP2C19/2D6), MolDX Z-codes, matched to NCCN &amp; CPIC guidance.</p>
+        <span style="font-size:13px;font-weight:700;color:#7c3aed">Explore &rarr;</span>
+      </a>
+      <a href="solutions.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #0d7c6e;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #0d7c6e22'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#0d7c6e1a;color:#0d7c6e;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-vial"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">Lab Reimbursement</div><div style="font-size:11.5px;color:#0d7c6e;font-weight:700">ToxIQ + MolecuIQ</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">Policy-grounded, cited denial appeals for toxicology &amp; molecular billing &mdash; G0480&ndash;G0483, NCCI edits, CARC/RARC. Drafts for a human to review and submit.</p>
+        <span style="font-size:13px;font-weight:700;color:#0d7c6e">Explore &rarr;</span>
+      </a>
+      <a href="models.html" style="text-decoration:none;background:#fff;border:1.5px solid #dce8f2;border-top:3px solid #1d4ed8;border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,0.04)" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px #1d4ed822'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.04)'">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:11px;background:#1d4ed81a;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:18px"><i class="fas fa-layer-group"></i></div><div><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:17px;color:#0f172a">All Models &amp; Agents</div><div style="font-size:11.5px;color:#1d4ed8;font-weight:700">the full roster</div></div></div>
+        <p style="font-size:13px;color:#5a6e87;line-height:1.65;margin:0 0 14px;flex:1">Every model and agent in one place &mdash; Lumen, Aria, MolecuIQ, ToxIQ, PulmoIQ, Cadence, TARA, Meridian, Sentinel &mdash; each with its AI engine, frameworks, and honest status.</p>
+        <span style="font-size:13px;font-weight:700;color:#1d4ed8">Explore &rarr;</span>
+      </a>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px">
+      <a href="model-demos.html" style="text-decoration:none;background:linear-gradient(135deg,#0a1628,#0e2040);color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:15px;padding:15px 28px;border-radius:12px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(10,22,40,0.3)"><i class="fas fa-circle-play" style="color:#5eead4"></i> Watch every model reason &mdash; real-time demos</a>
+      <a href="test-results.html" style="text-decoration:none;background:#fff;color:#0d7c6e;border:1.5px solid #0d7c6e;font-family:'Sora',sans-serif;font-weight:700;font-size:15px;padding:15px 28px;border-radius:12px;display:inline-flex;align-items:center;gap:10px"><i class="fas fa-flask"></i> See the measured test results</a>
     </div>
   </div>
 </section>
@@ -1763,77 +1780,7 @@ function showScreenshot(n) {
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- TEAM SECTION — Google Required Content                         -->
-<!-- ============================================================ -->
-<section style="padding:80px 0;background:#f8fafb;border-bottom:1px solid #e2eaf3">
-  <div class="container">
-    <div class="sh reveal" style="text-align:center;margin-bottom:48px">
-      <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#0d7c6e;background:rgba(13,124,110,0.08);border:1px solid rgba(13,124,110,0.2);padding:5px 14px;border-radius:30px;margin-bottom:14px">Team &amp; Founders</span>
-      <h2 style="font-family:'Sora',sans-serif;font-size:clamp(24px,3vw,38px);font-weight:800;color:#0f172a;line-height:1.1;margin-bottom:14px">Built by the People Who Know the Problem From Both Sides</h2>
-      <p style="font-size:15px;color:#5a6e87;max-width:640px;margin:0 auto;line-height:1.8">Our founders bring together two complementary areas of deep expertise — the technical architect who builds the AI and the payer insider who built the denial logic Ardia defeats.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:960px;margin:0 auto 40px">
-
-      <!-- Ram -->
-      <div style="background:#fff;border:1.5px solid #dce8f2;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06)">
-        <div style="background:linear-gradient(135deg,#1e3a5f,#0d7c6e);padding:24px">
-          <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px">Founder</div>
-          <div style="font-size:12px;color:#5eead4;margin-bottom:12px">Product Designer / Enterprise Architect</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span style="background:#14b8a6;color:#0f172a;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">MAIN TECHNICAL PERSON</span>
-            <span style="background:#d97706;color:#0f172a;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">HEALTHCARE AI EXPERT</span>
-          </div>
-        </div>
-        <div style="padding:22px">
-          <p style="font-size:13px;color:#5a6e87;line-height:1.75;margin-bottom:16px">The technical founder and main builder — actively designing, building, and improving the Ardia platform daily. Invented the Triadic Adjudicative Reasoning Architecture (TARA) and is the primary person executing all product development.</p>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> Platform architecture &amp; product design (active daily)</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> TARA — Ardia's core AI</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> FHIR/HL7 interoperability &amp; clinical data pipelines</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> Healthcare AI, RCM &amp; GCP implementation (Vertex AI)</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> Based in Argyle, TX — 15 min from top pilot prospect</div>
-          </div>
-          <div style="margin-top:16px;padding-top:14px;border-top:1px solid #e2eaf3">
-            <a href="mailto:info@ardiahealthlabs.com" style="font-size:12px;color:#0d7c6e;font-weight:600">✉ info@ardiahealthlabs.com</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Manasa -->
-      <div style="background:#fff;border:1.5px solid #dce8f2;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06)">
-        <div style="background:linear-gradient(135deg,#0d7c6e,#14b8a6);padding:24px">
-          <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px">Co-Founder</div>
-          <div style="font-size:12px;color:#d0faf3;margin-bottom:12px">CEO</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span style="background:#d97706;color:#0f172a;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">AI BACKGROUND</span>
-            <span style="background:#1e3a5f;color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">PAYER INSIDER</span>
-            <span style="background:rgba(255,255,255,0.2);color:#fff;font-size:10px;font-weight:800;padding:4px 10px;border-radius:20px">12+ YEARS PAYER XP</span>
-          </div>
-        </div>
-        <div style="padding:22px">
-          <p style="font-size:13px;color:#5a6e87;line-height:1.75;margin-bottom:16px">The CEO leads all business strategy, GTM, and investor relations. With 12+ years inside payer systems at Cigna, UnitedHealth Group, Optum, and Teladoc Health, helped build the denial logic that Ardia's AI now defeats. AI background and payer insider knowledge is Ardia's unparalleled competitive advantage.</p>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> CEO — business strategy, GTM, investor relations</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> 12+ years: Cigna, UnitedHealth, Optum, Teladoc</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> AI background: clinical ops &amp; payer strategy</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> Built payer denial logic — now helps defeat it</div>
-            <div style="font-size:12px;color:#5a6e87"><strong style="color:#0d7c6e">▸</strong> Actively looking to build &amp; improve product design</div>
-          </div>
-          <div style="margin-top:16px;padding-top:14px;border-top:1px solid #e2eaf3">
-            <a href="mailto:info@ardiahealthlabs.com" style="font-size:12px;color:#0d7c6e;font-weight:600">✉ info@ardiahealthlabs.com</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="text-align:center">
-      <span class="btn btn-sl" onclick="window.location='about.html'">Full Team &amp; Company Story <i class="fas fa-arrow-right"></i></span>
-    </div>
-  </div>
-</section>
+<!-- team section removed per request; full team lives on about.html -->
 
 <!-- ============================================================ -->
 <!-- COMPANY INFO SECTION — Founding Date / Entity / HQ prominent -->
