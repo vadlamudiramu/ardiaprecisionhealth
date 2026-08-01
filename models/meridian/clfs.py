@@ -1,6 +1,6 @@
 """Meridian — deterministic PAMA / CLFS rate-cliff model.
 
-PAMA (Protecting Access to Medicare Act; CAA 2026 §6226) caps Clinical Laboratory
+PAMA (Protecting Access to Medicare Act) caps Clinical Laboratory
 Fee Schedule payment reductions at up to 15%/yr for 2027, 2028 and 2029 — each
 year applied to the *prior year's already-reduced* rate (i.e. compounding). This
 module is the single source of truth for that math; the browser calculator in
@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-#: Years the statutory cut applies (CAA 2026 §6226).
+#: Years the statutory cut applies (PAMA).
 PAMA_CUT_YEARS: tuple[int, ...] = (2027, 2028, 2029)
 #: Statutory ceiling on the annual CLFS reduction (15%/yr).
 STATUTORY_MAX_CUT: float = 0.15

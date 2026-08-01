@@ -93,14 +93,14 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 <body>
 <nav><div class="nav-in">
  <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
- <div class="nav-links"><a href="ardia-platform-light.html">Platform</a><a class="active" href="models.html">Models</a><a href="ardia-agents.html">Agents</a><a href="tools.html">Tools</a><a href="investors.html">Investors</a><a class="nav-cta" href="contact.html">Book a demo</a></div>
+ <div class="nav-links"><a href="index.html">Platform</a><a class="active" href="models.html">Models</a><a href="models.html">Agents</a><a href="model-pama.html">Tools</a><a href="investors.html">Investors</a><a class="nav-cta" href="contact.html">Book a demo</a></div>
 </div></nav>
 <header class="hero"><div class="wrap">
  <div class="kick">◈ Ardia Models · the reasoning engine</div>
  <h1>TARA</h1>
  <div class="role">Triadic Adjudicative Reasoning Architecture</div>
  <p>The engine every Ardia model thinks with. Three layers — deterministic policy, clinical reasoning, and a denial-pattern library — so an answer is grounded in the rule it came from, not guessed. Auditable end to end.</p>
- <div class="hero-cta"><a class="btn btn-p" href="#how">How it reasons ↓</a><a class="btn btn-s" href="tools.html">Run a live tool</a></div>
+ <div class="hero-cta"><a class="btn btn-p" href="#how">How it reasons ↓</a><a class="btn btn-s" href="model-pama.html">Run a live tool</a></div>
  <div class="flow"><b>READ</b><span class="a">→</span><b>REASON</b><span class="a">→</span><b>ACT</b><span class="a">→</span><b>GOVERN</b></div>
 </div></header>
 
@@ -137,13 +137,13 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 <section class="block" style="background:var(--bg2)"><div class="wrap">
  <div class="center"><div class="eyebrow">Evidence</div><h2>What we actually measure — and what we don't yet</h2><p>A reasoning engine can't honestly be scored like a classifier on one accuracy number. Here is what is measured today, stated plainly.</p></div>
  <div class="ev-grid">
-  <div class="ev-card" style="--c:var(--sentinel)"><div class="v">42/42</div><h3>Governance (Sentinel)</h3><p>Safety tests passing — PHI de-identification, hash-chained audit, RBAC / minimum-necessary. Measured on Ardia's own suite.</p></div>
-  <div class="ev-card" style="--c:var(--crucible)"><div class="v">49</div><h3>Evaluation (Crucible)</h3><p>Total tests gating every release — refusal, escalation, de-identification, and regression checks. A failing gate blocks the deploy.</p></div>
+  <div class="ev-card" style="--c:var(--sentinel)"><div class="v">Target</div><h3>Governance (Sentinel)</h3><p>The de-identification + audit kernel (PHI de-identification to HIPAA Safe Harbor, hash-chained audit, RBAC / minimum-necessary) is <b>being built</b>. Its test suite is a modelled target — not yet measured.</p></div>
+  <div class="ev-card" style="--c:var(--crucible)"><div class="v">Target</div><h3>Evaluation (Crucible)</h3><p>The release-gating harness (refusal, escalation, de-identification, regression) is <b>being built</b> — generalising the subject-independent protocol that produced Cadence's numbers. A modelled target — not yet measured.</p></div>
   <div class="ev-card" style="--c:var(--tara)"><div class="v">In dev</div><h3>Reasoning accuracy</h3><p>Measured today by policy-match correctness on <b>synthetic</b> cases. End-to-end appeal accuracy will be measured on a design-partner dataset under a BAA before any performance claim is published.</p></div>
  </div>
  <div class="honest">
   <h3>⚠ The honest line</h3>
-  <p>No appeal win-rate, denial-recovery percentage, or clinical-outcome figure is claimed for TARA, because Ardia is <b>pre-revenue</b> and those numbers cannot honestly be known before a pilot. The measured facts above are real; everything else on this page describes the architecture and its intended behaviour, with synthetic examples labelled as such. A published benchmark is on the roadmap — built the same way Cadence's was: honestly, and measured once.</p>
+  <p>No appeal win-rate, denial-recovery percentage, or clinical-outcome figure is claimed for TARA, because Ardia is <b>pre-revenue</b> and those numbers cannot honestly be known before a pilot. The one genuinely measured model is Cadence (see the <a href="test-results.html" style="color:#5fe3a1">Test Results</a> page); Sentinel and Crucible above are honest works-in-progress. Everything else here describes the architecture and its intended behaviour, with synthetic examples labelled as such. A published benchmark is on the roadmap — built the same way Cadence's was: honestly, and measured once.</p>
  </div>
 </div></section>
 
