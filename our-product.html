@@ -239,7 +239,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
             <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
             <div class="mega-item" onclick="window.location='model-demos.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Watch Models</div><div class="mega-item-desc">See each model reason — 1× speed</div></div></div>
             <div class="mega-item" onclick="window.location='plg-sandbox.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">90-Second Free Trial</div><div class="mega-item-desc">Try the engine — no signup needed</div></div></div>
-            <div class="mega-item" onclick="window.location='mobile-app.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="mega-item-title">Mobile App</div><div class="mega-item-desc">iOS/Android claim manager</div></div></div>
             <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">ToxIQ™ &amp; MolecuIQ™</div><div class="mega-item-desc">Phase 1 active modules</div></div></div>
             <div class="mega-item" onclick="window.location='solutions.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">PulmoIQ™ &amp; Meridian™</div><div class="mega-item-desc">Pulmonary RCM &amp; PAMA rate-cliff model</div></div></div>
           </div>
@@ -278,7 +277,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
   <div class="hero-cta">
     <a href="model-demos.html" class="cta-primary">⚡ Watch Models</a>
     <a href="plg-sandbox.html" class="cta-ghost">🧪 Try 90-Second Free Trial</a>
-    <a href="mobile-app.html" class="cta-secondary">📱 View Mobile App</a>
   </div>
 </section>
 
@@ -390,7 +388,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     <div class="demo-tabs">
       <button class="demo-tab active" onclick="switchDemo('dashboard',this)">⚡ Watch Models</button>
       <button class="demo-tab" onclick="switchDemo('trial',this)">🧪 90-Second Trial</button>
-      <button class="demo-tab" onclick="switchDemo('mobile',this)">📱 Mobile App</button>
     </div>
 
     <div class="demo-frame-wrap">
@@ -404,9 +401,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       </div>
       <div class="demo-panel" id="panel-trial">
         <iframe class="demo-iframe" src="plg-sandbox.html" title="Ardia 90-Second Trial"></iframe>
-      </div>
-      <div class="demo-panel" id="panel-mobile">
-        <iframe class="demo-iframe" src="mobile-app.html" title="Ardia Mobile App" style="height:700px"></iframe>
       </div>
     </div>
 
@@ -423,12 +417,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
         <div class="demo-card-desc">Paste any denied claim. Watch the TARA generate a payer-formatted appeal brief with clinical citations, LCD references, and recovery arguments — in under 90 seconds. No signup required.</div>
         <a href="plg-sandbox.html"  class="demo-card-btn amber">Try It Free — No Signup →</a>
       </div>
-      <div class="demo-card">
-        <div class="demo-card-icon">📱</div>
-        <div class="demo-card-title">Mobile App Preview</div>
-        <div class="demo-card-desc">iOS/Android claim manager. Real-time denial alerts, appeal status tracking, quick-action appeal submission, and revenue pipeline — all on mobile. Designed for lab managers on the go.</div>
-        <a href="mobile-app.html"  class="demo-card-btn navy">View Mobile Preview →</a>
-      </div>
     </div>
   </div>
 </section>
@@ -444,7 +432,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
 
     <div class="screenshots-tabs">
       <button class="ss-tab active" onclick="switchSS('dash',this)">Model Demos</button>
-      <button class="ss-tab" onclick="switchSS('mob',this)">Mobile App</button>
       <button class="ss-tab" onclick="switchSS('trial',this)">AI Trial</button>
     </div>
 
@@ -459,16 +446,6 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       <p class="ss-caption"><strong>Ardia Model Demos</strong> — denial queue, recovery trend chart, denial code breakdown, and AI activity feed. Interactive prototype on synthetic data — recovery workflow benchmarked against a $118 avg manual appeal (Change Healthcare 2023).</p>
     </div>
 
-    <div class="ss-panel" id="ss-mob">
-      <div class="ss-wrap" style="max-width:400px">
-        <div class="ss-bar">
-          <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
-          <div style="background:rgba(255,255,255,.08);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.5);flex:1;font-family:monospace">ardiahealthlabs.com/mobile-app.html</div>
-        </div>
-        <img src="img/screenshot-mobile.png" alt="Ardia Mobile App — iOS/Android Claim Manager">
-      </div>
-      <p class="ss-caption"><strong>Ardia Mobile App</strong> — iOS/Android real-time denial alerts, claim queue management, and appeal status — built for lab managers on the go.</p>
-    </div>
 
     <div class="ss-panel" id="ss-trial">
       <div class="ss-wrap">
@@ -639,7 +616,7 @@ function switchDemo(panel, btn) {
   document.querySelectorAll('.demo-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + panel).classList.add('active');
   btn.classList.add('active');
-  const urls = {dashboard:'ardiahealthlabs.com/model-demos', trial:'ardiahealthlabs.com/plg-sandbox.html', mobile:'ardiahealthlabs.com/mobile-app.html'};
+  const urls = {dashboard:'ardiahealthlabs.com/model-demos', trial:'ardiahealthlabs.com/plg-sandbox.html'};
   document.getElementById('demo-url').textContent = urls[panel];
 }
 function switchSS(tab, btn) {

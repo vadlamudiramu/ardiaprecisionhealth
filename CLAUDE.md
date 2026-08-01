@@ -42,7 +42,6 @@ ARDIA PRECISION HEALTH is a next-generation AI healthcare infrastructure platfor
 - `how-it-works.html` — How the platform works
 - `how-software-works.html` — Technical deep-dive
 - `investors.html` — Investor relations
-- `mobile-app.html` — Mobile app page (uses `.logo-mark` CSS class)
 - `our-product.html` — Product overview
 - `pama.html` — PAMA compliance
 - `plg-sandbox.html` — PLG sandbox
