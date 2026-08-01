@@ -13,3 +13,8 @@
 _internal-team-details.html
 email-audit.html
 google-cloud-email-response.html
+
+# Internal market intelligence. reports/ contains competitive analysis and an
+# audit of our own published statistics; it is not customer- or investor-facing
+# in its raw form and must not be served from the marketing site.
+reports/
