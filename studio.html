@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Ardia Studio — Run a model</title>
+<meta name="description" content="Run an Ardia model: type your case and attach an image, lab report, or scan, and get a warm, plain-language analysis. Illustrative demo; never a diagnosis.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+ --cream:#f7f2e8;--cream2:#efe7d7;--paper:#fffdf8;--ink:#241c14;--ink2:#5f5346;--dim:#9c8f7d;
+ --line:rgba(58,42,26,.13);--line2:rgba(58,42,26,.2);
+ --teal:#0f766e;--coral:#d9633a;
+ --c:#2563eb;--cA:#2563eb1a;--cB:#2563eb33;   /* active model colour, set in JS */
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif}
+h1,h2,h3{font-family:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.08}
+.mono{font-family:ui-monospace,'SFMono-Regular','JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+/* top */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px;height:62px;padding:0 22px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#221a10,#3a2c18);border:1.4px solid rgba(217,99,58,.5);padding:5px;object-fit:contain}
+.brand .bt{font-family:'Fraunces',serif;font-weight:600;font-size:19px;letter-spacing:-.01em}
+.brand .bt em{font-style:italic;color:var(--coral)}
+.top .sub{margin-left:auto;font-size:12.5px;color:var(--ink2);font-family:'Fraunces',serif;font-style:italic}
+/* shell */
+.wrap{max-width:1180px;margin:0 auto;padding:26px 22px 70px;display:grid;grid-template-columns:264px 1fr;gap:26px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;gap:18px}}
+.rl{font-size:12px;color:var(--dim);font-family:'Fraunces',serif;font-style:italic;margin:2px 2px 10px}
+.rail{display:flex;flex-direction:column;gap:11px}
+@media(max-width:900px){.rail{flex-direction:row;overflow-x:auto;padding-bottom:6px}}
+.m{position:relative;display:flex;gap:13px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:15px 16px;cursor:pointer;transition:.18s;text-align:left;box-shadow:0 1px 0 rgba(58,42,26,.04)}
+@media(max-width:900px){.m{min-width:230px}}
+.m:hover{transform:translateY(-2px);box-shadow:0 14px 30px -20px var(--mc)}
+.m.on{background:linear-gradient(180deg,color-mix(in srgb,var(--mc) 12%,var(--paper)),var(--paper));border-color:transparent;box-shadow:0 0 0 2px var(--mc),0 16px 34px -20px var(--mc)}
+.m .mi{width:44px;height:44px;flex:0 0 auto;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--mc);box-shadow:0 6px 16px -8px var(--mc)}
+.m .mi svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.m .mn{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
+.m .mr{font-size:12px;color:var(--ink2);margin-top:1px}
+/* workspace */
+.ws{background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -44px rgba(58,42,26,.4)}
+/* the bold saturated colour-field header */
+.field-hd{position:relative;padding:30px 30px 26px;color:#fff;background:
+  radial-gradient(120% 120% at 88% -20%,color-mix(in srgb,#fff 26%,var(--c)),transparent 55%),
+  radial-gradient(90% 120% at 0% 120%,color-mix(in srgb,#000 22%,var(--c)),transparent 60%),var(--c);overflow:hidden}
+.field-hd::after{content:"";position:absolute;inset:0;opacity:.10;background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);background-size:18px 18px}
+.field-hd .row{position:relative;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.field-hd .big{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.field-hd .big svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.field-hd h1{font-size:clamp(30px,4.6vw,44px);color:#fff}
+.field-hd .role{font-family:ui-monospace,monospace;font-size:12px;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:1.5px;margin-top:6px}
+.field-hd .cap{position:relative;margin-top:14px;font-size:15px;line-height:1.55;color:rgba(255,255,255,.94);max-width:660px}
+.field-hd .nd{margin-left:auto;font-size:11.5px;font-weight:600;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:7px 14px;white-space:nowrap;align-self:flex-start}
+/* body */
+.ws-b{padding:26px 30px 30px}
+.lab{font-family:'Fraunces',serif;font-style:italic;font-size:16px;color:var(--ink);margin-bottom:11px}
+.field{border:1.5px solid var(--line2);border-radius:18px;background:var(--cream);transition:.16s;overflow:hidden}
+.field:focus-within{border-color:var(--c);box-shadow:0 0 0 4px var(--cA)}
+.field textarea{width:100%;border:none;background:transparent;resize:vertical;min-height:104px;padding:16px 17px;font:400 15.5px 'Inter';color:var(--ink);outline:none}
+.field textarea::placeholder{color:var(--dim)}
+.field .bar{display:flex;align-items:center;gap:9px;padding:11px 13px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--cream2) 55%,var(--paper))}
+.attach{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink2);background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:9px 14px;cursor:pointer;transition:.15s}
+.attach:hover{border-color:var(--c);color:var(--c)}
+.attach svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.run{margin-left:auto;font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:#fff;background:var(--c);border:none;border-radius:14px;padding:12px 26px;cursor:pointer;box-shadow:0 12px 26px -12px var(--c);display:inline-flex;align-items:center;gap:9px;transition:.15s}
+.run:hover{filter:brightness(1.05)}.run:disabled{opacity:.5;cursor:default;box-shadow:none}
+.att{display:none;margin-top:14px;align-items:center;gap:13px;background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.att.on{display:flex}
+.att img{width:60px;height:60px;object-fit:cover;border-radius:12px;border:1px solid var(--line2)}
+.att .fi{width:60px;height:60px;border-radius:12px;background:var(--cA);display:flex;align-items:center;justify-content:center;color:var(--c);font:600 12px ui-monospace,monospace}
+.att .fn{font-weight:600;font-size:14px}.att .fm{font-size:12px;color:var(--dim);font-family:ui-monospace,monospace}
+.att .rm{margin-left:auto;font-size:12.5px;color:var(--ink2);cursor:pointer;border:1px solid var(--line2);border-radius:9px;padding:6px 11px}
+.samps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.samp{font-size:13px;color:var(--ink2);background:var(--paper);border:1px solid var(--line2);border-radius:100px;padding:8px 15px;cursor:pointer;transition:.15s}
+.samp:hover{border-color:var(--c);color:var(--c);background:var(--cA)}
+.hintr{font-size:12.5px;color:var(--dim);margin-top:12px;font-style:italic;font-family:'Fraunces',serif}
+/* warm step indicator (replaces the dark terminal) */
+.steps{display:none;gap:10px;margin-top:20px;flex-wrap:wrap}
+.steps.on{display:flex}
+.step{flex:1;min-width:150px;background:var(--cream);border:1.5px solid var(--line);border-radius:16px;padding:13px 15px;transition:.35s;opacity:.5}
+.step.live{opacity:1;border-color:var(--c);background:linear-gradient(180deg,var(--cA),var(--paper));transform:translateY(-2px)}
+.step.done{opacity:1;border-color:transparent;background:var(--c);color:#fff}
+.step .sk{font:600 10.5px ui-monospace,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--c);display:flex;align-items:center;gap:6px}
+.step.done .sk{color:#fff}
+.step .st{font-size:13px;color:var(--ink2);margin-top:5px;line-height:1.4}
+.step.done .st{color:rgba(255,255,255,.92)}
+/* report */
+.rep{display:none;margin-top:24px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--paper);animation:ri .5s ease}
+.rep.on{display:block}
+@keyframes ri{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rep-h{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,var(--cA),transparent)}
+.rep-h .dot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px var(--cA)}
+.rep-h .rt{font-family:'Fraunces',serif;font-weight:600;font-size:19px}
+.rep-h .rb{margin-left:auto;font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:#fff;background:var(--c);border-radius:100px;padding:6px 15px}
+.rep-b{padding:8px 24px 22px}
+.rs{padding:18px 0;border-bottom:1px solid var(--line)}.rs:last-child{border-bottom:none}
+.rs h4{font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:var(--ink);margin-bottom:10px;display:flex;gap:11px;align-items:baseline}
+.rs h4 .n{font:600 13px ui-monospace,monospace;color:var(--c)}
+.rs p{font-size:15px;color:var(--ink);line-height:1.62}.rs p+p{margin-top:8px}
+.rs .recv{font-size:14px;color:var(--ink2);background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:0 14px 14px 0;padding:13px 15px}
+.rs .recv b{color:var(--ink)}
+.rs ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rs ul li{position:relative;padding-left:26px;font-size:14.5px;color:var(--ink2);line-height:1.55}
+.rs ul li::before{content:"";position:absolute;left:3px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--c)}
+.rs b{color:var(--ink)}
+.term{display:flex;flex-wrap:wrap;gap:9px}
+.chipx{font-size:13px;font-weight:500;background:var(--cA);color:var(--c);border:1px solid var(--cB);border-radius:11px;padding:7px 13px}
+.disc{background:linear-gradient(120deg,#fdeee6,#fbe4dd);border:1.5px solid #eaa78d;border-radius:16px;padding:16px 18px;margin-top:18px}
+.disc .dh{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:#a23a1c;display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.disc p{font-size:13.5px;color:#7c3016;line-height:1.55}
+.demo-note{font-size:12px;color:var(--dim);text-align:center;margin-top:16px;line-height:1.5;font-style:italic;font-family:'Fraunces',serif}
+footer{border-top:1px solid var(--line);color:var(--ink2);font-size:13px;padding:26px 22px;text-align:center;background:var(--cream2)}
+footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+ <div class="top"><div class="top-in">
+   <a class="brand" href="index.html"><img src="Ardia_Logo.png" alt="Ardia"><span class="bt">Ardia <em>Studio</em></span></a>
+   <span class="sub" id="sub">choose a model, then run it</span>
+ </div></div>
+
+ <div class="wrap">
+  <div class="rail" id="rail"><div class="rl">Five models — pick one</div></div>
+
+  <div class="ws">
+   <div class="field-hd" id="hd"></div>
+   <div class="ws-b">
+     <div class="lab" id="lab">Describe the case</div>
+     <div class="field">
+       <textarea id="inText"></textarea>
+       <div class="bar">
+         <label class="attach"><svg viewBox="0 0 24 24"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7l8.5-8.5a3.5 3.5 0 0 1 5 5L11 17.5a2 2 0 1 1-3-3l7-7"/></svg><span id="attLabel">Attach</span>
+           <input type="file" id="file" accept="image/*,.pdf,.txt,.csv" style="display:none"></label>
+         <button class="run" id="runBtn"><span id="runLabel">Run</span> →</button>
+       </div>
+     </div>
+     <div class="att" id="att"></div>
+     <div class="samps" id="samps"></div>
+     <div class="hintr" id="hintr"></div>
+     <div class="steps" id="steps"></div>
+     <div class="rep" id="rep"></div>
+   </div>
+  </div>
+ </div>
+ <footer>Ardia Health Labs LLC · ardiahealthlabs.com · <b>Illustrative demo</b> — Ardia is pre‑revenue; outputs are mock illustrations generated in your browser and the demo does not read your file’s contents. Production runs under a signed BAA with clinician review. <b>Never a diagnosis.</b></footer>
+
+<script>
+var I={
+ report:'<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>',
+ heart:'<svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/></svg>',
+ dna:'<svg viewBox="0 0 24 24"><path d="M4 3c0 6 16 6 16 12M20 3c0 6-16 6-16 12M6 5h12M6 19h12M8 8h8M8 16h8"/></svg>',
+ walk:'<svg viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.6"/><path d="M11 8l3 2 2 4M11 8l-2 5-2 4M14 10l-1 5 2 4"/></svg>',
+ brain:'<svg viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 4 3 3 0 0 0 5 1V4.5A2.5 2.5 0 0 0 9 4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-2 4 3 3 0 0 1-5 1"/></svg>'
+};
+var MODELS=[
+ {k:'lumen',name:'Lumen',color:'#2563eb',icon:'report',role:'Report & Scan Explainer',
+  cap:'Attach a lab report, discharge summary, or an MRI / X‑ray / CT and Lumen explains it in plain language — what the terms mean, what looks flagged, and what to ask your clinician. It never diagnoses.',
+  attach:'Attach report or scan', lab:'Paste report text, or attach a file (lab / MRI / X‑ray / PDF)',
+  placeholder:'e.g. “My CBC came back — WBC 12.3, Hgb 10.1, platelets 410. What does this mean?” — or just attach the report.',
+  samples:['CBC: WBC 12.3, Hgb 10.1, platelets 410','MRI lumbar spine — “mild disc bulge L4‑L5”','Chest X‑ray report','Discharge summary after pneumonia'],
+  verdict:'Explained — not a diagnosis'},
+ {k:'aria',name:'Aria',color:'#d9633a',icon:'heart',role:'Elder Companion',
+  cap:'A voice‑first everyday companion for older adults. Describe how you feel, or attach a photo of your medicines or a symptom — Aria gives calm guidance, runs a safety red‑flag check, and tells you when to call your clinician or 911.',
+  attach:'Attach a photo', lab:'Tell Aria what’s going on (or attach a photo)',
+  placeholder:'e.g. “I feel dizzy when I stand up and I’m a bit short of breath today.” — or attach a photo of your medicines.',
+  samples:['I feel dizzy when I stand up','I forgot if I took my blood‑pressure pill','Mild chest tightness for an hour','Photo of my medication bottles'],
+  verdict:'Guidance + safety check'},
+ {k:'molec',name:'MolecuIQ',color:'#0891b2',icon:'dna',role:'Lab Denial Recovery',
+  cap:'Attach a denial letter or EOB for a molecular / toxicology claim. MolecuIQ classifies the denial, matches the payer policy, and drafts a cited appeal — with an honesty gate that refuses a baseless appeal.',
+  attach:'Attach denial / EOB', lab:'Paste the denial, or attach the letter / EOB',
+  placeholder:'e.g. “CPT 81455 denied CO‑55 experimental by a Medicare Advantage plan, dx C34.11 (NSCLC).”',
+  samples:['81455 denied CO‑55 experimental (NSCLC)','CYP2D6 PGx denied CO‑50 not necessary','Genomic panel on a benign nodule (R91.1)'],
+  verdict:'Recovery analysis'},
+ {k:'cadence',name:'Cadence',color:'#2f9e44',icon:'walk',role:'Movement & Wellbeing',
+  cap:'The one Ardia model actually trained today (95.5% held‑out on UCI HAR). Describe a day or paste activity data and Cadence summarises movement and flags a functional‑decline trend — non‑diagnostic, and not a fall detector.',
+  attach:'Attach activity export', lab:'Describe the day / week, or paste activity data',
+  placeholder:'e.g. “This week walking dropped from ~55 to ~22 min/day, more time sitting.”',
+  samples:['Walking fell 55→22 min/day this week','A steady, active day','Mostly sitting, few short walks'],
+  verdict:'Wellbeing report'},
+ {k:'tara',name:'TARA',color:'#7c3aed',icon:'brain',role:'Clinical Reasoning core',
+  cap:'The reasoning engine every model runs on. Ask a clinical or coding question and TARA shows the rule each step came from, not a black‑box answer. Educational — not a diagnosis.',
+  attach:'Attach context', lab:'Ask a clinical or coding question',
+  placeholder:'e.g. “What Medicare code covers 20 minutes of non‑face‑to‑face chronic care management?”',
+  samples:['Which code for 20 min of CCM?','When is RPM billable (16‑day rule)?','Beers‑list risk: 82‑yo on diphenhydramine'],
+  verdict:'Reasoned answer'},
+];
+var STEP_LABELS=[['READ','reading your input'],['REASON','working the rules'],['DRAFT','writing it plainly'],['GOVERN','safety + de‑identify']];
+var sel=0, attachment=null;
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hexA(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+function setColor(c){var r=document.documentElement.style;r.setProperty('--c',c);r.setProperty('--cA',hexA(c,.10));r.setProperty('--cB',hexA(c,.32));}
+
+document.getElementById('rail').insertAdjacentHTML('beforeend', MODELS.map(function(m,i){
+ return '<button class="m'+(i===0?' on':'')+'" style="--mc:'+m.color+'" onclick="pick('+i+')"><div class="mi">'+I[m.icon]+'</div><div><div class="mn">'+m.name+'</div><div class="mr">'+m.role+'</div></div></button>';
+}).join(''));
+
+function pick(i){
+ sel=i;var m=MODELS[i];
+ document.querySelectorAll('.rail .m').forEach(function(e,j){e.classList.toggle('on',j===i);});
+ setColor(m.color);
+ document.getElementById('sub').textContent='running · '+m.name;
+ document.getElementById('hd').innerHTML='<div class="row"><div class="big">'+I[m.icon]+'</div><div><h1>'+m.name+'</h1>'+
+   '<div class="role">'+m.role+'</div></div><div class="nd">AI assistant — not a doctor</div></div><div class="cap">'+m.cap+'</div>';
+ document.getElementById('lab').textContent=m.lab;
+ document.getElementById('attLabel').textContent=m.attach;
+ document.getElementById('runLabel').textContent='Run '+m.name;
+ document.getElementById('inText').placeholder=m.placeholder;
+ document.getElementById('samps').innerHTML=m.samples.map(function(s){return '<span class="samp" onclick="useSample(this)">'+esc(s)+'</span>';}).join('');
+ document.getElementById('hintr').textContent='Runs in your browser · no sign‑in · nothing is uploaded anywhere.';
+ document.getElementById('inText').value='';   /* prompt is per‑model — never carry it across */
+ clearRun();clearAttach();
+}
+function useSample(el){document.getElementById('inText').value=el.textContent;document.getElementById('inText').focus();}
+function clearRun(){document.getElementById('steps').classList.remove('on');document.getElementById('steps').innerHTML='';document.getElementById('rep').classList.remove('on');}
+function clearAttach(){attachment=null;var a=document.getElementById('att');a.classList.remove('on');a.innerHTML='';document.getElementById('file').value='';}
+
+document.getElementById('file').addEventListener('change',function(e){
+ var f=e.target.files&&e.target.files[0];if(!f)return;
+ attachment={name:f.name,size:f.size,type:f.type};
+ var box=document.getElementById('att');var kb=f.size/1024;var sz=kb>1024?(kb/1024).toFixed(1)+' MB':Math.round(kb)+' KB';
+ var ext=(f.name.split('.').pop()||'file').toUpperCase().slice(0,4);
+ if(f.type.indexOf('image')===0){var url=URL.createObjectURL(f);
+   box.innerHTML='<img src="'+url+'" alt=""><div><div class="fn">'+esc(f.name)+'</div><div class="fm">'+f.type+' · '+sz+'</div></div><span class="rm" onclick="clearAttach()">Remove</span>';
+ } else { box.innerHTML='<div class="fi">'+ext+'</div><div><div class="fn">'+esc(f.name)+'</div><div class="fm">'+(f.type||'file')+' · '+sz+'</div></div><span class="rm" onclick="clearAttach()">Remove</span>'; }
+ box.classList.add('on');
+});
+
+var _t=null,_r=null;
+document.getElementById('runBtn').addEventListener('click',function(){
+ var m=MODELS[sel];var text=document.getElementById('inText').value.trim();
+ if(!text && !attachment){document.getElementById('inText').focus();document.getElementById('hintr').textContent='Type a case or attach a file first.';return;}
+ var btn=document.getElementById('runBtn');btn.disabled=true;clearRun();
+ if(_t)clearInterval(_t);if(_r)clearTimeout(_r);
+ var box=document.getElementById('steps');
+ box.innerHTML=STEP_LABELS.map(function(s){return '<div class="step"><div class="sk">'+s[0]+'</div><div class="st">'+s[1]+'</div></div>';}).join('');
+ box.classList.add('on');
+ var chips=box.querySelectorAll('.step');var i=0;
+ _t=setInterval(function(){
+   if(i>0)chips[i-1].classList.remove('live'),chips[i-1].classList.add('done');
+   if(i>=chips.length){clearInterval(_t);_t=null;_r=setTimeout(function(){render(m,text);btn.disabled=false;},420);return;}
+   chips[i].classList.add('live');i++;
+ },560);
+});
+
+function analyse(m,text){
+ var t=(text||'').toLowerCase(),a=attachment;
+ var recv='<b>You gave:</b> '+(text?('“'+esc(text.slice(0,180))+(text.length>180?'…':'')+'”'):'(no text)')+(a?('  ·  <b>attached:</b> '+esc(a.name)):'');
+ var o={recv:recv,verdict:m.verdict,sections:[]};
+ if(m.k==='lumen'){
+   var kind=/mri|spine|disc/.test(t+(a?a.name:''))?'mri':/x-ray|chest|xray/.test(t+(a?a.name:''))?'xray':/cbc|wbc|hgb|platelet|blood/.test(t)?'cbc':'generic';
+   if(kind==='cbc'){o.sections.push(['Plain‑language summary','This looks like a <b>complete blood count (CBC)</b>. In plain terms: white‑cell count is a little above the usual range (often the body fighting something), haemoglobin is a little below (can relate to low iron or other causes), and platelets are within range. On its own this does not tell you a diagnosis.']);
+     o.sections.push(['Terms in your report',['<b>WBC</b> — white blood cells, immune response','<b>Hgb</b> — haemoglobin, oxygen‑carrying','<b>Platelets</b> — help blood clot'],'terms']);
+     o.sections.push(['Questions for your clinician',['“Is the high WBC likely an infection, and do I need follow‑up?”','“Should the low haemoglobin be worked up (iron studies)?”','“Do these change my current medications?”'],'list']);}
+   else if(kind==='mri'){o.sections.push(['Plain‑language summary','A “<b>mild disc bulge</b>” is a common, often age‑related finding. “Mild” and “bulge” (rather than herniation or nerve compression) usually read as lower‑concern — but only your clinician, with the whole picture and your symptoms, can say what it means for <i>you</i>.']);
+     o.sections.push(['Terms in your report',['<b>L4‑L5</b> — a lower‑spine level','<b>Disc bulge</b> — the cushion extends slightly','<b>Mild</b> — the reporter’s severity grade'],'terms']);
+     o.sections.push(['Questions for your clinician',['“Does this finding explain my symptoms?”','“Do I need physical therapy or follow‑up imaging?”','“Any activities to avoid?”'],'list']);}
+   else if(kind==='xray'){o.sections.push(['Plain‑language summary','A chest X‑ray report is the radiologist’s description of lungs, heart size, and bones. Lumen can translate the terminology, but the radiologist’s and your clinician’s reading is what counts — Lumen does not re‑read the image or diagnose.']);
+     o.sections.push(['Questions for your clinician',['“Is anything here new or changed from before?”','“Do I need a follow‑up scan?”'],'list']);}
+   else{o.sections.push(['Plain‑language summary','Lumen turns the terminology in your report or scan into everyday language and highlights what to ask about — it does <b>not</b> diagnose or grade severity. Attach the specific report and Lumen walks the terms line by line.']);
+     o.sections.push(['What Lumen surfaces',['A plain paragraph per section','Technical terms defined simply','A short list of questions for your clinician'],'list']);}
+ } else if(m.k==='aria'){
+   var red=/chest|pressure|short of breath|breath|faint|weak|slurred|numb|worst headache/.test(t);
+   o.sections.push(['What Aria heard','Aria listens for how you feel and checks it against a fixed safety list. '+(red?'Your words include a possible <b>red‑flag symptom</b>, so the guidance leans toward getting you seen quickly.':'Nothing you wrote trips an emergency red flag — but Aria still cannot examine you.')]);
+   if(red){o.verdict='Please seek care now';o.sections.push(['⚠ Safety check',['Chest pressure, shortness of breath, fainting, sudden weakness/numbness, slurred speech, or the “worst headache of your life” are reasons to <b>call 911 now</b>.','Aria will not wait or downplay these — the safety route cannot be turned off.'],'list']);}
+   else{o.sections.push(['Gentle guidance',['Sit down, take it slowly, keep water nearby.','If it worsens, or you get chest pain, breathlessness, or confusion, call your clinician or 911.','Aria can remind you about medications and check in again later.'],'list']);}
+   o.sections.push(['Aria would also',['Offer to notify your listed emergency contact','Log the check‑in for your care team (de‑identified)','Never name a disease or change a medication'],'list']);
+ } else if(m.k==='molec'){
+   if(/nodule|r91|benign/.test(t)){o.verdict='Do not appeal — flagged';
+     o.sections.push(['Root cause','The record describes a <b>solitary pulmonary nodule (R91.1)</b> with no confirmed malignancy. Comprehensive tumour profiling isn’t supported without a cancer diagnosis — so the denial may be <b>correct</b>.']);
+     o.sections.push(['Why MolecuIQ won’t appeal',['Asserting a cancer diagnosis the record doesn’t support would misrepresent it.','If malignancy is later confirmed, this becomes appealable with the correct code.'],'list']);}
+   else{o.verdict='Appeal — meritorious';
+     o.sections.push(['Root cause','A CO‑55 “experimental” denial on comprehensive genomic profiling for advanced NSCLC is a <b>coverage‑policy mismatch</b> — for NSCLC this profiling is standard of care per guideline.']);
+     o.sections.push(['Policy match & appeal',['Retrieved the NCCN NSCLC guideline (Category‑1 broad profiling before first‑line therapy).','Cross‑referenced FDA‑approved targeted therapies (EGFR→osimertinib, ALK→alectinib, ROS1→crizotinib).','Drafted a cited appeal aligned to CPT 81455.'],'list']);}
+   o.sections.push(['Compliance','De‑identified before any model call · every citation traceable · a specialist attests before submission.']);
+ } else if(m.k==='cadence'){
+   var d=/drop|fell|less|22|declin|down/.test(t);o.verdict=d?'Functional‑decline watch':'Within baseline';
+   o.sections.push(['What Cadence saw',d?'Walking time is trending <b>down</b> across the week while sitting rises. That is a <b>reviewable signal</b> for a human — not a diagnosis of any condition.':'Movement sits within this person’s own recent baseline — no trend to flag.']);
+   o.sections.push(['Honest limits',['Trained on adults 19–48 (UCI HAR) — re‑validated on the target cohort before clinical use.','Non‑diagnostic, and <b>not</b> a fall detector.','Signals prompt a human review; they never name a disease.'],'list']);
+ } else if(m.k==='tara'){
+   var ccm=/ccm|chronic care|20 min/.test(t);
+   o.sections.push(['Reasoned answer',ccm?'For <b>20 minutes</b> of non‑face‑to‑face chronic care management in a month, the base code is <b>CPT 99490</b> (first 20 min; requires 2+ chronic conditions and a care plan). Additional 20‑min blocks use <b>99439</b>.':'TARA answers by matching your question to the specific rule, then shows the trace — so you see the source, not just the conclusion.']);
+   o.sections.push(['How TARA got there',['READ — parsed the question and the code set','REASON — matched the governing rule / guideline','GOVERN — flagged that codes and thresholds change; verify against your payer'],'list']);
+   o.sections.push(['Caveat','Educational coding / clinical reasoning, not advice for a specific patient. Verify against current CMS / payer policy.']);
+ }
+ return o;
+}
+function render(m,text){
+ var o=analyse(m,text);
+ var secs=o.sections.map(function(s,idx){
+   var body=s[2]==='terms'?'<div class="term">'+s[1].map(function(x){return '<span class="chipx">'+x+'</span>';}).join('')+'</div>'
+     :s[2]==='list'?'<ul>'+s[1].map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'
+     :'<p>'+s[1]+'</p>';
+   return '<div class="rs"><h4><span class="n">0'+(idx+1)+'</span>'+s[0]+'</h4>'+body+'</div>';
+ }).join('');
+ var rep=document.getElementById('rep');
+ rep.innerHTML='<div class="rep-h"><span class="dot"></span><span class="rt">'+m.name+' — analysis</span><span class="rb">'+o.verdict+'</span></div>'+
+   '<div class="rep-b"><div class="rs"><h4><span class="n">00</span>What I received</h4><div class="recv">'+o.recv+'</div></div>'+secs+
+   '<div class="disc"><div class="dh">⚠ This is not a diagnosis</div><p>Ardia is an <b>AI assistant, not a doctor</b>. Nothing here is a medical diagnosis, prescription, or treatment plan. Talk to a licensed clinician about anything that concerns you. <b>If this is an emergency — chest pain, trouble breathing, weakness, or the worst headache of your life — call 911.</b></p></div>'+
+   '<div class="demo-note">Illustrative demo · generated in your browser to show the interface and output shape · it does not read your file’s contents · production runs under a signed BAA with clinician review.</div></div>';
+ rep.classList.add('on');rep.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+pick(0);
+</script>
+</body>
+</html>
