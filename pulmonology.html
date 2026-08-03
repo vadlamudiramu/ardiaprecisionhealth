@@ -129,13 +129,21 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -145,14 +153,14 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
 
 <div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Product &amp; Platform</div>
 
-<section class="hero">
-  <div class="hero-eyebrow">🫁 PULMOIQ — RESPIRATORY &amp; PULMONARY INTELLIGENCE</div>
+<section class="apx-grid-tex hero">
+  <div class="apx-grid-tex hero-eyebrow">🫁 PULMOIQ — RESPIRATORY &amp; PULMONARY INTELLIGENCE</div>
   <h1>Breathing is a <span>daily signal.</span><br>PulmoIQ listens to it.</h1>
   <p class="hero-sub">A Phase 1 respiratory module for asthma and COPD: it builds a longitudinal picture from retrieved history, everyday vitals, FDA-cleared home spirometry, and local air quality — and it powers the reimbursement lane for pulmonary function and sleep testing. Reimbursement-safe today; anything that <em>interprets</em> lung data to flag disease stays behind FDA clearance.</p>
   <div class="phase-pill">● Phase 1 · Detection · SaMD-gated</div>
 </section>
 
-<section class="section">
+<section class="apx-band-teal section">
   <div class="container">
     <div class="section-header">
       <span class="section-label">What PulmoIQ does</span>
@@ -168,7 +176,7 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
   </div>
 </section>
 
-<section class="section" style="background:#f8fafc">
+<section class="apx-band-sky section" style="background:#f8fafc">
   <div class="container">
     <div class="section-header">
       <span class="section-label">The regulatory line — a feature, not fine print</span>
@@ -189,7 +197,7 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
   </div>
 </section>
 
-<section class="section">
+<section class="apx-band-amber section">
   <div class="container">
     <div class="section-header">
       <span class="section-label">Connected to the Companion</span>
@@ -286,7 +294,7 @@ body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:
   </div>
 </section>
 
-<section class="cta-strip">
+<section class="apx-band-violet cta-strip">
   <h2>See PulmoIQ in the full ecosystem</h2>
   <p>Explore all seven modules, run the interactive tools, or book a working session with our team.</p>
   <div class="cta-strip-btns">

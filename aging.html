@@ -131,13 +131,21 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -145,7 +153,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 
 
 <!-- HERO -->
-<header class="hero"><div class="wrap">
+<header class="apx-grid-tex hero"><div class="wrap">
  <div class="eyebrow">● A flagship focus for Ardia</div>
  <h1>AI for the <span>aging population</span></h1>
  <p>The people who raised us deserve to grow older on their own terms — at home, safe, and never alone with a worry at 2am. Ardia is building a gentle, always-there layer of intelligence that helps older adults stay <b>safe, independent and connected</b>, and quietly brings family and clinicians in before a small change becomes a crisis.</p>
@@ -160,7 +168,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 <!-- ============================================================ -->
 <!-- SOLUTION BLUEPRINT — aging (generated + honesty-verified)   -->
 <!-- ============================================================ -->
-<section style="padding:72px 0 64px;background:linear-gradient(180deg,#c2410c0d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+<section style="padding:72px 0 64px;background:linear-gradient(180deg,#c2410c0d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0" class="apx-band-teal">
   <div style="max-width:1080px;margin:0 auto;padding:0 24px">
     <div style="text-align:center;margin-bottom:34px">
       <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#c2410c;background:#c2410c14;border:1px solid #c2410c3a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Solution blueprint · how we build it</span>
@@ -236,7 +244,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 </section>
 
 <!-- ARIA -->
-<section class="blk"><div class="wrap">
+<section class="apx-band-sky blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--blue)"></span><h2>Aria — the voice-first companion &amp; safety spine</h2><span class="eng" style="margin-left:auto">runs on Claude / Gemini under guardrails · no published accuracy yet</span></div>
  <p class="sec-sub">Aria is the warm voice an older adult actually talks to — a companion first, and a safety net always. She checks in gently each day, helps with medications and reminders, and listens for the handful of red flags where minutes matter. Aria is a <b>persona model</b> running on a frontier LLM (Claude Opus/Sonnet or Gemini Flash/Pro) behind hard guardrails; she has <b>no published accuracy yet</b> and never makes a diagnosis. What she reliably does is <b>notice, reassure, and escalate</b>.</p>
  <div class="grid2">
@@ -267,7 +275,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 </div></section>
 
 <!-- CADENCE -->
-<section class="blk"><div class="wrap">
+<section class="apx-band-amber blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--teal)"></span><h2>Cadence — the movement layer</h2><span class="eng trained" style="margin-left:auto">scikit-learn trained classifier · measured</span></div>
  <p class="sec-sub">Functional decline in older adults is rarely a single dramatic event — it's a slow, quiet drop in how much someone moves through their own day. Cadence is built to sense that drop <b>early</b>, from nothing more than a phone carried in a pocket — so a care team can act while the change is still small and reversible, rather than after a fall or a hospitalisation. It is <b>not a fall detector</b>; it watches the trend, not the moment.</p>
  <div class="grid2">
@@ -290,7 +298,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 </div></section>
 
 <!-- MODULES -->
-<section class="blk"><div class="wrap">
+<section class="apx-band-violet blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--green)"></span><h2>The elder-care modules</h2></div>
  <p class="sec-sub">Aria and Cadence are the companion and the movement layer; around them sits a clinical scaffold of nine focus areas, each mapped to instruments and programs clinicians already know. Every module is a <b>modelled care pathway</b> — a design target, not a shipped or validated product.</p>
  <div class="mod-grid">
@@ -307,7 +315,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size
 </div></section>
 
 <!-- VISION / CTA -->
-<section class="blk"><div class="wrap">
+<section class="apx-band-teal blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--amber)"></span><h2>Why this matters</h2></div>
  <p class="sec-sub">The number of older adults is rising faster than the number of people able to care for them. The answer can't be more alarms and more dashboards — it has to be something warmer: a system that pays quiet, patient attention, so that independence lasts longer and help arrives sooner. That's the entire point of Ardia's aging work — technology that lets a family worry a little less, and a parent stay themselves a little longer.</p>
  <div class="cta">

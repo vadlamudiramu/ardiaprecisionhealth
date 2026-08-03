@@ -48,13 +48,21 @@
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -171,7 +179,7 @@ footer b{color:var(--ink)}
   </div>
 </div></div>
 
-<header class="hero"><div class="wrap">
+<header class="apx-grid-tex hero"><div class="wrap">
   <div class="kick">Our vision</div>
   <h1>Auditable AI for the parts of healthcare <em>no one else automates</em></h1>
   <p class="lede">The industry chases the easy, high-volume middle. Ardia is built for the long tail — the high-stakes, hand-done work that gets written off or left undone — and every answer it gives can be traced, checked, and attested by a human.</p>
@@ -183,7 +191,7 @@ footer b{color:var(--ink)}
   </div>
 </div></header>
 
-<section id="problem"><div class="wrap">
+<section id="problem" class="apx-band-teal"><div class="wrap">
   <div class="sec-head">
     <div class="k">The problem</div>
     <h2>Healthcare's hardest work is the work nobody automates</h2>
@@ -211,7 +219,7 @@ footer b{color:var(--ink)}
   </div>
 </div></section>
 
-<section id="approach" style="background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--cream2) 55%,transparent))"><div class="wrap">
+<section id="approach" style="background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--cream2) 55%,transparent))" class="apx-band-sky"><div class="wrap">
   <div class="sec-head">
     <div class="k">Our approach</div>
     <h2>One governed core. A constellation of specialists.</h2>
@@ -246,7 +254,7 @@ footer b{color:var(--ink)}
   <p class="approach-note">All of it runs on <b>Google Cloud under a Business Associate Agreement</b>. One model is genuinely trained today (Cadence); the others are Ardia specialists built on a frontier model under our guardrails — and nothing here claims a production outcome.</p>
 </div></section>
 
-<section id="honest"><div class="wrap">
+<section id="honest" class="apx-band-amber"><div class="wrap">
   <div class="sec-head">
     <div class="k">Where we are</div>
     <h2>Where we are — honestly</h2>
@@ -265,7 +273,7 @@ footer b{color:var(--ink)}
   </div>
 </div></section>
 
-<section id="principles"><div class="wrap">
+<section id="principles" class="apx-band-violet"><div class="wrap">
   <div class="sec-head center">
     <div class="k">Principles</div>
     <h2>The rules we build inside</h2>
@@ -295,7 +303,7 @@ footer b{color:var(--ink)}
   </div>
 </div></section>
 
-<section class="close"><div class="wrap">
+<section class="apx-band-teal close"><div class="wrap">
   <div class="box">
     <div class="kick" style="color:var(--coral)">See it work</div>
     <h2>Run a model and read the audit trail</h2>

@@ -153,13 +153,21 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -167,16 +175,16 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 
 
 <!-- HERO -->
-<header class="hero"><div class="wrap">
+<header class="apx-grid-tex hero"><div class="wrap">
  <div class="kick">◧ Ardia Models · reimbursement intelligence</div>
  <h1>Meridian</h1>
  <div class="role">The PAMA rate-cliff model for independent labs</div>
  <p>PAMA lets CMS cut Clinical Laboratory Fee Schedule rates by up to 15% a year across 2027, 2028 and 2029. Meridian is a deterministic model of that cliff: enter your real test mix and it compounds the statutory cuts, year by year, and shows exactly how much revenue is at risk — entirely in the browser, with no PHI and no clinical data.</p>
- <div class="hero-cta">
+ <div class="apx-grid-tex hero-cta">
   <a class="btn btn-p" href="#calc">Run the calculator ↓</a>
   <a class="btn btn-s" href="models.html">All models</a>
  </div>
- <div class="hero-chips">
+ <div class="apx-grid-tex hero-chips">
   <div class="hchip"><div class="v">15<small>%/yr</small></div><div class="l">Statutory cut ceiling · 2027–2029</div></div>
   <div class="hchip"><div class="v">3</div><div class="l">Compounding cut years modelled</div></div>
   <div class="hchip"><div class="v">$10k<small>/day</small></div><div class="l">Reporting-penalty ceiling checked</div></div>
@@ -185,7 +193,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 </div></header>
 
 <!-- CAPABILITIES -->
-<section class="block"><div class="wrap">
+<section class="apx-band-teal block"><div class="wrap">
  <div class="center"><div class="eyebrow">What it does</div><h2>Two agents, one exposure number</h2>
   <p>Meridian is not an LLM — it's a deterministic financial model. It applies the statute the way CMS will, so the number it hands a lab CFO is one they can plan against.</p></div>
  <div class="cap"><div class="num">01</div><div>
@@ -237,7 +245,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 </div></section>
 
 <!-- DATA / METHODOLOGY -->
-<section class="block"><div class="wrap">
+<section class="apx-band-sky block"><div class="wrap">
  <div class="center"><div class="eyebrow">Where the numbers come from</div><h2>Deterministic, and sourced</h2>
   <p>No forecast magic. Meridian applies a public statute to public rates and the mix you enter — so the same inputs always give the same answer.</p></div>
  <div class="cap"><div class="num">◆</div><div>
@@ -249,7 +257,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 </div></section>
 
 <!-- HONESTY -->
-<section class="block" style="padding-top:0"><div class="wrap">
+<section class="apx-band-amber block" style="padding-top:0"><div class="wrap">
  <div class="honest">
   <h3>⚠ What this is, and what it isn't</h3>
   <p>Meridian is a <b>planning model</b>, not the CMS fee schedule and not financial advice. The seed rates are illustrative 2025 CLFS figures; the real cuts, statutory floors, and code-level exceptions are set by CMS and can differ from the flat ceiling modelled here.</p>
@@ -260,7 +268,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 <!-- ============================================================ -->
 <!-- SOLUTION BLUEPRINT — pama (generated + honesty-verified)   -->
 <!-- ============================================================ -->
-<section style="padding:72px 0 64px;background:linear-gradient(180deg,#e11d480d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0">
+<section style="padding:72px 0 64px;background:linear-gradient(180deg,#e11d480d,#f8fafc 40%,#ffffff);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0" class="apx-band-violet">
   <div style="max-width:1080px;margin:0 auto;padding:0 24px">
     <div style="text-align:center;margin-bottom:34px">
       <span style="display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Sora',system-ui;letter-spacing:1.3px;text-transform:uppercase;color:#e11d48;background:#e11d4814;border:1px solid #e11d483a;border-radius:20px;padding:6px 14px;margin-bottom:14px">Solution blueprint · how we build it</span>
@@ -325,11 +333,11 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
   </div>
 </section>
 
-<section class="finalcta"><div class="wrap">
+<section class="apx-band-teal finalcta"><div class="wrap">
  <div class="eyebrow">One model in the constellation</div>
  <h2>See where Meridian fits</h2>
  <p>Meridian is the reimbursement layer for independent labs — alongside MolecuIQ's denial recovery. Explore the full model lineup or talk with the team.</p>
- <div class="hero-cta" style="justify-content:center">
+ <div class="apx-grid-tex hero-cta" style="justify-content:center">
   <a class="btn btn-p" href="models.html">All models →</a>
   <a class="btn btn-s" href="contact.html" style="color:var(--txt);border-color:var(--line2)">Book a demo</a>
  </div>

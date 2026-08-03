@@ -1114,13 +1114,21 @@ body { overflow-x: hidden; }
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -1130,7 +1138,7 @@ body { overflow-x: hidden; }
 <div id="page-hiw" >
 <div class="back-nav-wrap"><div class="container"><span class="back-nav" onclick="window.location='index.html'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back to Home</span></div></div>
 
-<div class="page-hero">
+<div class="apx-grid-tex page-hero">
   <div class="grid"></div>
   <div class="container ph-inner">
     <span class="ph-tag">How It Works</span>
@@ -1139,7 +1147,7 @@ body { overflow-x: hidden; }
   </div>
 </div>
 
-<section class="hiw-process" style="background:var(--ln)">
+<section class="apx-band-teal hiw-process" style="background:var(--ln)">
   <div class="container">
     <div class="sh reveal">
       <span class="section-tag-l">The 6-Step Process</span>
@@ -1442,7 +1450,7 @@ body { overflow-x: hidden; }
 </section>
 
 <!-- Integrations -->
-<section class="hiw-integrations">
+<section class="apx-band-sky hiw-integrations">
   <div class="container">
     <div class="sh reveal">
       <span class="section-tag-d">Integrations</span>
@@ -1459,7 +1467,7 @@ body { overflow-x: hidden; }
 </section>
 
 <!-- Security -->
-<section class="hiw-security">
+<section class="apx-band-amber hiw-security">
   <div class="container">
     <div class="sh reveal">
       <span class="section-tag-l">Compliance &amp; Security</span>

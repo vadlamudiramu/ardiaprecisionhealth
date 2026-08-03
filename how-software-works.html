@@ -184,13 +184,21 @@ a{color:inherit;text-decoration:none}
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -200,13 +208,13 @@ a{color:inherit;text-decoration:none}
 
 
 <!-- ── HERO ── -->
-<section class="hero">
+<section class="apx-grid-tex hero">
   <div class="container">
     <div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:0 0 16px">Product &amp; Platform</div>
-    <div class="hero-badge"><i class="fas fa-cogs"></i> End-to-End Platform Walkthrough</div>
+    <div class="apx-grid-tex hero-badge"><i class="fas fa-cogs"></i> End-to-End Platform Walkthrough</div>
     <h1 class="hero-title">How Ardia Works —<br><span>From Denied Claim to Recovered Cash</span></h1>
     <p class="hero-sub">A complete technical and operational walkthrough of every stage in the Ardia Precision Health platform — from raw EDI data ingestion through AI-powered appeal generation to final payment posting. Six steps. Fully autonomous.</p>
-    <div class="hero-pills">
+    <div class="apx-grid-tex hero-pills">
       <span class="hpill"><i class="fas fa-circle"></i> ANSI X12 EDI Ingestion</span>
       <span class="hpill"><i class="fas fa-circle"></i> TARA Engine</span>
       <span class="hpill"><i class="fas fa-circle"></i> CMS LCD/NCD Matching</span>
@@ -214,7 +222,7 @@ a{color:inherit;text-decoration:none}
       <span class="hpill"><i class="fas fa-circle"></i> ERA Payment Posting</span>
       <span class="hpill"><i class="fas fa-circle"></i> TX SB 1188 Compliant</span>
     </div>
-    <div class="hero-scroll">
+    <div class="apx-grid-tex hero-scroll">
       <div class="scroll-arrow"><span>Scroll to explore</span><i class="fas fa-chevron-down"></i></div>
     </div>
   </div>
@@ -479,7 +487,7 @@ a{color:inherit;text-decoration:none}
 </section>
 
 <!-- ── ARCHITECTURE ── -->
-<section style="background:#f8fafb;padding:80px 0" id="arch-section">
+<section style="background:#f8fafb;padding:80px 0" id="arch-section" class="apx-band-teal">
   <div class="container">
     <div class="sh" style="padding-top:0">
       <div class="stag">Technical Architecture</div>
@@ -596,7 +604,7 @@ a{color:inherit;text-decoration:none}
 </div>
 
 <!-- ── COMPLIANCE ── -->
-<section style="background:#fff;padding:80px 0" id="compliance">
+<section style="background:#fff;padding:80px 0" id="compliance" class="apx-band-sky">
   <div class="container">
     <div class="sh" style="padding-top:0">
       <div class="stag">Regulatory Compliance</div>
@@ -639,7 +647,7 @@ a{color:inherit;text-decoration:none}
 </section>
 
 <!-- ── CTA ── -->
-<section class="cta-section">
+<section class="apx-band-amber cta-section">
   <h2>Ready to see it in action?</h2>
   <p>Watch the full end-to-end flow on a modelled denied toxicology claim in our interactive demo — no signup required.</p>
   <div class="cta-btns">

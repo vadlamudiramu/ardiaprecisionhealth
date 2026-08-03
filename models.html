@@ -157,13 +157,21 @@ footer b{color:var(--mut)}
 }
 </style>
 <style id="apx-depth-css">
-/* depth on current palette — kill flat white without clobbering designed sections */
+/* depth on current palette — readable colour-field bands (dark text stays dark) */
+.apx-band-teal{background:linear-gradient(180deg,#f0fdfa,#e5fbf4)!important}
+.apx-band-sky{background:linear-gradient(180deg,#eff6ff,#e2effe)!important}
+.apx-band-amber{background:linear-gradient(180deg,#fff8ec,#fdf1d8)!important}
+.apx-band-violet{background:linear-gradient(180deg,#f7f4ff,#ede7fe)!important}
 .apx-band-tint{background:linear-gradient(180deg,#f4f9fd,#eef4fb)!important}
 .apx-band-mist{background:radial-gradient(120% 90% at 15% 0%,#eafaf5,transparent 60%),#f6fafe!important}
-.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;color:#e8eef6!important}
-.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3{color:#fff!important}
+/* proper dark band — forces ALL text light so nothing becomes unreadable */
+.apx-band-navy{background:linear-gradient(160deg,#0a1628,#0e2040 60%,#0a1c34)!important;border-color:rgba(255,255,255,.08)!important}
+.apx-band-navy,.apx-band-navy p,.apx-band-navy li,.apx-band-navy span,.apx-band-navy h1,.apx-band-navy h2,.apx-band-navy h3,.apx-band-navy h4,.apx-band-navy h5,.apx-band-navy td,.apx-band-navy th,.apx-band-navy strong,.apx-band-navy div,.apx-band-navy a{color:#e6edf7!important}
+.apx-band-navy .apx-nav,.apx-band-navy .apx-nav *{color:inherit!important}
+/* subtle grid texture for hero sections */
 .apx-grid-tex{position:relative}
-.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:.6}
+.apx-grid-tex:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.055) 1px,transparent 1px);background-size:54px 54px;pointer-events:none;opacity:.6;z-index:0}
+.apx-grid-tex>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -185,7 +193,7 @@ footer b{color:var(--mut)}
 </div></header>
 
 <!-- ROSTER -->
-<section class="blk"><div class="wrap">
+<section class="apx-band-teal blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--teal)"></span><h2>The roster, by focus</h2></div>
  <p class="sec-sub">Ten models across four focus areas plus a governed core. Each carries an honest status badge: <span class="badge b-green">● measured</span> = real numbers you can reproduce, <span class="badge b-blue">● live demo</span> = runs today on a frontier model under guardrails (watchable, no published accuracy), <span class="badge b-amber">◐ modelled target</span> = specified and being built, not yet measured.</p>
 
@@ -331,7 +339,7 @@ footer b{color:var(--mut)}
 </div></section>
 
 <!-- AI TOOLS -->
-<section class="blk apx-band-tint"><div class="wrap">
+<section class="apx-band-sky blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--blue)"></span><h2>AI tools we evaluated &amp; use</h2></div>
  <p class="sec-sub">The persona models are not a single home-grown neural network — they run on frontier models under guardrails, with one classifier we trained ourselves. Here is exactly which tool does what, and how far each is proven.</p>
  <div class="card">
@@ -349,7 +357,7 @@ footer b{color:var(--mut)}
 </div></section>
 
 <!-- FRAMEWORKS WE'RE BUILDING -->
-<section class="blk apx-band-mist"><div class="wrap">
+<section class="apx-band-amber blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--navy)"></span><h2>Frameworks we're building</h2></div>
  <p class="sec-sub"><b>What we're building (Phase 1):</b> the ingestion-and-adjudication <b>spine</b> that turns a lab's raw claims traffic into governed, auditable decisions. Four pieces, built in order.</p>
  <div class="spine">
@@ -374,7 +382,7 @@ footer b{color:var(--mut)}
 </div></section>
 
 <!-- CTA -->
-<section class="blk apx-band-tint"><div class="wrap">
+<section class="apx-band-violet blk"><div class="wrap">
  <div class="sec-head"><span class="dot" style="background:var(--teal)"></span><h2>See the models for yourself</h2></div>
  <p class="sec-sub">Don't take the roster on faith — watch the models run, read the measured numbers, and try the deterministic math live.</p>
  <div class="cta-row">
