@@ -1168,7 +1168,7 @@ body { overflow-x: hidden; }
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #0ea5e9">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Denial Rate</div>
       <div id="kpi-denial" style="font-family:Sora,sans-serif;font-size:28px;font-weight:800;color:#1e2f4a">6.2%</div>
-      <div style="font-size:11px;color:#059669;margin-top:4px"><i class="fas fa-arrow-down"></i> Down from 38% pre-Ardia</div>
+      <div style="font-size:11px;color:#059669;margin-top:4px"><i class="fas fa-arrow-down"></i> Down from 41% pre-Ardia</div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;border-top:3px solid #f59e0b">
       <div style="font-size:11px;font-weight:700;color:#7a93b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Manual Appeal Success Rate</div>
@@ -1232,7 +1232,7 @@ body { overflow-x: hidden; }
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
       <div style="font-family:Sora,sans-serif;font-size:17px;font-weight:800;color:#1e2f4a">Denial Queue <span style="background:#ef4444;color:#fff;border-radius:20px;padding:3px 10px;font-size:11px;margin-left:8px">12 Active</span></div>
       <div style="display:flex;gap:8px">
-        <span onclick="autoAppealAll(this)" style="font-size:11.5px;background:#f0fdf9;border:1.5px solid #0d7c6e;color:#0d7c6e;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;transition:all 0.2s">⚡ Auto-Appeal All</span>
+        <span onclick="autoAppealAll(this)" style="font-size:11.5px;background:#f0fdf9;border:1.5px solid #0d7c6e;color:#0d7c6e;padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:700;transition:all 0.2s">⚡ Draft All Appeals</span>
         <span onclick="exportCSV()" style="font-size:11.5px;background:#f8fafc;border:1px solid #dce8f2;color:#4a6285;padding:6px 14px;border-radius:8px;cursor:pointer;transition:all 0.2s">Export CSV</span>
       </div>
     </div>
@@ -1280,7 +1280,7 @@ body { overflow-x: hidden; }
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;text-align:center;border-top:3px solid #f59e0b">
       <div style="font-family:Sora,sans-serif;font-size:32px;font-weight:800;color:#d97706">$500K</div>
       <div style="font-size:12px;font-weight:700;color:#1e2f4a;margin-top:8px">Recovered in 90 Days</div>
-      <div style="font-size:11px;color:#7a93b0;margin-top:4px">First pilot quarter result</div>
+      <div style="font-size:11px;color:#7a93b0;margin-top:4px">Illustrative modelled scenario — not a real pilot result</div>
     </div>
     <div style="background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:20px;text-align:center;border-top:3px solid #8b5cf6">
       <div style="font-family:Sora,sans-serif;font-size:32px;font-weight:800;color:#7c3aed">15%</div>
@@ -1338,14 +1338,14 @@ body { overflow-x: hidden; }
         <div style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:14px" onclick="window.location='index.html'">
           <img src="favicon.png" alt="Ardia Precision Health" style="width:36px;height:36px;object-fit:contain">
           <div>
-            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">HEALTH</span></div>
+            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">PRECISION HEALTH</span></div>
             <div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px">Precision Revenue Intelligence</div>
           </div>
         </div>
-        <p>The Autonomous Clinical Proof Engine. From denied claim to cash — autonomously. Building the AI-native Financial Adversary Engine for independent labs, ACOs, and behavioral health providers across DFW and the United States.</p>
+        <p>Governed clinical-reasoning AI — from a denied claim to a cited, review-ready appeal that a licensed professional reviews and submits. Building the AI-native Financial Adversary Engine for independent labs, ACOs, and behavioral health providers across DFW and the United States.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
           <span class="fbadge">TX SB 1188</span><span class="fbadge">TRAIGA</span>
-          <span class="fbadge">HIPAA</span><span class="fbadge">FHIR R4</span><span class="fbadge">FCA Safe</span>
+          <span class="fbadge">HIPAA-ready</span><span class="fbadge">FHIR R4</span><span class="fbadge">FCA-aware audit trail</span>
         </div>
       </div>
       <div class="footer-col">
@@ -1387,7 +1387,7 @@ body { overflow-x: hidden; }
       </div>
     </div>
     <div class="footer-bottom">
-      <div>&copy; 2026 Ardia Precision Health &bull; Ardia Precision Health LLC &bull; Delaware LLC &bull; Founded January 2026 &bull; Dallas-Fort Worth, TX</div>
+      <div>&copy; 2026 Ardia Precision Health &bull; Ardia Precision Health, Inc. &bull; Delaware C-Corporation &bull; Founded January 2026 &bull; Dallas-Fort Worth, TX</div>
       <div style="font-size:11px;color:rgba(255,255,255,0.2)">Not a licensed medical provider. AI outputs require licensed professional review per TX SB 1188.</div>
     </div>
   </div>
@@ -1745,20 +1745,20 @@ function autoAppealAll(btn) {
         });
       });
       openDqModal(
-        '⚡ Auto-Appeal Complete',
-        '12 appeals filed · Estimated recovery: $47,280',
+        '⚡ Appeal Drafts Ready',
+        '12 appeal drafts ready for review · Estimated recovery: $47,280',
         `<div style="display:flex;flex-direction:column;gap:14px">
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-            <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#059669">12</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Appeals Filed</div></div>
+            <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#059669">12</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Appeals Drafted</div></div>
             <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#0d7c6e">$47,280</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Total at Stake</div></div>
             <div style="background:#f0fdf9;border-radius:10px;padding:16px;text-align:center"><div style="font-size:24px;font-weight:800;color:#0d7c6e">15%</div><div style="font-size:11px;color:#4a6285;margin-top:4px">Contingency — paid only on recovery</div></div>
           </div>
           <div style="background:#f8fafc;border:1px solid #dce8f2;border-radius:10px;padding:16px">
             <div style="font-size:12px;font-weight:700;color:#1e2f4a;margin-bottom:10px">What happens next</div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">1</span><span style="font-size:12.5px;color:#4a6285">AI-generated appeal briefs delivered to Palmetto GBA within 24 hours</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">1</span><span style="font-size:12.5px;color:#4a6285">AI-drafted appeal briefs prepared for licensed review before submission to Palmetto GBA</span></div>
               <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">2</span><span style="font-size:12.5px;color:#4a6285">Payer review period: 30–60 days per CMS standards</span></div>
-              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span><span style="font-size:12.5px;color:#4a6285">ERA payments auto-posted · outcome logged to TARA's denial-pattern library · full audit trail</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="background:#0d7c6e;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span><span style="font-size:12.5px;color:#4a6285">ERA payments reconciled once posted · outcome logged to TARA's denial-pattern library · full audit trail</span></div>
             </div>
           </div>
           <div style="display:flex;gap:10px;justify-content:flex-end">

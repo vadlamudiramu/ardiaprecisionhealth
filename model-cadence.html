@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
 <title>Cadence — Movement-Intelligence Model | Ardia</title>
-<meta name="description" content="Cadence: Ardia's movement-intelligence model. Recognises activity and senses functional decline from a smartphone. 95.5% held-out accuracy on the UCI HAR benchmark — with the honest limitation stated.">
+<meta name="description" content="Cadence: Ardia's movement-intelligence model. Recognises activity and senses functional decline from a smartphone. 95.45% held-out accuracy on the UCI HAR benchmark — with the honest limitation stated.">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
@@ -192,7 +192,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
   <a class="btn btn-s" href="model-pama.html">Run a live tool</a>
  </div>
  <div class="hero-chips">
-  <div class="hchip"><div class="v">95.5<small>%</small></div><div class="l">Held-out accuracy · unseen people</div></div>
+  <div class="hchip"><div class="v">95.45<small>%</small></div><div class="l">Held-out accuracy · unseen people</div></div>
   <div class="hchip"><div class="v">0.954</div><div class="l">Macro-F1 across 6 activities</div></div>
   <div class="hchip"><div class="v">99.6<small>%</small></div><div class="l">Active / Sedentary / Resting</div></div>
   <div class="hchip"><div class="v">10,299</div><div class="l">Labelled windows · public data</div></div>
@@ -209,8 +209,8 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
   <div class="tags"><span class="tag">6-class classifier</span><span class="tag">561 engineered features</span><span class="tag">on-device inference</span></div></div></div>
  <div class="cap"><div class="num">02</div><div>
   <h3>Deterioration signal</h3>
-  <p>Compares recent activity against the person's own rolling baseline and flags a meaningful, sustained drop — the kind of change that can precede a fall or an illness. An unsupervised anomaly detector surfaces unusual movement patterns for a caregiver or clinician to review. It is a <b>signal for a human</b>, never a diagnosis.</p>
-  <div class="tags"><span class="tag">personal baseline</span><span class="tag">anomaly detection</span><span class="tag">caregiver-facing</span></div></div></div>
+  <p>Compares recent activity against the person's own rolling baseline and flags a meaningful, sustained drop — the kind of change that can precede a fall or an illness. An unsupervised anomaly detector surfaces unusual movement patterns for a caregiver or clinician to review. This decline-detection layer is <b>modelled and in-build</b> — a heuristic, not a trained or clinically-validated threshold like Cadence's measured activity classifier. It is a <b>signal for a human</b>, never a diagnosis.</p>
+  <div class="tags"><span class="tag">personal baseline</span><span class="tag">anomaly detection</span><span class="tag">modelled · in-build</span><span class="tag">caregiver-facing</span></div></div></div>
  <div class="cap"><div class="num">03</div><div>
   <h3>Active / Sedentary / Resting</h3>
   <p>Rolls the six activities into the three states the product actually tracks — active, sedentary, resting — for daily movement summaries, inactivity detection and the gentle nudges Aria delivers. This mapping is where the model is most accurate, at <b>99.6%</b>.</p>
@@ -239,7 +239,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
  <div class="bench-grid">
   <div class="card"><h3>Accuracy vs. baselines</h3><div class="sub">6-class, held-out subjects</div>
    <div class="bars">
-    <div class="bar-row"><span class="lab">Cadence</span><div class="bar-track"><div class="bar-fill" style="width:95.5%"></div></div><span class="val">95.5%</span></div>
+    <div class="bar-row"><span class="lab">Cadence</span><div class="bar-track"><div class="bar-fill" style="width:95.45%"></div></div><span class="val">95.45%</span></div>
     <div class="bar-row"><span class="lab">Majority class</span><div class="bar-track"><div class="bar-fill base" style="width:18.2%"></div></div><span class="val">18.2%</span></div>
     <div class="bar-row"><span class="lab">Random guess</span><div class="bar-track"><div class="bar-fill base" style="width:16.7%"></div></div><span class="val">16.7%</span></div>
    </div>
@@ -290,7 +290,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
 <section class="block"><div class="wrap">
  <div class="honest">
   <h3>⚠ The honest limitation — stated, not buried</h3>
-  <p>UCI HAR's volunteers are aged <b>19–48</b>. Older adults move differently: slower gait, shorter strides, more variable posture. So this 95.5% proves the <b>method</b> and the pipeline — it does <b>not</b> prove Cadence is 95.5% accurate on a frail 82-year-old, and we will not imply that it does.</p>
+  <p>UCI HAR's volunteers are aged <b>19–48</b>. Older adults move differently: slower gait, shorter strides, more variable posture. So this 95.45% proves the <b>method</b> and the pipeline — it does <b>not</b> prove Cadence is 95.45% accurate on a frail 82-year-old, and we will not imply that it does.</p>
   <p>Before Cadence is deployed to older adults it will be <b>re-trained and re-validated on older-adult movement data</b>, under a BAA, and re-measured on the same subject-independent protocol. This page shows exactly where the evidence stands today: a strong, reproducible foundation on public data, with the gap to production named out loud. Ardia is pre-revenue; there are no production or clinical-outcome results, and none are claimed here.</p>
  </div>
 </div></section>
@@ -304,7 +304,7 @@ footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-siz
   <a class="btn btn-s" href="contact.html" style="color:var(--txt);border-color:var(--line2)">Book a demo</a>
  </div>
 </div></section>
-<footer><div class="wrap foot-in"><div>Ardia Precision Health LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · Cadence trained on UCI HAR (CC BY 4.0)</div></div></footer>
+<footer><div class="wrap foot-in"><div>Ardia Precision Health, Inc. · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · Cadence trained on UCI HAR (CC BY 4.0)</div></div></footer>
 
 <script>
 /* confusion matrix heatmap from the real held-out run */

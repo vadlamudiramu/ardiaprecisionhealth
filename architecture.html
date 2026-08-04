@@ -1144,7 +1144,7 @@ body { overflow-x: hidden; }
   <div class="container ph-inner">
     <span class="ph-tag">Technical Architecture</span>
     <h1 class="ph-title">Clinical Intelligence Engine<br><span class="gradient-text">Architecture</span></h1>
-    <p class="ph-sub">A HIPAA-compliant AI platform built on Google Cloud Platform (Vertex AI, Cloud Healthcare API) with multi-layer clinical reasoning, payer-rules intelligence, and FHIR-native EHR integration.</p>
+    <p class="ph-sub">A HIPAA-ready AI platform built on Google Cloud Platform (Vertex AI, Cloud Healthcare API) with multi-layer clinical reasoning, payer-rules intelligence, and FHIR-native EHR integration.</p>
   </div>
 </div>
 
@@ -1155,7 +1155,7 @@ body { overflow-x: hidden; }
     <div class="arch-layer reveal">
       <div class="arch-layer-title"><i class="fas fa-database" style="color:#14b8a6"></i> Layer 1 · Data Ingestion &amp; Sources</div>
       <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">📄</div><h4>EDI Claims Data</h4><p>ANSI X12 835/837 denial files. Real-time clearinghouse API connections. Bulk historical upload.</p><div class="ab-tags"><span class="ab-tag">835 ERA</span><span class="ab-tag">837P/I</span><span class="ab-tag">Real-time</span></div></div>
+        <div class="arch-block"><div class="ab-icon">📄</div><h4>EDI Claims Data</h4><p>ANSI X12 835/837 denial files. Planned real-time clearinghouse API connections. Bulk historical upload.</p><div class="ab-tags"><span class="ab-tag">835 ERA</span><span class="ab-tag">837P/I</span><span class="ab-tag">Real-time</span></div></div>
         <div class="arch-block"><div class="ab-icon">🏥</div><h4>EHR Clinical Data</h4><p>SMART-on-FHIR R4 API for physician notes, Rx history, lab orders, diagnoses.</p><div class="ab-tags"><span class="ab-tag">FHIR R4</span><span class="ab-tag">Epic</span><span class="ab-tag">Cerner</span></div></div>
         <div class="arch-block"><div class="ab-icon">🧬</div><h4>Genomic &amp; Lab Results</h4><p>HL7 v2.x LIS interfaces. VCF/FASTQ genomic data parsing. Structured result ingestion.</p><div class="ab-tags"><span class="ab-tag">HL7 v2</span><span class="ab-tag">VCF</span><span class="ab-tag">ORU</span></div></div>
         <div class="arch-block"><div class="ab-icon">💊</div><h4>Pharmacy &amp; PBM Data</h4><p>NCPDP SCRIPT prescription data. PBM formulary feeds. Drug-gene interaction database.</p><div class="ab-tags"><span class="ab-tag">NCPDP</span><span class="ab-tag">RxNorm</span><span class="ab-tag">SCRIPT</span></div></div>
@@ -1187,8 +1187,8 @@ body { overflow-x: hidden; }
     <div class="arch-layer reveal">
       <div class="arch-layer-title"><i class="fas fa-file-alt" style="color:#14b8a6"></i> Layer 4 · Output &amp; Workflow</div>
       <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">✍️</div><h4>Recovery Narrative Generator</h4><p>Payer-formatted appeal letters with clinical reasoning, evidence citations, and structured attestation. Generated in &lt;90 seconds per claim.</p></div>
-        <div class="arch-block"><div class="ab-icon">🔄</div><h4>Workflow Orchestrator</h4><p>Configurable reviewer queues, auto-submit rules, deadline tracking, and escalation workflows. Runs on Cloud Run.</p></div>
+        <div class="arch-block"><div class="ab-icon">✍️</div><h4>Recovery Narrative Generator</h4><p>Payer-formatted appeal letters with clinical reasoning, evidence citations, and structured attestation. Generated in &lt;90 seconds per claim — modelled target vs 2–4 hrs manual.</p></div>
+        <div class="arch-block"><div class="ab-icon">🔄</div><h4>Workflow Orchestrator</h4><p>Configurable reviewer queues, reviewer-approval rules, deadline tracking, and escalation workflows. Runs on Cloud Run.</p></div>
         <div class="arch-block"><div class="ab-icon">📊</div><h4>Revenue Analytics Module</h4><p>Recovery tracking, ROI modelling, denial-pattern analysis, and payer performance benchmarking.</p></div>
         <div class="arch-block"><div class="ab-icon">🔌</div><h4>Clearinghouse Submission</h4><p>Direct integration with major clearinghouses for electronic appeal submission. Paper submission PDF generation for payers requiring it.</p></div>
       </div>
@@ -1198,10 +1198,10 @@ body { overflow-x: hidden; }
     <div class="arch-layer reveal">
       <div class="arch-layer-title"><i class="fas fa-cloud" style="color:#14b8a6"></i> Layer 5 · Infrastructure &amp; Platform</div>
       <div class="arch-blocks cols-4">
-        <div class="arch-block"><div class="ab-icon">☁️</div><h4>Cloud Healthcare API &amp; Healthcare Data Engine</h4><p>HIPAA-eligible GCP services (BAA signed). FHIR R4 store native APIs. US data residency in us-central1.</p><div class="ab-tags"><span class="ab-tag">Cloud Healthcare API</span><span class="ab-tag">Healthcare Data Engine</span><span class="ab-tag">FHIR R4</span></div></div>
+        <div class="arch-block"><div class="ab-icon">☁️</div><h4>Cloud Healthcare API &amp; Healthcare Data Engine</h4><p>HIPAA-eligible GCP services (BAA-ready). FHIR R4 store native APIs. US data residency in us-central1.</p><div class="ab-tags"><span class="ab-tag">Cloud Healthcare API</span><span class="ab-tag">Healthcare Data Engine</span><span class="ab-tag">FHIR R4</span></div></div>
         <div class="arch-block"><div class="ab-icon">🌐</div><h4>Google Cloud Platform</h4><p>GCP Healthcare API. BigQuery for analytics. Vertex AI for custom ML models. HIPAA-eligible services.</p><div class="ab-tags"><span class="ab-tag">GCP</span><span class="ab-tag">BigQuery</span><span class="ab-tag">Vertex AI</span></div></div>
-        <div class="arch-block"><div class="ab-icon">🔐</div><h4>Security Stack</h4><p>AES-256 at rest. TLS 1.3 in transit. Zero-trust network. SOC 2 Type II target (Month 18). HITRUST roadmap.</p><div class="ab-tags"><span class="ab-tag">Zero Trust</span><span class="ab-tag">SOC 2</span><span class="ab-tag">HITRUST</span></div></div>
-        <div class="arch-block" style="border-color:rgba(180,83,9,0.4);background:rgba(180,83,9,0.08)"><div class="ab-icon">⚛️</div><h4>Quantum-Ready Layer (Phase 4)</h4><p>Architecture designed for quantum-classical hybrid computing. Post-quantum cryptography. Q2 2032+ target for quantum ML model integration.</p><div class="ab-tags"><span class="ab-tag">Post-Quantum Crypto</span><span class="ab-tag">QML Ready</span><span class="ab-tag">2032+</span></div></div>
+        <div class="arch-block"><div class="ab-icon">🔐</div><h4>Security Stack</h4><p>AES-256 at rest. TLS 1.3 in transit. Zero-trust network. SOC 2 Type II target (Month 18). HITRUST roadmap.</p><div class="ab-tags"><span class="ab-tag">Zero Trust</span><span class="ab-tag">SOC 2 (planned)</span><span class="ab-tag">HITRUST</span></div></div>
+        <div class="arch-block" style="border-color:rgba(180,83,9,0.4);background:rgba(180,83,9,0.08)"><div class="ab-icon">⚛️</div><h4>Upgrade-Ready Layer (Phase 4)</h4><p>Architecture designed for quantum-classical hybrid computing. Post-quantum cryptography. Q2 2032+ target for quantum ML model integration.</p><div class="ab-tags"><span class="ab-tag">Post-Quantum Crypto</span><span class="ab-tag">QML Ready</span><span class="ab-tag">2032+</span></div></div>
       </div>
     </div>
   </div>
@@ -1239,7 +1239,7 @@ body { overflow-x: hidden; }
         <div style="background:#fff;border:2px solid #b2d8d1;border-radius:14px;padding:22px;border-top:4px solid #0ea5e9">
           <div style="width:36px;height:36px;background:linear-gradient(135deg,#0ea5e9,#38bdf8);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">5</div>
           <div style="font-family:Sora,sans-serif;font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Narrative &amp; Appeal Assembly</div>
-          <div style="font-size:12px;color:#4a6285;line-height:1.65">Structured appeal letter generated. Evidence package assembled. Confidence score calculated. High-confidence appeals flagged for auto-submit.</div>
+          <div style="font-size:12px;color:#4a6285;line-height:1.65">Structured appeal letter generated. Evidence package assembled. Confidence score calculated. High-confidence appeals queued for licensed reviewer approval before submission.</div>
         </div>
         <div style="background:linear-gradient(135deg,#0d7c6e,#0b6b60);border:2px solid #0d7c6e;border-radius:14px;padding:22px;border-top:4px solid #5eead4">
           <div style="width:36px;height:36px;background:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;margin-bottom:12px">6</div>
@@ -1276,11 +1276,11 @@ body { overflow-x: hidden; }
         <div style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:14px" onclick="window.location='index.html'">
           <img src="favicon.png" alt="Ardia Precision Health" style="width:36px;height:36px;object-fit:contain">
           <div>
-            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">HEALTH</span></div>
+            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">PRECISION HEALTH</span></div>
             <div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px">Precision Revenue Intelligence</div>
           </div>
         </div>
-        <p>The Autonomous Clinical Proof Engine. From denied claim to cash — autonomously. Building the AI-native Financial Adversary Engine for independent and molecular-diagnostics labs, precision-medicine programs, and pulmonary and elder-care providers across DFW and the United States.</p>
+        <p>Governed clinical-reasoning AI — from a denied claim to a cited, review-ready appeal that a licensed professional reviews and submits. Building the AI-native Financial Adversary Engine for independent and molecular-diagnostics labs, precision-medicine programs, and pulmonary and elder-care providers across DFW and the United States.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
           <span class="fbadge">TX SB 1188</span><span class="fbadge">TRAIGA</span>
           <span class="fbadge">HIPAA</span><span class="fbadge">FHIR R4</span><span class="fbadge">FCA Safe</span>
@@ -1325,7 +1325,7 @@ body { overflow-x: hidden; }
       </div>
     </div>
     <div class="footer-bottom">
-      <div>&copy; 2026 Ardia Precision Health &bull; Ardia Precision Health LLC &bull; Delaware LLC &bull; Founded January 2026 &bull; Dallas-Fort Worth, TX</div>
+      <div>&copy; 2026 Ardia Precision Health &bull; Ardia Precision Health, Inc. &bull; Delaware C-Corporation &bull; Founded January 2026 &bull; Dallas-Fort Worth, TX</div>
       <div style="font-size:11px;color:rgba(255,255,255,0.2)">Not a licensed medical provider. AI outputs require licensed professional review per TX SB 1188.</div>
     </div>
   </div>
