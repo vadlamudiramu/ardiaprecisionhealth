@@ -69,10 +69,19 @@ _ABSOLUTE = re.compile(
 )
 
 
+_CONDITIONAL = re.compile(r"\b(if|when|whether|should|unless|in case)\b\s*$", re.I)
+
+
 def non_diagnostic_gate(text: str) -> GateResult:
-    m = _DIAGNOSTIC.search(text or "")
-    return GateResult("non_diagnostic", m is None,
-                      "no diagnostic assertion" if not m else f"diagnostic language: {m.group(0)!r}")
+    text = text or ""
+    for m in _DIAGNOSTIC.finditer(text):
+        # A conditional ("if you have chest pain, call 911") is safety guidance,
+        # not a diagnostic assertion — skip those.
+        pre = text[max(0, m.start() - 14):m.start()]
+        if _CONDITIONAL.search(pre):
+            continue
+        return GateResult("non_diagnostic", False, f"diagnostic language: {m.group(0)!r}")
+    return GateResult("non_diagnostic", True, "no diagnostic assertion")
 
 
 def human_in_the_loop_gate(text: str) -> GateResult:

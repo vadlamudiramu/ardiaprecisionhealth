@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ardia Studio — real-time models</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f7f2e8;--cream2:#efe7d7;--paper:#fffdf8;--ink:#241c14;--ink2:#5f5346;--dim:#9c8f7d;
+ --line:rgba(58,42,26,.13);--line2:rgba(58,42,26,.2);--teal:#0f766e;--coral:#d9633a;
+ --c:#2563eb;--cA:#2563eb1a;--cB:#2563eb33;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.08}
+.mono{font-family:ui-monospace,'SFMono-Regular','JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px;height:62px;padding:0 22px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#221a10,#3a2c18);border:1.4px solid rgba(217,99,58,.5);padding:5px;object-fit:contain}
+.brand .bt{font-family:'Fraunces',serif;font-weight:600;font-size:19px}.brand .bt em{font-style:italic;color:var(--coral)}
+.top .sub{margin-left:auto;font-size:12px;color:var(--ink2);font-family:ui-monospace,monospace}
+.top .dotlive{width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block;margin-right:5px;box-shadow:0 0 0 3px rgba(22,163,74,.2)}
+.banner{max-width:1180px;margin:14px auto 0;padding:0 22px}
+.banner .b{display:none;background:linear-gradient(120deg,#fdeee6,#fbe4dd);border:1.5px solid #eaa78d;border-radius:14px;padding:13px 16px;font-size:13.5px;color:#7c3016}
+.banner .b.on{display:block}.banner .b code{background:#fff;border:1px solid #eaa78d;border-radius:6px;padding:1px 7px;font-family:ui-monospace,monospace;font-size:12.5px}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 22px 70px;display:grid;grid-template-columns:264px 1fr;gap:26px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;gap:18px}}
+.rl{font-size:12px;color:var(--dim);font-family:'Fraunces',serif;font-style:italic;margin:2px 2px 10px}
+.rail{display:flex;flex-direction:column;gap:11px}
+@media(max-width:900px){.rail{flex-direction:row;overflow-x:auto;padding-bottom:6px}}
+.m{position:relative;display:flex;gap:13px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:15px 16px;cursor:pointer;transition:.18s;text-align:left}
+@media(max-width:900px){.m{min-width:230px}}
+.m:hover{transform:translateY(-2px);box-shadow:0 14px 30px -20px var(--mc)}
+.m.on{background:linear-gradient(180deg,color-mix(in srgb,var(--mc) 12%,var(--paper)),var(--paper));border-color:transparent;box-shadow:0 0 0 2px var(--mc),0 16px 34px -20px var(--mc)}
+.m .mi{width:44px;height:44px;flex:0 0 auto;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--mc);box-shadow:0 6px 16px -8px var(--mc)}
+.m .mi svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.m .mn{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
+.m .mr{font-size:12px;color:var(--ink2);margin-top:1px}
+.ws{background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -44px rgba(58,42,26,.4)}
+.field-hd{position:relative;padding:30px 30px 26px;color:#fff;background:
+  radial-gradient(120% 120% at 88% -20%,color-mix(in srgb,#fff 26%,var(--c)),transparent 55%),
+  radial-gradient(90% 120% at 0% 120%,color-mix(in srgb,#000 22%,var(--c)),transparent 60%),var(--c);overflow:hidden}
+.field-hd::after{content:"";position:absolute;inset:0;opacity:.10;background-image:radial-gradient(circle at 1px 1px,#fff 1px,transparent 0);background-size:18px 18px}
+.field-hd .row{position:relative;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.field-hd .big{width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.field-hd .big svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.field-hd h1{font-size:clamp(30px,4.6vw,44px);color:#fff}
+.field-hd .role{font-family:ui-monospace,monospace;font-size:12px;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:1.5px;margin-top:6px}
+.field-hd .cap{position:relative;margin-top:14px;font-size:15px;line-height:1.55;color:rgba(255,255,255,.94);max-width:660px}
+.field-hd .nd{margin-left:auto;font-size:11.5px;font-weight:600;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:7px 14px;white-space:nowrap;align-self:flex-start}
+.ws-b{padding:26px 30px 30px}
+.lab{font-family:'Fraunces',serif;font-style:italic;font-size:16px;margin-bottom:11px}
+.field{border:1.5px solid var(--line2);border-radius:18px;background:var(--cream);transition:.16s;overflow:hidden}
+.field:focus-within{border-color:var(--c);box-shadow:0 0 0 4px var(--cA)}
+.field textarea{width:100%;border:none;background:transparent;resize:vertical;min-height:104px;padding:16px 17px;font:400 15.5px 'Inter';color:var(--ink);outline:none}
+.field textarea::placeholder{color:var(--dim)}
+.field .bar{display:flex;align-items:center;gap:9px;padding:11px 13px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--cream2) 55%,var(--paper))}
+.attach{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink2);background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:9px 14px;cursor:pointer;transition:.15s}
+.attach:hover{border-color:var(--c);color:var(--c)}
+.attach svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.engsel{font:500 12.5px 'Inter';color:var(--ink2);background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:9px 11px;cursor:pointer;max-width:190px}
+.engsel:hover{border-color:var(--c)}
+.run{margin-left:auto;font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:#fff;background:var(--c);border:none;border-radius:14px;padding:12px 26px;cursor:pointer;box-shadow:0 12px 26px -12px var(--c);display:inline-flex;align-items:center;gap:9px;transition:.15s}
+.run:hover{filter:brightness(1.05)}.run:disabled{opacity:.5;cursor:default;box-shadow:none}
+.att{display:none;margin-top:14px;flex-wrap:wrap;gap:10px}
+.att.on{display:flex}
+.attf{display:flex;align-items:center;gap:10px;background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:9px 11px}
+.attf img{width:46px;height:46px;object-fit:cover;border-radius:10px;border:1px solid var(--line2)}
+.attf .fi{width:46px;height:46px;border-radius:10px;background:var(--cA);display:flex;align-items:center;justify-content:center;color:var(--c);font:600 11px ui-monospace,monospace}
+.attf .fn{font-weight:600;font-size:13px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.attf .fm{font-size:11px;color:var(--dim);font-family:ui-monospace,monospace}
+.attf .rm{margin-left:4px;font-size:17px;line-height:1;color:var(--dim);cursor:pointer;padding:2px 7px;border-radius:8px}
+.attf .rm:hover{background:rgba(217,99,58,.12);color:var(--coral)}
+.samps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.samp{font-size:13px;color:var(--ink2);background:var(--paper);border:1px solid var(--line2);border-radius:100px;padding:8px 15px;cursor:pointer;transition:.15s}
+.samp:hover{border-color:var(--c);color:var(--c);background:var(--cA)}
+.hintr{font-size:12.5px;color:var(--dim);margin-top:12px;font-style:italic;font-family:'Fraunces',serif}
+.steps{display:none;gap:10px;margin-top:20px;flex-wrap:wrap}
+.steps.on{display:flex}
+.step{flex:1;min-width:150px;background:var(--cream);border:1.5px solid var(--line);border-radius:16px;padding:13px 15px;transition:.35s;opacity:.5}
+.step.live{opacity:1;border-color:var(--c);background:linear-gradient(180deg,var(--cA),var(--paper));transform:translateY(-2px)}
+.step.done{opacity:1;border-color:transparent;background:var(--c);color:#fff}
+.step .sk{font:600 10.5px ui-monospace,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--c)}
+.step.done .sk{color:#fff}
+.step .st{font-size:13px;color:var(--ink2);margin-top:5px;line-height:1.4}.step.done .st{color:rgba(255,255,255,.92)}
+.rep{display:none;margin-top:24px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--paper);animation:ri .5s ease}
+.rep.on{display:block}@keyframes ri{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rep-h{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,var(--cA),transparent)}
+.rep-h .dot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px var(--cA)}
+.rep-h .rt{font-family:'Fraunces',serif;font-weight:600;font-size:19px}
+.rep-h .rb{margin-left:auto;font:600 11px ui-monospace,monospace;color:#fff;background:var(--c);border-radius:100px;padding:6px 13px;letter-spacing:.3px}
+.rep-b{padding:8px 24px 22px}
+.recv{font-size:14px;color:var(--ink2);background:var(--cream);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:0 14px 14px 0;padding:13px 15px;margin:14px 0}
+.recv b{color:var(--ink)}
+.md h4,.md .mh{font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:var(--ink);margin:18px 0 9px}
+.md p{font-size:15px;color:var(--ink);line-height:1.62;margin:8px 0}
+.md ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin:6px 0}
+.md li{position:relative;padding-left:26px;font-size:14.5px;color:var(--ink2);line-height:1.55}
+.md li::before{content:"";position:absolute;left:3px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--c)}
+.md b{color:var(--ink)}.md i{color:var(--ink2)}
+.md code{font-family:ui-monospace,monospace;font-size:13px;background:var(--cA);color:var(--c);border-radius:6px;padding:1px 6px}
+.disc{background:linear-gradient(120deg,#fdeee6,#fbe4dd);border:1.5px solid #eaa78d;border-radius:16px;padding:16px 18px;margin-top:18px}
+.disc .dh{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:#a23a1c;display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.disc p{font-size:13.5px;color:#7c3016;line-height:1.55}
+.errbox{background:#fff4f0;border:1.5px solid #eaa78d;border-radius:16px;padding:16px 18px;margin-top:8px}
+.errbox h4{font-family:'Fraunces',serif;color:#a23a1c;font-size:16px;margin-bottom:6px}
+.errbox p{font-size:13.5px;color:#7c3016;line-height:1.6}.errbox code{background:#fff;border:1px solid #eaa78d;border-radius:6px;padding:1px 7px;font-family:ui-monospace,monospace;font-size:12.5px}
+.gen-note{font-size:12px;color:var(--dim);text-align:center;margin-top:16px;font-style:italic;font-family:'Fraunces',serif}
+footer{border-top:1px solid var(--line);color:var(--ink2);font-size:13px;padding:26px 22px;text-align:center;background:var(--cream2)}
+footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+ <div class="top"><div class="top-in">
+   <a class="brand" href="#"><img src="Ardia_Logo.png" alt="Ardia"><span class="bt">Ardia <em>Studio</em></span></a>
+   <span class="sub" id="sub"><span class="dotlive"></span>live · <span id="mid">…</span></span>
+ </div></div>
+ <div class="banner"><div class="b" id="keyBanner"></div></div>
+
+ <div class="wrap">
+  <div class="rail" id="rail"><div class="rl">Five models — pick one</div></div>
+  <div class="ws">
+   <div class="field-hd" id="hd"></div>
+   <div class="ws-b">
+     <div class="lab" id="lab">Describe the case</div>
+     <div class="field">
+       <textarea id="inText"></textarea>
+       <div class="bar">
+         <label class="attach"><svg viewBox="0 0 24 24"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7l8.5-8.5a3.5 3.5 0 0 1 5 5L11 17.5a2 2 0 1 1-3-3l7-7"/></svg><span id="attLabel">Attach</span>
+           <input type="file" id="file" accept="image/*,.pdf,.txt,.csv" multiple style="display:none"></label>
+         <select id="engine" class="engsel" title="Engine / mode"></select>
+         <button class="run" id="runBtn"><span id="runLabel">Run</span> →</button>
+       </div>
+     </div>
+     <div class="att" id="att"></div>
+     <div class="samps" id="samps"></div>
+     <div class="hintr" id="hintr"></div>
+     <div class="steps" id="steps"></div>
+     <div class="rep" id="rep"></div>
+   </div>
+  </div>
+ </div>
+ <footer>Ardia Health Labs LLC · <b>Real‑time</b> — each answer is generated live by a real model (<b>Google Gemini</b> or <b>Claude</b>) from your input, under Ardia's clinical guardrails, using your own key on your machine. <b>Never a diagnosis.</b></footer>
+
+<script>
+var I={
+ report:'<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>',
+ heart:'<svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/></svg>',
+ dna:'<svg viewBox="0 0 24 24"><path d="M4 3c0 6 16 6 16 12M20 3c0 6-16 6-16 12M6 5h12M6 19h12M8 8h8M8 16h8"/></svg>',
+ walk:'<svg viewBox="0 0 24 24"><circle cx="13" cy="4" r="1.6"/><path d="M11 8l3 2 2 4M11 8l-2 5-2 4M14 10l-1 5 2 4"/></svg>',
+ brain:'<svg viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 2 4 3 3 0 0 0 5 1V4.5A2.5 2.5 0 0 0 9 4z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-2 4 3 3 0 0 1-5 1"/></svg>'
+};
+var MODELS=[
+ {k:'lumen',name:'Lumen',color:'#2563eb',icon:'report',role:'Report & Scan Explainer',
+  cap:'Attach a lab report, discharge summary, or an MRI / X‑ray / CT and Lumen explains it in plain language — reading your actual file. It never diagnoses.',
+  attach:'Attach report or scan',lab:'Paste report text, or attach a file (lab / MRI / X‑ray / PDF)',
+  placeholder:'e.g. “My CBC came back — WBC 12.3, Hgb 10.1, platelets 410. What does this mean?” — or attach the report.',
+  samples:['CBC: WBC 12.3, Hgb 10.1, platelets 410','MRI lumbar spine — “mild disc bulge L4‑L5”','Explain this discharge summary']},
+ {k:'aria',name:'Aria',color:'#d9633a',icon:'heart',role:'Elder Companion',
+  cap:'A warm everyday companion for older adults. Describe how you feel, or attach a photo of your medicines — Aria gives calm guidance, runs a safety red‑flag check, and tells you when to call 911.',
+  attach:'Attach a photo',lab:'Tell Aria what’s going on (or attach a photo)',
+  placeholder:'e.g. “I feel dizzy when I stand up and I’m a bit short of breath today.”',
+  samples:['I feel dizzy when I stand up','I forgot if I took my blood‑pressure pill','Mild chest tightness for an hour']},
+ {k:'molec',name:'MolecuIQ',color:'#0891b2',icon:'dna',role:'Lab Denial Recovery',
+  cap:'Attach a denial letter or EOB for a molecular / toxicology claim. MolecuIQ classifies the denial, matches policy, and drafts a cited appeal — refusing baseless ones.',
+  attach:'Attach denial / EOB',lab:'Paste the denial, or attach the letter / EOB',
+  placeholder:'e.g. “CPT 81455 denied CO‑55 experimental by a Medicare Advantage plan, dx C34.11 (NSCLC).”',
+  samples:['81455 denied CO‑55 experimental (NSCLC)','CYP2D6 PGx denied CO‑50 not necessary','Genomic panel on a benign nodule (R91.1)']},
+ {k:'cadence',name:'Cadence',color:'#2f9e44',icon:'walk',role:'Movement & Wellbeing',
+  cap:'Describe a day or week of activity and Cadence summarises movement and flags a functional‑decline trend — non‑diagnostic, and not a fall detector.',
+  attach:'Attach activity export',lab:'Describe the day / week, or paste activity data',
+  placeholder:'e.g. “This week walking dropped from ~55 to ~22 min/day, more time sitting.”',
+  samples:['Walking fell 55→22 min/day this week','A steady, active day','Mostly sitting, few short walks']},
+ {k:'tara',name:'TARA',color:'#7c3aed',icon:'brain',role:'Clinical Reasoning core',
+  cap:'Ask a clinical or coding question and TARA shows the rule each step relies on — auditable, not black‑box. Educational, not a diagnosis.',
+  attach:'Attach context',lab:'Ask a clinical or coding question',
+  placeholder:'e.g. “What Medicare code covers 20 minutes of non‑face‑to‑face chronic care management?”',
+  samples:['Which code for 20 min of CCM?','When is RPM billable (16‑day rule)?','Beers‑list risk: 82‑yo on diphenhydramine']},
+];
+var STEPS=[['READ','reading your input'],['REASON','working the rules'],['DRAFT','writing it plainly'],['GOVERN','safety + de‑identify']];
+var sel=0, attachments=[], running=false;
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hexA(hex,a){var n=parseInt(hex.slice(1),16);return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+function setColor(c){var r=document.documentElement.style;r.setProperty('--c',c);r.setProperty('--cA',hexA(c,.10));r.setProperty('--cB',hexA(c,.32));}
+
+document.getElementById('rail').insertAdjacentHTML('beforeend', MODELS.map(function(m,i){
+ return '<button class="m'+(i===0?' on':'')+'" style="--mc:'+m.color+'" onclick="pick('+i+')"><div class="mi">'+I[m.icon]+'</div><div><div class="mn">'+m.name+'</div><div class="mr">'+m.role+'</div></div></button>';
+}).join(''));
+
+function pick(i){
+ if(running) return;
+ sel=i;var m=MODELS[i];
+ document.querySelectorAll('.rail .m').forEach(function(e,j){e.classList.toggle('on',j===i);});
+ setColor(m.color);
+ document.getElementById('hd').innerHTML='<div class="row"><div class="big">'+I[m.icon]+'</div><div><h1>'+m.name+'</h1><div class="role">'+m.role+'</div></div><div class="nd">AI assistant — not a doctor</div></div><div class="cap">'+m.cap+'</div>';
+ document.getElementById('lab').textContent=m.lab;
+ document.getElementById('attLabel').textContent=m.attach;
+ document.getElementById('runLabel').textContent='Run '+m.name;
+ document.getElementById('inText').placeholder=m.placeholder;
+ document.getElementById('inText').value='';                 /* per-model — never carry the prompt across */
+ document.getElementById('samps').innerHTML=m.samples.map(function(s){return '<span class="samp" onclick="useSample(this)">'+esc(s)+'</span>';}).join('');
+ document.getElementById('hintr').textContent='Runs on your machine · your input goes only to the model via your own key.';
+ clearRun();clearAttach();
+}
+function useSample(el){document.getElementById('inText').value=el.textContent;document.getElementById('inText').focus();}
+function clearRun(){document.getElementById('steps').classList.remove('on');document.getElementById('steps').innerHTML='';document.getElementById('rep').classList.remove('on');}
+function clearAttach(){attachments=[];renderAtt();document.getElementById('file').value='';}
+function removeAtt(i){attachments.splice(i,1);renderAtt();}
+function renderAtt(){
+  var box=document.getElementById('att');
+  if(!attachments.length){box.classList.remove('on');box.innerHTML='';return;}
+  box.innerHTML=attachments.map(function(a,i){
+    var sz=a.size>1048576?(a.size/1048576).toFixed(1)+' MB':Math.round(a.size/1024)+' KB';
+    var ext=(a.name.split('.').pop()||'file').toUpperCase().slice(0,4);
+    var thumb=(a.type.indexOf('image')===0)?'<img src="'+a.dataurl+'" alt="">':'<div class="fi">'+ext+'</div>';
+    return '<div class="attf">'+thumb+'<div><div class="fn">'+esc(a.name)+'</div><div class="fm">'+sz+'</div></div><span class="rm" title="remove" onclick="removeAtt('+i+')">×</span></div>';
+  }).join('');
+  box.classList.add('on');
+}
+document.getElementById('file').addEventListener('change',function(e){
+  var files=e.target.files; if(!files||!files.length) return;
+  var arr=Array.prototype.slice.call(files), pending=arr.length;
+  arr.forEach(function(f){
+    var reader=new FileReader();
+    reader.onload=function(){
+      var url=reader.result||'';
+      attachments.push({name:f.name,size:f.size,type:f.type||'application/octet-stream',dataurl:url});
+      if(--pending===0) renderAtt();
+    };
+    reader.readAsDataURL(f);
+  });
+  e.target.value='';   // let the user pick more (or the same file) again
+});
+
+var _t=null;
+function startSteps(){
+ var box=document.getElementById('steps');
+ box.innerHTML=STEPS.map(function(s){return '<div class="step"><div class="sk">'+s[0]+'</div><div class="st">'+s[1]+'</div></div>';}).join('');
+ box.classList.add('on');
+ var chips=box.querySelectorAll('.step');var i=0;
+ chips[0].classList.add('live');
+ _t=setInterval(function(){
+   if(i<chips.length-1){chips[i].classList.remove('live');chips[i].classList.add('done');i++;chips[i].classList.add('live');}
+ },700);
+}
+function stopSteps(){if(_t){clearInterval(_t);_t=null;}document.querySelectorAll('.steps .step').forEach(function(c){c.classList.remove('live');c.classList.add('done');});}
+
+function inlineMd(s){s=esc(s);s=s.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');s=s.replace(/(^|[^*])\*([^*]+)\*/g,'$1<i>$2</i>');s=s.replace(/`([^`]+)`/g,'<code>$1</code>');return s;}
+function mdToHtml(md){
+ var lines=(md||'').replace(/\r/g,'').split('\n');var html='',inList=false;
+ function cl(){if(inList){html+='</ul>';inList=false;}}
+ lines.forEach(function(ln){var t=ln.trim();
+   if(!t){cl();return;}
+   if(/^#{1,6}\s/.test(t)){cl();html+='<h4>'+inlineMd(t.replace(/^#{1,6}\s+/,''))+'</h4>';return;}
+   if(/^[-*]\s+/.test(t)){if(!inList){html+='<ul>';inList=true;}html+='<li>'+inlineMd(t.replace(/^[-*]\s+/,''))+'</li>';return;}
+   cl();html+='<p>'+inlineMd(t)+'</p>';
+ });cl();return html;
+}
+
+function doRun(){
+ if(running)return;
+ var m=MODELS[sel];
+ var text=document.getElementById('inText').value.trim();
+ if(!text && !attachments.length){document.getElementById('inText').focus();document.getElementById('hintr').textContent='Type a case or attach a file first.';return;}
+ var atts=attachments.map(function(a){return {b64:(a.dataurl.split(',')[1]||''),media_type:a.type,name:a.name};});
+ var sentNames=attachments.map(function(a){return a.name;});
+ var engine=(document.getElementById('engine')||{}).value||'';
+ document.getElementById('inText').value='';   // clear the box the moment you Run
+ clearAttach();
+ running=true;var btn=document.getElementById('runBtn');btn.disabled=true;clearRun();startSteps();
+ fetch('/api/run',{method:'POST',headers:{'content-type':'application/json'},
+   body:JSON.stringify({model:m.k,text:text,engine:engine,attachments:atts})})
+  .then(function(r){return r.json();})
+  .then(function(res){stopSteps();if(res.text){renderReport(m,text,sentNames,res);}else{renderError(m,res);}})
+  .catch(function(err){stopSteps();renderError(m,{error:'network',message:String(err)});})
+  .then(function(){running=false;btn.disabled=false;});
+}
+document.getElementById('runBtn').addEventListener('click',doRun);
+document.getElementById('inText').addEventListener('keydown',function(e){
+ if(e.key==='Enter' && !e.shiftKey){e.preventDefault();doRun();}   // Enter runs · Shift+Enter = newline
+});
+
+function renderReport(m,text,sentNames,res){
+ var md=res.text, modelId=res.model_id;
+ var recv='<b>You gave:</b> '+(text?('“'+esc(text.slice(0,200))+(text.length>200?'…':'')+'”'):'(no text)')+((sentNames&&sentNames.length)?('  ·  <b>read '+sentNames.length+' file'+(sentNames.length>1?'s':'')+':</b> '+sentNames.map(function(n){return esc(n);}).join(', ')):'');
+ var s=res.sentinel, cs=res.crucible_summary, guards='';
+ if(s||cs){
+   var sBit=s?('<b style="color:#5eead4">Sentinel</b> de-identified '+(s.removed||0)+' identifier'+((s.removed===1)?'':'s')+' before the model'+((s.categories&&s.categories.length)?(' <span style="color:#8fb0d6">('+s.categories.map(esc).join(', ')+')</span>'):'')):'';
+   var cOk=cs&&cs.passed;
+   var cBit=cs?('<b style="color:'+(cOk?'#5eead4':'#fca5a5')+'">Crucible</b> '+cs.n_passed+'/'+cs.n_total+' gates passed'+((cs.failed&&cs.failed.length)?(' <span style="color:#fca5a5">· flagged: '+cs.failed.map(esc).join(', ')+'</span>'):'')):'';
+   guards='<div class="guards" style="margin-top:12px;background:#0a1628;border-radius:10px;padding:11px 14px;font-size:12px;color:#aebfd4;line-height:1.75"><span style="color:#5eead4;font-weight:800;letter-spacing:.5px">✓ GUARDRAILS RAN</span>&nbsp; '+sBit+((sBit&&cBit)?'&nbsp; · &nbsp;':'')+cBit+'</div>';
+ }
+ var rep=document.getElementById('rep');
+ rep.innerHTML='<div class="rep-h"><span class="dot"></span><span class="rt">'+m.name+' — analysis</span><span class="rb">live · '+esc(modelId||'model')+'</span></div>'+
+   '<div class="rep-b"><div class="recv">'+recv+'</div><div class="md">'+mdToHtml(md)+'</div>'+guards+
+   '<div class="disc"><div class="dh">⚠ A clinician makes the final call</div><p>Ardia is an <b>AI assistant, not a doctor</b>. The above is information and options to discuss — not a diagnosis, prescription, or order. Your licensed clinician decides and prescribes. <b>If this is an emergency — chest pain, trouble breathing, weakness, or the worst headache of your life — call 911.</b></p></div>'+
+   '<div class="gen-note">Generated live by '+esc(modelId||'the model')+' from your input · under Ardia\'s guardrails · your data stayed on your machine + the model API.</div></div>';
+ rep.classList.add('on');rep.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function renderError(m,res){
+ var msg=esc(res.message||'Something went wrong.');
+ var extra='';
+ if(res.error==='no_key'){extra='<p style="margin-top:8px">Set a key (either works) and restart the server:</p><p style="margin-top:6px"><b>Free (Google):</b> get one at <b>aistudio.google.com/app/apikey</b> → <code>export GEMINI_API_KEY=...</code><br><b>Anthropic:</b> <code>export ANTHROPIC_API_KEY=sk-ant-...</code><br>then <code>python3 server.py</code></p>';}
+ var rep=document.getElementById('rep');
+ rep.innerHTML='<div class="rep-h"><span class="dot" style="background:#c0392b;box-shadow:0 0 0 4px rgba(192,57,43,.15)"></span><span class="rt">Couldn’t run</span></div>'+
+   '<div class="rep-b"><div class="errbox"><h4>'+(res.error==='no_key'?'No API key set':'The model call failed')+'</h4><p>'+msg+'</p>'+extra+'</div></div>';
+ rep.classList.add('on');rep.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// health check → model id + key banner
+fetch('/api/health').then(function(r){return r.json();}).then(function(h){
+ document.getElementById('mid').textContent=h.model||'…';
+ var eng=document.getElementById('engine');
+ if(eng){
+   if(h.provider==='anthropic'){
+     eng.innerHTML='<option value="claude-opus-5">Opus 5 · deep thinking</option><option value="claude-sonnet-5">Sonnet 5 · balanced</option><option value="claude-haiku-4-5-20251001">Haiku · ultrafast</option>';
+   } else {
+     eng.innerHTML='<option value="fast">Ultrafast (Flash)</option><option value="deep">Deep thinking (Pro)</option>';
+   }
+ }
+ if(!h.key_set){var b=document.getElementById('keyBanner');b.classList.add('on');
+   b.innerHTML='⚠ <b>No model key set yet</b> — responses will error until you set one (either works, in your Terminal, then restart <code>python3 server.py</code>):<br>· <b>Free (Google):</b> make a key at <b>aistudio.google.com/app/apikey</b> → <code>export GEMINI_API_KEY=...</code><br>· <b>Anthropic:</b> <code>export ANTHROPIC_API_KEY=sk-ant-...</code>';}
+}).catch(function(){});
+
+pick(0);
+</script>
+</body>
+</html>
