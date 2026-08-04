@@ -292,9 +292,13 @@ function renderReport(m,text,sentNames,res){
    var cBit=cs?('<b style="color:'+(cOk?'#5eead4':'#fca5a5')+'">Crucible</b> '+cs.n_passed+'/'+cs.n_total+' gates passed'+((cs.failed&&cs.failed.length)?(' <span style="color:#fca5a5">· flagged: '+cs.failed.map(esc).join(', ')+'</span>'):'')):'';
    guards='<div class="guards" style="margin-top:12px;background:#0a1628;border-radius:10px;padding:11px 14px;font-size:12px;color:#aebfd4;line-height:1.75"><span style="color:#5eead4;font-weight:800;letter-spacing:.5px">✓ GUARDRAILS RAN</span>&nbsp; '+sBit+((sBit&&cBit)?'&nbsp; · &nbsp;':'')+cBit+'</div>';
  }
+ var src='';
+ if(res.sources && res.sources.length){
+   src='<div class="srcs" style="margin-top:10px;background:#f6f9fc;border:1px solid #dce8f2;border-radius:10px;padding:11px 14px;font-size:12px;line-height:1.75"><b style="color:#0d7c6e">Sources consulted ('+res.sources.length+') — PubMed / ClinicalTrials.gov</b><br>'+res.sources.map(function(s,i){return '['+(i+1)+'] <a href="'+esc(s.url)+'" target="_blank" rel="noopener" style="color:#1d9bd1">'+esc(s.title)+'</a> <span style="color:#7a93b0">— '+esc(s.source)+(s.year?(' '+esc(s.year)):'')+(s.status?(' · '+esc(s.status)):'')+'</span>';}).join('<br>')+'</div>';
+ }
  var rep=document.getElementById('rep');
  rep.innerHTML='<div class="rep-h"><span class="dot"></span><span class="rt">'+m.name+' — analysis</span><span class="rb">live · '+esc(modelId||'model')+'</span></div>'+
-   '<div class="rep-b"><div class="recv">'+recv+'</div><div class="md">'+mdToHtml(md)+'</div>'+guards+
+   '<div class="rep-b"><div class="recv">'+recv+'</div><div class="md">'+mdToHtml(md)+'</div>'+guards+src+
    '<div class="disc"><div class="dh">⚠ A clinician makes the final call</div><p>Ardia is an <b>AI assistant, not a doctor</b>. The above is information and options to discuss — not a diagnosis, prescription, or order. Your licensed clinician decides and prescribes. <b>If this is an emergency — chest pain, trouble breathing, weakness, or the worst headache of your life — call 911.</b></p></div>'+
    '<div class="gen-note">Generated live by '+esc(modelId||'the model')+' from your input · under Ardia\'s guardrails · your data stayed on your machine + the model API.</div></div>';
  rep.classList.add('on');rep.scrollIntoView({behavior:'smooth',block:'nearest'});

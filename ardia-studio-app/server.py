@@ -245,15 +245,20 @@ def call_anthropic(model_key, text, attachments, engine=""):
         return {"error": "network", "message": str(e)}
 
 
-# ---- Real guardrails: Sentinel de-identifies input, Crucible gates output ----
+# ---- Real guardrails + research grounding ----
 try:
     from guardrails import deid_input, gate_output, summarize
     _GUARDS_OK = True
 except Exception:
     _GUARDS_OK = False
+try:
+    from research import gather_sources, grounding_block
+    _RESEARCH_OK = True
+except Exception:
+    _RESEARCH_OK = False
 
 
-def call_model(model_key, text, attachments, engine=""):
+def call_model(model_key, text, attachments, engine="", ground=True):
     if model_key not in MODELS:
         return {"error": "bad_model", "message": "Unknown model."}
     p = active_provider()
@@ -263,17 +268,26 @@ def call_model(model_key, text, attachments, engine=""):
     sentinel = None
     if _GUARDS_OK:
         text, sentinel = deid_input(text)
+    # Research grounding: retrieve real PubMed / ClinicalTrials sources from the
+    # de-identified query and give them to the model to cite (best-effort).
+    sources = []
+    if ground and _RESEARCH_OK and text:
+        sources = gather_sources(text, n=3)
+        if sources:
+            text = text + grounding_block(sources)
     if p == "gemini":
         res = call_gemini(model_key, text, attachments, engine)
     elif p == "anthropic":
         res = call_anthropic(model_key, text, attachments, engine)
     else:
         res = NO_KEY
-    # Crucible: run the guardrail gates on the model OUTPUT and attach the verdicts.
-    if _GUARDS_OK and isinstance(res, dict) and "text" in res:
-        res["sentinel"] = sentinel
-        res["crucible"] = gate_output(res["text"])
-        res["crucible_summary"] = summarize(res["crucible"])
+    if isinstance(res, dict) and "text" in res:
+        # Crucible: run the guardrail gates on the model OUTPUT and attach verdicts.
+        if _GUARDS_OK:
+            res["sentinel"] = sentinel
+            res["crucible"] = gate_output(res["text"])
+            res["crucible_summary"] = summarize(res["crucible"])
+        res["sources"] = sources
     return res
 
 
@@ -323,7 +337,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         atts = body.get("attachments") or []
         if not atts and body.get("image_b64"):   # backward compat with single-file clients
             atts = [{"b64": body.get("image_b64"), "media_type": body.get("image_media_type")}]
-        res = call_model(body.get("model", "lumen"), (body.get("text") or "").strip(), atts, body.get("engine", ""))
+        res = call_model(body.get("model", "lumen"), (body.get("text") or "").strip(), atts,
+                         body.get("engine", ""), body.get("ground", True))
         code = 200 if "text" in res else (400 if res.get("error") in ("no_key", "bad_model", "bad_request") else 502)
         return self._json(res, code)
 
