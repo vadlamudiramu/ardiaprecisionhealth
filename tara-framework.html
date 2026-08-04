@@ -1196,6 +1196,99 @@ body { overflow-x: hidden; }
 
 <section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
   <div class="container">
+    <div class="sh"><span class="section-tag-l">One Core, Three Gears</span><h2 class="st st-l">The Three Reasoning Tiers — Swift &middot; Cortex &middot; Scholar</h2></div>
+    <p style="max-width:780px;font-size:14px;color:#4a6285;line-height:1.9;margin:-6px 0 24px">Every Ardia model runs on TARA at one of three reasoning tiers. The tier decides how much deliberation a task earns — a clean claim resolves in one pass; a complex molecular denial gets a full, tool-using investigation. Same governed core, same guardrails, different depth. You can watch all three run live on <a href="tara-demo.html" style="color:#7c3aed;font-weight:700">Watch TARA Reason &rarr;</a></p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div class="card" style="border-top:3px solid #0d7c6e">
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:22px">&#9889;</span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:18px;color:#1e2f4a">Swift</span><span style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#0d7c6e">Fast tier</span></div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.8;margin-bottom:12px">Instant, low-deliberation answers with <strong>no tool calls</strong>. For clean claims, quick eligibility checks, and code lookups where the symbolic policy layer already holds the answer. Swift returns the cited rule and the routing decision — or escalates to Cortex when the case is ambiguous.</p>
+        <div class="tag-row"><span class="tag" style="background:rgba(13,124,110,.08);color:#0d7c6e;border:1px solid rgba(13,124,110,.18)">No tool calls</span><span class="tag" style="background:rgba(13,124,110,.08);color:#0d7c6e;border:1px solid rgba(13,124,110,.18)">Policy-layer direct</span><span class="tag" style="background:rgba(13,124,110,.08);color:#0d7c6e;border:1px solid rgba(13,124,110,.18)">Auto-escalates</span></div>
+      </div>
+      <div class="card" style="border-top:3px solid #0ea5e9">
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:22px">&#129504;</span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:18px;color:#1e2f4a">Cortex</span><span style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#0ea5e9">Thinking tier</span></div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.8;margin-bottom:12px">Shows its <strong>step-by-step reasoning before the answer</strong>. Cortex works the problem through — reconciling the denial code, the clinical record, and the governing policy — and exposes each step so a reviewer can follow the logic. For medical-necessity judgments and multi-factor denials.</p>
+        <div class="tag-row"><span class="tag" style="background:rgba(14,165,233,.08);color:#0ea5e9;border:1px solid rgba(14,165,233,.18)">Visible reasoning</span><span class="tag" style="background:rgba(14,165,233,.08);color:#0ea5e9;border:1px solid rgba(14,165,233,.18)">Record-grounded</span><span class="tag" style="background:rgba(14,165,233,.08);color:#0ea5e9;border:1px solid rgba(14,165,233,.18)">Reviewer-legible</span></div>
+      </div>
+      <div class="card" style="border-top:3px solid #7c3aed">
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:12px"><span style="font-size:22px">&#128300;</span><span style="font-family:'Sora',sans-serif;font-weight:800;font-size:18px;color:#1e2f4a">Scholar</span><span style="font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#7c3aed">Deep-research tier</span></div>
+        <p style="font-size:13px;color:#4a6285;line-height:1.8;margin-bottom:12px">The full investigation. Scholar <strong>plans, calls tools, searches policy &amp; evidence, retrieves, reasons, and cites</strong>. It pulls the governing LCD/NCD/MolDX rule, checks NCCN / CPIC / PubMed where relevant, and assembles a fully-referenced appeal — every assertion traced to a named source, or it abstains.</p>
+        <div class="tag-row"><span class="tag" style="background:rgba(124,58,237,.08);color:#7c3aed;border:1px solid rgba(124,58,237,.18)">Tool-using</span><span class="tag" style="background:rgba(124,58,237,.08);color:#7c3aed;border:1px solid rgba(124,58,237,.18)">Cite-or-abstain</span><span class="tag" style="background:rgba(124,58,237,.08);color:#7c3aed;border:1px solid rgba(124,58,237,.18)">Full audit trace</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#0a1628;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l" style="color:#5eead4">The Crucible &middot; Safeguards</span><h2 class="st" style="color:#fff">Eight guardrails every output must pass</h2></div>
+    <p style="max-width:800px;font-size:14px;color:#aebfd4;line-height:1.9;margin:-6px 0 24px">TARA is <strong style="color:#fff">governed by construction</strong>, not by policy memo. Before any model output reaches a human, it runs through the Crucible — a behavioral gate harness that blocks anything unsafe, ungrounded, or out of scope. These gates are the safeguards that let a regulated buyer and a diligence-minded investor trust the system. They are enforced in code, tested, and non-optional.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#129658;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Non-diagnostic gate</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">No output may state or imply a diagnosis, treatment decision, or medical advice. Decision-support only.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#128100;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Human-in-the-loop</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">Nothing auto-files. Every appeal is a draft a licensed reviewer attests to and submits (TX SB 1188).</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#128279;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Cite-or-abstain</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">Every claim must trace to a named policy, guideline, or line in the record — or the model declines to assert it.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#9878;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Policy-override block</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">The guarded LLM cannot override the deterministic policy engine. Symbolic policy always wins.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#128272;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">De-identification</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">PHI is stripped by Sentinel (HIPAA Safe Harbor) before any reasoning; raw identifiers never enter a prompt.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#128680;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Safety escalation</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">Care-facing agents (Aria) escalate crisis signals — suicidality (C-SSRS), medical emergency — to 911 / a human, immediately.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#128137;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Scope-of-practice</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">No drug-and-dose recommendations, no clinical orders. Medication references stay at the drug-class / policy level.</div></div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(94,234,212,.25);border-radius:12px;padding:16px"><div style="font-size:20px;margin-bottom:8px">&#9989;</div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:#fff;margin-bottom:5px">Honesty gate</div><div style="font-size:12px;color:#aebfd4;line-height:1.7">Every figure is labelled measured, cited, or modelled — no performance or traction claim ships unqualified.</div></div>
+    </div>
+    <p style="font-size:12px;color:#8fb0d6;margin-top:16px;font-style:italic">Status: the guardrail harness (Crucible) and de-identification (Sentinel) are in active build with a behavioral test suite; the gate contracts above are the design being tested against. Full third-party audit (SOC&nbsp;2, penetration testing) is planned pre-pilot.</p>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">Sentinel &middot; Data Protection</span><h2 class="st st-l">How Ardia safeguards sensitive data (HIPAA / PHI)</h2></div>
+    <p style="max-width:800px;font-size:14px;color:#4a6285;line-height:1.9;margin:-6px 0 24px">Ardia is being built to handle Protected Health Information under HIPAA from day one. <strong>Sentinel</strong> is the compliance kernel every model inherits: it de-identifies before reasoning, encrypts at rest and in transit, logs every access, and enforces least-privilege. We are <strong>pre-revenue and process no production PHI today</strong> — the controls below are labelled by what is built now versus designed / planned before the first pilot under a signed BAA.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Safe-Harbor de-identification <span style="font-size:10px;color:#0d7c6e;font-weight:800">IN BUILD</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">All 18 HIPAA Safe-Harbor identifiers (&sect;164.514(b)(2)) — names, geography, dates, MRN, SSN, contact, device &amp; biometric IDs — are stripped or generalized before any text reaches a model. Raw PHI never enters an LLM prompt.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Encryption everywhere <span style="font-size:10px;color:#b45309;font-weight:800">PLANNED</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">PHI encrypted at rest with AES-256 and in transit with TLS 1.3, on HIPAA-eligible Google Cloud (Cloud Healthcare API, BigQuery). Keys managed in Cloud KMS with rotation.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Tamper-evident audit log <span style="font-size:10px;color:#0d7c6e;font-weight:800">IN BUILD</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">Every PHI access and every reasoning step is written to an append-only, timestamped audit trail — reviewable end-to-end, built to a CLIA/CAP-grade standard for defensibility.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">Role-based access (RBAC) <span style="font-size:10px;color:#0d7c6e;font-weight:800">IN BUILD</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">Minimum-necessary access by role — a reviewer sees only what their task requires. No standing broad access to PHI; every grant is scoped and logged.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">No PHI in prompts or logs <span style="font-size:10px;color:#0d7c6e;font-weight:800">ENFORCED</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">A hard rule in the codebase: patient identifiers are never sent to a third-party model API and never written to console or error logs. De-identified, minimum-necessary data only.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:8px">BAA-gated vendors <span style="font-size:10px;color:#b45309;font-weight:800">PLANNED</span></h4><p style="font-size:13px;color:#4a6285;line-height:1.8">No vendor touches PHI without a Business Associate Agreement. BAAs with the cloud and model providers are to be executed before any pilot processes real patient data.</p></div>
+    </div>
+    <div style="margin-top:18px;background:#f0f8ff;border:1px solid #d1e9f7;border-radius:12px;padding:14px 18px;font-size:12.5px;color:#4a6285;line-height:1.8"><strong style="color:#1e2f4a">Datasets used today vs. planned.</strong> &nbsp;Today: public UCI HAR (Cadence training, CC&nbsp;BY&nbsp;4.0), <strong>synthetic / de-identified</strong> sample records for demos, and public policy corpora (CPT/PLA, MolDX DEX Z-codes, NCD&nbsp;90.2, LCDs, NCCI edits, CLFS/PAMA, NCCN, CPIC, GOLD/GINA). &nbsp;Planned, under LDS/DUA and BAA: a design-partner lab&rsquo;s own EDI 835/837 denials for a retrospective backtest. No real patient data is processed until those agreements are in place.</div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">Measured, Not Marketed</span><h2 class="st st-l">What the framework can prove today</h2></div>
+    <p style="max-width:780px;font-size:14px;color:#4a6285;line-height:1.9;margin:-6px 0 24px">TARA is a framework in build, but it already produces <strong>real, reproducible results</strong> — because parts of it are deterministic or trained from scratch on public data. We separate what is measured from what is modelled, on every page, on purpose.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:30px;color:#16a34a">95.45%</div><div style="font-weight:700;font-size:13px;color:#1e2f4a;margin:4px 0 2px">Cadence held-out accuracy</div><div style="font-size:11.5px;color:#5a6e87">Trained from scratch on public UCI HAR, subject-independent split — reproducible in-repo.</div></div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0d7c6e;border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:30px;color:#0d7c6e">Deterministic</div><div style="font-weight:700;font-size:13px;color:#1e2f4a;margin:4px 0 2px">Meridian PAMA engine</div><div style="font-size:11.5px;color:#5a6e87">2027&ndash;2029 CLFS compounding math, unit-tested, no PHI — same input, same output, every run.</div></div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #0ea5e9;border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:30px;color:#0ea5e9">Grounded</div><div style="font-weight:700;font-size:13px;color:#1e2f4a;margin:4px 0 2px">Live reasoning demos</div><div style="font-size:11.5px;color:#5a6e87">The &ldquo;watch it reason&rdquo; traces show the actual tool-using path against real codes &mdash; not a scripted animation.</div></div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid #b45309;border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:30px;color:#b45309">100%</div><div style="font-weight:700;font-size:13px;color:#1e2f4a;margin:4px 0 2px">Claims labelled honestly</div><div style="font-size:11.5px;color:#5a6e87">Every number on this site is measured, cited to a source, or clearly marked a modelled target.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l">One Core, Many Models</span><h2 class="st st-l">Every Ardia model runs on TARA</h2></div>
+    <p style="max-width:780px;font-size:14px;color:#4a6285;line-height:1.9;margin:-6px 0 24px">TARA isn&rsquo;t one product — it&rsquo;s the governed reasoning core the whole constellation inherits. Each model does one job well, at the tier its job demands, behind the same guardrails and the same audit trail.</p>
+    <div style="overflow-x:auto;border-radius:12px;border:1.5px solid #d1e9f7">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="background:#f0f8ff"><th style="padding:12px 14px;text-align:left;color:#1e40af;font-size:11px;text-transform:uppercase;border-bottom:2px solid #d1e9f7">Model</th><th style="padding:12px 14px;text-align:left;color:#1e40af;font-size:11px;text-transform:uppercase;border-bottom:2px solid #d1e9f7">Job</th><th style="padding:12px 14px;text-align:left;color:#1e40af;font-size:11px;text-transform:uppercase;border-bottom:2px solid #d1e9f7">Primary tier</th><th style="padding:12px 14px;text-align:left;color:#0369a1;font-size:11px;text-transform:uppercase;border-bottom:2px solid #d1e9f7">Status</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#7c3aed">MolecuIQ</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Molecular &amp; genomic denial recovery (MolDX, NGS, NCCN)</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Scholar</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#2563eb;font-weight:600">Modelled target</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#0d7c6e">ToxIQ</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Toxicology denial appeals (G0480&ndash;G0483, NCCI, PGx overlay)</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Cortex</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#2563eb;font-weight:600">Modelled target</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#0369a1">PulmoIQ</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Respiratory intelligence — asthma / COPD (GOLD/GINA)</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Cortex</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#2563eb;font-weight:600">Modelled target</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#e11d48">Meridian</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">PAMA rate-cliff engine — deterministic, no PHI</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Symbolic</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#0d7c6e;font-weight:600">Deterministic &middot; unit-tested</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#16a34a">Cadence</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Movement / deterioration model (phone sensors)</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Swift</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#16a34a;font-weight:600">Measured &middot; 95.45% UCI HAR</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#c2410c">Aria</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Voice-first elder companion &amp; safety spine (FAST/C-SSRS/911)</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Cortex</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#2563eb;font-weight:600">Modelled target</td></tr>
+          <tr><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;font-weight:700;color:#2563eb">Lumen</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Plain-language report &amp; scan explainer</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#4a6285">Cortex</td><td style="padding:10px 14px;border-bottom:1px solid #e8f4fd;color:#2563eb;font-weight:600">Modelled target</td></tr>
+          <tr><td style="padding:10px 14px;font-weight:700;color:#475569">Sentinel</td><td style="padding:10px 14px;color:#4a6285">De-identification &amp; audit compliance kernel</td><td style="padding:10px 14px;color:#4a6285">Symbolic</td><td style="padding:10px 14px;color:#d97706;font-weight:600">In build</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#f8fafb;border-top:1px solid #dce8f2">
+  <div class="container">
     <div class="sh"><span class="section-tag-l">Grounded by Design</span><h2 class="st st-l">Why TARA&rsquo;s Policy Layer Can&rsquo;t Invent a Rule</h2></div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
       <div class="card">
@@ -1220,6 +1313,33 @@ body { overflow-x: hidden; }
 
 <section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
   <div class="container">
+    <div class="sh"><span class="section-tag-l">Standards We Build To</span><h2 class="st st-l">Regulatory &amp; healthcare standards</h2></div>
+    <p style="max-width:800px;font-size:14px;color:#4a6285;line-height:1.9;margin:-6px 0 24px">TARA is engineered against the rules a healthcare AI actually has to satisfy — not as a compliance afterthought, but as design constraints baked into the guardrails and the audit trail. We claim <strong>alignment and readiness</strong>, not certifications we don&rsquo;t yet hold.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">HIPAA (Privacy &amp; Security)</h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">Safe-Harbor de-identification, encryption, audit logging, minimum-necessary access. HIPAA-ready by design; no production PHI processed pre-BAA.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Texas SB&nbsp;1188</h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">AI clinical outputs require review by a licensed professional before use. Enforced by the human-in-the-loop guardrail — nothing auto-files.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Texas TRAIGA</h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">The Responsible AI Governance Act — transparency, documented intended use, and human oversight. TARA&rsquo;s audit trail and non-diagnostic scope are built to it.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">False Claims Act (FCA-aware)</h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">Appeals are grounded in the record and cited to policy — designed so nothing overstated is ever submitted. Human attestation is the backstop.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">CLIA / CAP-grade audit</h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">The reasoning trail is designed to the documentation standard lab accreditation expects — timestamped, attributable, reviewable end-to-end.</p></div>
+      <div class="card"><h4 style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:#1e2f4a;margin-bottom:6px">SOC&nbsp;2 Type II <span style="font-size:10px;color:#b45309;font-weight:800">PLANNED</span></h4><p style="font-size:12.5px;color:#4a6285;line-height:1.75">Not yet certified. SOC&nbsp;2 readiness and audit are planned before enterprise deployment; we say so plainly rather than imply a badge we haven&rsquo;t earned.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#0a1628;border-top:1px solid #dce8f2">
+  <div class="container">
+    <div class="sh"><span class="section-tag-l" style="color:#5eead4">Honest Build Status</span><h2 class="st" style="color:#fff">What&rsquo;s real today &mdash; and what isn&rsquo;t yet</h2></div>
+    <p style="max-width:800px;font-size:14px;color:#aebfd4;line-height:1.9;margin:-6px 0 24px">Ardia is pre-revenue and seed-stage. The framework is real and partly built; most models are designed and in build. Here is exactly where each piece stands — no rounding up.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <div style="background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.4);border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#4ade80;margin-bottom:10px">Built now</div><ul style="margin:0;padding-left:16px;font-size:13px;color:#dbe7f5;line-height:1.9"><li>Cadence model — trained, 95.45% held-out (UCI HAR), reproducible</li><li>Meridian PAMA engine — deterministic, unit-tested</li><li>Grounded, honesty-verified reasoning demos (Swift/Cortex/Scholar)</li><li>Ardia Studio — live model runner</li></ul></div>
+      <div style="background:rgba(217,119,6,.12);border:1px solid rgba(217,119,6,.4);border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#fbbf24;margin-bottom:10px">In build</div><ul style="margin:0;padding-left:16px;font-size:13px;color:#dbe7f5;line-height:1.9"><li>Symbolic policy engine — full LCD/NCD/MolDX DEX rule set</li><li>Crucible guardrail suite &amp; Sentinel de-identification</li><li>Tamper-evident audit log &amp; RBAC</li><li>MolecuIQ / ToxIQ / PulmoIQ / Aria / Lumen model logic</li></ul></div>
+      <div style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.4);border-radius:12px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#93c5fd;margin-bottom:10px">Planned</div><ul style="margin:0;padding-left:16px;font-size:13px;color:#dbe7f5;line-height:1.9"><li>HIPAA-eligible GCP infrastructure + executed BAAs</li><li>SOC&nbsp;2 Type II readiness &amp; audit</li><li>EDI 835/837 ingestion &amp; LIS/EHR FHIR integration</li><li>First paid lab pilot — retrospective backtest under LDS/DUA</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
+  <div class="container">
     <div class="sh"><span class="section-tag-l">Comparison</span><h2 class="st st-l">Generic AI vs TARA</h2></div>
     <div style="overflow-x:auto;border-radius:12px;border:1.5px solid #d1e9f7">
       <table style="width:100%;border-collapse:collapse;font-size:13px">
@@ -1233,6 +1353,17 @@ body { overflow-x: hidden; }
           <tr><td style="padding:10px 14px;font-weight:600;color:#1e2f4a">Learning over time</td><td style="padding:10px 14px;color:#4a6285">No structured denial memory across claims.</td><td style="padding:10px 14px;color:#0d7c6e;font-weight:600">Layer 3 compounds an EDI 835/837 denial-pattern library, enabling pre-submission screening after 60&ndash;90 days.</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</section>
+
+<section class="sol-section" style="background:linear-gradient(150deg,#0a1628,#0e2040 55%,#0a1c34);text-align:center">
+  <div class="container" style="max-width:760px">
+    <h2 class="st" style="color:#fff;margin-bottom:12px">See the framework reason for itself</h2>
+    <p style="font-size:15px;color:#aebfd4;line-height:1.85;margin-bottom:22px">Enter a denial and watch TARA plan, pull the governing policy, reason against the record, and assemble a cited, review-ready appeal — at the Swift, Cortex, or Scholar tier. The trace is real, not a scripted animation.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="tara-demo.html" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(90deg,#14b8a6,#0ea5e9);color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;padding:13px 24px;border-radius:11px;text-decoration:none">&#9654; Watch TARA Reason</a>
+      <a href="models.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(94,234,212,.35);color:#e8eef6;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;padding:13px 24px;border-radius:11px;text-decoration:none">See the model constellation</a>
     </div>
   </div>
 </section>
