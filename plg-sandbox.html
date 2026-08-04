@@ -1390,7 +1390,7 @@ body { overflow-x: hidden; }
     </div>
   </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 // ===== PAGE ROUTING =====
 function showPage(id) {
@@ -1695,6 +1695,7 @@ function showDetailedResults(ds) {
 
 // ===== INVESTOR CHARTS =====
 function initInvestorCharts() {
+  if (typeof Chart === 'undefined') return;
   // per-canvas init tracking — no global flag
   const mc = document.getElementById('mktChart');
   if (mc && !mc._init) {

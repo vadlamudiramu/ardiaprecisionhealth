@@ -1491,7 +1491,7 @@ body { overflow-x: hidden; }
     <div class="sh reveal" style="text-align:center">
       <span class="section-tag-l">How the Software Works</span>
       <h2 class="st st-l">End-to-End: From Denied Claim<br>to Recovered Revenue</h2>
-      <p style="font-size:14px;color:#64748b;max-width:640px;margin:0 auto 48px;line-height:1.8">Six automated steps. No manual review. No template letters. Clinical reasoning powered by AI at every stage — from raw denial data to payer-formatted appeal in under 90 seconds.</p>
+      <p style="font-size:14px;color:#64748b;max-width:640px;margin:0 auto 48px;line-height:1.8">Six automated steps. No manual review. No template letters. Clinical reasoning powered by AI at every stage — from raw denial data to a payer-formatted appeal — a design target of under 90 seconds per claim.</p>
     </div>
     <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative;max-width:1020px;margin:0 auto">
       <style>
@@ -1939,7 +1939,7 @@ function showScreenshot(n) {
         <div style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:14px" onclick="window.location='index.html'">
           <img src="favicon.png" alt="Ardia Precision Health" style="width:36px;height:36px;object-fit:contain">
           <div>
-            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">HEALTH</span></div>
+            <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:#fff">ARDIA <span style="color:#5eead4">PRECISION HEALTH</span></div>
             <div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px">Precision Revenue Intelligence</div>
           </div>
         </div>
@@ -1994,7 +1994,7 @@ function showScreenshot(n) {
     </div>
   </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+
 <script>
 // ===== PAGE ROUTING =====
 function showPage(id) {
@@ -2104,6 +2104,7 @@ function runSandboxPLG() {
 
 // ===== INVESTOR CHARTS =====
 function initInvestorCharts() {
+  if (typeof Chart === 'undefined') return;
   // per-canvas init tracking — no global flag
   const mc = document.getElementById('mktChart');
   if (mc && !mc._init) {
