@@ -86,15 +86,22 @@ nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-f
 .time{font-family:'JetBrains Mono';font-size:12px;color:#9fb2cc;min-width:82px;text-align:right}
 .speed{font-family:'JetBrains Mono';font-size:11px;color:#7f97b4;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:3px 8px}
 /* rail */
-.rail{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow-y:auto;padding-right:4px}
-@media(max-width:940px){.rail{flex-direction:row;overflow-x:auto;max-height:none}}
-.thumb{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;cursor:pointer;transition:.16s;flex:0 0 auto;min-width:250px}
-.thumb:hover{border-color:var(--tc);box-shadow:0 8px 22px rgba(14,28,48,.08)}
-.thumb.active{border-color:var(--tc);box-shadow:0 0 0 2px color-mix(in srgb,var(--tc) 25%,transparent)}
-.thumb .tp{width:40px;height:40px;border-radius:11px;background:color-mix(in srgb,var(--tc) 14%,#fff);color:var(--tc);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.thumb .tn{font-family:'Sora';font-weight:700;font-size:14px;color:var(--navy);display:flex;align-items:center;gap:8px}
-.thumb .tt{font-size:11.5px;color:var(--mut);line-height:1.4}
-.thumb .tdur{margin-left:auto;font-family:'JetBrains Mono';font-size:11px;color:var(--dim);flex:0 0 auto}
+.rail{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+.thumb{position:relative;flex:0 0 302px;height:176px;border-radius:18px;cursor:pointer;overflow:hidden;scroll-snap-align:start;transition:transform .18s,box-shadow .18s;
+  background:linear-gradient(152deg,var(--tc),color-mix(in srgb,var(--tc) 42%,#0a1628));
+  border:1px solid color-mix(in srgb,var(--tc) 55%,transparent);
+  box-shadow:0 12px 30px -14px color-mix(in srgb,var(--tc) 65%,transparent)}
+.thumb:hover{transform:translateY(-3px);box-shadow:0 20px 42px -14px color-mix(in srgb,var(--tc) 72%,transparent)}
+.thumb.active{outline:2.5px solid #fff;outline-offset:-2px}
+.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(130% 120% at 84% 12%,rgba(255,255,255,.24),transparent 56%);pointer-events:none}
+.thumb .tp{position:absolute;top:14px;left:15px;width:24px;height:24px;color:#fff;opacity:.92;z-index:2}
+.thumb .tp svg{width:24px;height:24px}
+.thumb .tdur{position:absolute;top:15px;right:15px;font-family:'JetBrains Mono';font-size:11px;font-weight:600;color:#fff;background:rgba(0,0,0,.24);border-radius:20px;padding:3px 10px;z-index:2}
+.thumb .play{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:var(--tc);font-size:17px;padding-left:3px;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:2;transition:transform .18s}
+.thumb:hover .play{transform:translate(-50%,-50%) scale(1.08)}
+.thumb .meta{position:absolute;left:17px;right:17px;bottom:15px;z-index:2}
+.thumb .tn{font-family:'Sora';font-weight:800;font-size:20px;color:#fff;line-height:1.08;letter-spacing:-.01em}
+.thumb .tt{font-family:'JetBrains Mono';font-size:10px;font-weight:600;color:rgba(255,255,255,.9);margin-top:5px;letter-spacing:1px;text-transform:uppercase}
 .railhd{font-family:'Sora';font-weight:800;font-size:13px;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin:2px 2px 4px}
 footer{border-top:1px solid var(--line);background:#fff;padding:26px 0;font-size:12.5px;color:var(--dim);text-align:center}
 /* kiosk mode — full-bleed player for video capture */
@@ -872,9 +879,10 @@ function buildRail(){
  rail.innerHTML='';
  DEMOS.forEach(function(d,i){
   var t=document.createElement('div');t.className='thumb';t.style.setProperty('--tc',hexOf(d.category));
-  t.innerHTML='<div class="tp">'+(ICON[d.category]||'').replace('width="30" height="30"','width="22" height="22"')+'</div>'+
-   '<div><div class="tn">'+esc(d.name)+'</div><div class="tt">'+esc(d.tagline)+'</div></div>'+
-   '<div class="tdur">'+mmss(total(d))+'</div>';
+  t.innerHTML='<div class="tp">'+(ICON[d.category]||'').replace('width="30" height="30"','width="24" height="24"')+'</div>'+
+   '<div class="tdur">'+mmss(total(d))+'</div>'+
+   '<div class="play">▶</div>'+
+   '<div class="meta"><div class="tn">'+esc(d.name)+'</div><div class="tt">'+esc(d.tagline)+'</div></div>';
   t.onclick=function(){loadDemo(i,true);};
   rail.appendChild(t);
  });
