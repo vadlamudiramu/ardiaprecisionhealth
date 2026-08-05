@@ -321,7 +321,14 @@ function tdRun(){
 }
 [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.onclick=function(){setTier(x.dataset.t);};});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')tdClose();});
-(function init(){ if(!DATA.models.length){return;} buildRail(); })();
+(function init(){ if(!DATA.models.length){return;} buildRail();
+  try{ var q=new URLSearchParams(location.search); var k=(q.get('model')||q.get('play')||'').toLowerCase();
+    var alias={molecuiq:'molec',molecular:'molec',tox:'toxiq',toxiciq:'toxiq',pulmoiq:'pulmo',pulmonary:'pulmo',elder:'aria',report:'lumen',pama:'meridian'};
+    if(alias[k])k=alias[k];
+    var idx=DATA.models.map(function(m){return m.key;}).indexOf(k);
+    if(idx>=0){ tdOpen(idx); }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
