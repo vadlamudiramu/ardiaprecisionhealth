@@ -413,7 +413,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
     <div class="demo-frame-wrap">
       <div class="demo-frame-bar">
         <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
-        <div class="demo-frame-url" id="demo-url">ardiahealthlabs.com/model-demos</div>
+        <div class="demo-frame-url" id="demo-url">ardiahealthlabs.com/studio</div>
         <span class="demo-frame-live">● DEMO</span>
       </div>
       <div class="demo-panel active" id="panel-dashboard">
@@ -459,7 +459,7 @@ iframe.demo-iframe{width:100%;height:600px;border:none;display:block}
       <div class="ss-wrap">
         <div class="ss-bar">
           <div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div>
-          <div style="background:rgba(255,255,255,.08);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.5);flex:1;font-family:monospace">ardiahealthlabs.com/model-demos</div>
+          <div style="background:rgba(255,255,255,.08);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,.5);flex:1;font-family:monospace">ardiahealthlabs.com/studio</div>
         </div>
         <img src="img/screenshot-dashboard.png" alt="Ardia Model Demos — Revenue Recovery Intelligence">
       </div>
@@ -636,7 +636,7 @@ function switchDemo(panel, btn) {
   document.querySelectorAll('.demo-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + panel).classList.add('active');
   btn.classList.add('active');
-  const urls = {dashboard:'ardiahealthlabs.com/model-demos', trial:'ardiahealthlabs.com/plg-sandbox.html'};
+  const urls = {dashboard:'ardiahealthlabs.com/studio', trial:'ardiahealthlabs.com/plg-sandbox.html'};
   document.getElementById('demo-url').textContent = urls[panel];
 }
 function switchSS(tab, btn) {
