@@ -94,6 +94,35 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-.02em;font-weight:800}
 .td-cite{display:flex;gap:7px;font-size:12px;color:#aebfd4;line-height:1.5;padding:2px 0}
 .td-cite:before{content:"▸";color:var(--ac)}
 .td-note{margin-top:10px;font-size:11px;color:#5e7288;text-align:center}
+/* ── merged: cinematic gradient-card carousel (Cura-style) + full-screen player ── */
+.td-pick-h{font-family:'Sora';font-weight:700;font-size:14px;color:#2b3f57;margin:0 0 4px}
+.td-pick-s{font-size:12.5px;color:#6d8299;margin:0 0 16px}
+.td-cards{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.td-cards::-webkit-scrollbar{height:8px}
+.td-cards::-webkit-scrollbar-thumb{background:#cdd9e6;border-radius:8px}
+.td-card{position:relative;flex:0 0 300px;height:178px;border-radius:18px;cursor:pointer;overflow:hidden;scroll-snap-align:start;transition:transform .18s,box-shadow .18s;background:linear-gradient(152deg,var(--tc),color-mix(in srgb,var(--tc) 40%,#0a1628));border:1px solid color-mix(in srgb,var(--tc) 55%,transparent);box-shadow:0 12px 30px -14px color-mix(in srgb,var(--tc) 65%,transparent)}
+.td-card:hover{transform:translateY(-3px);box-shadow:0 20px 44px -14px color-mix(in srgb,var(--tc) 72%,transparent)}
+.td-card:before{content:"";position:absolute;inset:0;background:radial-gradient(130% 120% at 84% 10%,rgba(255,255,255,.24),transparent 56%);pointer-events:none}
+.td-card .tp{position:absolute;top:14px;left:16px;font-size:23px;z-index:2;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+.td-card .tdur{position:absolute;top:16px;right:16px;z-index:2;font-family:'JetBrains Mono';font-size:10px;font-weight:600;color:#fff;background:rgba(8,15,28,.42);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:3px 9px;letter-spacing:.5px}
+.td-card .play{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;color:var(--tc);font-size:18px;padding-left:3px;box-shadow:0 6px 20px rgba(0,0,0,.3);z-index:2;transition:transform .18s}
+.td-card:hover .play{transform:translate(-50%,-50%) scale(1.09)}
+.td-card .meta{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.td-card .tn{font-family:'Sora';font-weight:800;font-size:20px;color:#fff;line-height:1.08;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.td-card .tt{font-family:'JetBrains Mono';font-size:9.5px;font-weight:600;color:rgba(255,255,255,.92);margin-top:6px;letter-spacing:1px;text-transform:uppercase}
+/* full-screen modal player */
+.td-modal{position:fixed;inset:0;z-index:9600;background:rgba(6,14,28,.74);backdrop-filter:blur(7px);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:34px 18px}
+.td-modal.on{display:flex}
+.td-modal-box{position:relative;width:100%;max-width:980px;background:#f5f9fc;border-radius:20px;box-shadow:0 34px 90px rgba(6,14,28,.55);padding:20px 22px 24px;margin:auto;animation:tdpop .28s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes tdpop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.td-mhead{display:flex;align-items:center;gap:13px;padding:2px 44px 15px 2px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.td-mico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:23px;background:linear-gradient(152deg,var(--mac,#4f46e5),color-mix(in srgb,var(--mac,#4f46e5) 42%,#0a1628));flex:none;box-shadow:0 8px 20px -8px var(--mac,#4f46e5)}
+.td-mtt{min-width:0}
+.td-mtt .mn2{font-family:'Sora';font-weight:800;font-size:19px;color:#12233a;line-height:1.1}
+.td-mtt .mr2{font-size:12.5px;color:#6d8299;margin-top:2px}
+.td-close{position:absolute;top:15px;right:17px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:#6d8299;font-size:19px;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+.td-close:hover{background:#eef3f8;color:#213653}
+@media(max-width:560px){.td-card{flex-basis:250px;height:158px}.td-modal-box{padding:16px 14px 20px}}
 footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size:12.5px;color:#8697ac;text-align:center;margin-top:10px}
 </style>
 <style id="apx-nav-css">
@@ -156,11 +185,18 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size
 </div></header>
 
 <section class="td-console"><div class="wrap">
-  <div class="td-grid">
-    <aside class="td-rail">
-      <div class="td-rail-h">Pick a model</div>
-      <div id="tdModels"></div>
-    </aside>
+  <div class="td-pick-h">Pick a model to run</div>
+  <div class="td-pick-s">Click a card to open the full-screen player — then switch tiers (Swift · Cortex · Scholar) to watch how far it reasons.</div>
+  <div class="td-cards" id="tdModels"></div>
+</div></section>
+
+<div class="td-modal" id="tdModal" onclick="if(event.target===this)tdClose()">
+  <div class="td-modal-box">
+    <button class="td-close" onclick="tdClose()" aria-label="Close">✕</button>
+    <div class="td-mhead">
+      <div class="td-mico" id="tdMico">◆</div>
+      <div class="td-mtt"><div class="mn2" id="tdMname">—</div><div class="mr2" id="tdMrole">—</div></div>
+    </div>
     <div class="td-main">
       <div class="td-bar">
         <div class="td-tabs" id="tdTabs">
@@ -176,12 +212,12 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size
       </div>
       <div class="td-screen">
         <div class="td-chrome"><div class="td-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="td-url mono" id="tdUrl">ardia://studio/run</span><span class="td-live" id="tdLive" style="display:none"><span class="lz"></span>RUNNING</span></div>
-        <div class="td-body" id="tdBody"><div class="td-idle">Select a model and tier, then press <b>Run</b> to watch the model reason.</div></div>
+        <div class="td-body" id="tdBody"><div class="td-idle">Select a tier, then press <b>Run</b> to watch the model reason.</div></div>
       </div>
       <div class="td-note mono">Trace speed is illustrative. Swift &lt; Cortex &lt; Scholar in depth by design.</div>
     </div>
   </div>
-</div></section>
+</div>
 
 <footer><div class="wrap">Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · TARA reasoning tiers: Swift · Cortex · Scholar · Illustrative demo, synthetic data · <b>Not a diagnosis.</b></div></footer>
 
@@ -203,11 +239,32 @@ function buildRail(){
   var el=document.getElementById('tdModels');el.innerHTML='';
   DATA.models.forEach(function(m,i){
     var ac=ACC[m.key]||'#7c3aed';
-    var d=document.createElement('div');d.className='td-model'+(i===cur?' on':'');d.style.setProperty('--mc',ac);
-    d.innerHTML='<div class="mi">'+(ICONS[m.key]||'◆')+'</div><div><div class="mn">'+esc(m.name)+'</div><div class="mr">'+esc(m.role)+'</div></div>';
-    d.onclick=function(){cur=i;selectModel();};
+    var steps=((m.tiers&&m.tiers.scholar&&m.tiers.scholar.steps)||[]).length;
+    var d=document.createElement('div');d.className='td-card';d.style.setProperty('--tc',ac);
+    d.innerHTML='<div class="tp">'+(ICONS[m.key]||'◆')+'</div><div class="tdur">'+steps+' STEPS</div><div class="play">▶</div><div class="meta"><div class="tn">'+esc(m.name)+'</div><div class="tt">'+esc(m.role)+'</div></div>';
+    d.onclick=function(){tdOpen(i);};
     el.appendChild(d);
   });
+}
+function tdOpen(i){
+  cur=i; tier='swift';
+  var m=DATA.models[cur], ac=ACC[m.key]||'#7c3aed';
+  var box=document.querySelector('.td-modal-box'); if(box)box.style.setProperty('--mac',ac);
+  document.getElementById('tdMico').textContent=ICONS[m.key]||'◆';
+  document.getElementById('tdMname').textContent=m.name;
+  document.getElementById('tdMrole').textContent=m.role;
+  [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.classList.toggle('on',x.dataset.t==='swift');});
+  var T=TIER.swift;
+  document.getElementById('tdTier').textContent=T[0]+' · '+T[1];
+  document.getElementById('tdRunTier').textContent='Swift';
+  selectModel();
+  document.getElementById('tdModal').classList.add('on'); document.body.style.overflow='hidden';
+  clearTimers(); timers.push(setTimeout(tdRun,420));
+}
+function tdClose(){
+  clearTimers(); running=false;
+  document.getElementById('tdModal').classList.remove('on'); document.body.style.overflow='';
+  document.getElementById('tdRun').disabled=false;
 }
 function selectModel(){
   clearTimers();running=false;
@@ -263,7 +320,8 @@ function tdRun(){
   timers.push(setTimeout(next,delay));
 }
 [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.onclick=function(){setTier(x.dataset.t);};});
-(function init(){ if(!DATA.models.length){document.getElementById('tdBody').innerHTML='<div class="td-idle">Loading models…</div>';return;} buildRail(); selectModel(); })();
+document.addEventListener('keydown',function(e){if(e.key==='Escape')tdClose();});
+(function init(){ if(!DATA.models.length){return;} buildRail(); })();
 </script>
 </body>
 </html>
