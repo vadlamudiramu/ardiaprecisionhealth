@@ -303,8 +303,17 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(b)))
+        self.send_header("Access-Control-Allow-Origin", "*")  # allow the website Studio page to call the local engine
         self.end_headers()
         self.wfile.write(b)
+
+    def do_OPTIONS(self):
+        # CORS preflight for cross-origin /api/run calls from the marketing Studio page
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "content-type")
+        self.end_headers()
 
     def do_GET(self):
         if self.path in ("/", "/index.html"):

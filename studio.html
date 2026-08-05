@@ -123,6 +123,53 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-.02em;font-weight:800}
 .td-close{position:absolute;top:15px;right:17px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;color:#6d8299;font-size:19px;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
 .td-close:hover{background:#eef3f8;color:#213653}
 @media(max-width:560px){.td-card{flex-basis:250px;height:158px}.td-modal-box{padding:16px 14px 20px}}
+/* ── two-pane Studio: model list (left) + inline console (right), no modal ── */
+.st-app{display:grid;grid-template-columns:264px 1fr;gap:22px;align-items:start}
+.st-side{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 12px;position:sticky;top:78px}
+.st-side-h{font-family:'Sora';font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8697ac;padding:2px 6px 10px}
+.st-model{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:background .15s,border-color .15s;margin-bottom:2px}
+.st-model:hover{background:#f2f7fb}
+.st-model.on{background:color-mix(in srgb,var(--mc) 10%,#fff);border-color:color-mix(in srgb,var(--mc) 40%,transparent)}
+.st-model .mi{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex:none;background:linear-gradient(152deg,var(--mc),color-mix(in srgb,var(--mc) 42%,#0a1628))}
+.st-model .mn{font-family:'Sora';font-weight:700;font-size:14px;color:#12233a;line-height:1.15}
+.st-model .mr{font-size:11px;color:#6d8299;margin-top:1px}
+.st-side-note{font-size:11px;color:#8697ac;line-height:1.5;padding:12px 6px 2px;border-top:1px solid var(--line);margin-top:8px}
+.st-main{min-width:0}
+.st-empty{background:#fff;border:1px dashed #cdd9e6;border-radius:16px;padding:58px 28px;text-align:center;color:#6d8299}
+.st-empty .bigico{font-size:38px;margin-bottom:10px}
+.st-empty h3{font-family:'Sora';font-size:18px;color:#2b3f57;margin:0 0 6px}
+.st-console{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px 20px;--mac:var(--mc,#4f46e5)}
+.st-back{display:none;align-items:center;gap:6px;background:#f2f7fb;border:1px solid var(--line);color:#4a6285;font-size:12.5px;font-weight:600;border-radius:9px;padding:7px 12px;cursor:pointer;margin-bottom:14px}
+.st-input{margin:14px 0 6px}
+.st-input-l{display:block;font-family:'Sora';font-weight:600;font-size:12px;color:#5a6e87;margin-bottom:6px}
+.st-textarea{width:100%;box-sizing:border-box;border:1px solid #cdd9e6;border-radius:11px;padding:12px 14px;font:400 14px/1.55 system-ui,-apple-system,sans-serif;color:#12233a;resize:vertical;min-height:76px;background:#fbfdff}
+.st-textarea:focus{outline:none;border-color:var(--mc,#4f46e5);box-shadow:0 0 0 3px color-mix(in srgb,var(--mc,#4f46e5) 15%,transparent)}
+.st-input-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+.st-attach{display:inline-flex;align-items:center;gap:7px;background:#f2f7fb;border:1px solid #cdd9e6;border-radius:10px;padding:9px 13px;font-size:12.5px;font-weight:600;color:#4a6285;cursor:pointer;transition:background .15s}
+.st-attach:hover{background:#e7f0f7}
+.st-attach input{display:none}
+.st-files{display:flex;gap:6px;flex-wrap:wrap}
+.st-file{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--mc,#4f46e5) 9%,#fff);border:1px solid color-mix(in srgb,var(--mc,#4f46e5) 32%,transparent);color:#2b3f57;font-size:11.5px;border-radius:20px;padding:4px 10px}
+.st-file b{cursor:pointer;color:#8697ac;font-weight:700}
+.st-run{margin-left:auto}
+.st-examples{margin-top:12px;font-size:12px;color:#8697ac;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.st-ex{background:#fff;border:1px solid #cdd9e6;border-radius:20px;padding:5px 11px;font-size:11.5px;color:#4a6285;cursor:pointer}
+.st-ex:hover{background:#f2f7fb;border-color:var(--mc,#4f46e5)}
+.st-phi{margin-top:14px;font-size:11.5px;line-height:1.55;color:#8a6d3b;background:rgba(245,158,11,.09);border:1px solid rgba(245,158,11,.28);border-radius:10px;padding:10px 13px}
+.st-guards{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.st-guard{font-family:'JetBrains Mono';font-size:10px;font-weight:600;color:#5eead4;background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.3);border-radius:20px;padding:3px 9px}
+.st-offline{margin-top:10px;font-size:11px;color:#8fa3ba;border-top:1px solid rgba(255,255,255,.09);padding-top:8px}
+.st-engine{margin-top:9px;font-size:11px;color:#8697ac;cursor:pointer}
+.st-engine b{color:#4a6285;font-weight:600}
+.st-engine:hover{color:#4a6285}
+.td-answer .at code{font-family:'JetBrains Mono';font-size:11.5px;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:5px;color:#cfe0f5}
+@media(max-width:820px){
+  .st-app{grid-template-columns:1fr}
+  .st-side{position:static}
+  .st-app.showconsole .st-side{display:none}
+  .st-app:not(.showconsole) .st-main{display:none}
+  .st-back{display:inline-flex}
+}
 footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size:12.5px;color:#8697ac;text-align:center;margin-top:10px}
 </style>
 <style id="apx-nav-css">
@@ -185,39 +232,54 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size
 </div></header>
 
 <section class="td-console"><div class="wrap">
-  <div class="td-pick-h">Pick a model to run</div>
-  <div class="td-pick-s">Click a card to open the full-screen player — then switch tiers (Swift · Cortex · Scholar) to watch how far it reasons.</div>
-  <div class="td-cards" id="tdModels"></div>
-</div></section>
-
-<div class="td-modal" id="tdModal" onclick="if(event.target===this)tdClose()">
-  <div class="td-modal-box">
-    <button class="td-close" onclick="tdClose()" aria-label="Close">✕</button>
-    <div class="td-mhead">
-      <div class="td-mico" id="tdMico">◆</div>
-      <div class="td-mtt"><div class="mn2" id="tdMname">—</div><div class="mr2" id="tdMrole">—</div></div>
-    </div>
-    <div class="td-main">
-      <div class="td-bar">
-        <div class="td-tabs" id="tdTabs">
-          <div class="td-tab on" data-t="swift" style="--ac:var(--swift)"><span class="dot"></span>Swift</div>
-          <div class="td-tab" data-t="cortex" style="--ac:var(--cortex)"><span class="dot"></span>Cortex</div>
-          <div class="td-tab" data-t="scholar" style="--ac:var(--scholar)"><span class="dot"></span>Scholar</div>
+  <div class="td-pick-h">Ardia Studio — run a model on your own case</div>
+  <div class="td-pick-s">Pick a model on the left, type a case or attach a report, choose a reasoning tier, and run. Synthetic-data demo — not for real patient information.</div>
+  <div class="st-app" id="stApp">
+    <aside class="st-side">
+      <div class="st-side-h">Models</div>
+      <div id="tdModels"></div>
+      <div class="st-side-note">Each model does one job well under the same governed core. Swift · Cortex · Scholar set how deep it reasons.</div>
+    </aside>
+    <main class="st-main">
+      <div class="st-empty" id="stEmpty">
+        <div class="bigico">🧬</div>
+        <h3>Pick a model to begin</h3>
+        <div style="font-size:13px;max-width:360px;margin:0 auto">Choose a model on the left, then type your case or attach a report / scan / image.</div>
+      </div>
+      <div class="st-console" id="stConsole" style="display:none">
+        <button class="st-back" onclick="stBack()">← All models</button>
+        <div class="td-mhead">
+          <div class="td-mico" id="tdMico">◆</div>
+          <div class="td-mtt"><div class="mn2" id="tdMname">—</div><div class="mr2" id="tdMrole">—</div></div>
         </div>
-        <span class="td-lat" id="tdTier">SWIFT · fast tier</span>
+        <div class="td-bar">
+          <div class="td-tabs" id="tdTabs">
+            <div class="td-tab on" data-t="swift" style="--ac:var(--swift)"><span class="dot"></span>Swift</div>
+            <div class="td-tab" data-t="cortex" style="--ac:var(--cortex)"><span class="dot"></span>Cortex</div>
+            <div class="td-tab" data-t="scholar" style="--ac:var(--scholar)"><span class="dot"></span>Scholar</div>
+          </div>
+          <span class="td-lat" id="tdTier">SWIFT · fast tier</span>
+        </div>
+        <div class="st-input">
+          <label class="st-input-l" for="stPrompt">Your case — paste a denial, note, or report</label>
+          <textarea id="stPrompt" class="st-textarea" placeholder="Describe the case, or attach a report / scan / image below…"></textarea>
+          <div class="st-input-row">
+            <label class="st-attach"><input type="file" id="stFileInput" multiple accept=".pdf,.txt,.csv,.doc,.docx,.png,.jpg,.jpeg,.webp,.dcm,.hl7,.xml" onchange="stFiles(this)"><span>📎 Attach report / scan / image</span></label>
+            <div class="st-files" id="stFilesList"></div>
+            <button class="td-run st-run" id="tdRun" onclick="tdRun()">▶ Run <span id="tdRunTier">Swift</span></button>
+          </div>
+          <div class="st-examples" id="stExamples"></div>
+          <div class="st-engine" id="stEngine" onclick="stSetEngine()" title="Point this at your running Ardia Studio engine"></div>
+        </div>
+        <div class="td-screen">
+          <div class="td-chrome"><div class="td-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="td-url mono" id="tdUrl">ardia://studio/run</span><span class="td-live" id="tdLive" style="display:none"><span class="lz"></span>RUNNING</span></div>
+          <div class="td-body" id="tdBody"><div class="td-idle">Enter a case (or load the example), pick a tier, then press <b>Run</b>.</div></div>
+        </div>
+        <div class="st-phi">🔒 <b>Do not enter real patient information (PHI).</b> When the Ardia Studio engine is connected, each run is de-identified (Sentinel), grounded on <b>live PubMed / ClinicalTrials.gov</b> sources, and guardrailed (Crucible) — a draft for a licensed human to verify, not a diagnosis, nothing auto-filed. When it isn’t connected, examples show a curated illustration and your own input is not answered (no fabricated output).</div>
       </div>
-      <div class="td-prompt">
-        <div style="flex:1;min-width:0"><div class="pl">Prompt</div><div class="pt" id="tdPrompt">—</div></div>
-        <button class="td-run" id="tdRun" onclick="tdRun()">▶ Run <span id="tdRunTier">Swift</span></button>
-      </div>
-      <div class="td-screen">
-        <div class="td-chrome"><div class="td-dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><span class="td-url mono" id="tdUrl">ardia://studio/run</span><span class="td-live" id="tdLive" style="display:none"><span class="lz"></span>RUNNING</span></div>
-        <div class="td-body" id="tdBody"><div class="td-idle">Select a tier, then press <b>Run</b> to watch the model reason.</div></div>
-      </div>
-      <div class="td-note mono">Trace speed is illustrative. Swift &lt; Cortex &lt; Scholar in depth by design.</div>
-    </div>
+    </main>
   </div>
-</div>
+</div></section>
 
 <footer><div class="wrap">Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · TARA reasoning tiers: Swift · Cortex · Scholar · Illustrative demo, synthetic data · <b>Not a diagnosis.</b></div></footer>
 
@@ -235,45 +297,90 @@ var cur=0, tier='swift', running=false, timers=[];
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function clearTimers(){timers.forEach(clearTimeout);timers=[];}
 
+var stFilesArr=[];
+/* ---- live engine wiring: real de-id (Sentinel) + PubMed/ClinicalTrials grounding + Crucible guardrails ---- */
+var ENGINE_MODEL={molec:'molec',toxiq:'molec',pulmo:'tara',meridian:'tara',aria:'aria',lumen:'lumen'};
+function stEngineBase(){
+  var o=''; try{o=(localStorage.getItem('ardiaEngine')||'').trim();}catch(e){}
+  if(o) return o.replace(/\/+$/,'');
+  if(location.protocol==='http:' && /^(localhost|127\.0\.0\.1)/.test(location.host)) return ''; // page served BY the engine
+  return 'http://localhost:8787';
+}
+function stSetEngine(){
+  var cur=''; try{cur=localStorage.getItem('ardiaEngine')||'';}catch(e){}
+  var v=window.prompt('Ardia Studio engine URL (run ardia-studio-app locally to get real, cited answers):', cur||'http://localhost:8787');
+  if(v===null) return;
+  try{ if(v.trim()) localStorage.setItem('ardiaEngine',v.trim()); else localStorage.removeItem('ardiaEngine'); }catch(e){}
+  stUpdateEngineLabel();
+}
+function stUpdateEngineLabel(){
+  var el=document.getElementById('stEngine'); if(!el)return;
+  el.innerHTML='live engine: <b>'+esc(stEngineBase()||location.origin)+'</b> · change';
+}
 function buildRail(){
   var el=document.getElementById('tdModels');el.innerHTML='';
   DATA.models.forEach(function(m,i){
     var ac=ACC[m.key]||'#7c3aed';
-    var steps=((m.tiers&&m.tiers.scholar&&m.tiers.scholar.steps)||[]).length;
-    var d=document.createElement('div');d.className='td-card';d.style.setProperty('--tc',ac);
-    d.innerHTML='<div class="tp">'+(ICONS[m.key]||'◆')+'</div><div class="tdur">'+steps+' STEPS</div><div class="play">▶</div><div class="meta"><div class="tn">'+esc(m.name)+'</div><div class="tt">'+esc(m.role)+'</div></div>';
-    d.onclick=function(){tdOpen(i);};
+    var d=document.createElement('div');d.className='st-model';d.style.setProperty('--mc',ac);
+    d.innerHTML='<div class="mi">'+(ICONS[m.key]||'◆')+'</div><div><div class="mn">'+esc(m.name)+'</div><div class="mr">'+esc(m.role)+'</div></div>';
+    d.onclick=function(){stSelect(i);};
     el.appendChild(d);
   });
 }
-function tdOpen(i){
-  cur=i; tier='swift';
+function stSelect(i){
+  cur=i; tier='swift'; clearTimers(); running=false; stFilesArr=[];
   var m=DATA.models[cur], ac=ACC[m.key]||'#7c3aed';
-  var box=document.querySelector('.td-modal-box'); if(box)box.style.setProperty('--mac',ac);
+  document.documentElement.style.setProperty('--ac',ac);
+  var con=document.getElementById('stConsole'); con.style.setProperty('--mc',ac);
   document.getElementById('tdMico').textContent=ICONS[m.key]||'◆';
   document.getElementById('tdMname').textContent=m.name;
   document.getElementById('tdMrole').textContent=m.role;
+  [].forEach.call(document.querySelectorAll('.st-model'),function(x,j){x.classList.toggle('on',j===cur);});
   [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.classList.toggle('on',x.dataset.t==='swift');});
-  var T=TIER.swift;
-  document.getElementById('tdTier').textContent=T[0]+' · '+T[1];
+  document.getElementById('tdTier').textContent='SWIFT · fast tier';
   document.getElementById('tdRunTier').textContent='Swift';
-  selectModel();
-  document.getElementById('tdModal').classList.add('on'); document.body.style.overflow='hidden';
-  clearTimers(); timers.push(setTimeout(tdRun,420));
-}
-function tdClose(){
-  clearTimers(); running=false;
-  document.getElementById('tdModal').classList.remove('on'); document.body.style.overflow='';
-  document.getElementById('tdRun').disabled=false;
-}
-function selectModel(){
-  clearTimers();running=false;
-  [].forEach.call(document.querySelectorAll('.td-model'),function(x,i){x.classList.toggle('on',i===cur);});
-  var m=DATA.models[cur];var ac=ACC[m.key]||'#7c3aed';
-  document.documentElement.style.setProperty('--ac',ac);
-  document.getElementById('tdPrompt').textContent=m.prompt;
+  document.getElementById('stPrompt').value=m.prompt;
+  document.getElementById('stFileInput').value=''; document.getElementById('stFilesList').innerHTML='';
+  document.getElementById('stExamples').innerHTML='<span>Try:</span><span class="st-ex" onclick="stLoadExample()">↻ Load example case</span>';
+  stUpdateEngineLabel();
+  document.getElementById('stEmpty').style.display='none';
+  con.style.display='block';
+  document.getElementById('stApp').classList.add('showconsole');
   document.getElementById('tdUrl').textContent='ardia://studio/'+m.key+'/'+tier;
   resetScreen();
+}
+function stBack(){
+  clearTimers(); running=false;
+  document.getElementById('stApp').classList.remove('showconsole');
+  var c=document.querySelector('.td-console'); if(c)window.scrollTo({top:c.offsetTop-70,behavior:'smooth'});
+}
+function stLoadExample(){ document.getElementById('stPrompt').value=DATA.models[cur].prompt; stFilesArr=[]; document.getElementById('stFileInput').value=''; document.getElementById('stFilesList').innerHTML=''; resetScreen(); }
+function renderFiles(){
+  var wrap=document.getElementById('stFilesList');wrap.innerHTML='';
+  stFilesArr.forEach(function(f,ix){var s=document.createElement('span');s.className='st-file';s.innerHTML='📄 '+esc(f.name)+' <b onclick="stRmFile('+ix+')">✕</b>';wrap.appendChild(s);});
+}
+function stFiles(input){
+  var files=[].slice.call(input.files||[]); stFilesArr=[]; var pending=files.length;
+  if(!pending){renderFiles();return;}
+  files.forEach(function(f){
+    var reader=new FileReader();
+    reader.onload=function(){ stFilesArr.push({name:f.name,type:f.type||'application/octet-stream',b64:(String(reader.result).split(',')[1]||'')}); if(--pending===0)renderFiles(); };
+    reader.onerror=function(){ if(--pending===0)renderFiles(); };
+    reader.readAsDataURL(f);
+  });
+}
+function stRmFile(ix){ stFilesArr.splice(ix,1); document.getElementById('stFileInput').value=''; renderFiles(); }
+function genericSteps(tr){
+  if(tr==='swift')return [{kind:'reason',label:'Swift response',detail:'Instant answer — no tool calls at this tier.'}];
+  var base=[
+    {kind:'check',label:'De-identify the input',detail:'Sentinel strips the 18 HIPAA Safe-Harbor identifiers before anything else.',source:'45 CFR 164.514(b)(2)'},
+    {kind:'plan',label:'Parse the case',detail:'Break the input into what matters — codes, payer, denial reason, and the clinical facts.'},
+    {kind:'retrieve',label:'Retrieve the governing policy',detail:'Pull the applicable coverage rule or clinical guideline (NCD/LCD, CPT/HCPCS, society guideline).'},
+    {kind:'reason',label:'Reason over the evidence',detail:'Weigh the facts against policy to form a defensible, cited position.'},
+    {kind:'check',label:'Guardrail + honesty check',detail:'No diagnosis, no invented numbers; every claim must trace to a source; the output is a draft for a human.',source:'Ardia honesty guarantee'}
+  ];
+  if(tr==='scholar')base.splice(3,0,{kind:'search',label:'Search the literature',detail:'Query PubMed / ClinicalTrials.gov for supporting evidence.',source:'PubMed / ClinicalTrials.gov'});
+  return base;
 }
 function setTier(t){
   tier=t;clearTimers();running=false;
@@ -295,38 +402,64 @@ function stepHTML(s){
 }
 function tdRun(){
   if(running)return; running=true; clearTimers();
-  var m=DATA.models[cur], t=m.tiers[tier], ac=ACC[m.key]||'#7c3aed';
+  var m=DATA.models[cur], ac=ACC[m.key]||'#7c3aed';
+  var promptVal=(document.getElementById('stPrompt').value||'').trim();
+  var files=(stFilesArr||[]).slice();
+  var isExample=(promptVal===(m.prompt||'').trim()) && files.length===0;
+  var userMsg=promptVal||m.prompt||'';
+  var fileTag=files.length?' <span style="opacity:.75">📎 '+esc(files.map(function(f){return f.name;}).join(', '))+'</span>':'';
   var body=document.getElementById('tdBody');
   document.getElementById('tdLive').style.display='flex';
   document.getElementById('tdRun').disabled=true;
-  body.innerHTML='<div class="td-user"><div class="av">👤</div><div class="ub">'+esc(m.prompt)+'</div></div>';
-  var steps=[];
-  if(tier==='swift'){steps=[{kind:'reason',label:'Swift response',detail:'Instant answer — no tool calls at this tier.'}];}
-  else if(tier==='cortex'){steps=(t.steps||[]).map(function(s){return {kind:'reason',label:s.label,detail:s.detail};});}
-  else{steps=t.steps||[];}
-  var i=0, delay=(tier==='swift'?260:tier==='cortex'?520:640);
-  function next(){
-    if(i<steps.length){ body.insertAdjacentHTML('beforeend',stepHTML(steps[i])); i++; body.scrollTop=body.scrollHeight; timers.push(setTimeout(next,delay)); }
-    else{ finish(); }
+  body.innerHTML='<div class="td-user"><div class="av">👤</div><div class="ub">'+esc(userMsg)+fileTag+'</div></div>';
+  // stream the pipeline ("how it reasons") while the engine works
+  var steps=genericSteps(tier), i=0, delay=(tier==='swift'?300:tier==='cortex'?460:560);
+  function nextStep(){ if(i<steps.length){ body.insertAdjacentHTML('beforeend',stepHTML(steps[i])); i++; body.scrollTop=body.scrollHeight; timers.push(setTimeout(nextStep,delay)); } }
+  nextStep();
+  var done=false;
+  function finalize(html){ if(done)return; done=true; clearTimers(); document.getElementById('tdLive').style.display='none'; body.insertAdjacentHTML('beforeend',html); body.scrollTop=body.scrollHeight; document.getElementById('tdRun').disabled=false; running=false; }
+  // try the real engine
+  var base=stEngineBase();
+  var payload={model:ENGINE_MODEL[m.key]||'tara', text:userMsg, engine:(tier==='scholar'?'deep':tier==='cortex'?'':'fast'),
+    attachments:files.map(function(f){return {b64:f.b64,media_type:f.type,name:f.name};})};
+  var ctrl=('AbortController' in window)?new AbortController():null;
+  var to=setTimeout(function(){ if(ctrl)try{ctrl.abort();}catch(e){} }, 60000);
+  var opt={method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)};
+  if(ctrl)opt.signal=ctrl.signal;
+  fetch(base+'/api/run',opt).then(function(r){return r.json();}).then(function(res){
+    clearTimeout(to);
+    if(res && res.text!=null){ finalize(realAnswer(m,ac,res)); }
+    else { finalize(offlineAnswer(m,ac,isExample, (res&&res.message)?esc(res.message):'')); }
+  }).catch(function(){ clearTimeout(to); finalize(offlineAnswer(m,ac,isExample,'')); });
+}
+function realAnswer(m,ac,res){
+  var srcs='';
+  if(res.sources && res.sources.length){
+    srcs='<div class="td-cites"><div class="ch">Sources consulted ('+res.sources.length+') · PubMed / ClinicalTrials.gov</div>'+res.sources.map(function(s,i){return '<div class="td-cite"><a href="'+esc(s.url||'#')+'" target="_blank" rel="noopener" style="color:#8fb7ff;text-decoration:none">['+(i+1)+'] '+esc(s.title||s.url||'source')+'</a> <span style="color:#7a93b0">— '+esc(s.source||'')+(s.year?(' '+esc(s.year)):'')+(s.status?(' · '+esc(s.status)):'')+'</span></div>';}).join('')+'</div>';
   }
-  function finish(){
-    document.getElementById('tdLive').style.display='none';
-    var cites=(tier==='scholar'&&t.citations&&t.citations.length)?'<div class="td-cites"><div class="ch">Sources &amp; citations</div>'+t.citations.map(function(c){return '<div class="td-cite">'+esc(c)+'</div>';}).join('')+'</div>':'';
-    var lbl=(tier==='swift'?'Answer':tier==='cortex'?'Reasoned answer':'Cited answer · drafted for human review');
-    body.insertAdjacentHTML('beforeend','<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ '+lbl+' · '+TIER[tier][0]+' · '+esc(t.latency||'')+'</div><div class="at">'+esc(t.answer)+'</div>'+cites+'</div>');
-    body.scrollTop=body.scrollHeight;
-    document.getElementById('tdRun').disabled=false; running=false;
+  var badges=[], sn=res.sentinel, cs=res.crucible_summary;
+  if(sn && sn.removed!=null) badges.push('Sentinel · '+sn.removed+' identifier'+(sn.removed===1?'':'s')+' removed');
+  if(cs && cs.n_total!=null) badges.push('Crucible · '+cs.n_passed+'/'+cs.n_total+' gates'+(cs.passed?'':' ⚠'));
+  var g=badges.length?'<div class="st-guards">'+badges.map(function(b){return '<span class="st-guard">✓ '+esc(b)+'</span>';}).join('')+'</div>':'';
+  var txt=esc(res.text||'').replace(/\n/g,'<br>');
+  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live answer · '+TIER[tier][0]+' · grounded &amp; guardrailed · drafted for human review</div>'+g+'<div class="at">'+txt+'</div>'+srcs+'</div>';
+}
+function offlineAnswer(m,ac,isExample,extra){
+  if(isExample){
+    var t=m.tiers[tier];
+    var cites=(tier==='scholar'&&t.citations&&t.citations.length)?'<div class="td-cites"><div class="ch">Sources &amp; citations (curated example)</div>'+t.citations.map(function(c){return '<div class="td-cite">'+esc(c)+'</div>';}).join('')+'</div>':'';
+    return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Illustrative example · '+TIER[tier][0]+' · engine offline</div><div class="at">'+esc(t.answer)+'</div>'+cites+'<div class="st-offline">Curated example — the live engine isn’t connected, so this is a pre-written illustration, not a real answer to new input.'+(extra?' ('+extra+')':'')+'</div></div>';
   }
-  timers.push(setTimeout(next,delay));
+  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live engine not connected</div><div class="at">I won’t fabricate a medical answer. To run your input for real — de-identified, grounded on live PubMed/ClinicalTrials sources, and guardrailed — start the Ardia Studio engine: in <code>ardia-studio-app/</code> set a free key and run <code>./run.sh</code> (serves at localhost:8787), then reload. Please don’t enter real patient information.'+(extra?'<br><span style="opacity:.65">engine said: '+extra+'</span>':'')+'</div></div>';
 }
 [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.onclick=function(){setTier(x.dataset.t);};});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')tdClose();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')stBack();});
 (function init(){ if(!DATA.models.length){return;} buildRail();
   try{ var q=new URLSearchParams(location.search); var k=(q.get('model')||q.get('play')||'').toLowerCase();
     var alias={molecuiq:'molec',molecular:'molec',tox:'toxiq',toxiciq:'toxiq',pulmoiq:'pulmo',pulmonary:'pulmo',elder:'aria',report:'lumen',pama:'meridian'};
     if(alias[k])k=alias[k];
     var idx=DATA.models.map(function(m){return m.key;}).indexOf(k);
-    if(idx>=0){ tdOpen(idx); }
+    if(idx>=0){ stSelect(idx); }
   }catch(e){}
 })();
 </script>
