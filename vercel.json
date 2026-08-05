@@ -15,5 +15,11 @@
       ]
     }
   ],
+  "functions": {
+    "api/run.py": {
+      "maxDuration": 60,
+      "includeFiles": "{models,ardia-studio-app}/**"
+    }
+  },
   "cleanUrls": true
 }

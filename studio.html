@@ -302,9 +302,9 @@ var stFilesArr=[];
 var ENGINE_MODEL={molec:'molec',toxiq:'molec',pulmo:'tara',meridian:'tara',aria:'aria',lumen:'lumen'};
 function stEngineBase(){
   var o=''; try{o=(localStorage.getItem('ardiaEngine')||'').trim();}catch(e){}
-  if(o) return o.replace(/\/+$/,'');
-  if(location.protocol==='http:' && /^(localhost|127\.0\.0\.1)/.test(location.host)) return ''; // page served BY the engine
-  return 'http://localhost:8787';
+  // '' = same-origin /api/run — the Vercel serverless function on the deployed site,
+  // or the local engine when it serves this page. Override via the "change" link for a remote engine.
+  return o ? o.replace(/\/+$/,'') : '';
 }
 function stSetEngine(){
   var cur=''; try{cur=localStorage.getItem('ardiaEngine')||'';}catch(e){}
@@ -450,7 +450,7 @@ function offlineAnswer(m,ac,isExample,extra){
     var cites=(tier==='scholar'&&t.citations&&t.citations.length)?'<div class="td-cites"><div class="ch">Sources &amp; citations (curated example)</div>'+t.citations.map(function(c){return '<div class="td-cite">'+esc(c)+'</div>';}).join('')+'</div>':'';
     return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Illustrative example · '+TIER[tier][0]+' · engine offline</div><div class="at">'+esc(t.answer)+'</div>'+cites+'<div class="st-offline">Curated example — the live engine isn’t connected, so this is a pre-written illustration, not a real answer to new input.'+(extra?' ('+extra+')':'')+'</div></div>';
   }
-  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live engine not connected</div><div class="at">I won’t fabricate a medical answer. To run your input for real — de-identified, grounded on live PubMed/ClinicalTrials sources, and guardrailed — start the Ardia Studio engine: in <code>ardia-studio-app/</code> set a free key and run <code>./run.sh</code> (serves at localhost:8787), then reload. Please don’t enter real patient information.'+(extra?'<br><span style="opacity:.65">engine said: '+extra+'</span>':'')+'</div></div>';
+  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live engine not connected</div><div class="at">I won’t fabricate a medical answer. Real, cited answers require the Ardia Studio engine to be online with a model key configured — until then this stays honestly blank rather than guessing. Please don’t enter real patient information.'+(extra?'<br><span style="opacity:.65">engine said: '+extra+'</span>':'')+'</div></div>';
 }
 [].forEach.call(document.querySelectorAll('.td-tab'),function(x){x.onclick=function(){setTier(x.dataset.t);};});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')stBack();});
