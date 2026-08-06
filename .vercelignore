@@ -13,3 +13,11 @@
 _internal-team-details.html
 email-audit.html
 google-cloud-email-response.html
+
+# Confidential business documents — tracked in git but NOT web content and not
+# linked from any page. An old investor pitch deck (.pptx) and business-plan
+# white paper (.docx) must never be publicly downloadable at their exact paths.
+PrecisionMedicine/
+
+# Python test-suite (not web content).
+tests/

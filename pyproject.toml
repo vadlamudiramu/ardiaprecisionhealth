@@ -2,6 +2,17 @@
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
+# This project exists ONLY for the local pytest suite — it is never a
+# distributable package. On Vercel, the presence of pyproject.toml makes the
+# builder run `uv sync`, which tries to build a wheel of the repo root; the flat
+# layout (api/, img/, models/, PrecisionMedicine/, ...) breaks setuptools'
+# automatic package discovery and fails every deploy. Declaring no packages /
+# no modules makes that build a clean no-op so the static site + api/run.py
+# function deploy normally. (pytest config below is unaffected.)
+[tool.setuptools]
+packages = []
+py-modules = []
+
 [project]
 name = "ardia-models"
 version = "0.1.0"
