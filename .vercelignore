@@ -21,3 +21,9 @@ PrecisionMedicine/
 
 # Python test-suite (not web content).
 tests/
+
+# Never bundle local secrets into the serverless function (the api/run.py includeFiles
+# glob packages ardia-studio-app/** — a local .env with a real key must not ride along).
+.env
+*.env
+ardia-studio-app/.env

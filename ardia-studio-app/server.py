@@ -129,12 +129,14 @@ def _post(url, headers, payload):
 
 
 def _http_err(e):
-    body = e.read().decode("utf-8", "replace")
+    # Drain the upstream body server-side but NEVER return it to the client — an upstream
+    # error body can echo the (de-identified) prompt or internal detail. Generic message only.
     try:
-        detail = json.loads(body).get("error", {}).get("message", body)
+        e.read()
     except Exception:
-        detail = body
-    return {"error": "api_error", "status": e.code, "message": detail}
+        pass
+    return {"error": "api_error", "status": getattr(e, "code", 0),
+            "message": "The model provider returned an error. Please retry shortly."}
 
 
 _GEMINI_CUR = {"model": None}
@@ -279,29 +281,42 @@ except Exception:
 # record-attributed dx references as references, not diagnoses. (toxiq maps to molec.)
 _ADMIN_MODELS = {"molec"}
 
+try:
+    from models.hipaa import audit as phi_audit   # PHI-free accountability trail (§164.312(b))
+    _AUDIT_OK = True
+except Exception:
+    _AUDIT_OK = False
 
-def call_model(model_key, text, attachments, engine="", ground=True, attest=False):
+
+def call_model(model_key, text, attachments, engine="", ground=True, attest=False, attachments_ok=False):
     if model_key not in MODELS:
         return {"error": "bad_model", "message": "Unknown model."}
-    # PHI gate: uploaded files are sent to a third-party model provider and are NOT
-    # auto-de-identified (Sentinel only de-identifies the typed text — it cannot redact
-    # pixels/embedded text in an image or PDF). Require an explicit attestation that the
-    # file is synthetic / de-identified before any file leaves for the vendor. Real
-    # patient data requires a signed BAA.
-    if attachments and not attest:
-        return {"error": "attest_required",
-                "message": "Uploaded files are sent to the AI provider and are NOT automatically de-identified. "
-                           "Confirm the file is synthetic or de-identified (contains no real patient identifiers) "
-                           "to run it. Real patient data requires a signed BAA before it can be processed."}
+    # Fail CLOSED: if the de-identification guardrail could not load, refuse to process
+    # input rather than silently forwarding raw text to a third-party model/API.
+    if not _GUARDS_OK:
+        return {"error": "guard_unavailable",
+                "message": "The de-identification guardrail is unavailable — refusing to process input."}
+    atts = attachments or []
+    # Attachment egress control (SERVER-SIDE — the client cannot flip it): binary files can
+    # carry PHI (image pixels, PDF/DICOM headers) that text de-id cannot redact, and they go
+    # to a third-party model. Blocked unless the operator has authorized uploads (a BAA /
+    # gated synthetic demo, via ARDIA_ALLOW_UPLOADS / ARDIA_BAA_VERIFIED, checked by the
+    # caller and passed as attachments_ok) AND the client acknowledges the file is synthetic.
+    if atts:
+        if not attachments_ok:
+            return {"error": "uploads_disabled",
+                    "message": "File uploads are disabled on this server: the model provider is a third party "
+                               "with no signed BAA / upload authorization configured. Paste de-identified text "
+                               "instead. (Operator: set ARDIA_ALLOW_UPLOADS=1 to enable a gated synthetic demo.)"}
+        if not attest:
+            return {"error": "attest_required",
+                    "message": "Confirm the file is synthetic or de-identified (no real patient identifiers) to run it."}
     p = active_provider()
     if p is None:
         return NO_KEY
     # Sentinel: strip HIPAA Safe-Harbor identifiers from the text BEFORE the model sees it.
-    sentinel = None
-    if _GUARDS_OK:
-        text, sentinel = deid_input(text)
-    # Research grounding: retrieve real PubMed / ClinicalTrials sources from the
-    # de-identified query and give them to the model to cite (best-effort).
+    text, sentinel = deid_input(text)
+    # Research grounding: retrieve real sources from the DE-IDENTIFIED query only.
     sources = []
     if ground and _RESEARCH_OK and text:
         sources = gather_sources(text, n=3)
@@ -317,16 +332,30 @@ def call_model(model_key, text, attachments, engine="", ground=True, attest=Fals
         res = NO_KEY
     if isinstance(res, dict) and "text" in res:
         # Crucible: run the guardrail gates on the model OUTPUT and attach verdicts.
-        if _GUARDS_OK:
-            res["sentinel"] = sentinel
-            res["crucible"] = gate_output(res["text"], administrative=(model_key in _ADMIN_MODELS))
-            res["crucible_summary"] = summarize(res["crucible"])
+        res["sentinel"] = sentinel
+        res["crucible"] = gate_output(res["text"], administrative=(model_key in _ADMIN_MODELS))
+        res["crucible_summary"] = summarize(res["crucible"])
+        # ENFORCING output PHI control: if any identifier survived into the output, REDACT it
+        # before returning (do not merely flag) — the de-identified copy is what leaves.
+        dgate = next((g for g in res["crucible"] if g["gate"] == "de_identification"), None)
+        if dgate and not dgate["passed"]:
+            res["text"], _ = deid_input(res["text"])
+            res["output_redacted"] = True
         res["sources"] = sources
-        if attachments:
-            # Transparency: the typed text was de-identified, the file(s) were NOT —
-            # they ran on the user's synthetic/de-identified attestation.
+        if atts:
             res["attachments_note"] = ("%d file(s) sent on your synthetic/de-identified attestation — "
-                                       "attachments are not auto-de-identified." % len(attachments))
+                                       "attachments are not auto-de-identified." % len(atts))
+    # PHI-free audit event for the accountability control (§164.312(b)).
+    if _AUDIT_OK:
+        try:
+            summ = res.get("crucible_summary") if isinstance(res, dict) else None
+            phi_audit.record("model_call", model=model_key,
+                             deid=(sentinel or {"removed": 0, "categories": []}),
+                             extra={"attachments": len(atts),
+                                    "crucible_passed": (summ or {}).get("passed"),
+                                    "redacted": bool(isinstance(res, dict) and res.get("output_redacted"))})
+        except Exception:
+            pass
     return res
 
 
@@ -385,10 +414,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         atts = body.get("attachments") or []
         if not atts and body.get("image_b64"):   # backward compat with single-file clients
             atts = [{"b64": body.get("image_b64"), "media_type": body.get("image_media_type")}]
+        uploads_ok = os.environ.get("ARDIA_ALLOW_UPLOADS") == "1" or os.environ.get("ARDIA_BAA_VERIFIED") == "1"
         res = call_model(body.get("model", "lumen"), (body.get("text") or "").strip(), atts,
                          body.get("engine", ""), body.get("ground", True),
-                         attest=bool(body.get("attest_synthetic")))
-        code = 200 if "text" in res else (400 if res.get("error") in ("no_key", "bad_model", "bad_request", "attest_required") else 502)
+                         attest=bool(body.get("attest_synthetic")), attachments_ok=uploads_ok)
+        code = 200 if "text" in res else (400 if res.get("error") in (
+            "no_key", "bad_model", "bad_request", "attest_required", "uploads_disabled", "guard_unavailable") else 502)
         return self._json(res, code)
 
 

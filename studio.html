@@ -265,7 +265,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:24px 0;font-size
           <label class="st-input-l" for="stPrompt">Your case — paste a denial, note, or report</label>
           <textarea id="stPrompt" class="st-textarea" placeholder="Describe the case, or attach a report / scan / image below…"></textarea>
           <div class="st-input-row">
-            <label class="st-attach"><input type="file" id="stFileInput" multiple accept=".pdf,.txt,.csv,.doc,.docx,.png,.jpg,.jpeg,.webp,.dcm,.hl7,.xml" onchange="stFiles(this)"><span>📎 Attach report / scan / image</span></label>
+            <label class="st-attach"><input type="file" id="stFileInput" multiple accept=".pdf,.txt,.csv,.doc,.docx,.png,.jpg,.jpeg,.webp" onchange="stFiles(this)"><span>📎 Attach report / scan / image</span></label>
             <div class="st-files" id="stFilesList"></div>
             <button class="td-run st-run" id="tdRun" onclick="tdRun()">▶ Run <span id="tdRunTier">Swift</span></button>
           </div>
@@ -314,11 +314,11 @@ function stSetEngine(){
   try{ if(v.trim()) localStorage.setItem('ardiaEngine',v.trim()); else localStorage.removeItem('ardiaEngine'); }catch(e){}
   stUpdateEngineLabel();
 }
-function stCode(){ try{return (localStorage.getItem('ardiaCode')||'').trim();}catch(e){return '';} }
+function stCode(){ try{return (sessionStorage.getItem('ardiaCode')||'').trim();}catch(e){return '';} }
 function stSetCode(){
   var v=window.prompt('Access code for the Studio engine (set ARDIA_DEMO_CODE on the server to require one):', stCode());
   if(v===null) return;
-  try{ if(v.trim()) localStorage.setItem('ardiaCode',v.trim()); else localStorage.removeItem('ardiaCode'); }catch(e){}
+  try{ if(v.trim()) sessionStorage.setItem('ardiaCode',v.trim()); else sessionStorage.removeItem('ardiaCode'); }catch(e){}
   stUpdateEngineLabel();
 }
 function stUpdateEngineLabel(){
@@ -453,6 +453,7 @@ function tdRun(){
     if(res && res.text!=null){ finalize(realAnswer(m,ac,res)); }
     else if(res && res.error==='forbidden'){ finalize(codeNeededAnswer(ac)); }
     else if(res && res.error==='attest_required'){ finalize('<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Confirm the file is safe to send</div><div class="at">'+esc(res.message||'')+'</div></div>'); }
+    else if(res && (res.error==='uploads_disabled'||res.error==='guard_unavailable')){ finalize('<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ '+(res.error==='uploads_disabled'?'File uploads are disabled':'Guardrail unavailable')+'</div><div class="at">'+esc(res.message||'')+'</div></div>'); }
     else { finalize(offlineAnswer(m,ac,isExample, (res&&res.message)?esc(res.message):'')); }
   }).catch(function(){ clearTimeout(to); finalize(offlineAnswer(m,ac,isExample,'')); });
 }
