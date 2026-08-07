@@ -83,8 +83,9 @@ listed emergency contact. Never name a disease and never tell them to start/stop
  "molec": {"name": "MolecuIQ", "role": "Lab Denial Recovery (administrative)", "system": """You are MolecuIQ, Ardia's
 molecular/toxicology denial-recovery assistant. This is ADMINISTRATIVE revenue-cycle work, not clinical care.
 The user may paste/attach a denial letter / EOB / claim. Classify the denial and root cause; if appealable,
-outline a cited appeal (name the relevant guideline/policy at a high level; do NOT fabricate exact citation IDs
-— say 'verify against the payer LCD/NCD'). HONESTY GATE: if the record does not support the service (e.g.,
+outline a cited appeal. When the grounding block lists real CMS LCD/NCD sources, cite the applicable one by its
+real ID (e.g. L35025) and tell the user to verify the current revision on the CMS MCD; NEVER invent an ID that is
+not in the provided sources — if none fits, say 'verify against the payer LCD/NCD'. HONESTY GATE: if the record does not support the service (e.g.,
 comprehensive tumour profiling on a benign nodule with no cancer diagnosis), REFUSE to appeal and say why."""},
  "cadence": {"name": "Cadence", "role": "Movement & Wellbeing", "system": """You are Cadence, Ardia's movement & wellbeing
 assistant. The user describes a day/week of activity or pastes step/activity data. Summarise the pattern and flag
@@ -264,6 +265,11 @@ try:
     _RESEARCH_OK = True
 except Exception:
     _RESEARCH_OK = False
+try:
+    from policies import match_policies      # real, hand-verified CMS LCDs (reimbursement grounding)
+    _POLICIES_OK = True
+except Exception:
+    _POLICIES_OK = False
 
 
 def call_model(model_key, text, attachments, engine="", ground=True, attest=False):
@@ -291,6 +297,8 @@ def call_model(model_key, text, attachments, engine="", ground=True, attest=Fals
     sources = []
     if ground and _RESEARCH_OK and text:
         sources = gather_sources(text, n=3)
+        if _POLICIES_OK:
+            sources = match_policies(text) + sources   # real CMS LCDs cited first for reimbursement queries
         if sources:
             text = text + grounding_block(sources)
     if p == "gemini":

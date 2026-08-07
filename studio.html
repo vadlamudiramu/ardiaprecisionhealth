@@ -462,7 +462,7 @@ function codeNeededAnswer(ac){
 function realAnswer(m,ac,res){
   var srcs='';
   if(res.sources && res.sources.length){
-    srcs='<div class="td-cites"><div class="ch">Sources consulted ('+res.sources.length+') · PubMed / ClinicalTrials.gov</div>'+res.sources.map(function(s,i){return '<div class="td-cite"><a href="'+esc(s.url||'#')+'" target="_blank" rel="noopener" style="color:#8fb7ff;text-decoration:none">['+(i+1)+'] '+esc(s.title||s.url||'source')+'</a> <span style="color:#7a93b0">— '+esc(s.source||'')+(s.year?(' '+esc(s.year)):'')+(s.status?(' · '+esc(s.status)):'')+'</span></div>';}).join('')+'</div>';
+    srcs='<div class="td-cites"><div class="ch">Sources consulted ('+res.sources.length+') · real, verifiable links</div>'+res.sources.map(function(s,i){return '<div class="td-cite"><a href="'+esc(s.url||'#')+'" target="_blank" rel="noopener" style="color:#8fb7ff;text-decoration:none">['+(i+1)+'] '+esc(s.title||s.url||'source')+'</a> <span style="color:#7a93b0">— '+esc(s.source||'')+(s.year?(' '+esc(s.year)):'')+(s.status?(' · '+esc(s.status)):'')+'</span></div>';}).join('')+'</div>';
   }
   var badges=[], sn=res.sentinel, cs=res.crucible_summary;
   if(sn && sn.removed!=null) badges.push('Sentinel · '+sn.removed+' identifier'+(sn.removed===1?'':'s')+' removed');
