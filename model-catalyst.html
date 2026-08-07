@@ -1,11 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
-<title>Our Vision — Ardia Precision Health</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Catalyst — Discovery-to-Trial Model | Ardia</title>
+<meta name="description" content="Catalyst: Ardia's governed discovery-to-trial model. Published developability filters computed deterministically, MEASURED off-target evidence retrieved from ChEMBL, and de-identified trial candidates for human screening. It does not design molecules, predict binding, or enrol patients.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+ --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;--catalyst:#0ea5e9;--tara:#0d9488;--pulmo:#2563eb;--amber:#d97706;--sentinel:#4f46e5;--ok:#16a34a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;letter-spacing:-.02em;font-weight:700}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+.mono{font-family:'JetBrains Mono',monospace}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--catalyst)}
+/* nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(9,15,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-in{display:flex;align-items:center;gap:14px;height:64px;max-width:1300px;margin:0 auto;padding:0 26px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:17px;color:#fff}.brand-txt span{color:#5eb0f0}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:#9fb2cc;padding:8px 12px;border-radius:9px}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:linear-gradient(90deg,var(--catalyst),#38bdf8);color:#04202e!important;padding:9px 16px;border-radius:10px}
+@media(max-width:920px){.nav-links a:not(.nav-cta){display:none}}
+/* hero — cinematic dark */
+.hero{position:relative;background:#070b14;color:#fff;overflow:hidden;padding:80px 0 70px}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;background:
+ radial-gradient(60% 60% at 78% 30%,rgba(14,165,233,.28),transparent 60%),
+ radial-gradient(50% 60% at 20% 80%,rgba(37,99,235,.20),transparent 60%),
+ radial-gradient(40% 50% at 55% 5%,rgba(45,212,191,.14),transparent 60%)}
+.hero::after{content:'';position:absolute;inset:0;z-index:0;opacity:.5;background-image:
+ repeating-linear-gradient(90deg,rgba(125,211,252,.06) 0 1px,transparent 1px 46px)}
+.hero .wrap{position:relative;z-index:1}
+.hero .kick{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:#7dd3fc;background:rgba(125,211,252,.08);border:1px solid rgba(125,211,252,.25);padding:6px 14px;border-radius:100px;margin-bottom:22px}
+.hero h1{font-size:clamp(46px,9vw,104px);line-height:.95;font-weight:800;background:linear-gradient(180deg,#fff,#cfe8fb);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero .role{font-family:'Sora';font-size:clamp(18px,2.4vw,24px);font-weight:600;color:#93c9ec;margin-bottom:18px}
+.hero p{font-size:18px;color:#b7c6da;max-width:620px;line-height:1.6;margin-bottom:26px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:'Sora';font-weight:600;font-size:15px;padding:13px 24px;border-radius:12px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-p{background:linear-gradient(90deg,var(--catalyst),#38bdf8);color:#04202e}.btn-p:hover{transform:translateY(-1px)}
+.btn-s{background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.16)}.btn-s:hover{border-color:#38bdf8}
+.hero-chips{display:flex;gap:26px;flex-wrap:wrap;margin-top:38px;padding-top:26px;border-top:1px solid rgba(255,255,255,.09)}
+.hchip .v{font-family:'Sora';font-size:30px;font-weight:800;color:#fff}
+.hchip .v small{font-size:16px;color:#7dd3fc}
+.hchip .l{font-size:12.5px;color:#8ba0bb;margin-top:2px}
+/* sections */
+section.block{padding:74px 0}
+.center{text-align:center;max-width:720px;margin:0 auto 48px}
+.center h2{font-size:clamp(27px,3.6vw,40px);line-height:1.12;margin:12px 0;color:var(--txt)}
+.center p{font-size:17px;color:var(--mut)}
+/* capabilities */
+.cap{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:26px 0;border-top:1px solid var(--line)}
+.cap:last-child{border-bottom:1px solid var(--line)}
+.cap .num{font-family:'Sora';font-size:30px;font-weight:800;color:var(--catalyst);opacity:.5}
+.cap h3{font-size:22px;margin-bottom:8px;color:var(--txt)}
+.cap p{font-size:15px;color:var(--mut);line-height:1.65;max-width:760px}
+.cap .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tag{font-family:'JetBrains Mono';font-size:11.5px;font-weight:600;background:var(--panel);border:1px solid var(--line);color:var(--mut);padding:5px 10px;border-radius:7px}
+/* methodology */
+.method{background:#0b1120;color:#c9d8ea;border-radius:20px;padding:38px}
+.method .eyebrow{color:#7dd3fc}
+.method h2{color:#fff;font-size:clamp(24px,3vw,34px);margin:10px 0 8px}
+.method>p{color:#9fb2cc;max-width:720px;margin-bottom:26px}
+.msteps{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.msteps{grid-template-columns:1fr}}
+.mstep{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:13px;padding:18px}
+.mstep .n{font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:#7dd3fc;margin-bottom:7px}
+.mstep h4{color:#fff;font-size:15.5px;margin-bottom:6px}
+.mstep p{font-size:13px;color:#9fb2cc;line-height:1.55}
+.mstep b{color:#e8f1fb}
+/* benchmarks */
+.bench-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:820px){.bench-grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 2px 6px rgba(14,28,48,.05)}
+.card h3{font-size:16px;margin-bottom:4px;color:var(--txt)}
+.card .sub{font-size:12.5px;color:var(--dim);margin-bottom:18px}
+/* bar chart */
+.bars{display:flex;flex-direction:column;gap:11px}
+.bar-row{display:grid;grid-template-columns:120px 1fr 52px;align-items:center;gap:10px}
+.bar-row .lab{font-size:12.5px;color:var(--mut);font-weight:500;text-align:right}
+.bar-track{height:22px;background:var(--bg2);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--catalyst),#38bdf8);transition:width .8s}
+.bar-fill.base{background:linear-gradient(90deg,#94a3b8,#cbd5e1)}
+.bar-row .val{font-family:'JetBrains Mono';font-size:12.5px;font-weight:700;color:var(--txt)}
+/* confusion matrix */
+.cm{display:grid;grid-template-columns:auto repeat(6,1fr);gap:3px;font-size:11px}
+.cm .h{font-family:'JetBrains Mono';font-size:9.5px;color:var(--dim);display:flex;align-items:center;justify-content:center;padding:2px;text-align:center;font-weight:600}
+.cm .rh{font-family:'JetBrains Mono';font-size:9.5px;color:var(--dim);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-weight:600}
+.cm .cell{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-weight:700;font-size:11px}
+.cm-note{font-size:11.5px;color:var(--dim);margin-top:12px;line-height:1.5}
+/* metrics table */
+.mtable{width:100%;border-collapse:collapse;font-size:13px}
+.mtable th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);padding:0 10px 10px;border-bottom:1px solid var(--line)}
+.mtable td{padding:10px;border-bottom:1px solid var(--line);color:var(--mut)}
+.mtable td:first-child{font-weight:600;color:var(--txt)}
+.mtable td.num{font-family:'JetBrains Mono';text-align:right;color:var(--txt)}
+.mtable tr:last-child td{border-bottom:none}
+/* honesty */
+.honest{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:14px;padding:22px 24px;max-width:900px;margin:0 auto}
+.honest h3{color:#b45309;font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.honest p{font-size:14px;color:#78350f;line-height:1.65}
+.honest p+p{margin-top:10px}
+.honest b{color:#92400e}
+/* cta/footer */
+.finalcta{text-align:center;padding:80px 0}
+.finalcta h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px;color:var(--txt)}
+.finalcta p{font-size:17px;color:var(--mut);margin-bottom:26px}
+footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-size:13px;background:var(--panel2)}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
 <style id="apx-nav-css">
 .apx-nav{position:sticky;top:0;z-index:9000;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid #dce8f2;font-family:'Sora',system-ui,sans-serif}
 .apx-in{max-width:1280px;margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;gap:14px}
@@ -68,241 +178,132 @@
 </head>
 <body>
 <header class="apx-nav" id="apxNav"><div class="apx-in"><a class="apx-brand" href="index.html"><span class="apx-logo"><img src="Ardia_Logo.png" alt="Ardia Precision Health"></span><span class="apx-bt"><span class="apx-name">ARDIA <span>PRECISION HEALTH</span></span><small>Governed AI for healthcare revenue &amp; precision care</small></span></a><nav class="apx-links" id="apxLinks"><div class="apx-item"><a class="apx-link" href="index.html">Home</a></div><div class="apx-item"><a class="apx-link" id="apx-nav-sol" href="solutions.html">Solutions Hub <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg></a><div class="apx-mega"><div class="apx-mh"><div class="apx-ml">Ardia Solutions</div><div class="apx-md">Pick a lane to explore how Ardia plugs into your workflows.</div></div><div class="apx-grid"><a class="apx-mi" href="solutions.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2h6M10 2v6L4 20a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1L14 8V2"/></svg></span><span><span class="apx-mit">Lab Reimbursement</span><span class="apx-mid">ToxIQ · MolecuIQ · toxicology & molecular</span></span></a><a class="apx-mi" href="precision-medicine.html"><span class="apx-mic" style="color:#7c3aed;background:#7c3aed1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span><span class="apx-mit">Precision Medicine & Health</span><span class="apx-mid">Genomics · PGx · personalized care</span></span></a><a class="apx-mi" href="model-pama.html"><span class="apx-mic" style="color:#e11d48;background:#e11d481c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span><span><span class="apx-mit">PAMA Rate-Cliff</span><span class="apx-mid">Meridian · the 2027–2029 CLFS cliff</span></span></a><a class="apx-mi" href="pulmonology.html"><span class="apx-mic" style="color:#0369a1;background:#0369a11c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span><span class="apx-mit">Pulmonary & Respiratory Care</span><span class="apx-mid">PulmoIQ · asthma & COPD</span></span></a><a class="apx-mi" href="aging.html"><span class="apx-mic" style="color:#c2410c;background:#c2410c1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span><span class="apx-mit">Aging & Elder Care</span><span class="apx-mid">Aria + Cadence · non-diagnostic</span></span></a><a class="apx-mi" href="how-it-works.html"><span class="apx-mic" style="color:#0ea5e9;background:#0ea5e91c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span><span><span class="apx-mit">How It Works</span><span class="apx-mid">6-step claim-to-recovery</span></span></a><a class="apx-mi" href="solutions.html"><span class="apx-mic" style="color:#16a34a;background:#16a34a1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span><span class="apx-mit">All Solutions</span><span class="apx-mid">Every focus area, in one hub</span></span></a></div><div class="apx-mf"><a href="solutions.html">All solutions &rarr;</a><a href="studio.html">Watch models &rarr;</a></div></div></div><div class="apx-item"><a class="apx-link" id="apx-nav-prod" href="our-product.html">Our Product <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg></a><div class="apx-mega"><div class="apx-mh"><div class="apx-ml">Our Product &amp; Company</div><div class="apx-md">The platform, security, roadmap & company.</div></div><div class="apx-grid"><a class="apx-mi" href="tara-framework.html"><span class="apx-mic" style="color:#4f46e5;background:#4f46e51c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span><span><span class="apx-mit">TARA — Triadic Reasoning Core</span><span class="apx-mid">The reasoning engine · neuro-symbolic · auditable</span></span></a><a class="apx-mi" href="our-product.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><span><span class="apx-mit">Product Overview</span><span class="apx-mid">What we’re building & dev stage</span></span></a><a class="apx-mi" href="architecture.html"><span class="apx-mic" style="color:#0ea5e9;background:#0ea5e91c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><span><span class="apx-mit">Platform Architecture</span><span class="apx-mid">How the software works end-to-end</span></span></a><a class="apx-mi" href="studio.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span><span class="apx-mit">Ardia Studio</span><span class="apx-mid">Run a model live</span></span></a><a class="apx-mi" href="plg-sandbox.html"><span class="apx-mic" style="color:#d97706;background:#d977061c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span><span class="apx-mit">PLG Sandbox · 90-sec concept</span><span class="apx-mid">Paste a denial, see the flow</span></span></a><a class="apx-mi" href="security.html"><span class="apx-mic" style="color:#e11d48;background:#e11d481c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span><span class="apx-mit">Security & Compliance</span><span class="apx-mid">HIPAA · SB 1188 · TRAIGA</span></span></a><a class="apx-mi" href="roadmap.html"><span class="apx-mic" style="color:#d97706;background:#d977061c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="15 6 21 12 15 18"/></svg></span><span><span class="apx-mit">Roadmap 2026–2032+</span><span class="apx-mid">Phased expansion plan</span></span></a><a class="apx-mi" href="research.html"><span class="apx-mic" style="color:#7c3aed;background:#7c3aed1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span><span class="apx-mit">Research & Innovation</span><span class="apx-mid">Clinical AI research</span></span></a><a class="apx-mi" href="vision.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><span><span class="apx-mit">Our Vision</span><span class="apx-mid">Precision health · PAMA</span></span></a><a class="apx-mi" href="case-studies.html"><span class="apx-mic" style="color:#16a34a;background:#16a34a1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span><span><span class="apx-mit">Case Studies</span><span class="apx-mid">Illustrative ROI scenarios</span></span></a><a class="apx-mi" href="about.html"><span class="apx-mic" style="color:#16a34a;background:#16a34a1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span><span class="apx-mit">Why Ardia</span><span class="apx-mid">Team, mission & edge</span></span></a></div><div class="apx-mf"><a href="our-product.html">Product overview &rarr;</a><a href="studio.html">Open the Studio &rarr;</a></div></div></div><div class="apx-item"><a class="apx-link" href="tara-framework.html">TARA</a></div><div class="apx-item"><a class="apx-link" href="investors.html">Investors</a></div><div class="apx-item"><a class="apx-link" id="apx-nav-models" href="models.html">Models <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg></a><div class="apx-mega"><div class="apx-mh"><div class="apx-ml">Ardia Models</div><div class="apx-md">Ten models, one governed core — each doing one job well.</div></div><div class="apx-grid"><a class="apx-mi" href="models.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span><span class="apx-mit">All Models & Engines</span><span class="apx-mid">Full roster · honest status</span></span></a><a class="apx-mi" href="tara-demo.html"><span class="apx-mic" style="color:#7c3aed;background:#7c3aed1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span><span><span class="apx-mit">Watch TARA Reason</span><span class="apx-mid">Swift · Cortex · Scholar — live trace</span></span></a><a class="apx-mi" href="studio.html"><span class="apx-mic" style="color:#0ea5e9;background:#0ea5e91c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span><span><span class="apx-mit">Watch Models Reason</span><span class="apx-mid">Real-time step-by-step demos</span></span></a><a class="apx-mi" href="test-results.html"><span class="apx-mic" style="color:#16a34a;background:#16a34a1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span><span><span class="apx-mit">Measured Test Results</span><span class="apx-mid">Cadence 95.45% · 34 tests</span></span></a><a class="apx-mi" href="model-pama.html"><span class="apx-mic" style="color:#e11d48;background:#e11d481c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span><span><span class="apx-mit">Meridian · PAMA cliff</span><span class="apx-mid">Deterministic 2027–2029</span></span></a><a class="apx-mi" href="precision-medicine.html"><span class="apx-mic" style="color:#7c3aed;background:#7c3aed1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span><span class="apx-mit">MolecuIQ · molecular</span><span class="apx-mid">Genomic & PGx intelligence</span></span></a><a class="apx-mi" href="pulmonology.html"><span class="apx-mic" style="color:#0369a1;background:#0369a11c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span><span><span class="apx-mit">PulmoIQ · respiratory</span><span class="apx-mid">Asthma & COPD · GOLD/GINA</span></span></a><a class="apx-mi" href="model-catalyst.html"><span class="apx-mic" style="color:#0ea5e9;background:#0ea5e91c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6.5L5.5 18a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9.5V3"/><path d="M7 15h10"/></svg></span><span><span class="apx-mit">Catalyst · discovery</span><span class="apx-mid">Molecule → off-target → trial</span></span></a></div><div class="apx-mf"><a href="models.html">See all models &rarr;</a><a href="test-results.html">Measured results &rarr;</a></div></div></div><div class="apx-item"><a class="apx-link" id="apx-nav-agents" href="studio.html">Agents <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><polyline points="6 9 12 15 18 9"/></svg></a><div class="apx-mega"><div class="apx-mh"><div class="apx-ml">Ardia Agents</div><div class="apx-md">Governed, real-time agents you can watch reason.</div></div><div class="apx-grid"><a class="apx-mi" href="studio.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span><span><span class="apx-mit">Ardia Studio · run a model</span><span class="apx-mid">Pick a model, run it live</span></span></a><a class="apx-mi" href="studio.html"><span class="apx-mic" style="color:#0ea5e9;background:#0ea5e91c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span><span><span class="apx-mit">Watch Every Agent Reason</span><span class="apx-mid">See the reasoning trace</span></span></a><a class="apx-mi" href="aging.html"><span class="apx-mic" style="color:#c2410c;background:#c2410c1c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span><span class="apx-mit">Aria · elder companion</span><span class="apx-mid">Voice-first · 911 escalation</span></span></a><a class="apx-mi" href="studio.html?play=lumen"><span class="apx-mic" style="color:#d97706;background:#d977061c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span><span><span class="apx-mit">Lumen · report explainer</span><span class="apx-mid">Plain-language · non-diagnostic</span></span></a><a class="apx-mi" href="solutions.html"><span class="apx-mic" style="color:#0d9488;background:#0d94881c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6.5L5.5 18a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9.5V3"/></svg></span><span><span class="apx-mit">ToxIQ & MolecuIQ</span><span class="apx-mid">Lab denial-recovery agents</span></span></a><a class="apx-mi" href="studio.html?play=tara"><span class="apx-mic" style="color:#4f46e5;background:#4f46e51c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></span><span><span class="apx-mit">TARA · reasoning core</span><span class="apx-mid">The governed engine</span></span></a></div><div class="apx-mf"><a href="studio.html">Open the Studio &rarr;</a><a href="tara-demo.html">Watch TARA reason &rarr;</a></div></div></div><div class="apx-item"><a class="apx-link" href="contact.html">Get in Touch</a></div></nav><div class="apx-cta"><a class="apx-trial" href="plg-sandbox.html">Free Trial</a><a class="apx-book" href="contact.html">BOOK A DEMO</a><button class="apx-burger" aria-label="Menu" onclick="document.getElementById('apxLinks').classList.toggle('open')"><span></span><span></span><span></span></button></div></div></header>
-<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#7c6ee6;background:rgba(124,110,230,.08);border:1px solid rgba(124,110,230,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Company &amp; Vision</div>
-<style>
-:root{
-  --cream:#f7f2e8;--cream2:#efe7d7;--paper:#fffdf8;--ink:#241c14;--ink2:#5f5346;--dim:#9c8f7d;
-  --line:rgba(58,42,26,.13);--line2:rgba(58,42,26,.2);--teal:#0f766e;--coral:#d9633a;
-  --blue:#2563eb;--cyan:#0891b2;--green:#2f9e44;--violet:#7c3aed;--indigo:#4f46e5;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.1}
-a{color:inherit;text-decoration:none}
-.mono{font-family:ui-monospace,'JetBrains Mono',monospace}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Product &amp; Platform</div>
 
-/* nav */
-.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--cream) 90%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:12px;height:64px;padding:0 24px}
-.brand{display:flex;align-items:center;gap:11px}
-.brand img{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#221a10,#3a2c18);border:1.4px solid rgba(217,99,58,.5);padding:5px;object-fit:contain}
-.brand .bt{font-family:'Fraunces',serif;font-weight:600;font-size:18px}
-.brand .bt em{font-style:italic;color:var(--coral)}
-.links{margin-left:auto;display:flex;align-items:center;gap:3px}
-.links a{font-size:14px;color:var(--ink2);padding:8px 13px;border-radius:10px}
-.links a:hover,.links a.on{background:rgba(58,42,26,.06);color:var(--ink)}
-.cta{font-family:'Fraunces',serif;font-weight:600;color:#fff!important;background:var(--teal);border-radius:11px;padding:8px 16px}
-.cta:hover{filter:brightness(1.07)}
-@media(max-width:820px){.links a:not(.cta){display:none}}
-
-/* hero */
-.hero{padding:74px 0 34px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;z-index:0;background:
-  radial-gradient(58% 55% at 84% -12%,color-mix(in srgb,var(--coral) 16%,transparent),transparent 60%),
-  radial-gradient(54% 55% at 4% 6%,color-mix(in srgb,var(--teal) 14%,transparent),transparent 60%)}
-.hero>*{position:relative;z-index:1}
-.kick{font-family:ui-monospace,monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral)}
-.hero h1{font-size:clamp(38px,6.2vw,66px);margin:14px auto 16px;max-width:16ch}
-.hero h1 em{font-style:italic;color:var(--teal)}
-.hero .lede{font-size:19px;color:var(--ink2);max-width:640px;margin:0 auto 24px}
-.badges{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:6px}
-.bdg{font-size:12.5px;font-weight:500;color:var(--ink2);background:var(--paper);border:1px solid var(--line);border-radius:100px;padding:6px 13px}
-.bdg b{color:var(--ink)}
-
-/* sections */
-section{padding:46px 0}
-.sec-head{max-width:660px;margin:0 auto 30px}
-.sec-head.center{text-align:center}
-.sec-head .k{font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--coral)}
-.sec-head h2{font-size:clamp(27px,3.9vw,40px);margin:10px 0}
-.sec-head p{font-size:16.5px;color:var(--ink2)}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
-
-.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 1px 0 rgba(58,42,26,.04);transition:.18s;position:relative}
-.card:hover{transform:translateY(-3px);box-shadow:0 24px 46px -28px var(--c);border-color:color-mix(in srgb,var(--c) 34%,var(--line))}
-.card .chip{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 13%,#fff);border:1px solid color-mix(in srgb,var(--c) 26%,#fff);margin-bottom:15px}
-.card .chip svg{width:23px;height:23px;stroke:var(--c);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.card .role{font-family:ui-monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--c)}
-.card h3{font-size:20px;margin:5px 0 9px}
-.card p{font-size:14.5px;color:var(--ink2);line-height:1.6}
-.card .name-row{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-.card .tag{font:600 10px ui-monospace,monospace;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 78%,#000);border:1px solid color-mix(in srgb,var(--c) 30%,#fff)}
-
-.approach-note{text-align:center;margin-top:22px;font-size:14px;color:var(--ink2)}
-.approach-note b{color:var(--ink)}
-
-/* honest panel */
-.panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:34px;box-shadow:0 1px 0 rgba(58,42,26,.04);position:relative;overflow:hidden}
-.panel::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 90% at 100% 0,color-mix(in srgb,var(--teal) 8%,transparent),transparent 60%);pointer-events:none}
-.panel>*{position:relative}
-.facts{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 22px}
-.fact{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink);background:var(--cream);border:1px solid var(--line2);border-radius:100px;padding:8px 15px}
-.fact .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex:0 0 auto}
-.panel .honest{font-size:15.5px;color:var(--ink2);line-height:1.65;max-width:760px}
-.panel .honest b{color:var(--ink);font-weight:600}
-.stamp{display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal);background:color-mix(in srgb,var(--teal) 10%,#fff);border:1px solid color-mix(in srgb,var(--teal) 26%,#fff);border-radius:100px;padding:5px 12px}
-
-/* principles */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
-.pcard{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:16px;padding:20px 22px;box-shadow:0 1px 0 rgba(58,42,26,.04);transition:.16s}
-.pcard:hover{transform:translateY(-3px);box-shadow:0 20px 38px -26px var(--c)}
-.pcard .num{font-family:ui-monospace,monospace;font-size:11px;color:var(--c);letter-spacing:.6px}
-.pcard h3{font-size:16.5px;margin:8px 0 7px}
-.pcard p{font-size:13.5px;color:var(--ink2);line-height:1.55}
-
-/* closing cta */
-.close{text-align:center;padding:14px 0 60px}
-.close .box{background:linear-gradient(135deg,color-mix(in srgb,var(--teal) 10%,var(--paper)),var(--paper));border:1px solid var(--line);border-radius:22px;padding:44px 28px;box-shadow:0 1px 0 rgba(58,42,26,.04)}
-.close h2{font-size:clamp(24px,3.4vw,34px);margin:8px 0 12px}
-.close p{color:var(--ink2);max-width:520px;margin:0 auto 22px;font-size:16px}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{font-family:'Fraunces',serif;font-weight:600;font-size:16px;border-radius:13px;padding:13px 26px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
-.btn-p{background:var(--teal);color:#fff;box-shadow:0 14px 30px -14px var(--teal)}.btn-p:hover{filter:brightness(1.06)}
-.btn-s{background:var(--paper);color:var(--ink);border:1.5px solid var(--line2)}.btn-s:hover{border-color:var(--teal)}
-
-footer{border-top:1px solid var(--line);color:var(--ink2);font-size:13px;padding:30px 24px;text-align:center;background:var(--cream2)}
-footer b{color:var(--ink)}
-</style>
-
-<header class="apx-grid-tex hero"><div class="wrap">
-  <div class="kick">Our vision</div>
-  <h1>Auditable AI for the parts of healthcare <em>no one else automates</em></h1>
-  <p class="lede">The industry chases the easy, high-volume middle. Ardia is built for the long tail — the high-stakes, hand-done work that gets written off or left undone — and every answer it gives can be traced, checked, and attested by a human.</p>
-  <div class="badges">
-    <span class="bdg"><b>Pre-revenue</b> · seed stage</span>
-    <span class="bdg">HIPAA de-identification first</span>
-    <span class="bdg"><b>Never</b> a diagnosis</span>
-    <span class="bdg">Google Cloud under a BAA · planned</span>
-  </div>
+<header class="hero"><div class="wrap">
+ <div class="kick">⚗️ Catalyst · discovery → trial · research tooling, not clinical care</div>
+ <h1>Catalyst</h1>
+ <div class="role">The governed answer to "invent a drug while I grab coffee"</div>
+ <p>Three stages — assess the molecule, screen it for measured off-target liabilities, shortlist trials a patient could be screened for. What makes it Ardia's is that every stage is answerable for its own evidence, and a stage with nothing to stand on says so instead of producing something plausible.</p>
+ <div class="hero-cta">
+  <a class="btn btn-p" href="studio.html">Run Catalyst in the Studio →</a>
+  <a class="btn btn-s" href="#what-it-does-not-do">What it does <b style="margin-left:5px">not</b> do</a>
+ </div>
+ <div class="hero-chips">
+  <div class="hchip"><div class="v">5</div><div class="l">published filters, computed not guessed</div></div>
+  <div class="hchip"><div class="v">37</div><div class="l">safety-panel targets screened</div></div>
+  <div class="hchip"><div class="v">0</div><div class="l">numbers the model is allowed to invent</div></div>
+  <div class="hchip"><div class="v">52</div><div class="l">unit tests, offline &amp; deterministic</div></div>
+ </div>
 </div></header>
 
-<section id="problem" class="apx-band-teal"><div class="wrap">
-  <div class="sec-head">
-    <div class="k">The problem</div>
-    <h2>Healthcare's hardest work is the work nobody automates</h2>
-    <p>It's long-tail, high-stakes, and today it's either done by hand — slowly, expensively — or quietly ignored. Three places we keep seeing it:</p>
-  </div>
-  <div class="grid">
-    <div class="card" style="--c:var(--coral)">
-      <div class="chip"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M9.5 12.5l5 5m0-5l-5 5"/></svg></div>
-      <div class="role">Denied lab claims</div>
-      <h3>Appeals that never get written</h3>
-      <p>A denied molecular-pathology claim is often worth more to appeal than to abandon — yet most are simply written off, because appealing means hours per claim against dense, shifting payer policy. The work is real; the labor to do it isn't there.</p>
-    </div>
-    <div class="card" style="--c:var(--cyan)">
-      <div class="chip"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"/><path d="M8.5 12h7M8.5 15.5h7M8.5 8.5h3"/></svg></div>
-      <div class="role">Dense reports</div>
-      <h3>Results patients can't read</h3>
-      <p>Clinical and genomic reports arrive in language built for specialists. The person they're about is left guessing what a variant, a value, or a flag actually means for them — so the information sits there, technically delivered and functionally unread.</p>
-    </div>
-    <div class="card" style="--c:var(--green)">
-      <div class="chip"><svg viewBox="0 0 24 24"><path d="M20.8 6.6a4.5 4.5 0 0 0-6.4 0L12 9l-2.4-2.4a4.5 4.5 0 1 0-6.4 6.4L12 21.8l8.8-8.8a4.5 4.5 0 0 0 0-6.4Z"/></svg></div>
-      <div class="role">The daily needs of older adults</div>
-      <h3>Small check-ins, relentless stakes</h3>
-      <p>Medication timing, movement, a nudge when a pattern changes — the ordinary rhythms that keep someone independent. High-stakes when they slip, and today almost entirely manual, resting on family and stretched care teams.</p>
-    </div>
-  </div>
+<!-- WHAT IT DOES NOT DO -->
+<section class="block" id="what-it-does-not-do"><div class="wrap">
+ <div class="center"><div class="eyebrow">Read this first</div><h2>Four things Catalyst does not do</h2>
+  <p>The industry demo reel promises a machine that invents a drug, clears it, and fills the trial while you fetch coffee. Catalyst is the version of that idea which survives someone reading the code.</p></div>
+ <div class="honest">
+  <h3>⚠︎ The honest boundary</h3>
+  <p><b>It does not design or propose molecules.</b> There is no generative chemistry here. Catalyst scores a compound you name, using descriptors that were supplied or fetched from PubChem. It will not even parse a SMILES string into descriptors — that needs a fitted cheminformatics model, and an approximation would be confidently wrong exactly where it matters.</p>
+  <p><b>It does not predict binding, and it does not predict off-target activity.</b> Stage 2 retrieves what has already been <b>measured</b> and published in ChEMBL. Where nothing has been measured, it says <b>no data</b> — which is the normal state for most compound/target pairs, and is not a clean bill of health.</p>
+  <p><b>It does not determine eligibility or recruit anyone.</b> Stage 3 returns a shortlist for a human screener, with the reasoning shown for every criterion. Real eligibility lives in free-text inclusion/exclusion prose — labs, performance status, washout, comorbidity — which Catalyst does not read and never pretends to.</p>
+  <p><b>It does not let the language model do the chemistry.</b> The deterministic kernel runs first; the model is handed the computed result and told to explain it. Ordering is the entire guarantee: the numbers exist before the model is invoked, so it is narrating a computation rather than producing one.</p>
+ </div>
 </div></section>
 
-<section id="approach" style="background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--cream2) 55%,transparent))" class="apx-band-sky"><div class="wrap">
-  <div class="sec-head">
-    <div class="k">Our approach</div>
-    <h2>One governed core. A constellation of specialists.</h2>
-    <p>Not one model that does everything passably. A shared reasoning core, a set of named models that each do a single job exceptionally, and a compliance kernel underneath it all.</p>
-  </div>
-  <div class="grid">
-    <div class="card" style="--c:var(--violet)">
-      <div class="chip"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="8" rx="1.5"/><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2"/></svg></div>
-      <div class="name-row"><div class="role">The reasoning core</div><span class="tag">TARA</span></div>
-      <h3>One governed way to think</h3>
-      <p>Every model reasons through TARA — a single, governed core with shared guardrails, so behaviour is consistent and inspectable rather than reinvented per feature.</p>
-    </div>
-    <div class="card" style="--c:var(--coral)">
-      <div class="chip"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="1.6"/><circle cx="19" cy="7" r="1.6"/><circle cx="12" cy="13" r="1.8"/><circle cx="6" cy="18" r="1.6"/><circle cx="18" cy="17" r="1.6"/><path d="M6.4 6.6 10.6 12M17.4 7.7 13.3 12M11.2 14.4 7 17.2M12.9 14.3 17 16.4"/></svg></div>
-      <div class="role">The constellation</div>
-      <h3>A named model per job</h3>
-      <p>Each use case gets its own model, tuned and evaluated for that one task. One does appeals, one explains reports, one supports older adults — none of them pretends to do all three.</p>
-    </div>
-    <div class="card" style="--c:var(--indigo)">
-      <div class="chip"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 3 7.9 7 9 4-1.1 7-4.6 7-9V6l-7-3Z"/><path d="m9.2 12 1.9 1.9L15 10"/></svg></div>
-      <div class="name-row"><div class="role">The compliance kernel</div><span class="tag">SENTINEL</span></div>
-      <h3>De-identify, then audit everything</h3>
-      <p>Sentinel sits under every model: it strips identifiers before data reaches reasoning, and it writes an audit trail for each step — so what happened, and why, is always reconstructable.</p>
-    </div>
-    <div class="card" style="--c:var(--green)">
-      <div class="chip"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 15L16 12h5"/></svg></div>
-      <div class="name-row"><div class="role">The trained specialist</div><span class="tag">CADENCE</span></div>
-      <h3>One genuinely trained model</h3>
-      <p>Cadence is a real trained classifier for human-activity recognition, reaching <b>95.45% on a held-out split of the public UCI HAR dataset</b> — a measured Ardia result on open data, not a projection.</p>
-    </div>
-  </div>
-  <p class="approach-note">All of it runs on <b>Google Cloud under a Business Associate Agreement</b>. One model is genuinely trained today (Cadence); the others are Ardia specialists built on a frontier model under our guardrails — and nothing here claims a production outcome.</p>
+<!-- THE THREE STAGES -->
+<section class="block"><div class="wrap">
+ <div class="center"><div class="eyebrow">What it does</div><h2>Three stages, each answerable for its evidence</h2>
+  <p>Every stage returns one of four statuses — <span class="mono">ok</span>, <span class="mono">no_data</span>, <span class="mono">blocked</span> or <span class="mono">skipped</span>. There is no fifth option where a stage quietly produces output it has no evidence for.</p></div>
+
+ <div class="cap"><div class="num">01</div><div>
+  <h3>Developability — published filters, plain arithmetic</h3>
+  <p>Five peer-reviewed filters applied to real descriptors: <b>Lipinski's Rule of Five</b> (1997), <b>Veber</b> (2002), <b>Egan</b> (2000), <b>Ghose</b> (1999) and the fragment-oriented <b>Rule of Three</b> (Congreve, 2003). A filter whose descriptors are missing returns <span class="mono">not_evaluated</span> — never a pass, because treating "unknown" as "fine" is the way these filters are most often misused. Ghose reports its molar-refractivity and atom-count criteria as unevaluated rather than assuming they passed.</p>
+  <p>Ligand efficiency (Hopkins) and lipophilic efficiency (Leeson) appear only when the caller supplies a <b>measured</b> affinity together with its source. An affinity with no attribution is refused outright — it cannot be told apart from a guess.</p>
+  <div class="tags"><span class="tag">Lipinski 1997</span><span class="tag">Veber 2002</span><span class="tag">Egan 2000</span><span class="tag">Ghose 1999</span><span class="tag">Congreve 2003</span><span class="tag">PubChem descriptors</span></div></div></div>
+
+ <div class="cap"><div class="num">02</div><div>
+  <h3>Off-target — measured liabilities, retrieved not inferred</h3>
+  <p>The panel is the in vitro pharmacological profile proposed by <b>Bowes et al. (2012)</b>, plus <b>hERG</b>, which regulators require in the ICH S7B core battery — 37 targets spanning cardiovascular, CNS, transporter, enzyme and nuclear-receptor liabilities. Measured activities are pulled from ChEMBL and classified by pChEMBL: at or below 1 µM flags, 1–10 µM is weak, weaker than 10 µM does not flag.</p>
+  <p>Targets are identified by <b>HGNC gene symbol only</b>. ChEMBL accessions are resolved at run time and never hardcoded, so this model cannot ship a stale or invented ID. Where a selectivity margin can be computed against a measured primary potency, the conventional two-log expectation is applied — and labelled as the rule of thumb it is.</p>
+  <div class="tags"><span class="tag">Bowes 2012 panel</span><span class="tag">ICH S7B · hERG</span><span class="tag">ChEMBL measured activity</span><span class="tag">Pfizer 3/75 heuristic</span><span class="tag">no hardcoded accessions</span></div></div></div>
+
+ <div class="cap"><div class="num">03</div><div>
+  <h3>Trial matching — candidates for a human, never an enrolment</h3>
+  <p>A de-identified profile is compared against the structured fields of registered studies: recruiting status, condition overlap, age window, sex, biomarker mention and site location. Each study comes back with a per-criterion trace where <span class="mono">undetermined</span> is a first-class outcome, not a rounding error.</p>
+  <p>Age is a <b>band</b>, never a date of birth, and bands top out at 90+ to match HIPAA Safe Harbor. That is also why a band which only partly overlaps a study's window resolves to undetermined rather than a guess — the precision was given up deliberately, and pretending to have it back would defeat the point.</p>
+  <div class="tags"><span class="tag">ClinicalTrials.gov v2</span><span class="tag">Safe Harbor age bands</span><span class="tag">per-criterion trace</span><span class="tag">free text never parsed</span></div></div></div>
 </div></section>
 
-<section id="honest" class="apx-band-amber"><div class="wrap">
-  <div class="sec-head">
-    <div class="k">Where we are</div>
-    <h2>Where we are — honestly</h2>
+<!-- GOVERNANCE -->
+<section class="block"><div class="wrap">
+ <div class="method">
+  <div class="eyebrow">How it is governed</div>
+  <h2>The controls are code, not copy</h2>
+  <p>Catalyst reuses the same enforced boundary every other Ardia model passes through — Sentinel de-identification, the HIPAA technical-safeguards guard, and a PHI-free audit trail — plus two constraints specific to running a discovery pipeline near patient data.</p>
+  <div class="msteps">
+   <div class="mstep"><div class="n">01 · DE-IDENTIFY</div><h4>Before anything is compared</h4><p>The trial stage runs the HIPAA guard's <b>preflight</b> over the profile before any matching happens, so identifiers stuffed into a condition field are redacted or the input is refused.</p></div>
+   <div class="mstep"><div class="n">02 · CONTAIN</div><h4>Profile text never egresses</h4><p>Only the caller's explicit <span class="mono">condition:</span> directive reaches ClinicalTrials.gov. Sentinel redacts structured identifiers, but its name handling is <b>roster-based by design</b> — so a name typed into a condition field would survive scrubbing. Keeping profile text in-process closes that gap structurally rather than hoping a regex catches it.</p></div>
+   <div class="mstep"><div class="n">03 · AUDIT</div><h4>Every stage, metadata only</h4><p>Each stage writes a PHI-free audit event — stage, status, counts, and the categories de-identified. Never the content. String metadata is length-capped so content cannot be logged by mistake.</p></div>
+   <div class="mstep"><div class="n">04 · FAIL CLOSED</div><h4>No guardrail, no run</h4><p>If the de-identification guardrail cannot be imported, the trial stage is <b>blocked</b> rather than run unprotected. If the kernel itself is unavailable, the Studio endpoint refuses the question instead of letting the model improvise chemistry.</p></div>
   </div>
-  <div class="panel">
-    <span class="stamp">● Pre-revenue · zero production results</span>
-    <div class="facts">
-      <span class="fact"><span class="dot"></span>Pre-revenue</span>
-      <span class="fact"><span class="dot"></span>Seed stage</span>
-      <span class="fact"><span class="dot"></span>Delaware C-Corp</span>
-      <span class="fact"><span class="dot"></span>Dallas–Fort Worth</span>
-      <span class="fact"><span class="dot"></span>Founded Jan 2026</span>
-      <span class="fact"><span class="dot"></span>Raising $3–7M seed SAFE</span>
-    </div>
-    <p class="honest">We haven't shipped to a paying customer, and we don't pretend otherwise. <b>No production results are claimed anywhere on this site.</b> Every figure you'll see is one of exactly three things: a <b>measured Ardia result</b> (like Cadence's 95.45% on public UCI HAR data), a <b>cited public number</b> with its source, or a <b>clearly labelled modelled target</b>. If it isn't one of those, it doesn't go on the page.</p>
-  </div>
+ </div>
 </div></section>
 
-<section id="principles" class="apx-band-violet"><div class="wrap">
-  <div class="sec-head center">
-    <div class="k">Principles</div>
-    <h2>The rules we build inside</h2>
-    <p>Not a poster on the wall — constraints wired into the product, the code paths, and what we're willing to publish.</p>
+<!-- HOW TO RUN IT -->
+<section class="block" style="background:var(--bg2)"><div class="wrap">
+ <div class="center"><div class="eyebrow">How to run it</div><h2>Directives, not prose</h2>
+  <p>Catalyst reads explicit <span class="mono">key: value</span> lines and nothing else. A model asked to infer "which molecule did they mean" will always produce an answer — including when the text names no molecule at all, and a confidently wrong compound poisons all three stages.</p></div>
+ <div class="bench-grid">
+  <div class="card">
+   <h3>The directive block</h3>
+   <div class="sub">One per line. <span class="mono">compound:</span> and <span class="mono">condition:</span> are the ones that matter.</div>
+   <pre class="mono" style="font-size:12.5px;line-height:1.9;color:var(--txt);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;white-space:pre">compound: imatinib
+condition: chronic myeloid leukemia
+affinity: 8.5
+affinity_source: ChEMBL Ki, assay ID
+age: 45-60
+sex: female
+region: Texas
+biomarkers: BCR-ABL, T315I</pre>
+   <div class="cm-note">Anything Catalyst ignores is reported back — a bad age format, an affinity with no source, a missing compound. It never silently drops an input.</div>
   </div>
-  <div class="pgrid">
-    <div class="pcard" style="--c:var(--coral)">
-      <div class="num">01</div>
-      <h3>Honesty by default</h3>
-      <p>Sourced, measured, or labelled as modelled — every number earns its place. No polished figure without a provenance behind it.</p>
-    </div>
-    <div class="pcard" style="--c:var(--indigo)">
-      <div class="num">02</div>
-      <h3>HIPAA de-identification first</h3>
-      <p>Identifiers are stripped before data reaches reasoning. Protection isn't a setting to enable — it's the default path.</p>
-    </div>
-    <div class="pcard" style="--c:var(--teal)">
-      <div class="num">03</div>
-      <h3>Never a diagnosis</h3>
-      <p>Ardia informs, drafts, and explains. It does not diagnose. A clinician always decides — that line does not move.</p>
-    </div>
-    <div class="pcard" style="--c:var(--blue)">
-      <div class="num">04</div>
-      <h3>Human-attested before submission</h3>
-      <p>Nothing goes out the door — no appeal, no record, no action — until a person has reviewed and attested to it.</p>
-    </div>
+  <div class="card">
+   <h3>What it refuses</h3>
+   <div class="sub">Each refusal is a unit test, not a guideline.</div>
+   <table class="mtable">
+    <tr><td>Prose naming a molecule</td><td>no compound — will not infer one</td></tr>
+    <tr><td><span class="mono">affinity:</span> with no source</td><td>dropped, with the reason stated</td></tr>
+    <tr><td><span class="mono">age: 57</span></td><td>rejected — give a band, e.g. <span class="mono">45-60</span></td></tr>
+    <tr><td>Exact age above 89</td><td>rejected — Safe Harbor needs <span class="mono">90+</span></td></tr>
+    <tr><td>Missing descriptor</td><td>filter returns <span class="mono">not_evaluated</span></td></tr>
+    <tr><td>Target with no assay data</td><td><span class="mono">no_data</span>, plus the absence caveat</td></tr>
+    <tr><td>Unread eligibility prose</td><td>permanent <span class="mono">undetermined</span> criterion</td></tr>
+   </table>
   </div>
+ </div>
 </div></section>
 
-<section class="apx-band-teal close"><div class="wrap">
-  <div class="box">
-    <div class="kick" style="color:var(--coral)">See it work</div>
-    <h2>Run a model and read the audit trail</h2>
-    <p>Everything above is easier to trust when you can watch it reason. Open the Studio and try a specialist on sample data — de-identified, logged, and never a diagnosis.</p>
-    <div class="btns">
-      <a class="btn btn-p" href="studio.html">Run a model →</a>
-      <a class="btn btn-s" href="models.html">Meet the constellation</a>
-    </div>
-  </div>
+<!-- STATUS -->
+<section class="block"><div class="wrap">
+ <div class="center"><div class="eyebrow">Honest status</div><h2>What is measured, and what is not</h2></div>
+ <div class="honest">
+  <h3>◐ Deterministic core: verified. Narration: unmeasured.</h3>
+  <p><b>The rule engine is deterministic and unit-tested</b>, in the same class as Meridian's PAMA math — same input, same output, no model in the loop, 52 offline tests covering the filters, the panel logic, the matcher, the source parsers and the governance path. That part is verifiable by reading the tests.</p>
+  <p><b>The narration layer has no published accuracy.</b> The prose Catalyst writes about a run comes from a frontier model under guardrails, and like every other Ardia persona it carries no measured accuracy figure yet. It is constrained to the computed block and instructed to report empty stages plainly — but "constrained" is a control, not a benchmark.</p>
+  <p><b>Retrieval is best-effort.</b> PubChem, ChEMBL and ClinicalTrials.gov are public services with no key and no SLA. When one is slow or down, the affected stage degrades to <span class="mono">no_data</span> — it never raises, and it never causes a fabricated result. A run that reports nothing is doing its job.</p>
+  <p><b>This is research tooling, not clinical care</b>, and it is not a substitute for regulated safety pharmacology, a qualified medicinal chemist, or a clinical screener. Ardia is pre-revenue and seed-stage; no part of Catalyst has been used on real patient data.</p>
+ </div>
 </div></section>
 
-<footer>Ardia Precision Health, Inc. · ardiahealthlabs.com · Pre-Revenue · Seed Stage · <b>Not a diagnosis.</b></footer>
+<section class="finalcta"><div class="wrap">
+ <h2>Watch it refuse to guess</h2>
+ <p>Run Catalyst in the Studio and give it a compound. The interesting part is what it declines to tell you.</p>
+ <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+  <a class="btn btn-p" href="studio.html">Open the Studio →</a>
+  <a class="btn btn-s" href="models.html">All models →</a>
+ </div>
+</div></section>
+
+<footer><div class="wrap foot-in"><div>Ardia Precision Health, Inc. · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · Catalyst rule engine deterministic &amp; unit-tested · Research tooling, not clinical care</div></div></footer>
 </body>
 </html>

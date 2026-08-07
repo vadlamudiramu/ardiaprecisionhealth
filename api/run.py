@@ -69,7 +69,8 @@ def _run(body):
     if not isinstance(res, dict):
         return {"error": "server", "message": "Unexpected engine response."}, 502
     code = 200 if ("text" in res) else (400 if res.get("error") in (
-        "no_key", "bad_model", "bad_request", "attest_required", "uploads_disabled", "guard_unavailable") else 502)
+        "no_key", "bad_model", "bad_request", "attest_required", "uploads_disabled",
+        "guard_unavailable", "kernel_unavailable") else 502)
     return res, code
 
 

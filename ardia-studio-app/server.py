@@ -95,6 +95,21 @@ assistant. The user describes a day/week of activity or pastes step/activity dat
 whether there is a reviewable functional-decline TREND. Be explicit about honest limits: the trained model was
 validated on adults aged 19-48 (public UCI HAR data) and re-validated on the target cohort before clinical use;
 it is non-diagnostic and NOT a fall detector. Signals prompt a human review; they never name a disease."""},
+ "catalyst": {"name": "Catalyst", "role": "Discovery-to-Trial (research, non-clinical)", "system": """You are Catalyst,
+Ardia's discovery-to-trial narrator. This is RESEARCH tooling, not clinical care, and you do not diagnose or treat.
+You are given a CATALYST RUN block containing results computed by a deterministic kernel. Your job is to EXPLAIN that
+block — nothing else. Absolute rules:
+- Report ONLY numbers, rules, targets and NCT ids that appear in the block. Never add a value from memory, never
+  estimate a descriptor or an affinity, and never name a molecule, target or trial the block does not name.
+- A stage marked NO DATA, BLOCKED or SKIPPED must be reported AS SUCH, prominently. Do not fill the gap.
+- Say plainly what Catalyst did not do: it did not design a molecule, did not predict binding, did not predict
+  off-target activity, and did not enrol anyone. Passing published filters is triage, not evidence of efficacy or
+  safety; a target with no measured data is NOT a clean result.
+- Trial output is a shortlist for HUMAN screening. Never call anyone eligible, and never rank or contact patients.
+- Structure: '## What the molecule looks like', '## Measured off-target liabilities', '## Trial candidates for
+  screening', '## What this run does NOT establish'. Cite the rule/panel citation next to each claim it supports.
+If the block reports that no `compound:` or `condition:` directive was given, say so and show the expected format
+instead of guessing what the user meant."""},
  "tara": {"name": "TARA", "role": "Clinical Reasoning core", "system": """You are TARA, Ardia's reasoning core, answering
 clinical/coding questions for professionals. Give the answer, then a short '## How I got there' section naming the
 rule/guideline each step relies on, so it is auditable. Flag that codes/thresholds change and must be verified
@@ -275,6 +290,11 @@ try:
     _POLICIES_OK = True
 except Exception:
     _POLICIES_OK = False
+try:
+    from models.catalyst import pipeline as catalyst   # deterministic discovery-to-trial kernel
+    _CATALYST_OK = True
+except Exception:
+    _CATALYST_OK = False
 
 # Administrative revenue-cycle models: their output is an appeal/EOB analysis that
 # references the claim's documented diagnosis, so the non-diagnostic gate treats
@@ -316,8 +336,27 @@ def call_model(model_key, text, attachments, engine="", ground=True, attest=Fals
         return NO_KEY
     # Sentinel: strip HIPAA Safe-Harbor identifiers from the text BEFORE the model sees it.
     text, sentinel = deid_input(text)
-    # Research grounding: retrieve real sources from the DE-IDENTIFIED query only.
     sources = []
+    catalyst_run = None
+    # Catalyst runs its deterministic kernel FIRST and hands the model the computed
+    # result to narrate. The ordering is the whole guarantee: the numbers exist before
+    # the model is invoked, so it is explaining a computation rather than producing one.
+    if model_key == "catalyst":
+        if not _CATALYST_OK:
+            return {"error": "kernel_unavailable",
+                    "message": "The Catalyst kernel is unavailable — refusing to answer a "
+                               "discovery question without it, since the model would then be "
+                               "improvising chemistry rather than explaining a computation."}
+        creq, cnotes = catalyst.parse_request(text)
+        catalyst_run = catalyst.run(creq)
+        text = text + "\n\n" + catalyst.as_grounding(catalyst_run)
+        if cnotes:
+            text += "\n\nINPUT NOTES — report these to the user verbatim:\n" + \
+                    "\n".join("- " + n for n in cnotes)
+        for st in catalyst_run.stages:
+            sources.extend(st.sources)
+        ground = False   # the kernel block IS the grounding; unrelated papers would invite drift
+    # Research grounding: retrieve real sources from the DE-IDENTIFIED query only.
     if ground and _RESEARCH_OK and text:
         sources = gather_sources(text, n=3)
         if _POLICIES_OK:
@@ -342,6 +381,15 @@ def call_model(model_key, text, attachments, engine="", ground=True, attest=Fals
             res["text"], _ = deid_input(res["text"])
             res["output_redacted"] = True
         res["sources"] = sources
+        if catalyst_run is not None:
+            # Surface the per-stage verdicts alongside the prose so a reader can see
+            # which stages actually had evidence without trusting the narration.
+            res["catalyst"] = {
+                "compound": catalyst_run.compound,
+                "scope": catalyst_run.scope,
+                "stages": [{"stage": s.stage, "status": s.status, "summary": s.summary,
+                            "reason": s.reason} for s in catalyst_run.stages],
+            }
         if atts:
             res["attachments_note"] = ("%d file(s) sent on your synthetic/de-identified attestation — "
                                        "attachments are not auto-de-identified." % len(atts))

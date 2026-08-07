@@ -5,4 +5,6 @@ Each subpackage is one Ardia model or kernel with its own tests under /tests:
 - ml-wellbeing (Cadence): trained activity classifier on public UCI HAR
 - sentinel: HIPAA Safe Harbor de-identification kernel
 - crucible: guardrail evaluation gates
+- catalyst: governed discovery-to-trial pipeline (published developability filters,
+  measured off-target evidence, de-identified trial candidate screening)
 """
