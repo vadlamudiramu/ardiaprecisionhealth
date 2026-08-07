@@ -71,6 +71,22 @@ _ABSOLUTE = re.compile(
 
 _CONDITIONAL = re.compile(r"\b(if|when|whether|should|unless|in case)\b\s*$", re.I)
 
+# Attribution to an ALREADY-ESTABLISHED diagnosis in the record/claim. When one of
+# these sits right next to a diagnostic phrase, the model is REFERENCING a documented
+# diagnosis (e.g. an administrative appeal citing the claim's dx), not diagnosing the
+# person. A bare assertion with no such attribution still fails the gate.
+_DX_ATTRIBUTION = re.compile(
+    r"\b("
+    r"documented|confirmed|established|existing|pre-?existing|prior|known|reported|"
+    r"biopsy|patholog\w+|histolog\w+|"
+    r"per (?:the )?(?:record|records|chart|claim|note|notes|report)|"
+    r"medical record|clinical record|on (?:the|this) claim|in (?:the|this) (?:record|chart|claim|note)|"
+    r"icd-?10|diagnosis code|dx code|coded|submitted diagnosis|billed diagnosis|"
+    r"as (?:noted|documented|coded|billed|submitted|listed|indicated)"
+    r")\b",
+    re.I,
+)
+
 
 def non_diagnostic_gate(text: str) -> GateResult:
     text = text or ""
@@ -79,6 +95,13 @@ def non_diagnostic_gate(text: str) -> GateResult:
         # not a diagnostic assertion — skip those.
         pre = text[max(0, m.start() - 14):m.start()]
         if _CONDITIONAL.search(pre):
+            continue
+        # An administrative REFERENCE to an already-documented diagnosis (an appeal
+        # citing the claim's dx) is not the model diagnosing anyone. Exempt only when
+        # the diagnosis is explicitly attributed to the record/claim in the immediate
+        # surrounding text; a bare assertion ("you have X") still fails.
+        near = text[max(0, m.start() - 34):min(len(text), m.end() + 48)]
+        if _DX_ATTRIBUTION.search(near):
             continue
         return GateResult("non_diagnostic", False, f"diagnostic language: {m.group(0)!r}")
     return GateResult("non_diagnostic", True, "no diagnostic assertion")

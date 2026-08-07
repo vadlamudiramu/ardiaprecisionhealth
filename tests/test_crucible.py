@@ -14,8 +14,25 @@ def test_there_are_eight_gates():
 
 def test_non_diagnostic():
     assert non_diagnostic_gate("Decision support: findings are consistent with the ordered panel.").passed
+    # Bare AI assertions of a diagnosis still fail.
     assert not non_diagnostic_gate("The patient has stage IV lung cancer.").passed
     assert not non_diagnostic_gate("You have diabetes.").passed
+    assert not non_diagnostic_gate("Based on these labs, the patient has cancer.").passed
+    assert not non_diagnostic_gate("You are diagnosed with hypertension.").passed
+
+
+def test_non_diagnostic_exempts_attributed_claim_references():
+    # An administrative appeal REFERENCING the claim's already-documented diagnosis is
+    # not the model diagnosing — it must pass when the dx is attributed to the record.
+    assert non_diagnostic_gate(
+        "The claim's documented diagnosis of stage IV NSCLC (ICD-10 C34.90) supports coverage.").passed
+    assert non_diagnostic_gate(
+        "Per the medical record, the patient has a confirmed diagnosis of NSCLC.").passed
+    assert non_diagnostic_gate(
+        "The beneficiary was diagnosed with COPD per the chart, so the panel is indicated.").passed
+    # ...but attribution must be adjacent — a distant mention doesn't launder a bare dx.
+    assert not non_diagnostic_gate(
+        "The record was reviewed. Separately, based on symptoms, the patient has cancer.").passed
 
 
 def test_human_in_the_loop():
