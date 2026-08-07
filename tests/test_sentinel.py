@@ -80,3 +80,20 @@ def test_none_raises():
 def test_empty_text_is_clean_noop():
     r = deidentify("")
     assert r.text == "" and r.total_removed == 0 and r.is_clean
+
+
+def test_public_citation_urls_are_not_redacted():
+    # A CMS / PubMed / ClinicalTrials CITATION is public reference, not PHI — Sentinel keeps it.
+    txt = ("Cite the LCD https://www.cms.gov/medicare-coverage-database/view/lcd.aspx?lcdid=38045 "
+           "and the paper https://pubmed.ncbi.nlm.nih.gov/42535320/ "
+           "and the trial https://clinicaltrials.gov/study/NCT03347435")
+    r = deidentify(txt)
+    assert "url" not in r.counts and r.total_removed == 0
+    assert "cms.gov/medicare-coverage-database" in r.text          # citation preserved intact
+
+
+def test_non_citation_urls_still_redacted():
+    # A personal / portal / unknown URL is still identifier #14.
+    r = deidentify("Portal https://myhealth.example.org/p?id=99213 and http://evil.example.com/x")
+    assert r.counts.get("url") == 2
+    assert "example.org" not in r.text and "evil.example.com" not in r.text

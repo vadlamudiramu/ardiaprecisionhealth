@@ -67,6 +67,18 @@ _PATTERNS: list[tuple[str, re.Pattern]] = [
     ("age_over_89", re.compile(r"\b(?:9\d|1\d\d)\s*(?:-|\s)?(?:years?[-\s]?old|y/?o|yo)\b", re.I)),
 ]
 
+# Public reference domains — a URL to one of these is a policy / literature CITATION
+# (e.g. a CMS coverage LCD or a PubMed article), never PHI, so Sentinel does not
+# redact it. A personal, portal, or any other URL is still redacted as identifier #14.
+_CITATION_HOSTS = (
+    "cms.gov", "medicare.gov", "medicaid.gov", "ncbi.nlm.nih.gov",
+    "pubmed.ncbi.nlm.nih.gov", "clinicaltrials.gov", "nih.gov", "fda.gov", "cdc.gov",
+)
+_PUBLIC_CITATION_URL = re.compile(
+    r"https?://(?:[a-z0-9-]+\.)*(?:" + "|".join(h.replace(".", r"\.") for h in _CITATION_HOSTS) + r")(?:[/:?#]|$)",
+    re.I,
+)
+
 _REDACTION = "[REDACTED:{cat}]"
 
 
@@ -120,6 +132,14 @@ def deidentify(text: str, names: list[str] | None = None) -> DeidReport:
 
     # 2) Regex-detectable structured identifiers.
     for cat, pat in _PATTERNS:
+        if cat == "url":
+            def _url_sub(m: re.Match) -> str:
+                if _PUBLIC_CITATION_URL.match(m.group(0)):
+                    return m.group(0)          # public policy / literature citation — not PHI
+                counts["url"] = counts.get("url", 0) + 1
+                return _REDACTION.format(cat="url")
+            text = pat.sub(_url_sub, text)
+            continue
         text, n = pat.subn(_REDACTION.format(cat=cat), text)
         if n:
             counts[cat] = counts.get(cat, 0) + n
