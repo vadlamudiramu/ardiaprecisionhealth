@@ -55,10 +55,11 @@ def _run(body):
     res = engine.call_model(
         body.get("model", "tara"), text, atts,
         body.get("engine", ""), body.get("ground", True),
+        attest=bool(body.get("attest_synthetic")),
     )
     if not isinstance(res, dict):
         return {"error": "server", "message": "Unexpected engine response."}, 502
-    code = 200 if ("text" in res) else (400 if res.get("error") in ("no_key", "bad_model", "bad_request") else 502)
+    code = 200 if ("text" in res) else (400 if res.get("error") in ("no_key", "bad_model", "bad_request", "attest_required") else 502)
     return res, code
 
 

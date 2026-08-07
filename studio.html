@@ -368,6 +368,12 @@ function stLoadExample(){ document.getElementById('stPrompt').value=DATA.models[
 function renderFiles(){
   var wrap=document.getElementById('stFilesList');wrap.innerHTML='';
   stFilesArr.forEach(function(f,ix){var s=document.createElement('span');s.className='st-file';s.innerHTML='📄 '+esc(f.name)+' <b onclick="stRmFile('+ix+')">✕</b>';wrap.appendChild(s);});
+  if(stFilesArr.length){
+    var a=document.createElement('label');
+    a.style.cssText='display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9fb2c8;margin-top:10px;line-height:1.45;cursor:pointer';
+    a.innerHTML='<input type="checkbox" id="stAttest" style="margin-top:2px;flex:none"> <span>I confirm this file is <b style="color:#c7d6e6">synthetic or de-identified</b> — it contains no real patient identifiers (name, DOB, MRN, etc.). Uploaded files are sent to the AI provider and are <b style="color:#c7d6e6">not</b> automatically de-identified; real patient data requires a signed BAA.</span>';
+    wrap.appendChild(a);
+  }
 }
 function stFiles(input){
   var files=[].slice.call(input.files||[]); stFilesArr=[]; var pending=files.length;
@@ -415,6 +421,12 @@ function tdRun(){
   var m=DATA.models[cur], ac=ACC[m.key]||'#7c3aed';
   var promptVal=(document.getElementById('stPrompt').value||'').trim();
   var files=(stFilesArr||[]).slice();
+  var attest=!!(document.getElementById('stAttest')&&document.getElementById('stAttest').checked);
+  if(files.length && !attest){
+    running=false;
+    document.getElementById('tdBody').innerHTML='<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Confirm the file is safe to send</div><div class="at">Uploaded files are sent to the AI provider and are <b>not</b> automatically de-identified. Tick the box confirming the file is <b>synthetic or de-identified</b> (no real patient name, DOB, MRN…), then Run again. Real patient data requires a signed BAA.</div></div>';
+    return;
+  }
   var isExample=(promptVal===(m.prompt||'').trim()) && files.length===0;
   var userMsg=promptVal||m.prompt||'';
   var fileTag=files.length?' <span style="opacity:.75">📎 '+esc(files.map(function(f){return f.name;}).join(', '))+'</span>':'';
@@ -431,7 +443,7 @@ function tdRun(){
   // try the real engine
   var base=stEngineBase();
   var payload={model:ENGINE_MODEL[m.key]||'tara', text:userMsg, engine:(tier==='scholar'?'deep':tier==='cortex'?'':'fast'),
-    code:stCode(), attachments:files.map(function(f){return {b64:f.b64,media_type:f.type,name:f.name};})};
+    code:stCode(), attest_synthetic:attest, attachments:files.map(function(f){return {b64:f.b64,media_type:f.type,name:f.name};})};
   var ctrl=('AbortController' in window)?new AbortController():null;
   var to=setTimeout(function(){ if(ctrl)try{ctrl.abort();}catch(e){} }, 60000);
   var opt={method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)};
@@ -440,6 +452,7 @@ function tdRun(){
     clearTimeout(to);
     if(res && res.text!=null){ finalize(realAnswer(m,ac,res)); }
     else if(res && res.error==='forbidden'){ finalize(codeNeededAnswer(ac)); }
+    else if(res && res.error==='attest_required'){ finalize('<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Confirm the file is safe to send</div><div class="at">'+esc(res.message||'')+'</div></div>'); }
     else { finalize(offlineAnswer(m,ac,isExample, (res&&res.message)?esc(res.message):'')); }
   }).catch(function(){ clearTimeout(to); finalize(offlineAnswer(m,ac,isExample,'')); });
 }
@@ -455,8 +468,9 @@ function realAnswer(m,ac,res){
   if(sn && sn.removed!=null) badges.push('Sentinel · '+sn.removed+' identifier'+(sn.removed===1?'':'s')+' removed');
   if(cs && cs.n_total!=null) badges.push('Crucible · '+cs.n_passed+'/'+cs.n_total+' gates'+(cs.passed?'':' ⚠'));
   var g=badges.length?'<div class="st-guards">'+badges.map(function(b){return '<span class="st-guard">✓ '+esc(b)+'</span>';}).join('')+'</div>':'';
+  var anote=res.attachments_note?'<div class="st-offline" style="margin-top:8px">🔒 '+esc(res.attachments_note)+'</div>':'';
   var txt=esc(res.text||'').replace(/\n/g,'<br>');
-  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live answer · '+TIER[tier][0]+' · grounded &amp; guardrailed · drafted for human review</div>'+g+'<div class="at">'+txt+'</div>'+srcs+'</div>';
+  return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Live answer · '+TIER[tier][0]+' · grounded &amp; guardrailed · drafted for human review</div>'+g+'<div class="at">'+txt+'</div>'+srcs+anote+'</div>';
 }
 function offlineAnswer(m,ac,isExample,extra){
   if(isExample){

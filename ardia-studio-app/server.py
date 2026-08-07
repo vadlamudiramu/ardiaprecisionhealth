@@ -266,9 +266,19 @@ except Exception:
     _RESEARCH_OK = False
 
 
-def call_model(model_key, text, attachments, engine="", ground=True):
+def call_model(model_key, text, attachments, engine="", ground=True, attest=False):
     if model_key not in MODELS:
         return {"error": "bad_model", "message": "Unknown model."}
+    # PHI gate: uploaded files are sent to a third-party model provider and are NOT
+    # auto-de-identified (Sentinel only de-identifies the typed text — it cannot redact
+    # pixels/embedded text in an image or PDF). Require an explicit attestation that the
+    # file is synthetic / de-identified before any file leaves for the vendor. Real
+    # patient data requires a signed BAA.
+    if attachments and not attest:
+        return {"error": "attest_required",
+                "message": "Uploaded files are sent to the AI provider and are NOT automatically de-identified. "
+                           "Confirm the file is synthetic or de-identified (contains no real patient identifiers) "
+                           "to run it. Real patient data requires a signed BAA before it can be processed."}
     p = active_provider()
     if p is None:
         return NO_KEY
@@ -296,6 +306,11 @@ def call_model(model_key, text, attachments, engine="", ground=True):
             res["crucible"] = gate_output(res["text"])
             res["crucible_summary"] = summarize(res["crucible"])
         res["sources"] = sources
+        if attachments:
+            # Transparency: the typed text was de-identified, the file(s) were NOT —
+            # they ran on the user's synthetic/de-identified attestation.
+            res["attachments_note"] = ("%d file(s) sent on your synthetic/de-identified attestation — "
+                                       "attachments are not auto-de-identified." % len(attachments))
     return res
 
 
@@ -355,8 +370,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if not atts and body.get("image_b64"):   # backward compat with single-file clients
             atts = [{"b64": body.get("image_b64"), "media_type": body.get("image_media_type")}]
         res = call_model(body.get("model", "lumen"), (body.get("text") or "").strip(), atts,
-                         body.get("engine", ""), body.get("ground", True))
-        code = 200 if "text" in res else (400 if res.get("error") in ("no_key", "bad_model", "bad_request") else 502)
+                         body.get("engine", ""), body.get("ground", True),
+                         attest=bool(body.get("attest_synthetic")))
+        code = 200 if "text" in res else (400 if res.get("error") in ("no_key", "bad_model", "bad_request", "attest_required") else 502)
         return self._json(res, code)
 
 
