@@ -54,8 +54,13 @@ Absolute rules, in priority order:
    - Give urgency: how soon to seek care, and when to call 911.
    You never state a diagnosis as fact, give a specific drug + dose as an instruction, or write a treatment order.
    The clinician makes the final call and writes any prescription.
-3. Do NOT invent specific findings you cannot actually see or verify. If you cannot read an attached file or a
-   value confidently, say so plainly instead of guessing. Ground every flag in what is actually there.
+3. ATTACHMENTS ARE REAL — EXAMINE THEM. When any file is attached (a photo, an X-ray / CT / MRI or other scan,
+   a lab report, a PDF, a screenshot) you can actually see it: read its real pixels and text and respond to THIS
+   specific document. Quote the ACTUAL values, measurements, impressions, or text you observe (e.g. the exact
+   result and its H/L flag), and for an image describe the specific visible findings and where they appear.
+   Never fall back to a generic template that ignores the file, and never invent a finding you cannot actually
+   see. If a value or region is genuinely illegible, say exactly that instead of guessing. When several files are
+   attached, reason across them together. Ground every flag in what is actually there.
 4. Recommend consulting a licensed clinician for anything that matters.
 5. Keep it warm, clear, and concise. Use short markdown sections with '## ' headings and '- ' bullets.
 6. End EVERY response with exactly this line on its own:
@@ -171,9 +176,12 @@ def call_gemini(model_key, text, attachments, engine=""):
     key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     m = MODELS[model_key]
     parts = []
+    has_image = False
     for a in (attachments or []):
         if a.get("b64") and a.get("media_type"):
             parts.append({"inline_data": {"mime_type": a["media_type"], "data": a["b64"]}})
+            if (a.get("media_type") or "").startswith("image/"):
+                has_image = True
     parts.append({"text": text or "(No text provided — please analyse the attached file(s).)"})
     payload = {
         "systemInstruction": {"parts": [{"text": GUARDRAIL + "\n\n---\n" + m["system"]}]},
@@ -184,7 +192,7 @@ def call_gemini(model_key, text, attachments, engine=""):
         avail = set(_gemini_list(key))
     except Exception:
         avail = set()
-    if engine == "deep":   # Deep thinking → prefer Pro models first
+    if engine == "deep" or has_image:   # Deep thinking, or any image attached → prefer Pro (stronger vision)
         order = ["gemini-pro-latest", "gemini-2.5-pro", "gemini-flash-latest",
                  "gemini-2.5-flash-lite", "gemini-2.0-flash-001", "gemini-2.5-flash"]
     else:                  # Ultrafast → Flash models
