@@ -88,20 +88,25 @@ _DX_ATTRIBUTION = re.compile(
 )
 
 
-def non_diagnostic_gate(text: str) -> GateResult:
+def non_diagnostic_gate(text: str, administrative: bool = False) -> GateResult:
     text = text or ""
+    # In ADMINISTRATIVE revenue-cycle output (e.g. a MolecuIQ appeal), a valid appeal
+    # grounds itself in the claim/record. If the document attributes a diagnosis to the
+    # record ANYWHERE, later bare restatements of that dx are references, not the model
+    # diagnosing — but an appeal that names a diagnosis with NO record attribution
+    # anywhere still fails. (Patient-facing models never get this document-level pass.)
+    doc_attributed = administrative and bool(_DX_ATTRIBUTION.search(text))
     for m in _DIAGNOSTIC.finditer(text):
         # A conditional ("if you have chest pain, call 911") is safety guidance,
         # not a diagnostic assertion — skip those.
         pre = text[max(0, m.start() - 14):m.start()]
         if _CONDITIONAL.search(pre):
             continue
-        # An administrative REFERENCE to an already-documented diagnosis (an appeal
-        # citing the claim's dx) is not the model diagnosing anyone. Exempt only when
-        # the diagnosis is explicitly attributed to the record/claim in the immediate
+        # A REFERENCE to an already-documented diagnosis is not the model diagnosing.
+        # Exempt when the dx is attributed to the record/claim in the immediate
         # surrounding text; a bare assertion ("you have X") still fails.
         near = text[max(0, m.start() - 34):min(len(text), m.end() + 48)]
-        if _DX_ATTRIBUTION.search(near):
+        if _DX_ATTRIBUTION.search(near) or doc_attributed:
             continue
         return GateResult("non_diagnostic", False, f"diagnostic language: {m.group(0)!r}")
     return GateResult("non_diagnostic", True, "no diagnostic assertion")

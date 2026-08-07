@@ -46,12 +46,16 @@ def deid_input(text: str | None) -> tuple[str, dict]:
     return r.text, {"removed": r.total_removed, "categories": r.categories_hit}
 
 
-def gate_output(text: str | None) -> list[dict]:
-    """Run the applicable Crucible gates on model output. Returns one dict per gate."""
+def gate_output(text: str | None, administrative: bool = False) -> list[dict]:
+    """Run the applicable Crucible gates on model output. Returns one dict per gate.
+
+    ``administrative`` marks revenue-cycle output (e.g. a MolecuIQ appeal) so the
+    non-diagnostic gate allows references to a diagnosis the document attributes to
+    the claim/record (it never applies to patient-facing models)."""
     text = text or ""
     out: list[dict] = []
     for gate in _STUDIO_GATES:
-        r = gate(text)
+        r = gate(text, administrative=administrative) if gate is non_diagnostic_gate else gate(text)
         out.append({"gate": r.gate, "passed": r.passed, "reason": r.reason})
     return out
 

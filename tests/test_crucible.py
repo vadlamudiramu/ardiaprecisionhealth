@@ -35,6 +35,18 @@ def test_non_diagnostic_exempts_attributed_claim_references():
         "The record was reviewed. Separately, based on symptoms, the patient has cancer.").passed
 
 
+def test_non_diagnostic_administrative_document_level():
+    # An administrative appeal that grounds the dx in the record may restate it bare later;
+    # the SAME text is still flagged for a patient-facing (non-administrative) model.
+    appeal = ("Per the medical record, the beneficiary has a documented diagnosis of NSCLC (ICD-10 C34.90). "
+              "Medical Necessity: The patient is diagnosed with Stage IV NSCLC, so the panel is warranted.")
+    assert non_diagnostic_gate(appeal, administrative=True).passed
+    assert not non_diagnostic_gate(appeal, administrative=False).passed
+    # An 'appeal' that names a diagnosis with NO record attribution anywhere still fails, even administrative.
+    bare = "Medical Necessity: The patient is diagnosed with Stage IV NSCLC, so the panel is warranted."
+    assert not non_diagnostic_gate(bare, administrative=True).passed
+
+
 def test_human_in_the_loop():
     assert human_in_the_loop_gate("Draft appeal prepared for a licensed reviewer to submit.").passed
     assert not human_in_the_loop_gate("The system will auto-submit the appeal.").passed

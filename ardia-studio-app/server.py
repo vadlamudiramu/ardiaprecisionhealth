@@ -274,6 +274,11 @@ try:
 except Exception:
     _POLICIES_OK = False
 
+# Administrative revenue-cycle models: their output is an appeal/EOB analysis that
+# references the claim's documented diagnosis, so the non-diagnostic gate treats
+# record-attributed dx references as references, not diagnoses. (toxiq maps to molec.)
+_ADMIN_MODELS = {"molec"}
+
 
 def call_model(model_key, text, attachments, engine="", ground=True, attest=False):
     if model_key not in MODELS:
@@ -314,7 +319,7 @@ def call_model(model_key, text, attachments, engine="", ground=True, attest=Fals
         # Crucible: run the guardrail gates on the model OUTPUT and attach verdicts.
         if _GUARDS_OK:
             res["sentinel"] = sentinel
-            res["crucible"] = gate_output(res["text"])
+            res["crucible"] = gate_output(res["text"], administrative=(model_key in _ADMIN_MODELS))
             res["crucible_summary"] = summarize(res["crucible"])
         res["sources"] = sources
         if attachments:
