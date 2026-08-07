@@ -200,7 +200,7 @@ def call_gemini(model_key, text, attachments, engine=""):
                  "gemini-2.0-flash-001", "gemini-flash-lite-latest", "gemini-2.5-flash",
                  "gemini-pro-latest", "gemini-2.5-pro"]
     cand = [x for x in order if (not avail or x in avail)] or ["gemini-flash-latest"]
-    ekey = "deep" if engine == "deep" else "fast"
+    ekey = "deep" if (engine == "deep" or has_image) else "fast"
     prev = _GEMINI_CUR.get(ekey)
     if prev and prev in cand:                                      # stick with one that worked before (per mode)
         cand = [prev] + [x for x in cand if x != prev]
