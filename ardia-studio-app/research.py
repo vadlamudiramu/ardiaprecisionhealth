@@ -18,6 +18,39 @@ _UA = {"User-Agent": "ArdiaStudio/0.1 (research grounding; contact info@ardiahea
 _PUBMED = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 _TRIALS = "https://clinicaltrials.gov/api/v2/studies"
 
+# Instruction/filler words that must never enter a PubMed query. PubMed ANDs every
+# term, so a raw sentence ("summarize the evidence ... cite sources") matches nothing.
+# Keep only content words (medical / drug / gene terms like "CYP2C19", "clopidogrel").
+_STOP = frozenset("""
+a about above across after against all also an and any are as at based be been before being below
+between by can cannot cite could describe detail details did do does done during each evidence
+explain for from generate give guidance guide had has have help how i in into is it its list may me
+might more most my need no not note of on only or other our out over own patient patients please
+provide question report review same shall should show so some source sources studies study such
+summarise summarize summary support tell than that the their them then there these this those to
+under use used using was we what when where which who why will with would you your
+""".split())
+
+
+def _keywords(text: str, cap: int = 8) -> str:
+    """Reduce a natural-language prompt to a compact keyword query for PubMed.
+
+    PubMed ANDs every term, so filler words zero out results. Keep content words
+    (incl. alphanumeric tokens like 'CYP2C19'), drop stopwords, dedupe, cap length.
+    """
+    import re
+    out: list[str] = []
+    seen: set[str] = set()
+    for tok in re.findall(r"[A-Za-z0-9][A-Za-z0-9-]*", text or ""):
+        low = tok.lower()
+        if len(low) < 3 or low in _STOP or low in seen:
+            continue
+        seen.add(low)
+        out.append(tok)
+        if len(out) >= cap:
+            break
+    return " ".join(out)
+
 
 def _get_json(url: str, timeout: float = 8.0) -> dict:
     req = urllib.request.Request(url, headers=_UA)
@@ -70,13 +103,22 @@ def parse_trials(js: dict) -> list[dict]:
 # ---- network wrappers (best-effort) ----
 def search_pubmed(query: str, n: int = 3, timeout: float = 8.0) -> list[dict]:
     try:
-        q = urllib.parse.quote(query)
-        es = _get_json(f"{_PUBMED}/esearch.fcgi?db=pubmed&retmode=json&retmax={n}&term={q}", timeout)
-        ids = (es.get("esearchresult", {}) or {}).get("idlist", []) or []
-        if not ids:
-            return []
-        su = _get_json(f"{_PUBMED}/esummary.fcgi?db=pubmed&retmode=json&id={','.join(ids)}", timeout)
-        return parse_pubmed_summary(su)
+        terms = query.split()
+        # PubMed ANDs terms, so a long keyword query can over-narrow to zero hits.
+        # Try the full query, then progressively relax to the most salient terms.
+        variants = [query]
+        if len(terms) > 4:
+            variants.append(" ".join(terms[:4]))
+        if len(terms) > 3:
+            variants.append(" ".join(terms[:3]))
+        for v in variants:
+            q = urllib.parse.quote(v)
+            es = _get_json(f"{_PUBMED}/esearch.fcgi?db=pubmed&retmode=json&retmax={n}&term={q}", timeout)
+            ids = (es.get("esearchresult", {}) or {}).get("idlist", []) or []
+            if ids:
+                su = _get_json(f"{_PUBMED}/esummary.fcgi?db=pubmed&retmode=json&id={','.join(ids)}", timeout)
+                return parse_pubmed_summary(su)
+        return []
     except Exception:
         return []
 
@@ -94,7 +136,10 @@ def gather_sources(query: str | None, n: int = 3) -> list[dict]:
     """Best-effort mix of PubMed + trial sources for a query. Never raises."""
     if not query or len(query.strip()) < 3:
         return []
-    q = query.strip()[:300]
+    # Build a keyword query — the raw prompt is a sentence, which PubMed's AND
+    # semantics would reduce to zero hits. Fall back to the trimmed text only if
+    # the prompt yields no extractable keywords.
+    q = _keywords(query) or query.strip()[:120]
     return (search_pubmed(q, n) + search_trials(q, max(1, n - 1)))[: n + 2]
 
 

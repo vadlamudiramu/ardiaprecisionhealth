@@ -69,3 +69,27 @@ def test_gather_sources_skips_short_queries_without_network():
     assert R.gather_sources("", 3) == []
     assert R.gather_sources("ab", 3) == []
     assert R.gather_sources(None, 3) == []
+
+
+def test_keywords_strips_filler_keeps_medical_terms():
+    # A raw sentence sent to PubMed's AND-search matches nothing; _keywords must
+    # drop instruction/filler words and keep content terms (incl. gene tokens).
+    q = "Summarize the evidence for CYP2C19 pharmacogenomic testing to guide clopidogrel therapy. Cite sources."
+    toks = R._keywords(q).split()
+    low = [t.lower() for t in toks]
+    for filler in ("summarize", "the", "evidence", "for", "to", "guide", "cite", "sources"):
+        assert filler not in low
+    assert "CYP2C19" in toks           # alphanumeric medical token preserved
+    assert "clopidogrel" in low
+    assert len(toks) == len(set(low))  # deduped
+    assert len(toks) <= 8              # capped
+
+
+def test_keywords_dedupes_and_caps():
+    toks = R._keywords("aspirin ASPIRIN aspirin warfarin " + " ".join(f"drug{i}" for i in range(20))).split()
+    assert len(toks) <= 8
+    assert sum(1 for t in toks if t.lower() == "aspirin") == 1
+
+
+def test_keywords_empty_on_all_filler():
+    assert R._keywords("what is the of and to for") == ""
