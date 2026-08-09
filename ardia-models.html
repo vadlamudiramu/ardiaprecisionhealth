@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Ardia — Models, Agents &amp; Solutions Library</title>
+<meta name="description" content="Every Ardia model, the agents inside it, the data it was built on, and its tested accuracy — plus a live demo across clinical reasoning, lab RCM, elder care, and report analysis.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e4e9f1;--bg2:#d8e0ea;--panel:#ffffff;--panel2:#eef2f8;
+  --line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+  --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;
+  --tara:#0d9488;--aria:#d97706;--lumen:#0284c7;--cadence:#059669;
+  --tox:#7c3aed;--molec:#0891b2;--pulmo:#2563eb;--pama:#e11d48;
+  --sentinel:#4f46e5;--crucible:#ea580c;
+  --ok:#16a34a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1220px;margin:0 auto;padding:0 28px}
+a{text-decoration:none;color:inherit}
+h1,h2,h3{font-family:'Sora',sans-serif;letter-spacing:-.02em;font-weight:700;color:var(--txt)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--tara)}
+.mono{font-family:'JetBrains Mono',monospace}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(55% 45% at 50% -8%,rgba(13,148,136,.09),transparent 62%),
+  radial-gradient(42% 42% at 92% 6%,rgba(79,70,229,.07),transparent 62%)}
+
+.ann{background:linear-gradient(90deg,rgba(13,148,136,.10),rgba(79,70,229,.10));border-bottom:1px solid var(--line);color:#33465e;font-size:12.5px;text-align:center;padding:8px 20px}
+.ann b{color:var(--txt)}
+nav{position:sticky;top:0;z-index:100;background:rgba(228,233,241,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:14px;height:66px;max-width:1220px;margin:0 auto;padding:0 28px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 12px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:18px;color:var(--txt)}
+.brand-txt span{color:var(--pulmo)}
+.nav-links{margin-left:auto;display:flex;gap:22px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--mut)}
+.nav-links a:hover,.nav-links a.active{color:var(--txt)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:var(--txt);color:#fff;padding:10px 18px;border-radius:10px}
+@media(max-width:1000px){.nav-links a:not(.nav-cta){display:none}}
+
+.hero{padding:64px 0 40px;text-align:center}
+.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.06;max-width:900px;margin:0 auto 16px}
+.hero h1 .grad{background:linear-gradient(100deg,var(--tara),var(--pulmo) 60%,var(--sentinel));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--mut);max-width:680px;margin:0 auto}
+.hchips{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.hchip{font-size:12px;font-weight:600;background:var(--panel);border:1px solid var(--line);padding:8px 14px;border-radius:100px;box-shadow:0 1px 2px rgba(14,28,48,.04)}
+.hchip b{color:var(--ok)}
+
+section.block{padding:48px 0}
+.center{text-align:center;max-width:760px;margin:0 auto 34px}
+.center h2{font-size:clamp(25px,3.4vw,38px);line-height:1.12;margin:12px 0}
+.center p{font-size:16px;color:var(--mut)}
+
+/* ===== LEADERBOARD ===== */
+.lb-wrap{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:auto;box-shadow:0 2px 6px rgba(14,28,48,.05)}
+table.lb{width:100%;border-collapse:collapse;min-width:900px}
+.lb th{background:#0d1b2e;color:#dfe8f3;font-family:'Sora';font-size:12px;font-weight:600;text-align:left;padding:14px 16px;position:sticky;top:0}
+.lb td{padding:13px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--mut);vertical-align:top}
+.lb tr:last-child td{border-bottom:none}
+.lb .mdl{font-family:'Sora';font-weight:800;color:var(--txt);display:inline-flex;align-items:center;gap:8px}
+.lb .mdl .g{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.lb .acc{font-family:'JetBrains Mono';font-weight:700;color:var(--txt)}
+.lb .bar{height:6px;border-radius:3px;background:var(--bg2);margin-top:5px;overflow:hidden;max-width:120px}
+.lb .bar i{display:block;height:100%;background:var(--c);border-radius:3px}
+.st{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.st-live{background:rgba(22,163,74,.12);color:#15803d}
+.st-tested{background:rgba(13,148,136,.12);color:#0f766e}
+.st-dev{background:rgba(217,119,6,.12);color:#b45309}
+.st-ruo{background:rgba(2,132,199,.12);color:#0369a1}
+
+/* ===== INTERACTIVE MODEL EXPLORER ===== */
+.explorer{display:grid;grid-template-columns:280px 1fr;gap:22px}
+@media(max-width:900px){.explorer{grid-template-columns:1fr}}
+.mlist{display:flex;flex-direction:column;gap:8px}
+@media(max-width:900px){.mlist{flex-direction:row;overflow-x:auto;padding-bottom:6px}}
+.mtab{display:flex;align-items:center;gap:11px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--panel);cursor:pointer;transition:.18s;white-space:nowrap}
+.mtab:hover{border-color:var(--c)}
+.mtab.on{border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 8px 24px -12px var(--c);background:color-mix(in srgb,var(--c) 5%,white)}
+.mtab .dot{width:10px;height:10px;border-radius:50%;background:var(--c);flex-shrink:0}
+.mtab .nm{font-family:'Sora';font-weight:700;font-size:15px}
+.mtab .rl{font-size:11px;color:var(--mut)}
+.detail{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:0;overflow:hidden;box-shadow:0 2px 8px rgba(14,28,48,.06);min-height:460px}
+.d-top{padding:24px 26px;border-top:4px solid var(--c);display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.d-ic{width:52px;height:52px;border-radius:13px;background:color-mix(in srgb,var(--c) 14%,white);color:var(--c);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.d-h1{font-family:'Sora';font-size:26px;font-weight:800}
+.d-role{font-size:13px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.5px}
+.d-seg{margin-left:auto;font-size:11px;font-weight:700;color:var(--mut);background:var(--bg2);padding:5px 11px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.d-what{font-size:15px;color:var(--txt);line-height:1.6;padding:0 26px 18px}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+@media(max-width:640px){.d-grid{grid-template-columns:1fr}}
+.d-cell{padding:20px 26px;border-bottom:1px solid var(--line)}
+.d-cell:nth-child(odd){border-right:1px solid var(--line)}
+@media(max-width:640px){.d-cell:nth-child(odd){border-right:none}}
+.d-lbl{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
+.d-agents{display:flex;flex-direction:column;gap:8px}
+.d-agent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mut)}
+.d-agent b{color:var(--txt);font-weight:700}
+.d-agent .ai{width:22px;height:22px;border-radius:6px;background:color-mix(in srgb,var(--c) 12%,white);color:var(--c);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;font-family:'JetBrains Mono'}
+.d-use{display:flex;flex-direction:column;gap:6px}
+.d-use li{list-style:none;font-size:13px;color:var(--mut);display:flex;gap:8px}
+.d-use li::before{content:'→';color:var(--c);font-weight:700}
+.d-metric{display:flex;align-items:baseline;gap:10px}
+.d-metric .big{font-family:'Sora';font-size:38px;font-weight:800;color:var(--txt)}
+.d-metric .u{font-size:13px;color:var(--mut)}
+.d-io{font-size:13px;color:var(--mut);line-height:1.6}
+.d-io b{color:var(--txt)}
+.d-chips{display:flex;flex-wrap:wrap;gap:6px;padding:16px 26px 22px}
+.d-chip{font-family:'JetBrains Mono';font-size:11px;font-weight:600;background:var(--bg2);color:var(--mut);padding:4px 10px;border-radius:6px}
+
+/* ===== AGENTS / SOLUTIONS LIBRARY ===== */
+.sol-seg{margin-bottom:18px}
+.sol-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sol-head .bar{width:4px;height:26px;border-radius:2px;background:var(--c)}
+.sol-head h3{font-size:20px}
+.sol-head .cnt{margin-left:auto;font-size:12px;font-weight:700;color:var(--c);background:color-mix(in srgb,var(--c) 10%,white);padding:5px 12px;border-radius:100px;border:1px solid color-mix(in srgb,var(--c) 26%,white)}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.acard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(14,28,48,.05);border-left:3px solid var(--c)}
+.acard .an{font-family:'Sora';font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.acard .ap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--c);margin:2px 0 8px}
+.acard .ad{font-size:13px;color:var(--mut);line-height:1.55;margin-bottom:10px}
+.acard .meta{font-size:11.5px;color:var(--dim);border-top:1px dashed var(--line);padding-top:8px;line-height:1.5}
+.acard .meta b{color:var(--mut)}
+
+/* ===== TABBED LIVE DEMO ===== */
+.demo{background:linear-gradient(180deg,#0b1120,#080d18);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px -34px rgba(13,27,46,.6)}
+.demo-tabs{display:flex;gap:2px;padding:14px 16px 0;flex-wrap:wrap}
+.dtab{font-family:'Sora';font-size:13px;font-weight:600;color:#8299b5;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-bottom:none;padding:11px 16px;border-radius:10px 10px 0 0;cursor:pointer;transition:.15s}
+.dtab:hover{color:#cfe0f0}
+.dtab.on{color:#fff;background:rgba(255,255,255,.06);border-color:var(--dc);box-shadow:inset 0 2px 0 var(--dc)}
+.demo-body{border-top:1px solid rgba(255,255,255,.08);padding:22px;min-height:340px}
+.dpane{display:none}.dpane.on{display:block}
+.dp-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.dp-h .dg{width:9px;height:9px;border-radius:50%;background:var(--dc);box-shadow:0 0 8px var(--dc)}
+.dp-h h4{color:#fff;font-family:'Sora';font-size:18px}
+.dp-sub{color:#8299b5;font-size:13px;margin-bottom:16px}
+.conv{display:flex;flex-direction:column;gap:12px;font-size:14px}
+.bub{padding:12px 15px;border-radius:14px;max-width:82%;line-height:1.6}
+.bub.u{align-self:flex-end;background:#1f3350;color:#dfeaf7;border-bottom-right-radius:4px}
+.bub.a{align-self:flex-start;background:rgba(255,255,255,.05);color:#c9d8ea;border:1px solid rgba(255,255,255,.08);border-bottom-left-radius:4px}
+.bub.a .rz{display:block;font-family:'JetBrains Mono';font-size:11.5px;color:#7cc4ff;margin-bottom:8px;letter-spacing:.3px}
+.bub.a .step{display:block;color:#a7bdd6;font-size:12.5px;margin:3px 0;padding-left:14px;position:relative}
+.bub.a .step::before{content:'•';position:absolute;left:2px;color:var(--dc)}
+.bub.a .concl{display:block;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.1);color:#e8f1fb}
+.bub.a .disc{display:block;margin-top:8px;font-size:11px;color:#7a8ba5;font-style:italic}
+.dp-run{font-family:'JetBrains Mono';font-size:12.5px;line-height:1.9;color:#c9d8ea}
+.dp-run .rl{display:block;opacity:0;transform:translateY(4px);transition:.4s}
+.dp-run .rl.show{opacity:1;transform:none}
+.dp-run .k{color:#7cc4ff}.dp-run .g{color:#5fe3a1}.dp-run .a{color:#ffcf6b}.dp-run .m{color:#b6a4ff}
+.dp-run .tg{font-size:10px;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px}
+.tg-ok{background:rgba(95,227,161,.15);color:#5fe3a1}.tg-gap{background:rgba(255,207,107,.15);color:#ffcf6b}
+
+.finalcta{text-align:center;padding:70px 0}
+.finalcta h2{font-size:clamp(26px,4vw,44px);margin-bottom:14px}
+.finalcta p{font-size:17px;color:var(--mut);margin-bottom:26px}
+.btn{font-family:'Sora';font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;margin:0 6px}
+.btn-p{background:var(--txt);color:#fff}.btn-s{background:#fff;color:var(--txt);border:1.5px solid var(--line2)}
+footer{border-top:1px solid var(--line);color:var(--dim);padding:32px 0;font-size:13px;background:var(--panel2)}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.disc{max-width:1000px;margin:20px auto 0;font-size:12px;color:var(--dim);text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="ann"><b>Models &amp; Solutions Library.</b> Every model, the agents inside it, the data it was built on, and its tested accuracy — in the open.</div>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+    <div class="nav-links">
+      <a href="ardia-platform-light.html">Platform</a>
+      <a class="active" href="ardia-models.html">Models</a>
+      <a href="ardia-agents.html">Agents</a>
+      <a href="solutions-explorer.html">Solutions</a>
+      <a href="tools.html">Tools</a>
+      <a class="nav-cta" href="contact.html">Book a demo</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Models · Agents · Evidence</div>
+    <h1>Different models. Different agents.<br><span class="grad">Every result, measured.</span></h1>
+    <p>Ardia isn't one model doing everything. Each use case has its own model, built from its own agents and data, and evaluated on held-out results. Here's the board.</p>
+    <div class="hchips">
+      <span class="hchip"><b>95.5%</b> Cadence held-out accuracy</span>
+      <span class="hchip"><b>42/42</b> Sentinel safety tests</span>
+      <span class="hchip"><b>7/7</b> Aria integration checks</span>
+      <span class="hchip">HIPAA-aligned · non-diagnostic</span>
+    </div>
+  </div>
+</header>
+
+<!-- LEADERBOARD -->
+<section class="block">
+  <div class="wrap">
+    <div class="center"><div class="eyebrow">The board</div><h2>Model leaderboard</h2><p>Which model, for which use case, built from which agents and data — with its output, expected result, and measured accuracy. Real numbers where tested; honestly labelled where still in development.</p></div>
+    <div class="lb-wrap">
+      <table class="lb">
+        <thead><tr><th>Model</th><th>Use case / segment</th><th>Agents</th><th>Data</th><th>Output vs expected</th><th>Accuracy</th><th>Status</th></tr></thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+    </div>
+    <div class="disc">Accuracy for classifier models is on an untouched held-out split. Reasoning/RCM models (TARA/ToxIQ/MolecuIQ/PulmoIQ) are rule+LLM systems evaluated by policy-match on synthetic cases — labelled <b>in development</b>, never presented as a proven Ardia outcome. Pre-revenue; no real patient or claim results are shown.</div>
+  </div>
+</section>
+
+<!-- INTERACTIVE MODEL EXPLORER -->
+<section class="block" id="models">
+  <div class="wrap">
+    <div class="center"><div class="eyebrow">Explore</div><h2>Every model, its own layout</h2><p>Click a model to see exactly what it does, the agents inside it, the data it learned from, its use cases, and its result.</p></div>
+    <div class="explorer">
+      <div class="mlist" id="mlist"></div>
+      <div class="detail" id="detail"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS / AGENTS LIBRARY -->
+<section class="block" id="solutions" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="center"><div class="eyebrow">Solutions library</div><h2>The agents, by section</h2><p>Not one catch-all bot — purpose-built agents. Each shows its job, the use case it serves, and the data it was built on. Labs denials alone have many failure modes; each gets its own agent.</p></div>
+    <div id="solBody"></div>
+  </div>
+</section>
+
+<!-- TABBED LIVE DEMO -->
+<section class="block" id="demo">
+  <div class="wrap">
+    <div class="center"><div class="eyebrow">Live demo</div><h2>See the reasoning — by use case</h2><p>Switch tabs to watch a different model reason through a real task. Elder care shows genuine clinical-style reasoning, not "drink a glass of water."</p></div>
+    <div class="demo">
+      <div class="demo-tabs" id="demoTabs"></div>
+      <div class="demo-body" id="demoBody"></div>
+    </div>
+    <div class="disc">Illustrative, synthetic scenarios. Non-diagnostic; production runs the full policy set under a BAA and routes patients to a clinician. No PHI is used.</div>
+  </div>
+</section>
+
+<section class="finalcta">
+  <div class="wrap"><div class="eyebrow">Go-to software for the long tail</div><h2>One platform. Purpose-built models.</h2><p>Run a live tool, explore the platform, or book a working session.</p>
+    <a class="btn btn-p" href="tools.html">Run a live tool →</a><a class="btn btn-s" href="ardia-platform-light.html">See the platform</a>
+  </div>
+</section>
+<footer><div class="wrap foot-in"><div>Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>Pre-Revenue · Seed Stage · Building on Google Cloud under a BAA</div></div></footer>
+
+<script>
+/* ============ DATA: models, agents, data, accuracy ============ */
+const M = [
+ {k:'tara',c:'--tara',ic:'◈',name:'TARA',role:'Reasoning Engine',seg:'Core · all segments',page:'model-tara.html',
+  what:'The triadic core every model reasons with: a symbolic policy engine (deterministic LCD/NCD/MolDX rules), a clinical reasoning engine (reads the record against policy), and a denial-pattern library. Grounded — it cites the rule it used.',
+  agents:[['PE','Policy Engine','matches the claim to the exact payer LCD/NCD/MolDX rule'],['CR','Clinical Reasoner','reads the record for the medical-necessity gap'],['DL','Denial Librarian','maps each CARC/RARC code to its appeal angle']],
+  data:'Payer LCD/NCD + MolDX/DEX policy corpora; synthetic claims for evaluation.',
+  use:['Prospective necessity validation','Evidence-backed appeal drafting','Cross-module reasoning backbone'],
+  output:'A grounded recommendation + the cited policy basis.',expected:'Correct policy match + gap identified.',
+  acc:'Policy-match on synthetic cases',accN:0,status:['dev','In development'],
+  hipaa:['De-identified inputs','Cited basis','Human-in-the-loop']},
+
+ {k:'cadence',c:'--cadence',ic:'〜',name:'Cadence',role:'Activity & Wellbeing',seg:'Elderly care',page:'model-cadence.html',
+  what:'A trained ML model that reads daily movement (smartphone accelerometer/gyro) to recognise activity and sense functional decline early — the sensor layer behind the elder companion.',
+  agents:[['AC','Activity Classifier','6-class activity recognition (walking, stairs, sitting, standing, laying)'],['DS','Deterioration Sentinel','unsupervised anomaly flag on unusual movement patterns']],
+  data:'UCI HAR — Human Activity Recognition (public, CC BY 4.0): 10,299 samples, 561 features, subject-independent split (9 unseen people in test).',
+  use:['Daily movement & inactivity tracking','Early decline / fall-risk signal for caregivers','Active vs sedentary summaries'],
+  output:'Activity label + Active/Sedentary/Resting summary + anomaly flags.',expected:'Correct activity on people never seen in training.',
+  acc:'95.5% held-out · 99.6% active/sedentary',accN:95.5,status:['tested','Trained & tested'],
+  hipaa:['On-device signal','No PHI in training','Limits stated: trained on 19–48yr public data → re-train on elder data before deploy']},
+
+ {k:'aria',c:'--aria',ic:'☀',name:'Aria',role:'Elder Companion',seg:'Elderly care · all ages',
+  what:'The voice+text companion for older adults. An agentic system on a frontier LLM with a deterministic safety spine — it triages emergencies, refuses to diagnose, de-identifies before the model sees anything, and escalates to a trusted contact.',
+  agents:[['TR','Triage Agent','classifies each turn: emergency / clinical question / everyday'],['ES','Escalation Agent','alerts a consented contact on SOS, low SpO₂, fall, or prolonged inactivity'],['DI','De-ID Agent','strips PHI before the LLM or any log'],['CO','Companion Agent','warm, plain-language conversation grounded in vetted sources']],
+  data:'Guardrail eval suite (refusal / escalation / de-identification red-team cases) + Cadence signals.',
+  use:['Everyday health check-ins by voice','Medication / hydration / movement reminders','Emergency detection + family alert'],
+  output:'A safe, non-diagnostic reply — or an escalation.',expected:'Emergencies escalate; diagnosis asks are refused; PHI never reaches the LLM.',
+  acc:'7/7 integration checks · 100% refusal & escalation on test set',accN:100,status:['tested','Built & tested'],
+  hipaa:['PHI de-identified pre-LLM','Consent-gated alerts','Never diagnoses']},
+
+ {k:'lumen',c:'--lumen',ic:'◉',name:'Lumen',role:'Report Explainer',seg:'Patient · elderly',
+  what:'Turns an uploaded lab report or scan into plain language: what each value means, what is outside range, and what to ask a clinician. Investigational / research-use-only — it explains, it never diagnoses. Images are routed to a clinician, not interpreted.',
+  agents:[['DT','Doc-Type Classifier','lab report vs prescription vs imaging vs other'],['LR','Lab-Range Flagger','deterministic reference-range check with urgency flags'],['EX','Explainer Agent','plain-language, uncertainty-aware summary with clinician routing']],
+  data:'Standard published adult reference ranges; synthetic reports for evaluation.',
+  use:['Understand a lab report before an appointment','Flag critical values for prompt attention','Prep questions for the clinician'],
+  output:'A non-diagnostic, plain-language explanation + RUO label.',expected:'Correct low/normal/critical flags; no diagnostic claim; PHI stripped.',
+  acc:'Deterministic flagging verified in tests',accN:0,status:['ruo','Investigational · RUO'],
+  hipaa:['De-identifies input','RUO / not FDA-cleared','Routes images to clinician']},
+
+ {k:'tox',c:'--tox',ic:'⬡',name:'ToxIQ',role:'Toxicology RCM',seg:'Independent labs',
+  what:'Denial prevention and appeal automation for presumptive and definitive drug testing — the highest-volume denial segment for independent labs. Not just "claims": it models the many reasons a tox claim is denied.',
+  agents:[['NE','Necessity Agent','checks the order against payer LCD covered indications'],['BU','Bundling Agent','presumptive→definitive bundling & panel-cap logic'],['FR','Frequency Agent','flags volume above payer frequency limits'],['AP','Appeal Agent','drafts the evidence-backed appeal, EKRA-aware']],
+  data:'Payer LCD/NCD for toxicology (80305–80307, G0480–G0483); synthetic denial cases.',
+  use:['Pre-submission necessity check','Frequency / bundling denial prevention','Automated appeals (CO-50, CO-197, CO-151)'],
+  output:'A pre-submission pass/fix list + drafted appeals.',expected:'Correct denial-code prediction + a valid fix.',
+  acc:'Synthetic-eval',accN:0,status:['dev','In development'],
+  hipaa:['De-identified claims','Audit-logged','EKRA-aware guardrails']},
+
+ {k:'molec',c:'--molec',ic:'⬢',name:'MolecuIQ',role:'Molecular RCM',seg:'Independent labs',
+  what:'Molecular & precision-diagnostics reimbursement: MolDX/DEX Z-code automation, mapping 75,000+ genetic tests to under 200 CPT codes, NGS/NCCN alignment and PGx prior-authorisation — the deepest denial band (25–35%).',
+  agents:[['ZC','Z-code Agent','assigns/validates the MolDX/DEX Z-code'],['MP','Mapping Agent','maps the genetic test to the payable CPT'],['PA','Prior-Auth Agent','detects & prepares NGS/genetic prior authorisation'],['AP','Appeal Agent','clinical-citation appeal briefs']],
+  data:'MolDX/DEX registries, genetic-test→CPT crosswalks; synthetic molecular claims.',
+  use:['Z-code + CPT mapping','NGS / PGx prior-auth','Molecular denial appeals (CO-11)'],
+  output:'A coded, authorised, appeal-ready molecular claim.',expected:'Correct Z-code + CPT + dx linkage.',
+  acc:'Synthetic-eval',accN:0,status:['dev','In development'],
+  hipaa:['De-identified','Audit-logged','Cited clinical evidence']},
+
+ {k:'pulmo',c:'--pulmo',ic:'🫁',name:'PulmoIQ',role:'Respiratory',seg:'Chronic / respiratory',
+  what:'Longitudinal asthma & COPD tracking plus the reimbursement lane for pulmonary-function and sleep testing. Reimbursement is administrative-safe today; exacerbation prediction (interpreting lung data to flag disease) is regulated SaMD and gated behind FDA clearance.',
+  agents:[['TL','Timeline Agent','fuses history, vitals, cleared home spirometry & air quality'],['CD','Coding Agent','PFT & sleep-study reimbursement (94010/94060/94726–94729/95810–95811)'],['TG','Trigger Agent','AirNow/NOAA air-quality watch for sensitive patients']],
+  data:'PFT/sleep CPT policy; HealthKit/Health Connect vitals; AirNow/NOAA — reimbursement lane only.',
+  use:['Respiratory timeline for asthma/COPD','PFT & sleep reimbursement','Air-quality early-warning'],
+  output:'A longitudinal respiratory record + reimbursement-ready coding.',expected:'Correct coding; prediction deferred to the FDA track.',
+  acc:'In development (prediction FDA-gated)',accN:0,status:['dev','In development'],
+  hipaa:['Non-diagnostic today','510(k) pathway for prediction','De-identified']},
+
+ {k:'pama',c:'--pama',ic:'◧',name:'Meridian',role:'PAMA Rate-Cliff',seg:'Independent labs',
+  what:'A deterministic model of the CLFS rate cliff: enter your test mix and it forecasts the 2027–2029 cuts (up to 15%/yr) and the revenue at risk. It runs entirely in the browser — no PHI, no clinical data.',
+  agents:[['CL','CLFS Calculator','applies compounding statutory cuts across 2027–2029'],['RP','Reporting Agent','checks reporting-window exposure & the $10k/day penalty ceiling']],
+  data:'2025 CLFS national rates for the listed CPTs (public CMS data).',
+  use:['Model the PAMA 2027 cliff on a real test mix','Quantify revenue-at-risk','Sales/planning tool for labs'],
+  output:'Year-by-year revenue-at-risk + a chart.',expected:'Deterministic, matches the applied cut math.',
+  acc:'Deterministic (live on the site)',accN:0,status:['live','Live tool'],
+  hipaa:['No PHI','Runs client-side','Public rate data']},
+
+ {k:'sentinel',c:'--sentinel',ic:'◇',name:'Sentinel',role:'Governance Kernel',seg:'Platform · every model',
+  what:'The compliance layer every model inherits: PHI de-identification, AES-256 encryption, a hash-chained tamper-evident audit trail, RBAC and minimum-necessary access. Compliance is structural, not bolted on.',
+  agents:[['DI','De-ID Agent','HIPAA Safe-Harbor identifier stripping before any model/log'],['AU','Audit Agent','hash-chained, tamper-evident access log'],['AX','Access Agent','RBAC + minimum-necessary enforcement']],
+  data:'Synthetic PHI corpus for the safety test-suite.',
+  use:['De-identify all inputs','Prove every PHI access (audit)','Enforce least-privilege access'],
+  output:'Clean, logged, access-controlled data flow.',expected:'Identifiers removed; audit intact; access denied when unauthorised.',
+  acc:'42/42 safety tests pass',accN:100,status:['tested','Built & tested'],
+  hipaa:['AES-256 at rest','Hash-chained audit','RBAC · minimum-necessary']},
+
+ {k:'crucible',c:'--crucible',ic:'△',name:'Crucible',role:'Evaluation Harness',seg:'Platform · every model',
+  what:'The proving ground: nothing ships without evidence. Crucible runs the safety evals and ML metrics on held-out data and gates releases — a broken guardrail blocks the deploy.',
+  agents:[['EV','Eval Agent','runs refusal / escalation / de-id safety assertions'],['ME','Metrics Agent','held-out ML metrics with limitations stated'],['GT','Gate Agent','regression gate — fails the release on any broken guardrail']],
+  data:'The full unit + integration test suite (49 tests across the stack).',
+  use:['Pre-release safety verification','Honest metric reporting','Regression gating'],
+  output:'A pass/fail report + published metrics.',expected:'All safety assertions pass before release.',
+  acc:'49 tests green (42 unit + 7 integration)',accN:100,status:['tested','Built & tested'],
+  hipaa:['Evidence-gated releases','Limitations disclosed','No untested claims ship']},
+];
+
+/* ---- leaderboard ---- */
+const lb=document.getElementById('lbBody');
+lb.innerHTML=M.map(m=>`<tr>
+  <td><span class="mdl" style="--c:var(${m.c})"><span class="g"></span>${m.name}</span><div style="font-size:11px;color:var(--dim);margin-top:2px">${m.role}</div></td>
+  <td>${m.seg}</td>
+  <td>${m.agents.length} agents</td>
+  <td>${m.data.split(';')[0]}</td>
+  <td><b style="color:var(--txt)">${m.output}</b><br><span style="font-size:12px">exp: ${m.expected}</span></td>
+  <td><span class="acc">${m.acc}</span>${m.accN?`<div class="bar" style="--c:var(${m.c})"><i style="width:${m.accN}%"></i></div>`:''}</td>
+  <td><span class="st st-${m.status[0]}">${m.status[1]}</span></td>
+</tr>`).join('');
+
+/* ---- interactive explorer ---- */
+const mlist=document.getElementById('mlist'), detail=document.getElementById('detail');
+mlist.innerHTML=M.map((m,i)=>`<div class="mtab${i===0?' on':''}" style="--c:var(${m.c})" data-i="${i}" onclick="pick(${i})"><span class="dot"></span><div><div class="nm">${m.name}</div><div class="rl">${m.role}</div></div></div>`).join('');
+function pick(i){
+  document.querySelectorAll('.mtab').forEach((t,j)=>t.classList.toggle('on',j===i));
+  const m=M[i];
+  detail.style.setProperty('--c',`var(${m.c})`);
+  detail.innerHTML=`
+   <div class="d-top" style="--c:var(${m.c})">
+     <div class="d-ic">${m.ic}</div>
+     <div><div class="d-h1">${m.name}</div><div class="d-role">${m.role}</div></div>
+     <div class="d-seg">${m.seg}</div>
+   </div>
+   ${m.page?`<div style="padding:2px 26px 0"><a href="${m.page}" style="display:inline-flex;align-items:center;gap:6px;font-family:'Sora';font-weight:700;font-size:13.5px;color:var(${m.c})">Open the full ${m.name} model page →</a></div>`:''}
+   <div class="d-what">${m.what}</div>
+   <div class="d-grid">
+     <div class="d-cell"><div class="d-lbl">Agents inside (${m.agents.length})</div><div class="d-agents">${m.agents.map(a=>`<div class="d-agent"><span class="ai" style="--c:var(${m.c})">${a[0]}</span><div><b>${a[1]}</b> — ${a[2]}</div></div>`).join('')}</div></div>
+     <div class="d-cell"><div class="d-lbl">Use cases</div><ul class="d-use">${m.use.map(u=>`<li>${u}</li>`).join('')}</ul>
+       <div class="d-lbl" style="margin-top:16px">Data it was built on</div><div class="d-io">${m.data}</div></div>
+     <div class="d-cell"><div class="d-lbl">Result</div><div class="d-metric"><span class="big" style="color:var(${m.c})">${m.accN?m.accN+'%':'—'}</span><span class="u">${m.acc}</span></div>
+       <div class="d-io" style="margin-top:10px"><b>Output:</b> ${m.output}<br><b>Expected:</b> ${m.expected}</div></div>
+     <div class="d-cell"><div class="d-lbl">Status</div><div style="margin-bottom:12px"><span class="st st-${m.status[0]}">${m.status[1]}</span></div>
+       <div class="d-lbl">HIPAA &amp; safety</div><div class="d-io">${m.hipaa.map(h=>'• '+h).join('<br>')}</div></div>
+   </div>
+   <div class="d-chips">${m.hipaa.map(h=>`<span class="d-chip">${h}</span>`).join('')}</div>`;
+}
+pick(0);
+
+/* ---- solutions / agents library, grouped by segment ---- */
+const SEGS=[
+ {name:'Independent Labs — Reimbursement',c:'--molec',keys:['tara','tox','molec','pama']},
+ {name:'Elderly Care & Patients',c:'--aria',keys:['aria','cadence','lumen']},
+ {name:'Chronic & Respiratory',c:'--pulmo',keys:['pulmo']},
+ {name:'Platform — Governance & Evaluation',c:'--sentinel',keys:['sentinel','crucible']},
+];
+document.getElementById('solBody').innerHTML=SEGS.map(s=>{
+  const agents=s.keys.flatMap(k=>{const m=M.find(x=>x.k===k);return m.agents.map(a=>({m,a}));});
+  return `<div class="sol-seg" style="--c:var(${s.c})">
+    <div class="sol-head"><span class="bar"></span><h3>${s.name}</h3><span class="cnt">${agents.length} agents · ${s.keys.length} models</span></div>
+    <div class="agrid">${agents.map(({m,a})=>`<div class="acard" style="--c:var(${m.c})">
+      <div class="an" style="color:var(${m.c})">${a[1]}</div>
+      <div class="ap">${m.name} · ${m.role}</div>
+      <div class="ad">${a[2]}.</div>
+      <div class="meta"><b>Use case:</b> ${m.role} &nbsp;·&nbsp; <b>Built on:</b> ${m.data.split(';')[0]}</div>
+    </div>`).join('')}</div></div>`;
+}).join('');
+
+/* ---- tabbed live demo ---- */
+const DEMO=[
+ {key:'clinical',label:'Clinical Reasoning (TARA)',dc:'--tara',type:'run',
+  title:'TARA — denial appeal reasoning',sub:'A denied toxicology claim, reasoned to a recovery narrative.',
+  run:[['<span class="k">READ</span> retrieving payer LCD for CPT 80307','ok','matched L36037'],
+       ['<span class="k">READ</span> parsing record · dx, order, notes','ok','3 docs'],
+       ['<span class="m">REASON</span> necessity vs covered indications','gap','rationale missing'],
+       ['<span class="m">REASON</span> frequency & bundling caps','ok','within caps'],
+       ['<span class="a">ACT</span> drafting appeal citing L36037','ok','narrative built'],
+       ['<span class="g">GOVERN</span> hash-chained audit · PHI de-identified','ok','#a7f3']]},
+ {key:'elder',label:'Patient Care (Aria)',dc:'--aria',type:'conv',
+  title:'Aria — elder care reasoning',sub:'Detailed, non-diagnostic reasoning — not "drink water".',
+  conv:[['u','Aria, I\'ve been more short of breath climbing my stairs this week, and my ankles look puffy.'],
+        ['a','<span class="rz">reasoning · elder companion · non-diagnostic</span>'+
+             'Thank you for telling me — those two things together are worth taking seriously, so let\'s be careful.'+
+             '<span class="step">You have COPD on file, and new or worse breathlessness on exertion is a change from your baseline.</span>'+
+             '<span class="step">Swelling in both ankles is a separate signal I don\'t want to brush past.</span>'+
+             '<span class="step">Your last 3 days of activity are down ~40% from your usual — Cadence flagged it this morning.</span>'+
+             '<span class="concl">Because this is a <b>change</b> combined with swelling, I\'d contact your clinician today rather than wait — I can help you call, and share your recent oxygen and activity trend with them. If breathing suddenly gets much worse, your lips look blue, or you can\'t speak a full sentence, treat it as an emergency and call for help — I can alert your daughter now if you\'d like.</span>'+
+             '<span class="disc">Aria is a companion, not a doctor. This is general information, not a diagnosis.</span>']]},
+ {key:'report',label:'Report Analysis (Lumen)',dc:'--lumen',type:'conv',
+  title:'Lumen — report explanation',sub:'Explains values in plain language. Never diagnoses.',
+  conv:[['u','Uploaded: Vitamin D 18 ng/mL · SpO₂ 86% · HbA1c 5.3%'],
+        ['a','<span class="rz">research use only · not a diagnosis</span>'+
+             'Here\'s what these mean in plain words:'+
+             '<span class="step"><b>Vitamin D 18 ng/mL</b> — below the usual range (30–100). Low vitamin D is common and usually addressed with diet, sunlight, or a supplement your clinician recommends.</span>'+
+             '<span class="step"><b>SpO₂ 86%</b> — this oxygen level is <b>well below</b> the usual 95–100%. That is worth prompt attention, especially with any breathing symptoms.</span>'+
+             '<span class="step"><b>HbA1c 5.3%</b> — within the usual range.</span>'+
+             '<span class="concl">⚠ The oxygen reading is the one I\'d act on: please contact your clinician promptly about it. These are explanations to help your conversation with them — not a diagnosis.</span>']]},
+ {key:'labs',label:'Lab RCM (ToxIQ / MolecuIQ)',dc:'--tox',type:'run',
+  title:'ToxIQ — pre-submission check',sub:'Catches the denial before the payer does.',
+  run:[['<span class="k">READ</span> claim 80307 · presumptive drug test','ok','loaded'],
+       ['<span class="m">REASON</span> necessity: dx present?','gap','no rationale note'],
+       ['<span class="m">REASON</span> frequency vs LCD cap','ok','within cap'],
+       ['<span class="m">REASON</span> bundling presumptive→definitive','ok','clean'],
+       ['<span class="a">ACT</span> flag CO-50 risk + fix list','gap','add rationale note'],
+       ['<span class="g">GOVERN</span> log check · de-identified','ok','audit ok']]},
+];
+const dtabs=document.getElementById('demoTabs'), dbody=document.getElementById('demoBody');
+dtabs.innerHTML=DEMO.map((d,i)=>`<div class="dtab${i===0?' on':''}" style="--dc:var(${d.dc})" onclick="dpick(${i})">${d.label}</div>`).join('');
+dbody.innerHTML=DEMO.map((d,i)=>{
+  let inner;
+  if(d.type==='run'){inner=`<div class="dp-run" id="run-${d.key}"></div>`;}
+  else{inner=`<div class="conv">${d.conv.map(c=>`<div class="bub ${c[0]}">${c[1]}</div>`).join('')}</div>`;}
+  return `<div class="dpane${i===0?' on':''}" id="pane-${d.key}" style="--dc:var(${d.dc})">
+    <div class="dp-h"><span class="dg"></span><h4>${d.title}</h4></div><div class="dp-sub">${d.sub}</div>${inner}</div>`;
+}).join('');
+const timers={};
+function playRun(d){
+  const el=document.getElementById('run-'+d.key); if(!el)return; el.innerHTML=''; let i=0;
+  clearInterval(timers[d.key]);
+  timers[d.key]=setInterval(()=>{
+    if(i>=d.run.length){clearInterval(timers[d.key]);return;}
+    const r=d.run[i]; const line=document.createElement('span'); line.className='rl';
+    line.innerHTML=`${r[0]} <span class="tg tg-${r[1]}">${r[2]}</span>`;
+    el.appendChild(line); requestAnimationFrame(()=>line.classList.add('show')); i++;
+  },700);
+}
+function dpick(i){
+  document.querySelectorAll('.dtab').forEach((t,j)=>t.classList.toggle('on',j===i));
+  document.querySelectorAll('.dpane').forEach((p,j)=>p.classList.toggle('on',j===i));
+  const d=DEMO[i]; if(d.type==='run') playRun(d);
+}
+playRun(DEMO[0]);
+</script>
+</body>
+</html>

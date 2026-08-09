@@ -1,0 +1,133 @@
+<meta charset="utf-8">
+<style>
+*{box-sizing:border-box}
+body{margin:0}
+.app{position:fixed;inset:0;display:flex;flex-direction:column;background:#f7f2e8;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:#241c14}
+.topbar{display:flex;align-items:center;gap:14px;height:60px;padding:0 18px;background:rgba(247,242,232,.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,42,26,.13);flex:0 0 auto;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand img{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#221a10,#3a2c18);border:1.4px solid rgba(217,99,58,.5);padding:5px;object-fit:contain}
+.brand .bt{font-family:'Fraunces','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-weight:600;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.brand .bt em{font-style:italic;color:#d9633a}
+.topnav{display:flex;gap:3px;margin-left:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto}
+.topnav::-webkit-scrollbar{display:none}
+.topbtn{font-family:inherit;font-weight:600;font-size:13.5px;color:#5f5346;background:transparent;border:none;padding:8px 13px;border-radius:9px;cursor:pointer;white-space:nowrap;transition:.15s}
+.topbtn:hover{color:#241c14;background:rgba(58,42,26,.06)}
+.topbtn.on{color:#0f766e;background:color-mix(in srgb,#0f766e 12%,transparent)}
+.tag{flex:0 0 auto;font-family:ui-monospace,monospace;font-size:10.5px;color:#9c8f7d;border:1px solid rgba(58,42,26,.14);border-radius:100px;padding:4px 10px;white-space:nowrap}
+@media(max-width:780px){.tag{display:none}}
+.subbar{display:none;align-items:center;gap:5px;height:44px;padding:0 18px;background:#efe7d7;border-bottom:1px solid rgba(58,42,26,.1);flex:0 0 auto;overflow-x:auto;scrollbar-width:none;z-index:4}
+.subbar::-webkit-scrollbar{display:none}
+.sublbl{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#9c8f7d;margin-right:4px;white-space:nowrap}
+.subbtn{font-family:inherit;font-weight:600;font-size:12.5px;color:#5f5346;background:#fffdf8;border:1px solid rgba(58,42,26,.16);padding:5px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:.15s}
+.subbtn:hover{border-color:#0f766e}
+.subbtn.on{background:#0f766e;color:#fff;border-color:#0f766e}
+.stage{flex:1 1 auto;position:relative;background:#f7f2e8}
+.vp{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:#f7f2e8}
+.vp.on{display:block}
+.spin{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:13px;color:#9c8f7d;pointer-events:none}
+.spin.hide{display:none}
+</style>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><img src="__LOGODATA__" alt="Ardia"><div class="bt">Ardia <em>Precision Health</em></div></div>
+    <div class="topnav" id="topnav"></div>
+    <div class="tag">one page · everything</div>
+  </div>
+  <div class="subbar" id="subbar"></div>
+  <div class="stage" id="stage"><div class="spin" id="spin">loading…</div></div>
+</div>
+
+<!--FRAMES-->
+
+<script>
+var LOGO="__LOGODATA__";
+var SECTIONS=[
+ {k:'platform',label:'Platform'},
+ {k:'models',label:'Models',subs:[['models','Overview'],['model-tara','TARA'],['model-cadence','Cadence'],['model-pama','Meridian']]},
+ {k:'agents',label:'Agents'},
+ {k:'solutions',label:'Solutions'},
+ {k:'demos',label:'Demos',subs:[['demo-molecuiq','MolecuIQ'],['demo-toxiq','ToxIQ'],['demo-cadence','Cadence'],['demo-sentinel','Sentinel']]},
+ {k:'studio',label:'Studio'},
+ {k:'vision',label:'Vision'}
+];
+var built={};
+var stage=document.getElementById('stage');
+var spin=document.getElementById('spin');
+function frameEl(key){
+  if(built[key]) return built[key];
+  var node=document.getElementById('tpl-'+key);
+  var tpl=node.textContent;
+  tpl=tpl.split('<\\/script>').join('<\/script>').split('__LOGO__').join(LOGO);
+  var f=document.createElement('iframe');
+  f.className='vp'; f.setAttribute('title',key);
+  spin.classList.remove('hide');
+  f.addEventListener('load',function(){ spin.classList.add('hide'); });
+  f.srcdoc=tpl;
+  stage.appendChild(f);
+  built[key]=f;
+  return f;
+}
+function showFrame(key){
+  var f=frameEl(key);
+  var all=stage.querySelectorAll('iframe.vp');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('on');
+  f.classList.add('on');
+  if(f.contentDocument && f.contentDocument.readyState==='complete') spin.classList.add('hide');
+}
+function openSection(sec){
+  var tn=document.getElementById('topnav').children;
+  for(var i=0;i<tn.length;i++) tn[i].classList.toggle('on', tn[i].getAttribute('data-k')===sec.k);
+  var sb=document.getElementById('subbar');
+  if(sec.subs){
+    sb.style.display='flex'; sb.innerHTML='<span class="sublbl">'+sec.label+'</span>';
+    sec.subs.forEach(function(s,idx){
+      var b=document.createElement('button');
+      b.className='subbtn'+(idx===0?' on':''); b.textContent=s[1]; b.setAttribute('data-k',s[0]);
+      b.onclick=function(){
+        Array.prototype.forEach.call(sb.querySelectorAll('.subbtn'),function(c){c.classList.remove('on');});
+        b.classList.add('on'); showFrame(s[0]);
+      };
+      sb.appendChild(b);
+    });
+    showFrame(sec.subs[0][0]);
+  } else {
+    sb.style.display='none'; sb.innerHTML=''; showFrame(sec.k);
+  }
+  try{ if(history.replaceState) history.replaceState(null,'','#'+sec.k); }catch(e){}
+}
+var HREF_MAP={'platform.html':'platform','ardia-platform-light.html':'platform','index.html':'platform','ardia-platform.html':'platform',
+ 'models.html':'models','ardia-models.html':'models','model-tara.html':'model-tara','model-cadence.html':'model-cadence',
+ 'model-pama.html':'model-pama','pama.html':'model-pama',
+ 'ardia-agents.html':'agents','solutions.html':'solutions','solutions-explorer.html':'solutions','solutions-library.html':'solutions',
+ 'demos.html':'demo-molecuiq','demo-molecuiq.html':'demo-molecuiq','demo-toxiq.html':'demo-toxiq','demo-cadence.html':'demo-cadence','demo-sentinel.html':'demo-sentinel',
+ 'studio.html':'studio','tools.html':'model-pama','vision.html':'vision'};
+function openByKey(key){
+  for(var i=0;i<SECTIONS.length;i++){var s=SECTIONS[i];
+    if(s.k===key && !s.subs){openSection(s);return true;}
+    if(s.subs){for(var j=0;j<s.subs.length;j++){ if(s.subs[j][0]===key){
+      openSection(s);
+      var sb=document.getElementById('subbar');
+      Array.prototype.forEach.call(sb.querySelectorAll('.subbtn'),function(c,idx){c.classList.toggle('on',idx===j);});
+      showFrame(key);return true;
+    }}}
+  }
+  return false;
+}
+window.addEventListener('message',function(ev){
+  var d=ev.data; if(!d||!d.ardiaNav) return;
+  var h=String(d.ardiaNav).split('#')[0].split('?')[0].split('/').pop();
+  var key=HREF_MAP[h]; if(key){openByKey(key);window.scrollTo(0,0);}
+});
+var topnav=document.getElementById('topnav');
+SECTIONS.forEach(function(sec){
+  var b=document.createElement('button');
+  b.className='topbtn'; b.textContent=sec.label; b.setAttribute('data-k',sec.k);
+  b.onclick=function(){ openSection(sec); };
+  topnav.appendChild(b);
+});
+var initial=SECTIONS[0];
+var hk=(location.hash||'').replace('#','');
+SECTIONS.forEach(function(s){ if(s.k===hk) initial=s; });
+openSection(initial);
+</script>

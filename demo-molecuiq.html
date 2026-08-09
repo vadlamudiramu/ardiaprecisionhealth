@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>MolecuIQ — Live Demo | Ardia</title>
+<meta name="description" content="Run a denied molecular claim through MolecuIQ and watch it generate a full, cited recovery report — denial root cause, policy match, appeal narrative, and financial impact. Illustrative, synthetic.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+ --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;--molec:#0891b2;--tara:#0d9488;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--sentinel:#4f46e5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;letter-spacing:-.02em;font-weight:700}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--molec)}
+nav{position:sticky;top:0;z-index:100;background:rgba(228,233,241,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:14px;height:64px;max-width:1220px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:17px}.brand-txt span{color:var(--molec)}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--mut);padding:8px 12px;border-radius:9px}
+.nav-links a:hover,.nav-links a.active{color:var(--txt);background:rgba(14,28,48,.05)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:var(--txt);color:#fff!important;padding:9px 16px;border-radius:10px}
+@media(max-width:900px){.nav-links a:not(.nav-cta){display:none}}
+.hero{padding:44px 0 20px;text-align:center}
+.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;margin:10px 0}
+.hero h1 .g{background:linear-gradient(100deg,var(--molec),var(--tara));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:17px;color:var(--mut);max-width:680px;margin:0 auto}
+.ruo{display:inline-flex;align-items:center;gap:7px;background:rgba(217,119,6,.12);color:#b45309;border:1.5px solid #fcd34d;font-size:12px;font-weight:700;padding:6px 13px;border-radius:100px;margin-top:14px}
+.stage{max-width:920px;margin:26px auto 0;padding:0 24px}
+/* input */
+.picker{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 2px 8px rgba(14,28,48,.05)}
+.picker .lbl{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.cases{grid-template-columns:1fr}}
+.case{border:1.5px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;transition:.15s}
+.case:hover{border-color:var(--molec)}
+.case.sel{border-color:var(--molec);background:color-mix(in srgb,var(--molec) 6%,white);box-shadow:0 0 0 1px var(--molec)}
+.case .ct{font-family:'Sora';font-weight:700;font-size:14px;color:var(--txt)}
+.case .cc{font-family:'JetBrains Mono';font-size:11px;color:var(--molec);font-weight:600;margin:3px 0}
+.case .cd{font-size:12px;color:var(--mut);line-height:1.45}
+.runbar{display:flex;align-items:center;gap:14px;margin-top:18px}
+.runbtn{font-family:'Sora';font-weight:700;font-size:15px;background:linear-gradient(90deg,var(--molec),var(--tara));color:#fff;border:none;padding:14px 26px;border-radius:12px;cursor:pointer;display:inline-flex;align-items:center;gap:9px}
+.runbtn:disabled{opacity:.55;cursor:default}
+.runbar .hint{font-size:12.5px;color:var(--dim)}
+/* console */
+.console{background:linear-gradient(180deg,#0b1120,#080d18);border-radius:14px;overflow:hidden;margin-top:20px;border:1px solid #1c2740;display:none}
+.console.on{display:block}
+.c-bar{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid rgba(255,255,255,.07)}
+.c-bar .d{width:10px;height:10px;border-radius:50%}.c-bar .d1{background:#ff5f56}.c-bar .d2{background:#ffbd2e}.c-bar .d3{background:#27c93f}
+.c-bar .t{font-family:'JetBrains Mono';font-size:12px;color:#5b7ba0;flex:1}
+.c-bar .live{font-size:10.5px;font-weight:700;color:#27c93f}
+.c-body{padding:16px 18px;min-height:60px;font-family:'JetBrains Mono';font-size:12.5px;line-height:1.9;color:#c9d8ea}
+.c-body .ln{display:block;opacity:0;transform:translateY(4px);transition:.35s}.c-body .ln.show{opacity:1;transform:none}
+.c-body .k{color:#7cc4ff}.c-body .m{color:#b6a4ff}.c-body .a{color:#ffcf6b}.c-body .g{color:#5fe3a1}
+.c-body .tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px}
+.tg-ok{background:rgba(95,227,161,.15);color:#5fe3a1}.tg-gap{background:rgba(255,207,107,.15);color:#ffcf6b}
+/* REPORT */
+.report{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 44px -20px rgba(14,28,48,.25);margin-top:22px;overflow:hidden;display:none}
+.report.on{display:block;animation:rin .5s ease}
+@keyframes rin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rep-head{background:linear-gradient(120deg,#0a1628,#12294a);color:#fff;padding:22px 26px;display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.rep-head .badge{width:44px;height:44px;border-radius:11px;background:color-mix(in srgb,var(--molec) 26%,#0a1628);display:flex;align-items:center;justify-content:center;font-size:22px}
+.rep-head h2{font-size:20px;color:#fff}
+.rep-head .meta{font-family:'JetBrains Mono';font-size:11.5px;color:#9fb2cc;margin-top:3px}
+.rep-head .verdict{margin-left:auto;text-align:right}
+.rep-head .verdict .v{font-family:'Sora';font-weight:800;font-size:15px}
+.rep-head .verdict .s{font-size:11px;color:#9fb2cc}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+.p-appeal{background:rgba(95,227,161,.18);color:#5fe3a1}.p-noappeal{background:rgba(255,207,107,.18);color:#ffcf6b}
+.rep-body{padding:8px 26px 26px}
+.rsec{padding:20px 0;border-bottom:1px solid var(--line)}
+.rsec:last-child{border-bottom:none}
+.rsec-l{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.rsec-l .n{font-family:'JetBrains Mono';color:var(--molec)}
+.rsec p{font-size:14.5px;color:var(--txt);line-height:1.65}
+.rsec p+p{margin-top:8px}
+.rsec .mut{color:var(--mut);font-size:13.5px}
+.rsec b{color:var(--txt)}
+.rsec code{font-family:'JetBrains Mono';font-size:12.5px;background:color-mix(in srgb,var(--molec) 10%,white);color:var(--molec);padding:1px 6px;border-radius:5px;font-weight:600}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:6px}
+.kvc{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+.kvc .k{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.kvc .v{font-family:'Sora';font-weight:800;font-size:20px;color:var(--txt);margin-top:3px}
+.kvc .v.good{color:var(--ok)}.kvc .v.warn{color:var(--warn)}
+.steps2{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:9px}
+.steps2 li{counter-increment:s;position:relative;padding-left:33px;font-size:14px;color:var(--mut);line-height:1.6;overflow-wrap:anywhere}
+.steps2 li::before{content:counter(s);position:absolute;left:0;top:1px;font-family:'JetBrains Mono';font-weight:700;color:var(--molec);background:color-mix(in srgb,var(--molec) 12%,white);width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.narr{background:var(--panel2);border:1px solid var(--line);border-left:4px solid var(--molec);border-radius:11px;padding:16px 18px;font-size:13.5px;color:var(--txt);line-height:1.7;font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:'JetBrains Mono';font-size:11px;font-weight:600;background:var(--panel2);color:var(--mut);padding:4px 10px;border-radius:6px;border:1px solid var(--line)}
+.disc{max-width:920px;margin:20px auto 0;padding:0 24px;font-size:12px;color:var(--dim);text-align:center;line-height:1.6}
+footer{border-top:1px solid var(--line);color:var(--dim);padding:30px 0;font-size:13px;background:var(--panel2);margin-top:50px}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+</style>
+</head>
+<body>
+<nav><div class="nav-in">
+ <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+ <div class="nav-links"><a href="ardia-platform-light.html">Platform</a><a href="ardia-models.html">Models</a><a href="ardia-agents.html">Agents</a><a class="active" href="demos.html">Demos</a><a href="tools.html">Tools</a><a class="nav-cta" href="contact.html">Book a demo</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+ <div class="eyebrow">MolecuIQ · live module demo</div>
+ <h1>Run a denied claim. <span class="g">Get a full report.</span></h1>
+ <p>Pick a real-world denied molecular claim, run it through MolecuIQ, and watch it produce a complete, cited recovery report — denial root cause, policy match, appeal narrative, and financial impact.</p>
+ <div class="ruo">⚠ Illustrative · synthetic claims · no PHI · pre-revenue — figures are modelled, not Ardia results</div>
+</div></header>
+
+<div class="stage">
+ <div class="picker">
+  <div class="lbl">1 · Choose a denied claim</div>
+  <div class="cases" id="cases"></div>
+  <div class="runbar">
+   <button class="runbtn" id="run" onclick="runDemo()"><span>▶</span> Run MolecuIQ analysis</button>
+   <span class="hint" id="hint">Analysis runs in your browser. Nothing is sent anywhere.</span>
+  </div>
+ </div>
+
+ <div class="console" id="console">
+  <div class="c-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="t" id="cUrl">ardia.health/molecuiq/runs/…</span><span class="live">● LIVE</span></div>
+  <div class="c-body" id="cBody"></div>
+ </div>
+
+ <div class="report" id="report"></div>
+ <div class="disc" id="disc" style="display:none">This report is generated in-browser from a synthetic claim to demonstrate MolecuIQ's output. Recovery amounts are modelled from published denial-rate literature, not Ardia production results. In production, every appeal is human-attested before submission and runs under a BAA.</div>
+</div>
+
+<footer><div class="wrap foot-in"><div>Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com</div><div>MolecuIQ · Molecular Diagnostics RCM · demo</div></div></footer>
+
+<script>
+var CASES=[
+ {id:'nsclc-co55',ct:'NSCLC NGS panel',cc:'CPT 81455 · CO-55',cd:'EGFR/ALK/ROS1/KRAS panel denied "experimental" by a Medicare Advantage plan.',
+  claim:{cpt:'81455',dx:'C34.11',payer:'Humana HMO (MA)',amount:3280,test:'Comprehensive genomic profiling, solid tumour (51+ genes)'},
+  denial:{code:'CO-55',label:'Experimental / Investigational'},
+  merit:'appeal',conf:0.94,recovery:3280,
+  root:'The payer flagged comprehensive genomic profiling as experimental. It is not — for advanced non-small-cell lung cancer, biomarker-guided profiling is <b>standard of care</b>, and the guideline says so explicitly. This is a coverage-policy mismatch, not a medical-necessity failure.',
+  policy:['Retrieved <b>NCCN NSCLC Guidelines v2.2025</b>, Category 1 recommendation for broad molecular profiling prior to first-line therapy (pages MS-5 through MS-12).','Cross-referenced FDA-approved biomarker-linked therapies that make the test actionable: <code>EGFR</code> → osimertinib, <code>ALK</code> → alectinib, <code>ROS1</code> → crizotinib.','Confirmed the documented stage (IIIB) and the diagnosis <code>C34.11</code> place this squarely inside the Category-1 recommendation.'],
+  narr:'"Per NCCN NSCLC Guidelines v2.2025 (Category 1), comprehensive molecular profiling including EGFR, ALK, ROS1 and KRAS is recommended for all patients with stage IIB–IV NSCLC prior to first-line treatment selection. The disputed CPT 81455 panel corresponds directly to this Category-1 recommendation. A CO-55 \'experimental\' designation is inconsistent with the NCCN evidence grade and is contradicted by FDA-approved targeted therapies keyed to these exact biomarkers (EGFR: osimertinib; ALK: alectinib; ROS1: crizotinib). Reversal of the denial is requested."',
+  actions:['Submit the drafted appeal with the NCCN citation and FDA drug-label references attached.','Align the appeal letter to CPT <code>81455</code> and confirm the MolDX Z-code is registered.','Route to the appeals specialist for attestation before submission (human gate).'],
+  tags:['CO-55','81455','NCCN v2.2025','EGFR/ALK/ROS1']},
+ {id:'pgx-co50',ct:'CYP2D6 pharmacogenomics',cc:'CPT 81226 · CO-50',cd:'PGx panel denied "not medically necessary" for antidepressant optimisation.',
+  claim:{cpt:'81226',dx:'F33.1',payer:'BlueCross TX',amount:890,test:'CYP2D6 full gene analysis (pharmacogenomics)'},
+  denial:{code:'CO-50',label:'Not medically necessary'},
+  merit:'appeal',conf:0.81,recovery:890,
+  root:'The denial is a <b>documentation gap</b>, not a coverage exclusion. The payer LCD covers CYP2D6 testing after documented antidepressant failure — the record shows three failed trials, but the original claim did not surface them.',
+  policy:['Matched the order to the payer LCD covered-indication requiring documented prior antidepressant treatment failure.','Confirmed the chart documents <b>three failed antidepressant trials</b> (sertraline, escitalopram, venlafaxine) with dates and reasons.','Basis of the appeal is analytical/clinical documentation — the LCD criterion is met once the failed trials are cited; no genotype-phenotype claim is made to justify necessity.'],
+  narr:'"CYP2D6 analysis (CPT 81226) was ordered following three documented, failed antidepressant trials (sertraline, escitalopram, venlafaxine), satisfying the payer LCD covered-indication for pharmacogenomic testing. The treatment-failure documentation was present in the record but not surfaced on the original claim. The service meets medical-necessity criteria as written; reconsideration is requested."',
+  actions:['Attach the treatment-failure documentation and resubmit against the LCD criterion.','Verify the ordering clinician\'s note carries the trial dates and outcomes.','Route to appeals for attestation (human gate).'],
+  tags:['CO-50','81226','CYP2D6','LCD-match']},
+ {id:'nodule-correct',ct:'Solitary pulmonary nodule',cc:'CPT 81455 · CO-55',cd:'Genomic panel ordered on a benign nodule with no confirmed cancer.',
+  claim:{cpt:'81455',dx:'R91.1',payer:'Aetna',amount:3100,test:'Comprehensive genomic profiling, solid tumour'},
+  denial:{code:'CO-55',label:'Experimental / Investigational'},
+  merit:'noappeal',conf:0.88,recovery:0,
+  root:'Here MolecuIQ does the opposite of appeal. The documented indication is a <b>solitary pulmonary nodule</b> (<code>R91.1</code>) with <b>no pathology confirming malignancy</b>. Comprehensive tumour profiling is not supported without a cancer diagnosis, so the CO-55 may well be <b>correct</b>.',
+  policy:['Checked the record for a malignancy diagnosis — none is documented; the indication is a radiological nodule finding only.','NCCN tumour-profiling recommendations apply to <b>confirmed</b> cancer; they do not extend to an unbiopsied nodule.','No appealable basis exists that does not assert an unconfirmed malignancy — which would be fabricating the clinical justification.'],
+  narr:'No appeal generated. Asserting a cancer diagnosis that the pathology does not support would misrepresent the record. If malignancy is later confirmed, this becomes appealable and the correct diagnosis code should be cited from the report.',
+  actions:['Do not appeal on the current record — flagged as a likely-correct denial.','If pathology later confirms malignancy, re-open with the confirmed diagnosis code.','Log the no-appeal decision to the audit trail (protects against a pattern of baseless appeals).'],
+  tags:['CO-55','R91.1','no-appeal','merit-gate']},
+];
+var sel=0;
+document.getElementById('cases').innerHTML=CASES.map(function(c,i){
+ return '<div class="case'+(i===0?' sel':'')+'" onclick="pickCase('+i+')"><div class="ct">'+c.ct+'</div><div class="cc">'+c.cc+'</div><div class="cd">'+c.cd+'</div></div>';
+}).join('');
+function pickCase(i){sel=i;document.querySelectorAll('.case').forEach(function(e,j){e.classList.toggle('sel',j===i);});
+ document.getElementById('console').classList.remove('on');document.getElementById('report').classList.remove('on');document.getElementById('disc').style.display='none';}
+function money(n){return '$'+n.toLocaleString('en-US');}
+var _tick=null,_render=null;
+function runDemo(){
+ if(_tick){clearInterval(_tick);_tick=null;}if(_render){clearTimeout(_render);_render=null;}
+ var c=CASES[sel];var btn=document.getElementById('run');btn.disabled=true;
+ var con=document.getElementById('console'),cb=document.getElementById('cBody');
+ document.getElementById('cUrl').textContent='ardia.health/molecuiq/runs/'+c.id;
+ document.getElementById('report').classList.remove('on');document.getElementById('disc').style.display='none';
+ con.classList.add('on');cb.innerHTML='';
+ var steps=[
+  ['<span class="k">READ</span> de-identify claim '+c.claim.cpt+' · dx '+c.claim.dx+'…','ok','HIPAA Safe Harbor'],
+  ['<span class="k">READ</span> parse 835 denial · '+c.denial.code+'…','gap',c.denial.label],
+  ['<span class="m">REASON</span> classify root cause &amp; retrieve policy…','ok','policy matched'],
+  ['<span class="m">REASON</span> assess appeal merit…',c.merit==='appeal'?'ok':'gap',c.merit==='appeal'?('merit '+Math.round(c.conf*100)+'%'):'likely correct'],
+  [c.merit==='appeal'?'<span class="a">ACT</span> draft cited appeal narrative…':'<span class="a">ACT</span> decline appeal · flag for review…','ok',c.merit==='appeal'?'narrative built':'no-appeal flag'],
+  ['<span class="g">GOVERN</span> attest gate + hash-chained audit…','ok','#'+c.id.slice(0,4)],
+ ];
+ var i=0;_tick=setInterval(function(){
+  if(i>=steps.length){clearInterval(_tick);_tick=null;_render=setTimeout(function(){renderReport(c);btn.disabled=false;},500);return;}
+  var s=steps[i];var ln=document.createElement('span');ln.className='ln';
+  ln.innerHTML=s[0]+' <span class="tag tg-'+s[1]+'">'+s[2]+'</span>';cb.appendChild(ln);
+  requestAnimationFrame(function(){ln.classList.add('show');});cb.scrollTop=cb.scrollHeight;i++;
+ },620);
+}
+function renderReport(c){
+ var appeal=c.merit==='appeal';
+ var r=document.getElementById('report');r.style.setProperty('--molec','#0891b2');
+ r.innerHTML=''+
+ '<div class="rep-head"><div class="badge">🧬</div><div><h2>MolecuIQ Recovery Report</h2>'+
+   '<div class="meta">claim '+c.claim.cpt+' · '+c.claim.payer+' · dx '+c.claim.dx+' · '+c.claim.test+'</div></div>'+
+   '<div class="verdict"><span class="pill '+(appeal?'p-appeal':'p-noappeal')+'">'+(appeal?'✓ Appeal — meritorious':'⚠ Do not appeal')+'</span>'+
+   '<div class="v" style="margin-top:8px">'+(appeal?money(c.recovery):'$0')+'</div><div class="s">'+(appeal?'modelled recovery at stake':'no recoverable basis')+'</div></div></div>'+
+ '<div class="rep-body">'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">01</span> Executive summary</div>'+
+    '<p>'+(appeal
+      ? 'The <code>'+c.denial.code+'</code> denial on this claim is <b>appealable with merit</b> (confidence '+Math.round(c.conf*100)+'%). '+c.root
+      : 'MolecuIQ <b>recommends against appealing</b> this <code>'+c.denial.code+'</code> denial. '+c.root)+'</p></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">02</span> Claim &amp; denial snapshot</div>'+
+    '<div class="kv">'+
+      '<div class="kvc"><div class="k">Billed</div><div class="v">'+money(c.claim.amount)+'</div></div>'+
+      '<div class="kvc"><div class="k">Denial</div><div class="v warn">'+c.denial.code+'</div></div>'+
+      '<div class="kvc"><div class="k">Merit</div><div class="v '+(appeal?'good':'warn')+'">'+(appeal?Math.round(c.conf*100)+'%':'—')+'</div></div>'+
+      '<div class="kvc"><div class="k">At stake</div><div class="v '+(appeal?'good':'')+'">'+(appeal?money(c.recovery):'$0')+'</div></div>'+
+    '</div></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">03</span> Root-cause analysis</div><p class="mut">'+c.root+'</p></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">04</span> Policy &amp; evidence match</div><ol class="steps2">'+c.policy.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ol></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">05</span> '+(appeal?'Generated appeal narrative':'Why no appeal')+'</div><div class="narr">'+c.narr+'</div></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">06</span> Recommended next actions</div><ol class="steps2">'+c.actions.map(function(a){return '<li>'+a+'</li>';}).join('')+'</ol></div>'+
+  '<div class="rsec"><div class="rsec-l"><span class="n">07</span> Compliance &amp; audit</div>'+
+    '<p class="mut">De-identified before any model call · every citation traceable to a public source · '+(appeal?'appeal requires a human attestation before submission':'no-appeal decision logged to protect against baseless-appeal patterns')+' · written to the Sentinel hash-chained audit trail.</p>'+
+    '<div class="chips" style="margin-top:10px">'+c.tags.map(function(t){return '<span class="chip">'+t+'</span>';}).join('')+'</div></div>'+
+ '</div>';
+ r.classList.add('on');document.getElementById('disc').style.display='block';
+ r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>

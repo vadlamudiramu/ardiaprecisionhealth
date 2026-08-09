@@ -1,0 +1,528 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<title>Ardia Precision Health — Seed Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--deep:#0e2040;--teal:#14b8a6;--teal2:#0d9488;--blue:#1d9bd1;--amber:#f59e0b;--amber3:#b45309;--gray:#5a6e87;--ink:#0f172a;--line:#dce8f2;--rose:#e11d48;--violet:#7c3aed;--sky:#0369a1;--rust:#c2410c;--green:#16a34a;--indigo:#4f46e5}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1280px 720px;margin:0}
+html,body{background:#1e293b}
+body{font-family:'Inter',-apple-system,system-ui,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.slide{width:1280px;height:720px;position:relative;overflow:hidden;page-break-after:always;break-after:page;display:flex;flex-direction:column;background:#fff}
+.slide:last-child{page-break-after:auto}
+h1,h2,h3,h4,.mono-h{font-family:'Sora',sans-serif}
+.mono{font-family:'JetBrains Mono',monospace}
+/* layout */
+.pad{padding:56px 76px}
+.eyebrow{font-family:'JetBrains Mono';font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal2)}
+.foot{position:absolute;left:76px;right:76px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.5px;color:#94a3b8;font-family:'JetBrains Mono'}
+.foot .brandmark{font-family:'Sora';font-weight:800;letter-spacing:0;color:#64748b}
+.foot .brandmark b{color:var(--blue)}
+.pageno{color:#94a3b8}
+/* dark slides */
+.dark{background:radial-gradient(120% 130% at 82% 8%,rgba(20,184,166,.14),transparent 55%),linear-gradient(150deg,#0a1628,#0e2040 60%,#0a1a30);color:#e8f1fb}
+.dark h1,.dark h2,.dark h3{color:#fff}
+.dark .eyebrow{color:#5eead4}
+.dark .foot{color:#5b7794}.dark .foot .brandmark{color:#7d9bbb}.dark .foot .brandmark b{color:#5eead4}
+.grid-tex{position:absolute;inset:0;background-image:linear-gradient(rgba(20,184,166,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(20,184,166,.05) 1px,transparent 1px);background-size:46px 46px;pointer-events:none}
+/* headings */
+.h-lg{font-size:52px;font-weight:800;line-height:1.05;letter-spacing:-.5px}
+.h-md{font-size:38px;font-weight:800;line-height:1.08;letter-spacing:-.4px}
+.sub{font-size:18px;color:var(--gray);line-height:1.55;font-weight:400}
+.dark .sub{color:#a9c2da}
+.rule{height:3px;width:64px;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:2px;margin:16px 0 22px}
+/* cards / stats */
+.row{display:flex;gap:18px}.col{flex:1}
+.card{background:#f8fbfe;border:1px solid var(--line);border-radius:16px;padding:22px}
+.dark .card{background:rgba(255,255,255,.045);border:1px solid rgba(94,234,212,.16)}
+.stat .n{font-family:'Sora';font-weight:800;font-size:40px;letter-spacing:-1px;line-height:1}
+.stat .l{font-size:13px;color:var(--gray);margin-top:8px;line-height:1.4}
+.dark .stat .l{color:#9fb8d2}
+.src{font-family:'JetBrains Mono';font-size:10px;color:#94a3b8;margin-top:9px}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px}
+.pill-teal{background:rgba(20,184,166,.12);color:var(--teal2);border:1px solid rgba(20,184,166,.3)}
+.pill-amber{background:rgba(245,158,11,.12);color:var(--amber3);border:1px solid rgba(245,158,11,.3)}
+.pill-green{background:rgba(22,163,74,.12);color:#15803d;border:1px solid rgba(22,163,74,.3)}
+.tag-meas{background:#16a34a;color:#fff}.tag-mod{background:#f59e0b;color:#1a1205}.tag-build{background:#475569;color:#fff}
+.badge{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 7px;border-radius:5px}
+.chk{color:var(--teal2);font-weight:800;margin-right:8px}
+ul.clean{list-style:none}ul.clean li{position:relative;padding:7px 0 7px 26px;font-size:16px;line-height:1.45;color:#243b57}
+ul.clean li:before{content:"";position:absolute;left:2px;top:15px;width:9px;height:9px;border-radius:2px;background:linear-gradient(135deg,var(--teal),var(--blue))}
+.dark ul.clean li{color:#cfe0f0}
+/* logo */
+.logo{display:flex;align-items:center;gap:14px}
+.logo .box{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 22px rgba(20,184,166,.3);display:flex;align-items:center;justify-content:center;font-size:30px}
+.logo .nm{font-family:'Sora';font-weight:800;font-size:26px;letter-spacing:.5px;color:#fff}
+.logo .nm span{color:var(--blue)}
+.logo .tg{font-size:11px;color:#8fb0cf;letter-spacing:.3px;margin-top:2px}
+/* small helpers */
+.kicker{font-size:15px;color:var(--gray);font-weight:500}
+.hl{color:var(--teal2);font-weight:700}.dark .hl{color:#5eead4}
+.amberhl{color:var(--amber3);font-weight:700}
+.mut{color:var(--gray)}
+b.big{font-family:'Sora';font-weight:800}
+svg{display:block}
+</style></head><body>
+
+<!-- ============ 1 · COVER ============ -->
+<section class="slide dark pad" style="justify-content:center">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+    <div class="logo" style="margin-bottom:40px">
+      <div class="box">🧬</div>
+      <div><div class="nm">ARDIA <span>PRECISION HEALTH</span></div><div class="tg">Next-Generation Intelligence for Healthcare Infrastructure</div></div>
+    </div>
+    <div class="eyebrow" style="margin-bottom:14px">Seed Round · Confidential</div>
+    <div class="h-lg" style="max-width:920px">Governed, auditable AI for the<br>healthcare work <span style="color:#5eead4">nobody automates</span>.</div>
+    <div class="sub" style="max-width:760px;margin-top:20px">Recovering wrongly-denied lab revenue, modelling the 2027–2029 PAMA rate cliff, and supporting precision, pulmonary &amp; elder care — every answer traced to a policy or a paper.</div>
+    <div class="row" style="margin-top:38px;gap:12px">
+      <span class="pill pill-teal">Raising $3–7M Seed</span>
+      <span class="pill pill-amber">Pre-Revenue</span>
+      <span class="pill" style="background:rgba(29,155,209,.14);color:#7cc7ea;border:1px solid rgba(29,155,209,.35)">Dallas–Fort Worth · DE C-Corp · Founded Jan 2026</span>
+    </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span>Confidential — Seed Deck · ardiahealthlabs.com</span></div>
+</section>
+
+<!-- ============ 2 · PROBLEM ============ -->
+<section class="slide pad">
+  <div class="eyebrow">The Problem</div>
+  <div class="h-md" style="margin-top:10px">The highest-stakes, most-manual healthcare work is exactly what today's tools skip.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px">
+    <div class="col card stat"><div class="n" style="color:var(--rose)">$12B</div><div class="l">U.S. lab revenue left unpaid every year</div><div class="src">Industry est.</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--amber3)">~65%</div><div class="l">of denials are <b>never appealed</b> — written off</div><div class="src">Industry est.</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--violet)">35.3%</div><div class="l">molecular-diagnostics denial rate</div><div class="src">XiFin 2024</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--teal2)">45%</div><div class="l">manual appeal success — when labs <i>do</i> appeal</div><div class="src">HFMA 2024</div></div>
+  </div>
+  <div class="row" style="margin-top:22px;gap:22px">
+    <div class="col"><ul class="clean">
+      <li>Denials arrive as opaque codes (CO-55, CARC 50). Untangling them needs payer policy + clinical guidelines + the chart — hours of specialist work per claim.</li>
+      <li>Independent labs can't staff it, so appealable revenue is simply <b>written off</b>.</li>
+    </ul></div>
+    <div class="col"><ul class="clean">
+      <li>Patients get blocked from <b>precision medicine</b> when the enabling genomic / PGx test won't get paid.</li>
+      <li>And a statutory <b>rate cliff</b> is about to make all of it worse &rarr;</li>
+    </ul></div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">02</span></div>
+</section>
+
+<!-- ============ 3 · WHY NOW (PAMA CLIFF) ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">Why Now</div>
+  <div class="h-md" style="margin-top:10px">A legislated rate cliff hits independent labs in 2027–2029.</div>
+  <div class="rule"></div>
+  <div class="row" style="align-items:center;margin-top:6px">
+    <div class="col" style="flex:1.15">
+      <ul class="clean">
+        <li><b>PAMA / §1834A</b> lets CMS cut Clinical Lab Fee Schedule (CLFS) rates by up to <span class="hl">15% per year</span> across 2027, 2028 and 2029.</li>
+        <li>Compounding: <span class="mono">0.85³ = 0.614</span> &rarr; a cap-bound code lands <span class="amberhl">~38.6% below</span> its 2025 rate by 2029.</li>
+        <li>Failing to report private-payor data risks a CMP up to <b>$10,000/day</b>.</li>
+        <li>Labs need to model exposure <b>now</b> — and recover every appealable dollar to survive it.</li>
+      </ul>
+      <div style="margin-top:14px" class="pill pill-teal">Timing wedge: the pain is scheduled, not speculative</div>
+    </div>
+    <div class="col" style="flex:1">
+      <svg viewBox="0 0 460 300" width="100%">
+        <!-- axes -->
+        <line x1="52" y1="20" x2="52" y2="250" stroke="#33506e" stroke-width="1.5"/>
+        <line x1="52" y1="250" x2="440" y2="250" stroke="#33506e" stroke-width="1.5"/>
+        <text x="20" y="34" fill="#7d9bbb" font-size="11" font-family="JetBrains Mono">100%</text>
+        <text x="24" y="154" fill="#7d9bbb" font-size="11" font-family="JetBrains Mono">61%</text>
+        <!-- baseline dashed at 61% -->
+        <line x1="52" y1="160" x2="440" y2="160" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+        <!-- bars: 2025=100,2027=85,2028=72.25,2029=61.4 -->
+        <g font-family="JetBrains Mono" font-size="11" fill="#9fb8d2" text-anchor="middle">
+          <rect x="78" y="20" width="58" height="230" rx="4" fill="#14b8a6" opacity=".9"/><text x="107" y="268">2025</text><text x="107" y="12" fill="#e8f1fb">100%</text>
+          <rect x="170" y="55" width="58" height="195" rx="4" fill="#3aa0c9"/><text x="199" y="268">2027</text><text x="199" y="47" fill="#e8f1fb">85%</text>
+          <rect x="262" y="88" width="58" height="162" rx="4" fill="#d98a2b"/><text x="291" y="268">2028</text><text x="291" y="80" fill="#e8f1fb">72%</text>
+          <rect x="354" y="160" width="58" height="90" rx="4" fill="#e11d48"/><text x="383" y="268">2029</text><text x="383" y="152" fill="#fff">61%</text>
+        </g>
+        <text x="246" y="292" fill="#7d9bbb" font-size="10.5" font-family="JetBrains Mono" text-anchor="middle">CLFS rate vs 2025 baseline · 15%/yr cap (worst case)</text>
+      </svg>
+    </div>
+  </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">03</span></div>
+</section>
+
+<!-- ============ 4 · SOLUTION ============ -->
+<section class="slide pad">
+  <div class="eyebrow">The Solution</div>
+  <div class="h-md" style="margin-top:10px">Ardia is the <span class="hl">governed reasoning + coverage layer</span> for healthcare's hardest revenue &amp; care decisions.</div>
+  <div class="rule"></div>
+  <div class="sub" style="max-width:1000px">One auditable core — the <b>TARA</b> reasoning engine — doing the specialist work that gets skipped, with citations and guardrails, so a licensed human can review and act.</div>
+  <div class="row" style="margin-top:26px">
+    <div class="col card"><div style="font-size:28px">💵</div><h3 style="font-size:19px;margin:8px 0 6px">Recover denied revenue</h3><p class="sub" style="font-size:14.5px">Decode the denial, match payer policy + clinical guidelines, and draft a cited appeal — for lab reimbursement (toxicology &amp; molecular).</p></div>
+    <div class="col card"><div style="font-size:28px">📉</div><h3 style="font-size:19px;margin:8px 0 6px">Model the PAMA cliff</h3><p class="sub" style="font-size:14.5px"><b>Meridian</b> — a deterministic, unit-tested model of the 2027–2029 CLFS cuts on a lab's real test mix. Revenue-at-risk, per code.</p></div>
+    <div class="col card"><div style="font-size:28px">🧬</div><h3 style="font-size:19px;margin:8px 0 6px">Enable precision care</h3><p class="sub" style="font-size:14.5px">Non-diagnostic decision-support for precision, pulmonary &amp; elder care — and the coverage layer that gets enabling tests paid.</p></div>
+  </div>
+  <div style="margin-top:24px;display:flex;gap:10px">
+    <span class="pill pill-teal">Cite-or-abstain</span><span class="pill pill-green">Non-diagnostic</span><span class="pill pill-amber">Human-in-the-loop</span><span class="pill" style="background:#eef2ff;color:#4f46e5;border:1px solid #c7d2fe">Nothing auto-filed</span>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">04</span></div>
+</section>
+
+<!-- ============ 5 · TARA ARCHITECTURE ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">The Product · Core</div>
+  <div class="h-md" style="margin-top:10px">TARA — the Triadic Adjudicative Reasoning Architecture</div>
+  <div class="rule"></div>
+  <div class="sub" style="max-width:900px;margin-bottom:6px">Neuro-symbolic: a language model reasons, a symbolic policy layer constrains it to real rules, and a guardrail layer must pass before any human sees the output.</div>
+  <svg viewBox="0 0 1130 340" width="100%" style="margin-top:6px" font-family="Inter">
+    <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0d9488"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d9bd1"/><stop offset="1" stop-color="#0369a1"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+    <!-- three layer columns -->
+    <g>
+      <rect x="10" y="20" width="350" height="300" rx="16" fill="rgba(255,255,255,.04)" stroke="rgba(94,234,212,.25)"/>
+      <text x="34" y="56" fill="#5eead4" font-size="13" font-family="JetBrains Mono" letter-spacing="1">LAYER 1 · GROUNDING</text>
+      <text x="34" y="86" fill="#fff" font-size="20" font-weight="700" font-family="Sora">Data &amp; De-identification</text>
+      <g fill="#cfe0f0" font-size="14">
+        <text x="34" y="128">◆ EDI 835/837, HL7, FHIR ingestion</text>
+        <text x="34" y="158">◆ Sentinel — HIPAA Safe-Harbor de-id</text>
+        <text x="34" y="188">◆ Entity resolution &amp; normalization</text>
+        <text x="34" y="218">◆ Live PubMed / ClinicalTrials.gov</text>
+        <text x="34" y="248">◆ Payer policy corpus (NCD/LCD/MolDX)</text>
+      </g>
+      <rect x="34" y="272" width="150" height="26" rx="13" fill="rgba(20,184,166,.15)" stroke="rgba(20,184,166,.4)"/><text x="52" y="289" fill="#5eead4" font-size="11" font-family="JetBrains Mono">no PHI to the model</text>
+    </g>
+    <g>
+      <rect x="390" y="20" width="350" height="300" rx="16" fill="rgba(255,255,255,.04)" stroke="rgba(124,199,234,.25)"/>
+      <text x="414" y="56" fill="#7cc7ea" font-size="13" font-family="JetBrains Mono" letter-spacing="1">LAYER 2 · SYMBOLIC POLICY</text>
+      <text x="414" y="86" fill="#fff" font-size="20" font-weight="700" font-family="Sora">Rules the model can't break</text>
+      <g fill="#cfe0f0" font-size="14">
+        <text x="414" y="128">◆ Coverage logic: NCD 90.2, MolDX LCDs</text>
+        <text x="414" y="158">◆ Coding: CPT/HCPCS, NCCI, MUE edits</text>
+        <text x="414" y="188">◆ Deterministic math (Meridian / PAMA)</text>
+        <text x="414" y="218">◆ Denial taxonomy (CARC/RARC)</text>
+        <text x="414" y="248">◆ Every claim maps to a citable rule</text>
+      </g>
+      <rect x="414" y="272" width="176" height="26" rx="13" fill="rgba(29,155,209,.15)" stroke="rgba(29,155,209,.4)"/><text x="432" y="289" fill="#7cc7ea" font-size="11" font-family="JetBrains Mono">can't invent a rule</text>
+    </g>
+    <g>
+      <rect x="770" y="20" width="350" height="300" rx="16" fill="rgba(255,255,255,.04)" stroke="rgba(139,124,246,.3)"/>
+      <text x="794" y="56" fill="#b4a7f5" font-size="13" font-family="JetBrains Mono" letter-spacing="1">LAYER 3 · REASONING CORE</text>
+      <text x="794" y="86" fill="#fff" font-size="20" font-weight="700" font-family="Sora">Adjudicate, cite, guardrail</text>
+      <g fill="#cfe0f0" font-size="14">
+        <text x="794" y="128">◆ LLM reasons over grounded evidence</text>
+        <text x="794" y="158">◆ Swift · Cortex · Scholar tiers</text>
+        <text x="794" y="188">◆ Crucible — 8 guardrail gates</text>
+        <text x="794" y="218">◆ Cite-or-abstain, non-diagnostic</text>
+        <text x="794" y="248">◆ Draft &rarr; human reviews &amp; files</text>
+      </g>
+      <rect x="794" y="272" width="196" height="26" rx="13" fill="rgba(124,58,237,.18)" stroke="rgba(139,124,246,.45)"/><text x="812" y="289" fill="#b4a7f5" font-size="11" font-family="JetBrains Mono">must pass every gate</text>
+    </g>
+    <!-- arrows -->
+    <path d="M362 170 h26" stroke="#5eead4" stroke-width="2.5" marker-end="url(#ah)"/>
+    <path d="M742 170 h26" stroke="#7cc7ea" stroke-width="2.5" marker-end="url(#ah)"/>
+    <defs><marker id="ah" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#7cc7ea"/></marker></defs>
+  </svg>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">05</span></div>
+</section>
+
+<!-- ============ 6 · REASONING TIERS ============ -->
+<section class="slide pad">
+  <div class="eyebrow">The Product · Reasoning</div>
+  <div class="h-md" style="margin-top:10px">One core, three depths — matched to the stakes.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:8px">
+    <div class="col card" style="border-top:4px solid #0ea5e9"><div class="pill" style="background:rgba(14,165,233,.12);color:#0369a1;border:1px solid rgba(14,165,233,.3)">⚡ Swift · fast</div><h3 style="font-size:20px;margin:12px 0 8px">Instant answer</h3><p class="sub" style="font-size:14.5px">Low-deliberation, no tool calls — a quick, direct response when speed matters (triage, a first read).</p></div>
+    <div class="col card" style="border-top:4px solid #7c3aed"><div class="pill" style="background:rgba(124,58,237,.12);color:#6d28d9;border:1px solid rgba(124,58,237,.3)">🧠 Cortex · thinking</div><h3 style="font-size:20px;margin:12px 0 8px">Step-by-step</h3><p class="sub" style="font-size:14.5px">Shows its reasoning — decode &rarr; validate code &rarr; find the rule &rarr; weigh evidence &rarr; draft. Auditable.</p></div>
+    <div class="col card" style="border-top:4px solid #0d9488"><div class="pill pill-teal">🔬 Scholar · deep research</div><h3 style="font-size:20px;margin:12px 0 8px">Full investigation</h3><p class="sub" style="font-size:14.5px">Plans, calls tools, searches &amp; retrieves policy + literature, then reasons and <b>cites</b> — a reviewer-ready packet.</p></div>
+  </div>
+  <div class="card" style="margin-top:22px;background:#0e1f34;border:1px solid #1e3a5a;color:#dbe7f4">
+    <div class="mono" style="font-size:11px;color:#5eead4;letter-spacing:1px;margin-bottom:8px">EXAMPLE · SCHOLAR TRACE (MolecuIQ · denied NGS panel)</div>
+    <div style="font-size:14px;line-height:1.7;color:#cfe0f0"><span class="mono" style="color:#7cc7ea">plan</span> → <span class="mono" style="color:#7cc7ea">parse 835 (CARC 55)</span> → <span class="mono" style="color:#7cc7ea">map CPT 81455</span> → <span class="mono" style="color:#7cc7ea">retrieve NCD 90.2 / MolDX LCD</span> → <span class="mono" style="color:#7cc7ea">search NCCN + PubMed</span> → <span class="mono" style="color:#7cc7ea">reason</span> → <span class="mono" style="color:#5eead4">guardrail check</span> → <b style="color:#fff">cited appeal draft for a human</b></div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">06</span></div>
+</section>
+
+<!-- ============ 7 · PIPELINE ============ -->
+<section class="slide pad">
+  <div class="eyebrow">How It Works</div>
+  <div class="h-md" style="margin-top:10px">From a denied claim to a cited, reviewer-ready appeal.</div>
+  <div class="rule"></div>
+  <svg viewBox="0 0 1130 250" width="100%" style="margin-top:14px" font-family="Inter">
+    <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0 0 L9 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+    <!-- 7 steps -->
+    <g>
+      <g transform="translate(0,60)"><rect width="140" height="130" rx="14" fill="#f0f7fc" stroke="#cfe0f0"/><text x="16" y="34" font-size="24">📥</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Ingest</text><text x="16" y="90" font-size="12" fill="#5a6e87">EDI 835/837,</text><text x="16" y="108" font-size="12" fill="#5a6e87">HL7 / FHIR</text></g>
+      <g transform="translate(165,60)"><rect width="140" height="130" rx="14" fill="#effaf7" stroke="#bfeee4"/><text x="16" y="34" font-size="24">🔒</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">De-identify</text><text x="16" y="90" font-size="12" fill="#5a6e87">Sentinel strips</text><text x="16" y="108" font-size="12" fill="#5a6e87">18 identifiers</text></g>
+      <g transform="translate(330,60)"><rect width="140" height="130" rx="14" fill="#f0f7fc" stroke="#cfe0f0"/><text x="16" y="34" font-size="24">🏷️</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Classify</text><text x="16" y="90" font-size="12" fill="#5a6e87">CARC/RARC</text><text x="16" y="108" font-size="12" fill="#5a6e87">denial reason</text></g>
+      <g transform="translate(495,60)"><rect width="140" height="130" rx="14" fill="#f0f7fc" stroke="#cfe0f0"/><text x="16" y="34" font-size="24">📚</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Retrieve</text><text x="16" y="90" font-size="12" fill="#5a6e87">NCD/LCD/NCCN</text><text x="16" y="108" font-size="12" fill="#5a6e87">+ PubMed</text></g>
+      <g transform="translate(660,60)"><rect width="140" height="130" rx="14" fill="#f4f1fe" stroke="#ddd3fb"/><text x="16" y="34" font-size="24">🧠</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Reason</text><text x="16" y="90" font-size="12" fill="#5a6e87">TARA weighs</text><text x="16" y="108" font-size="12" fill="#5a6e87">evidence</text></g>
+      <g transform="translate(825,60)"><rect width="140" height="130" rx="14" fill="#effaf7" stroke="#bfeee4"/><text x="16" y="34" font-size="24">✓</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Guardrail</text><text x="16" y="90" font-size="12" fill="#5a6e87">Crucible gates,</text><text x="16" y="108" font-size="12" fill="#5a6e87">cite-or-abstain</text></g>
+      <g transform="translate(990,60)"><rect width="140" height="130" rx="14" fill="#fff7ec" stroke="#fbe4bf"/><text x="16" y="34" font-size="24">🧑‍⚕️</text><text x="16" y="66" font-family="Sora" font-weight="700" font-size="15" fill="#0f172a">Human files</text><text x="16" y="90" font-size="12" fill="#5a6e87">reviews &amp; signs</text><text x="16" y="108" font-size="12" fill="#5a6e87">— nothing auto</text></g>
+      <!-- arrows -->
+      <g stroke="#94a3b8" stroke-width="2" marker-end="url(#a2)"><line x1="143" y1="125" x2="162" y2="125"/><line x1="308" y1="125" x2="327" y2="125"/><line x1="473" y1="125" x2="492" y2="125"/><line x1="638" y1="125" x2="657" y2="125"/><line x1="803" y1="125" x2="822" y2="125"/><line x1="968" y1="125" x2="987" y2="125"/></g>
+    </g>
+  </svg>
+  <div class="row" style="margin-top:18px;gap:14px">
+    <div class="col card" style="padding:16px 20px"><b class="big" style="font-size:15px;color:#0d9488">Auditable by design</b><p class="sub" style="font-size:13.5px;margin-top:4px">Every step logged; every claim traces to a cited policy or study.</p></div>
+    <div class="col card" style="padding:16px 20px"><b class="big" style="font-size:15px;color:#0d9488">De-identified end-to-end</b><p class="sub" style="font-size:13.5px;margin-top:4px">PHI stripped before any model call — even on the emergency path.</p></div>
+    <div class="col card" style="padding:16px 20px"><b class="big" style="font-size:15px;color:#0d9488">Human-in-the-loop</b><p class="sub" style="font-size:13.5px;margin-top:4px">Output is a draft; a licensed person verifies and submits.</p></div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">07</span></div>
+</section>
+
+<!-- ============ 8 · MODEL CONSTELLATION ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">The Models</div>
+  <div class="h-md" style="margin-top:10px">Nine models &amp; kernels — each doing one job well, under one governed core.</div>
+  <div class="rule"></div>
+  <div class="row" style="gap:14px;margin-top:6px">
+    <div class="col card" style="padding:16px"><div style="font-size:22px">🧬</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">MolecuIQ</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Molecular &amp; genomic RCM</p><span class="badge tag-build" style="margin-top:8px;display:inline-block">In build</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">🧪</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">ToxIQ</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Toxicology RCM</p><span class="badge tag-build" style="margin-top:8px;display:inline-block">In build</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">🫁</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">PulmoIQ</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Pulmonary intelligence</p><span class="badge tag-build" style="margin-top:8px;display:inline-block">In build</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">📈</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Meridian</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">PAMA rate-cliff model</p><span class="badge tag-meas" style="margin-top:8px;display:inline-block">Measured · tested</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">📊</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Cadence</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Movement &amp; wellbeing</p><span class="badge tag-meas" style="margin-top:8px;display:inline-block">Measured · 95.45%</span></div>
+  </div>
+  <div class="row" style="gap:14px;margin-top:14px">
+    <div class="col card" style="padding:16px"><div style="font-size:22px">❤️</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Aria</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Elder companion &amp; safety</p><span class="badge tag-build" style="margin-top:8px;display:inline-block">In build</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">📄</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Lumen</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Report &amp; scan explainer</p><span class="badge tag-build" style="margin-top:8px;display:inline-block">In build</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">🛡️</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Sentinel</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">De-identification kernel</p><span class="badge tag-meas" style="margin-top:8px;display:inline-block">Measured · tested</span></div>
+    <div class="col card" style="padding:16px"><div style="font-size:22px">⚖️</div><h4 style="font-size:16px;margin:6px 0 3px;color:#fff">Crucible</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">Guardrail gate harness</p><span class="badge tag-meas" style="margin-top:8px;display:inline-block">Measured · tested</span></div>
+    <div class="col card" style="padding:16px;background:rgba(20,184,166,.08);border-color:rgba(94,234,212,.3)"><div style="font-size:22px">◆</div><h4 style="font-size:16px;margin:6px 0 3px;color:#5eead4">TARA</h4><p style="font-size:12.5px;color:#a9c2da;line-height:1.4">The reasoning core</p><span class="badge" style="margin-top:8px;display:inline-block;background:#0d9488;color:#fff">Engine</span></div>
+  </div>
+  <div style="margin-top:16px;font-family:'JetBrains Mono';font-size:11px;color:#7d9bbb"><span class="badge tag-meas">MEASURED</span> real, tested code &nbsp;·&nbsp; <span class="badge tag-build">IN BUILD</span> persona on a frontier model under guardrails, no published accuracy yet</div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">08</span></div>
+</section>
+
+<!-- ============ 9 · MERIDIAN ============ -->
+<section class="slide pad">
+  <div class="eyebrow">Model Spotlight · Meridian</div>
+  <div class="h-md" style="margin-top:10px">A deterministic, unit-tested model of the PAMA cliff.</div>
+  <div class="rule"></div>
+  <div class="row" style="align-items:center">
+    <div class="col" style="flex:1.1">
+      <ul class="clean">
+        <li>Enter a lab's real test mix; Meridian compounds the statutory 15%/yr cuts, <b>year by year</b>, and returns revenue-at-risk <b>per code</b>.</li>
+        <li>Entirely deterministic — <b>no LLM, no PHI</b> in the path. The math is <b>unit-tested</b> and reproducible.</li>
+        <li>On a synthetic seed mix: baseline <b>$895,551</b> &rarr; 3-year cumulative shortfall <b>$728,419</b> at the cap. <span class="src" style="display:inline">illustrative, not a client</span></li>
+      </ul>
+      <div class="card" style="margin-top:14px;background:#0e1f34;color:#dbe7f4;border:none;padding:16px 20px">
+        <div class="mono" style="font-size:11px;color:#5eead4;margin-bottom:6px">THE MATH</div>
+        <div class="mono" style="font-size:15px;color:#fff">0.85³ = 0.6141 &nbsp;→&nbsp; <span style="color:#f59e0b">38.6% cut</span> from 2025 by 2029</div>
+      </div>
+    </div>
+    <div class="col card" style="flex:1">
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#5a6e87;letter-spacing:1px;margin-bottom:10px">REVENUE-AT-RISK · SYNTHETIC SEED MIX</div>
+      <svg viewBox="0 0 420 210" width="100%" font-family="Inter">
+        <line x1="10" y1="180" x2="410" y2="180" stroke="#cfe0f0"/>
+        <g text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#5a6e87">
+          <rect x="30" y="40" width="60" height="140" rx="4" fill="#14b8a6"/><text x="60" y="198">2025</text><text x="60" y="32" fill="#0f172a">$896k</text>
+          <rect x="130" y="70" width="60" height="110" rx="4" fill="#3aa0c9"/><text x="160" y="198">2027</text>
+          <rect x="230" y="96" width="60" height="84" rx="4" fill="#d98a2b"/><text x="260" y="198">2028</text>
+          <rect x="330" y="122" width="60" height="58" rx="4" fill="#e11d48"/><text x="360" y="198">2029</text><text x="360" y="114" fill="#0f172a">$550k</text>
+        </g>
+      </svg>
+      <div style="text-align:center;font-family:'JetBrains Mono';font-size:10.5px;color:#94a3b8;margin-top:4px">annual CLFS revenue on the seed mix, capped path</div>
+    </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">09</span></div>
+</section>
+
+<!-- ============ 10 · TRUST & GUARDRAILS ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">Trust &amp; Safety</div>
+  <div class="h-md" style="margin-top:10px">In healthcare, traceability <span style="color:#5eead4">is</span> the product.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px;gap:16px">
+    <div class="col card"><div style="font-size:24px">🛡️</div><h3 style="font-size:18px;margin:8px 0 8px;color:#fff">Sentinel — de-identification</h3><ul class="clean"><li>18 HIPAA Safe-Harbor identifiers stripped before any model call or log write</li><li>Encryption at rest / in transit; hash-chained audit; minimum-necessary access</li></ul></div>
+    <div class="col card"><div style="font-size:24px">⚖️</div><h3 style="font-size:18px;margin:8px 0 8px;color:#fff">Crucible — 8 guardrail gates</h3><ul class="clean"><li>Non-diagnostic · cite-or-abstain · safety-escalation · scope-of-practice · honesty · human-in-the-loop</li><li>An output must pass every applicable gate before a person sees it</li></ul></div>
+  </div>
+  <div class="row" style="margin-top:16px;gap:12px">
+    <span class="pill pill-teal">HIPAA Safe Harbor</span>
+    <span class="pill" style="background:rgba(29,155,209,.14);color:#7cc7ea;border:1px solid rgba(29,155,209,.35)">BAA-gated before real PHI</span>
+    <span class="pill pill-amber">TX SB 1188 · TRAIGA aware</span>
+    <span class="pill pill-green">Non-diagnostic · nothing auto-filed</span>
+    <span class="pill" style="background:rgba(124,58,237,.16);color:#b4a7f5;border:1px solid rgba(124,58,237,.4)">SOC 2 · GCP Vertex — roadmap</span>
+  </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">10</span></div>
+</section>
+
+<!-- ============ 11 · PROOF / WHAT'S REAL ============ -->
+<section class="slide pad">
+  <div class="eyebrow">Traction · What's Real Today</div>
+  <div class="h-md" style="margin-top:10px">Pre-revenue — but real, tested code, not slideware.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px">
+    <div class="col card stat"><div class="n" style="color:var(--teal2)">95.45%</div><div class="l">Cadence held-out accuracy on public UCI HAR — subject-independent, reproducible</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--indigo)">34/34</div><div class="l">automated tests green in CI (Cadence · Meridian · Sentinel · Crucible)</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--sky)">Live</div><div class="l">PubMed + ClinicalTrials.gov grounding with cite-or-abstain in the Studio</div></div>
+    <div class="col card stat"><div class="n" style="color:var(--amber3)">Deterministic</div><div class="l">Meridian PAMA math — unit-tested &amp; reproducible</div></div>
+  </div>
+  <div class="card" style="margin-top:22px">
+    <b class="big" style="font-size:15px">The honest line.</b>
+    <p class="sub" style="font-size:15px;margin-top:6px">One model (<b>Cadence</b>) is genuinely trained and measured on a public benchmark; <b>Meridian</b>'s math is unit-tested; the persona models (MolecuIQ, ToxIQ, PulmoIQ, Aria, Lumen) run on a frontier model under guardrails and have <b>no published accuracy yet</b> — their benchmarks will be built the same way Cadence's was, once measured on real data under a BAA. A live, interactive Studio runs the pipeline end-to-end today. <b>Nothing is invented; none of it is a diagnosis.</b></p>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">11</span></div>
+</section>
+
+<!-- ============ 12 · MARKET ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">Market</div>
+  <div class="h-md" style="margin-top:10px">A large, non-discretionary problem — labs pay to get paid.</div>
+  <div class="rule"></div>
+  <div class="row" style="align-items:center;margin-top:6px">
+    <div class="col">
+      <svg viewBox="0 0 360 300" width="86%">
+        <circle cx="180" cy="150" r="145" fill="rgba(29,155,209,.10)" stroke="rgba(124,199,234,.35)"/>
+        <circle cx="180" cy="180" r="98" fill="rgba(20,184,166,.12)" stroke="rgba(94,234,212,.4)"/>
+        <circle cx="180" cy="205" r="52" fill="rgba(245,158,11,.16)" stroke="rgba(245,158,11,.5)"/>
+        <text x="180" y="34" text-anchor="middle" fill="#7cc7ea" font-family="Sora" font-weight="700" font-size="15">TAM</text>
+        <text x="180" y="118" text-anchor="middle" fill="#5eead4" font-family="Sora" font-weight="700" font-size="15">SAM</text>
+        <text x="180" y="200" text-anchor="middle" fill="#fbca6a" font-family="Sora" font-weight="700" font-size="14">SOM</text>
+        <text x="180" y="222" text-anchor="middle" fill="#e8f1fb" font-family="JetBrains Mono" font-size="12">DFW pilot</text>
+      </svg>
+    </div>
+    <div class="col" style="flex:1.25">
+      <div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-family:Sora;color:#fff;font-size:17px">TAM · U.S. clinical lab economy</b><span class="mono" style="color:#7cc7ea;font-size:14px">$100B+</span></div><p style="font-size:13px;color:#a9c2da;margin-top:4px">Clinical lab testing + revenue-cycle management. <span class="src" style="display:inline">industry est.</span></p></div>
+      <div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-family:Sora;color:#fff;font-size:17px">SAM · Independent-lab denial recovery + PAMA exposure</b><span class="mono" style="color:#5eead4;font-size:14px">$ billions</span></div><p style="font-size:13px;color:#a9c2da;margin-top:4px">Molecular/tox denials never appealed + labs needing to model the 2027–2029 cliff. <span class="src" style="display:inline">est.</span></p></div>
+      <div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-family:Sora;color:#fff;font-size:17px">SOM · Beachhead</b><span class="mono" style="color:#fbca6a;font-size:14px">DFW &rarr; regional</span></div><p style="font-size:13px;color:#a9c2da;margin-top:4px">Design-partner independent labs in Dallas–Fort Worth, then Texas / Sun Belt.</p></div>
+    </div>
+  </div>
+  <div style="font-family:'JetBrains Mono';font-size:10.5px;color:#7d9bbb;margin-top:12px">Figures are directional estimates for a pre-revenue company — bottom-up sizing built with design partners during the seed.</div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">12</span></div>
+</section>
+
+<!-- ============ 13 · BUSINESS MODEL ============ -->
+<section class="slide pad">
+  <div class="eyebrow">Business Model</div>
+  <div class="h-md" style="margin-top:10px">We get paid when the lab gets paid.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px">
+    <div class="col card"><div class="pill pill-teal">Primary</div><h3 style="font-size:19px;margin:10px 0 6px">Contingency on recovery</h3><p class="sub" style="font-size:14.5px">A percentage of revenue Ardia helps recover on wrongly-denied claims. Aligned incentives, near-zero adoption risk for the lab.</p></div>
+    <div class="col card"><div class="pill" style="background:rgba(29,155,209,.12);color:#0369a1;border:1px solid rgba(29,155,209,.3)">Expansion</div><h3 style="font-size:19px;margin:10px 0 6px">Platform SaaS</h3><p class="sub" style="font-size:14.5px">Seat / volume subscription for the Studio, Meridian PAMA modelling, and coverage intelligence across a lab's book.</p></div>
+    <div class="col card"><div class="pill pill-amber">Future</div><h3 style="font-size:19px;margin:10px 0 6px">Precision-care layer</h3><p class="sub" style="font-size:14.5px">Decision-support + coverage enablement for precision, pulmonary &amp; elder care — expanding beyond reimbursement.</p></div>
+  </div>
+  <div class="row" style="margin-top:20px;gap:16px">
+    <div class="col card" style="padding:18px"><div class="mono" style="font-size:11px;color:#0d9488;letter-spacing:1px">WHY IT LANDS</div><ul class="clean" style="margin-top:2px"><li><b>No budget fight</b> — contingency comes out of newly-recovered dollars</li><li><b>Fast proof</b> — recover on a backlog of denials in weeks</li><li><b>Sticky</b> — the audit trail + PAMA model become operational infrastructure</li></ul></div>
+    <div class="col card" style="padding:18px;background:#f0f7fc"><div class="mono" style="font-size:11px;color:#0369a1;letter-spacing:1px">UNIT ECONOMICS · MODELLED</div><ul class="clean" style="margin-top:2px"><li>Recovery per appealed claim &times; win-rate &minus; cost-to-serve (mostly automated)</li><li>Software margins once the reasoning core is built once, applied many times</li><li class="mut" style="font-size:13px">Illustrative — validated with design partners during the seed</li></ul></div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">13</span></div>
+</section>
+
+<!-- ============ 14 · ROADMAP ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">Roadmap</div>
+  <div class="h-md" style="margin-top:10px">Timed to the cliff.</div>
+  <div class="rule"></div>
+  <svg viewBox="0 0 1130 300" width="100%" font-family="Inter" style="margin-top:6px">
+    <line x1="40" y1="70" x2="1090" y2="70" stroke="#33506e" stroke-width="2"/>
+    <g>
+      <circle cx="120" cy="70" r="8" fill="#14b8a6"/><line x1="120" y1="78" x2="120" y2="110" stroke="#33506e"/>
+      <circle cx="380" cy="70" r="8" fill="#1d9bd1"/><line x1="380" y1="78" x2="380" y2="110" stroke="#33506e"/>
+      <circle cx="640" cy="70" r="8" fill="#f59e0b"/><line x1="640" y1="78" x2="640" y2="110" stroke="#33506e"/>
+      <circle cx="900" cy="70" r="8" fill="#7c3aed"/><line x1="900" y1="78" x2="900" y2="110" stroke="#33506e"/>
+    </g>
+    <g font-family="JetBrains Mono" font-size="13" fill="#5eead4"><text x="120" y="46" text-anchor="middle">2026</text><text x="380" y="46" text-anchor="middle" fill="#7cc7ea">2027</text><text x="640" y="46" text-anchor="middle" fill="#fbca6a">2028–29</text><text x="900" y="46" text-anchor="middle" fill="#b4a7f5">2030–32+</text></g>
+    <g font-family="Inter">
+      <foreignObject x="40" y="120" width="220" height="160"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#cfe0f0;font-size:14px;line-height:1.5"><b style="color:#fff;font-family:Sora">Build &amp; pilot</b><br>Reasoning core, Meridian, Sentinel/Crucible tested. DFW design-partner labs. First recoveries. SOC 2 &amp; BAA underway.</div></foreignObject>
+      <foreignObject x="300" y="120" width="220" height="160"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#cfe0f0;font-size:14px;line-height:1.5"><b style="color:#fff;font-family:Sora">Cliff year 1</b><br>PAMA cuts begin. Recovery + Meridian live for labs. Expand toxicology &amp; molecular coverage. Grow the book.</div></foreignObject>
+      <foreignObject x="560" y="120" width="220" height="160"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#cfe0f0;font-size:14px;line-height:1.5"><b style="color:#fff;font-family:Sora">Scale</b><br>Regional expansion across the Sun Belt. Pulmonary &amp; broader specialty lines. Payer-facing evidence.</div></foreignObject>
+      <foreignObject x="820" y="120" width="250" height="160"><div xmlns="http://www.w3.org/1999/xhtml" style="color:#cfe0f0;font-size:14px;line-height:1.5"><b style="color:#fff;font-family:Sora">Precision platform</b><br>Precision, pulmonary &amp; elder care decision-support at scale on the governed core. National footprint.</div></foreignObject>
+    </g>
+  </svg>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">14</span></div>
+</section>
+
+<!-- ============ 15 · COMPETITION ============ -->
+<section class="slide pad">
+  <div class="eyebrow">Competition</div>
+  <div class="h-md" style="margin-top:10px">Others automate the easy middle. We own the auditable, high-stakes tail.</div>
+  <div class="rule"></div>
+  <div class="row" style="align-items:stretch;margin-top:4px">
+    <div class="col" style="flex:1.15">
+      <svg viewBox="0 0 460 340" font-family="Inter" width="100%">
+        <line x1="60" y1="20" x2="60" y2="300" stroke="#cbd5e1" stroke-width="1.5"/>
+        <line x1="60" y1="300" x2="440" y2="300" stroke="#cbd5e1" stroke-width="1.5"/>
+        <text x="60" y="14" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#5a6e87">auditable</text>
+        <text x="450" y="316" text-anchor="end" font-size="11" font-family="JetBrains Mono" fill="#5a6e87">automated</text>
+        <!-- quadrant dots -->
+        <circle cx="150" cy="230" r="10" fill="#94a3b8"/><text x="168" y="234" font-size="12.5" fill="#475569">Manual RCM / billers</text>
+        <circle cx="330" cy="210" r="10" fill="#94a3b8"/><text x="200" y="185" font-size="12.5" fill="#475569" text-anchor="middle">Coding-automation bots</text>
+        <circle cx="200" cy="110" r="10" fill="#94a3b8"/><text x="216" y="114" font-size="12.5" fill="#475569">Clinical-AI point tools</text>
+        <circle cx="360" cy="70" r="14" fill="#14b8a6"/><text x="360" y="48" font-size="14" font-family="Sora" font-weight="700" fill="#0d9488" text-anchor="middle">Ardia</text>
+      </svg>
+    </div>
+    <div class="col" style="flex:1">
+      <div class="card" style="margin-bottom:12px"><b class="big" style="font-size:15px;color:#0d9488">Our wedge</b><ul class="clean" style="margin-top:4px"><li><b>Auditable reasoning</b> — every claim cites a policy or a study (cite-or-abstain)</li><li><b>Long-tail focus</b> — the molecular/tox denials others' bots can't touch</li><li><b>Governed</b> — de-id, guardrails, human-in-the-loop, non-diagnostic</li><li><b>PAMA-native</b> — Meridian is a reason to buy <i>now</i></li></ul></div>
+      <div class="card" style="padding:14px 18px;background:#f0f7fc"><b class="big" style="font-size:14px;color:#0369a1">Moat</b><p class="sub" style="font-size:13.5px;margin-top:3px">The audit trail + payer-policy corpus + design-partner data compound into switching costs and coverage intelligence competitors can't replicate quickly.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">15</span></div>
+</section>
+
+<!-- ============ 16 · TEAM ============ -->
+<section class="slide pad">
+  <div class="eyebrow">Team</div>
+  <div class="h-md" style="margin-top:10px">Built by operators who ship real, tested code.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px">
+    <div class="col card"><div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;color:#5eead4;font-size:18px">RV</div><h3 style="font-size:19px;margin:12px 0 2px">Ram Vadlamudi</h3><p class="mono" style="font-size:12px;color:#0d9488">Founder · Creator of TARA</p><p class="sub" style="font-size:13.5px;margin-top:8px">Architect of Ardia's Triadic Adjudicative Reasoning Architecture — the governed, auditable core the platform runs on.</p></div>
+    <div class="col card"><div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;color:#5eead4;font-size:18px">PK</div><h3 style="font-size:19px;margin:12px 0 2px">Paramesh Kurapati</h3><p class="mono" style="font-size:12px;color:#0d9488">Chief Executive Officer</p><p class="sub" style="font-size:13.5px;margin-top:8px">Leads company strategy, partnerships, and go-to-market.</p></div>
+    <div class="col card"><div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;color:#5eead4;font-size:18px">MJ</div><h3 style="font-size:19px;margin:12px 0 2px">Manasa Jampani</h3><p class="mono" style="font-size:12px;color:#0d9488">Co-founder</p><p class="sub" style="font-size:13.5px;margin-top:8px">Co-founding team — product, delivery, and operations.</p></div>
+  </div>
+  <div class="card" style="margin-top:20px;background:#f0f7fc"><p class="sub" style="font-size:14.5px"><b>What's already shipped:</b> a live platform (ardiahealthlabs.com) with a working Studio, the tested Meridian / Sentinel / Crucible / Cadence components, 34 tests in CI, and live PubMed/ClinicalTrials grounding — evidence this team executes.</p></div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">16</span></div>
+</section>
+
+<!-- ============ 17 · THE ASK ============ -->
+<section class="slide dark pad">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+  <div class="eyebrow">The Ask</div>
+  <div class="h-md" style="margin-top:10px">Raising a <span style="color:#5eead4">$3–7M seed</span> to reach first recoveries &amp; design-partner revenue.</div>
+  <div class="rule"></div>
+  <div class="row" style="margin-top:6px;gap:16px">
+    <div class="col card"><div class="mono" style="font-size:11px;color:#5eead4;letter-spacing:1px">USE OF FUNDS</div><ul class="clean" style="margin-top:6px"><li><b>Engineering</b> — productionize the reasoning core, symbolic policy engine &amp; recovery pipeline</li><li><b>Clinical &amp; regulatory</b> — BAA, SOC 2, payer-policy corpus, clinical validation</li><li><b>Go-to-market</b> — DFW design-partner labs &amp; first recoveries</li></ul></div>
+    <div class="col card"><div class="mono" style="font-size:11px;color:#5eead4;letter-spacing:1px">18-MONTH MILESTONES</div><ul class="clean" style="margin-top:6px"><li>Signed design-partner labs under BAA</li><li>First measured revenue recovered on real denials</li><li>SOC 2 Type I &amp; production security posture</li><li>Published model benchmarks (the Cadence way)</li></ul></div>
+  </div>
+  <div class="row" style="margin-top:18px;gap:12px">
+    <div class="col card stat" style="text-align:center"><div class="n" style="color:#5eead4">$3–7M</div><div class="l">Seed round</div></div>
+    <div class="col card stat" style="text-align:center"><div class="n" style="color:#7cc7ea">18 mo</div><div class="l">Runway to revenue proof</div></div>
+    <div class="col card stat" style="text-align:center"><div class="n" style="color:#fbca6a">2027</div><div class="l">PAMA cliff = forcing function</div></div>
+    <div class="col card stat" style="text-align:center"><div class="n" style="color:#fff">DE C-Corp</div><div class="l">Clean cap table</div></div>
+  </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span class="pageno">17</span></div>
+</section>
+
+<!-- ============ 18 · CLOSING ============ -->
+<section class="slide dark pad" style="justify-content:center">
+  <div class="grid-tex"></div>
+  <div style="position:relative">
+    <div class="logo" style="margin-bottom:34px"><div class="box">🧬</div><div><div class="nm">ARDIA <span>PRECISION HEALTH</span></div><div class="tg">Next-Generation Intelligence for Healthcare Infrastructure</div></div></div>
+    <div class="h-lg" style="max-width:900px">The right care, delivered <span style="color:#5eead4">and</span> paid for —<br>with every decision you can audit.</div>
+    <div class="sub" style="max-width:720px;margin-top:20px">Governed AI for the healthcare work nobody automates. Let's build the coverage &amp; reasoning layer for precision health.</div>
+    <div class="row" style="margin-top:34px;gap:14px;align-items:center">
+      <span class="pill pill-teal">ardiahealthlabs.com</span>
+      <span class="pill" style="background:rgba(29,155,209,.14);color:#7cc7ea;border:1px solid rgba(29,155,209,.35)">info@ardiahealthlabs.com</span>
+      <span class="pill pill-amber">Seed · $3–7M</span>
+    </div>
+  </div>
+  <div class="foot"><span class="brandmark">ARDIA <b>PRECISION HEALTH</b></span><span>Confidential · Pre-revenue · Not a diagnosis · Figures sourced, measured, or modelled</span></div>
+</section>
+
+</body></html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Ardia — Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9f1;--bg2:#d8e0ea;--panel:#fff;--panel2:#eef2f8;--line:rgba(14,28,48,.10);--line2:rgba(14,28,48,.16);
+ --txt:#0d1b2e;--mut:#54677f;--dim:#8697ac;
+ --tara:#0d9488;--aria:#d97706;--lumen:#0284c7;--cadence:#059669;--tox:#7c3aed;--molec:#0891b2;--pulmo:#2563eb;--pama:#e11d48;--sentinel:#4f46e5;--crucible:#ea580c;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;letter-spacing:-.02em;font-weight:700;color:var(--txt)}
+.mono{font-family:'JetBrains Mono',monospace}
+nav{position:sticky;top:0;z-index:100;background:rgba(228,233,241,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:14px;height:64px;max-width:1320px;margin:0 auto;padding:0 24px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-badge{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 12px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.brand-badge img{width:100%;height:100%;object-fit:contain}
+.brand-txt{font-family:'Sora';font-weight:800;font-size:17px}.brand-txt span{color:var(--pulmo)}
+.nav-links{margin-left:auto;display:flex;gap:6px;align-items:center}
+.nav-links>a,.nav-item>span{font-size:13.5px;font-weight:500;color:var(--mut);padding:8px 12px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.nav-links>a:hover,.nav-item:hover>span{color:var(--txt);background:rgba(14,28,48,.05)}
+.nav-item{position:relative}.nav-item.active>span{color:var(--txt)}
+.nav-cta{font-family:'Sora';font-weight:600;font-size:13px;background:var(--txt);color:#fff!important;padding:9px 16px;border-radius:10px}
+.dd{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(6px);width:520px;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px -18px rgba(8,15,28,.35);opacity:0;visibility:hidden;transition:.18s;padding:12px;z-index:200}
+.nav-item:hover .dd{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.dd-h{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);padding:6px 10px 8px}
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.dd-i{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:10px;cursor:pointer;transition:.14s}
+.dd-i:hover{background:var(--panel2)}
+.dd-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;background:color-mix(in srgb,var(--c) 13%,white);flex-shrink:0}
+.dd-i .n{font-family:'Sora';font-weight:700;font-size:13.5px;color:var(--txt)}
+.dd-i .r{font-size:11px;color:var(--mut)}
+@media(max-width:980px){.nav-links>a:not(.nav-cta),.nav-item:not(.active){display:none}}
+.app{display:grid;grid-template-columns:290px 1fr;gap:0;max-width:1320px;margin:0 auto;min-height:calc(100vh - 64px)}
+@media(max-width:860px){.app{grid-template-columns:1fr}}
+.side{border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+@media(max-width:860px){.side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}}
+.side-h{font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);margin:16px 8px 8px}
+.side-h:first-child{margin-top:0}
+.s-item{border-radius:10px;overflow:hidden;margin-bottom:3px}
+.s-row{display:flex;align-items:center;gap:10px;padding:9px 11px;cursor:pointer;border-radius:10px;transition:.14s;border-left:3px solid transparent}
+.s-row:hover{background:var(--panel2)}
+.s-row.sel{background:color-mix(in srgb,var(--c) 9%,white);border-left-color:var(--c)}
+.s-ic{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;background:color-mix(in srgb,var(--c) 13%,white);flex-shrink:0}
+.s-row .n{font-family:'Sora';font-weight:700;font-size:13.5px;flex:1}
+.s-row .chev{color:var(--dim);font-size:10px;transition:.2s}
+.s-item.open .s-row .chev{transform:rotate(90deg);color:var(--c)}
+.s-agents{display:none;padding:2px 0 6px 14px}
+.s-item.open .s-agents{display:block}
+.s-agent{display:flex;align-items:center;gap:9px;padding:7px 11px;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--mut);border-left:2px solid var(--line)}
+.s-agent:hover{background:var(--panel2);color:var(--txt)}
+.s-agent.sel{color:var(--c);border-left-color:var(--c);font-weight:600;background:color-mix(in srgb,var(--c) 7%,white)}
+.s-agent .ac{font-family:'JetBrains Mono';font-size:10px;font-weight:800;width:20px;height:20px;border-radius:5px;background:color-mix(in srgb,var(--c) 12%,white);color:var(--c);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.main{padding:34px 40px 80px;overflow-x:hidden}
+@media(max-width:640px){.main{padding:26px 22px 70px}}
+.crumb{font-size:12.5px;color:var(--mut);margin-bottom:14px}
+.crumb b{color:var(--c)}
+.m-head{display:flex;align-items:flex-start;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.m-ic{width:56px;height:56px;border-radius:14px;background:color-mix(in srgb,var(--c) 13%,white);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.m-head h1{font-size:32px;line-height:1.1}
+.m-head .role{font-size:13px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.m-head .seg{font-size:12px;color:var(--mut)}
+.lede{font-size:16px;color:var(--txt);line-height:1.65;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:12px;padding:18px 20px;margin-bottom:26px}
+.sec{margin-bottom:26px}
+.sec-l{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.sec-l::before{content:'';width:14px;height:2px;background:var(--c);border-radius:2px}
+.sec p{font-size:14.5px;color:var(--mut);line-height:1.65}
+.sec p b{color:var(--txt)}
+.acards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.acard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;transition:.16s;border-top:3px solid var(--c)}
+.acard:hover{transform:translateY(-2px);box-shadow:0 14px 34px -20px var(--c)}
+.acard .an{font-family:'Sora';font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.acard .an .ac{font-family:'JetBrains Mono';font-size:10px;font-weight:800;width:22px;height:22px;border-radius:6px;background:color-mix(in srgb,var(--c) 12%,white);color:var(--c);display:flex;align-items:center;justify-content:center}
+.acard .ar{font-size:11.5px;color:var(--c);text-transform:uppercase;letter-spacing:.4px;margin:3px 0 6px;font-weight:600}
+.acard .ad{font-size:12.5px;color:var(--mut);line-height:1.5}
+.acard .go{font-size:12px;font-weight:700;color:var(--c);margin-top:8px}
+.use{display:flex;flex-direction:column;gap:6px}
+.use li{list-style:none;font-size:14px;color:var(--mut);display:flex;gap:9px}
+.use li::before{content:'→';color:var(--c);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:'JetBrains Mono';font-size:11.5px;font-weight:600;background:var(--panel);color:var(--mut);padding:5px 11px;border-radius:7px;border:1px solid var(--line)}
+.faq details{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--panel)}
+.faq summary{padding:12px 15px;font-size:13.5px;font-weight:600;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'+ ';color:var(--c);font-weight:800}
+.faq details[open] summary::before{content:'– '}
+.faq p{padding:0 15px 13px;font-size:13.5px;color:var(--mut)}
+.sample{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.sample-h{display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--panel2);font-size:12px;font-weight:700;color:var(--mut)}
+.sample-h .dot{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.sample-h .run{margin-left:auto;font-family:'Sora';font-size:11.5px;font-weight:700;color:#fff;background:var(--c);border:none;padding:6px 13px;border-radius:8px;cursor:pointer}
+.sample-b{padding:16px 18px;font-family:'JetBrains Mono';font-size:12.5px;line-height:1.9;color:var(--txt);min-height:70px}
+.sample-b .ln{display:block;opacity:0;transform:translateY(4px);transition:.35s}
+.sample-b .ln.show{opacity:1;transform:none}
+.sample-b .k{color:var(--pulmo)}.sample-b .g{color:#15803d}.sample-b .a2{color:#b45309}.sample-b .m{color:var(--sentinel)}
+.sample-b .tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:5px;margin-left:6px}
+.tg-ok{background:rgba(22,163,74,.12);color:#15803d}.tg-gap{background:rgba(217,119,6,.12);color:#b45309}
+.sample-b.conv{font-family:'Inter';font-size:14px;color:var(--mut);line-height:1.65;white-space:normal}
+#cbBtn{position:fixed;right:22px;bottom:22px;z-index:600;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--tara),#22d3ee);border:none;box-shadow:0 12px 30px -8px rgba(13,148,136,.6);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#04120f}
+#cbBtn:hover{transform:scale(1.06)}#cbBtn svg{width:25px;height:25px}
+#cbPanel{position:fixed;right:22px;bottom:90px;z-index:600;width:358px;max-width:calc(100vw - 32px);height:510px;max-height:calc(100vh - 130px);background:var(--panel);border:1px solid var(--line2);border-radius:18px;box-shadow:0 30px 70px -20px rgba(8,15,28,.5);display:none;flex-direction:column;overflow:hidden}
+#cbPanel.on{display:flex}
+.cb-head{background:linear-gradient(135deg,#0a1628,#12294a);padding:15px 17px;color:#fff;display:flex;align-items:center;gap:11px}
+.cb-av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--tara),#22d3ee);display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;color:#04120f}
+.cb-head .nm{font-family:'Sora';font-weight:700;font-size:14.5px}.cb-head .st{font-size:11px;color:#8fd8cf;display:flex;align-items:center;gap:5px}.cb-head .st::before{content:'';width:7px;height:7px;border-radius:50%;background:#34d399}
+.cb-head .x{margin-left:auto;background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:16px}
+.cb-msgs{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.cb-m{max-width:86%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.5}
+.cb-m.b{align-self:flex-start;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px}
+.cb-m.u{align-self:flex-end;background:var(--tara);color:#04211d;border-bottom-right-radius:4px}
+.cb-m.b a{color:var(--tara);font-weight:600}
+.cb-qa{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 10px;background:var(--bg)}
+.cb-chip{font-size:12px;font-weight:600;background:var(--panel);border:1px solid var(--line2);padding:7px 11px;border-radius:100px;cursor:pointer}
+.cb-chip:hover{border-color:var(--tara);color:var(--tara)}
+.cb-in{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line);background:var(--panel)}
+.cb-in input{flex:1;border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:13.5px;font-family:inherit}
+.cb-in input:focus{outline:none;border-color:var(--tara)}
+.cb-in button{background:var(--tara);color:#04211d;border:none;border-radius:10px;padding:0 15px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html"><div class="brand-badge"><img src="Ardia_Logo.png" alt="Ardia"></div><div class="brand-txt">ARDIA <span>PRECISION HEALTH</span></div></a>
+    <div class="nav-links">
+      <a href="ardia-platform-light.html">Platform</a>
+      <a href="ardia-models.html">Models</a>
+      <div class="nav-item active"><span>Solutions ▾</span>
+        <div class="dd"><div class="dd-h">Solutions Library</div><div class="dd-grid" id="ddGrid"></div></div>
+      </div>
+      <a href="tools.html">Tools</a>
+      <a href="investors.html">Investors</a>
+      <a class="nav-cta" href="contact.html">Book a demo</a>
+    </div>
+  </div>
+</nav>
+<div class="app">
+  <aside class="side" id="side"></aside>
+  <main class="main" id="main"></main>
+</div>
+<button id="cbBtn" onclick="cbToggle()" aria-label="Chat with Ardy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg></button>
+<div id="cbPanel">
+  <div class="cb-head"><div class="cb-av">A</div><div><div class="nm">Ardy</div><div class="st">Ardia assistant · online</div></div><button class="x" onclick="cbToggle()">×</button></div>
+  <div class="cb-msgs" id="cbMsgs"></div><div class="cb-qa" id="cbQa"></div>
+  <div class="cb-in"><input id="cbInput" placeholder="Ask about Ardia…" onkeydown="if(event.key==='Enter')cbSend()"><button onclick="cbSend()">Send</button></div>
+</div>
+<script>
+const SOL=[
+ {k:'tox',seg:'Independent Labs',c:'--tox',em:'🧪',name:'ToxIQ',role:'Toxicology RCM',desc:'Denial prevention & appeals for drug testing — the highest-volume lab denial segment.',problem:'Toxicology claims (80305–80307, G0480–G0483) are denied for many different reasons — missing necessity, frequency caps, presumptive→definitive bundling. Each failure mode needs its own agent.',agents:[
+   {code:'NE',name:'Necessity Agent',role:'medical-necessity check',problem:'CO-50 denials — the payer doesn\'t see the test as medically necessary.',does:'Matches the order to the payer LCD covered-indication list and checks for the diagnosis + rationale note before submission.',use:['Pre-submission necessity validation','Flag the missing rationale note','Predict CO-50 before the payer does'],data:'Payer LCD/NCD for toxicology; the de-identified claim + linked diagnosis.',integ:['EDI 837 claim feed','Payer LCD corpus','LIS order data'],faq:[['Does it read patient notes?','It reads the de-identified order and diagnosis linkage — never raw PHI; Sentinel strips identifiers first.'],['Is this a device?','No — administrative/reimbursement decision support in the FDA safe harbor.']],sample:{type:'run',lines:[['<span class="k">READ</span> claim 80307 · dx F11.20','ok','loaded'],['<span class="m">CHECK</span> necessity vs LCD L36037','gap','no rationale note'],['<span class="a2">FLAG</span> CO-50 risk + fix','gap','add rationale note'],['<span class="g">DONE</span> pre-submission verdict','ok','fix &amp; resubmit']]}},
+   {code:'BU',name:'Bundling Agent',role:'presumptive→definitive bundling',problem:'Definitive tests denied as bundled into presumptive, or panel-cap violations.',does:'Applies bundling rules and panel-size caps per payer and separates unbundleable lines.',use:['Prevent bundling denials','Right-size the panel','Justify separate definitive testing'],data:'Payer bundling/panel policy; the claim line items.',integ:['EDI 837','Payer edit rules','CPT/HCPCS crosswalk'],faq:[['What if the payer rule changes?','Rules are versioned; Crucible re-tests the agent when a policy updates.']],sample:{type:'run',lines:[['<span class="k">READ</span> presumptive 80307 + definitive G0480','ok','2 lines'],['<span class="m">CHECK</span> bundling + panel cap','ok','unbundleable'],['<span class="g">DONE</span> both lines payable','ok','clean']]}},
+   {code:'AP',name:'Appeal Agent',role:'evidence-backed appeal drafting',problem:'Manual appeals cost ~$118 each and succeed ~45% of the time.',does:'Drafts the appeal citing the exact LCD section and clinical evidence, EKRA-aware, for a reviewer.',use:['Auto-draft appeals','Cite the governing policy','Cut manual appeal cost'],data:'Denial (CARC/RARC) + the matched LCD + de-identified clinical support.',integ:['835 remittance feed','LCD corpus','Claude (behind guardrails)'],faq:[['Does a human review it?','Yes — every appeal is reviewer-attested before it goes out.']],sample:{type:'run',lines:[['<span class="k">READ</span> denial CO-50 on 80307','ok','loaded'],['<span class="m">REASON</span> necessity basis in L36037','ok','§ found'],['<span class="a2">DRAFT</span> appeal + citation','ok','narrative built'],['<span class="g">GOVERN</span> reviewer attest + audit','ok','#a7f3']]}}]},
+ {k:'molec',seg:'Independent Labs',c:'--molec',em:'🧬',name:'MolecuIQ',role:'Molecular RCM',desc:'Molecular & precision-diagnostics reimbursement — the deepest denial band (25–35%).',problem:'75,000+ genetic tests map to under 200 CPT codes, MolDX needs Z-codes, and NGS needs prior-auth. Getting any of these wrong means a denial.',agents:[
+   {code:'ZC',name:'Z-code Agent',role:'MolDX/DEX Z-code',problem:'Molecular claims without a valid Z-code are denied outright.',does:'Assigns/validates the MolDX/DEX Z-code for the assay and registers it against the claim.',use:['Z-code assignment','Registry validation','Prevent CO-11'],data:'MolDX/DEX registry; the assay identity.',integ:['DEX registry','LIS test catalog','837 feed'],faq:[['Which MACs?','MolDX-participating MACs first; expands with payer packs.']],sample:{type:'run',lines:[['<span class="k">READ</span> assay: hereditary panel','ok','identified'],['<span class="m">MAP</span> DEX → Z-code','ok','Z-code set'],['<span class="g">DONE</span> claim registered','ok','payable']]}},
+   {code:'MP',name:'Mapping Agent',role:'test → CPT mapping',problem:'The right CPT is ambiguous across tens of thousands of tests.',does:'Maps the genetic test to the payable CPT with NGS/NCCN alignment.',use:['Test→CPT mapping','NGS/NCCN alignment','Reduce coding denials'],data:'Genetic-test→CPT crosswalks; NCCN references.',integ:['CPT crosswalk','NCCN guideline set','LIS'],faq:[['How current?','Crosswalks are versioned and re-validated on release by Crucible.']],sample:{type:'run',lines:[['<span class="k">READ</span> NGS solid-tumor panel','ok','loaded'],['<span class="m">MAP</span> → CPT + units','ok','mapped'],['<span class="g">DONE</span> coded &amp; aligned','ok','NCCN ✓']]}},
+   {code:'PA',name:'Prior-Auth Agent',role:'NGS prior authorization',problem:'CO-197 — required prior authorization not obtained.',does:'Detects services needing prior auth and prepares the authorization package.',use:['Detect PA-required tests','Prepare the PA package','Prevent CO-197'],data:'Payer PA rules; the order + diagnosis.',integ:['Payer PA portals','837','Order feed'],faq:[['Does it submit the PA?','It prepares and queues it; submission stays human-in-the-loop.']],sample:{type:'run',lines:[['<span class="k">READ</span> order: large NGS panel','ok','loaded'],['<span class="m">CHECK</span> PA required?','gap','yes — not on file'],['<span class="a2">PREP</span> PA package','ok','queued']]}}]},
+ {k:'pama',seg:'Independent Labs',c:'--pama',em:'📉',name:'Meridian',role:'PAMA Rate-Cliff',desc:'Models the 2027–2029 CLFS cuts on a real test mix — runs client-side, no PHI.',problem:'PAMA cuts CLFS rates up to 15%/yr in 2027–2029. Labs can\'t plan without seeing the compounding revenue-at-risk on their own mix.',agents:[
+   {code:'CL',name:'CLFS Calculator',role:'rate-cliff modelling',problem:'Compounding cuts are hard to project by hand.',does:'Applies up-to-15%/yr cuts across 2027/2028/2029 to your mix and charts revenue-at-risk.',use:['Model the cliff','Quantify revenue-at-risk','Plan / sell around PAMA'],data:'2025 CLFS national rates (public CMS) + your entered volumes.',integ:['Runs in-browser','Public CMS CLFS data'],faq:[['Is my data sent anywhere?','No — it computes locally in your browser. No PHI, no upload.']],sample:{type:'run',lines:[['<span class="k">INPUT</span> mix: 80307×4200, G0483×1100…','ok','loaded'],['<span class="m">APPLY</span> 15%/yr 2027–2029','ok','compounded'],['<span class="g">OUT</span> 2029 run-rate 61% of baseline','ok','charted']]}}]},
+ {k:'aria',seg:'Elderly Care',c:'--aria',em:'💬',name:'Aria',role:'Elder Companion',desc:'Voice+text companion for older adults, with a deterministic safety spine.',problem:'Older adults need everyday health support when no clinician is around — but it must never diagnose, must catch emergencies, and must protect PHI.',agents:[
+   {code:'TR',name:'Triage Agent',role:'turn classification',problem:'Every message must be routed correctly — an emergency can\'t be treated like small talk.',does:'Classifies each turn (emergency / clinical-question / everyday) and routes it before any reply.',use:['Route emergencies first','Refuse diagnosis safely','Hand everyday chat to the companion'],data:'Guardrail rules + red-flag phrase set; the de-identified message.',integ:['Sentinel de-id (pre-LLM)','On-device intent rules'],faq:[['What counts as an emergency?','Chest pain, trouble breathing, a fall, stroke signs, very low SpO₂ — it escalates immediately.']],sample:{type:'run',lines:[['<span class="k">USER</span> "dizzy and my chest hurts"','gap','red-flag'],['<span class="m">TRIAGE</span> → EMERGENCY','ok','route: escalate'],['<span class="g">HANDOFF</span> Escalation Agent','ok','contact alerted']]}},
+   {code:'ES',name:'Escalation Agent',role:'emergency alerting',problem:'A senior in trouble may be alone.',does:'On SOS, fall, low SpO₂, or prolonged inactivity, alerts a consented family contact with context.',use:['SOS + auto-alert','Family notification','Context-rich hand-off'],data:'Vitals signals (SpO₂/HR/fall); consented contacts.',integ:['HealthKit / Health Connect','SMS provider (consent-gated; simulated until wired)'],faq:[['Do you message people automatically?','Only consented contacts, and only on a real trigger. Until you wire a provider, sends are simulated.']],sample:{type:'run',lines:[['<span class="k">SIGNAL</span> SpO₂ 84% + fall','gap','critical'],['<span class="m">DECIDE</span> escalate?','ok','yes'],['<span class="g">ALERT</span> Priya (daughter) · simulated','ok','sent']]}},
+   {code:'CO',name:'Companion Agent',role:'grounded conversation',problem:'"Drink a glass of water" isn\'t care — seniors need real, contextual reasoning.',does:'Holds a warm, plain-language, non-diagnostic conversation grounded in vetted sources and the person\'s baseline — and reasons about change.',use:['Everyday check-ins','Contextual, non-diagnostic guidance','Prep questions for the clinician'],data:'Vetted health-education sources; the person\'s tracked baseline (Cadence).',integ:['Retrieval over MedlinePlus/NIH','Cadence signals','Claude behind guardrails'],faq:[['Does it diagnose?','Never. It explains, contextualizes, and routes to a clinician.']],sample:{type:'conv',text:'"You said you\'re more breathless on the stairs and your ankles look puffy. With your COPD on file and your activity down ~40% this week, that\'s a change I\'d raise with your clinician today — I can help you call. If breathing suddenly worsens or your lips look blue, treat it as an emergency and call for help."'}}]},
+ {k:'cadence',seg:'Elderly Care',c:'--cadence',em:'🚶',name:'Cadence',role:'Activity & Wellbeing',desc:'Trained ML model that reads daily movement to sense decline early.',problem:'Functional decline in older adults is gradual — the value is in the trend, from a device they already carry.',agents:[
+   {code:'AC',name:'Activity Classifier',role:'activity recognition',problem:'You can\'t track mobility without reliably knowing what someone is doing.',does:'Classifies smartphone accelerometer/gyro windows into 6 activities, then Active/Sedentary/Resting.',use:['Daily movement tracking','Active vs sedentary summaries','Inactivity detection'],data:'UCI HAR (public, CC BY 4.0) — 10,299 samples, 561 features, subject-independent split.',integ:['HealthKit / Health Connect','On-device inference'],faq:[['How accurate?','95.5% on held-out people never seen in training; 99.6% for Active/Sedentary/Resting.'],['Real limitation?','Public data is age 19–48 — must be re-trained on elder data before deployment. We say so.']],sample:{type:'run',lines:[['<span class="k">INPUT</span> accel/gyro window','ok','561 feats'],['<span class="m">MODEL</span> classify','ok','STANDING'],['<span class="g">MAP</span> → Sedentary','ok','logged']]}},
+   {code:'DS',name:'Deterioration Sentinel',role:'decline signal',problem:'A sustained drop in movement can precede a fall or illness.',does:'Flags unusual patterns and sustained declines vs the person\'s baseline for caregiver review.',use:['Early decline signal','Fall-risk watch','Caregiver alerting (not a diagnosis)'],data:'The person\'s own activity history (baseline vs recent).',integ:['Cadence classifier output','Caregiver view'],faq:[['Is this a diagnosis?','No — a signal for a human to review.']],sample:{type:'run',lines:[['<span class="k">READ</span> 7-day activity','ok','baseline'],['<span class="m">COMPARE</span> recent 3 days','gap','−40% active min'],['<span class="a2">FLAG</span> decline for caregiver','gap','review']]}}]},
+ {k:'lumen',seg:'Elderly Care',c:'--lumen',em:'📄',name:'Lumen',role:'Report Explainer',desc:'Turns a lab report or scan into plain language — explains, never diagnoses (RUO).',problem:'Patients get results they can\'t read, and an AI that "diagnoses" an image is a regulated device. Lumen explains and routes to a clinician.',agents:[
+   {code:'DT',name:'Doc-Type Classifier',role:'document routing',problem:'A prescription, a lab report, and an X-ray need very different handling.',does:'Classifies the upload and routes it — images go to a clinician, never interpreted.',use:['Route uploads correctly','Keep images out of diagnosis','Pick the right explainer path'],data:'Document keyword/structure signals.',integ:['OCR for scans','Sentinel de-id first'],faq:[['Do you read my scan?','No. Images are routed to a clinician; Lumen won\'t interpret them.']],sample:{type:'run',lines:[['<span class="k">READ</span> upload','ok','text found'],['<span class="m">CLASSIFY</span> type','ok','lab report'],['<span class="g">ROUTE</span> → Lab-Range Flagger','ok','ok']]}},
+   {code:'LR',name:'Lab-Range Flagger',role:'reference-range check',problem:'"Is this value bad?" — patients can\'t tell.',does:'Deterministically flags each value low/normal/high/critical against standard ranges.',use:['Flag out-of-range values','Surface critical results','Feed the explainer'],data:'Standard published adult reference ranges.',integ:['Deterministic rules (auditable)'],faq:[['Whose range wins?','Your lab\'s own reference range always takes precedence.']],sample:{type:'run',lines:[['<span class="k">READ</span> SpO₂ 86%','ok','parsed'],['<span class="m">CHECK</span> vs 95–100','gap','critical low'],['<span class="a2">FLAG</span> urgent — see clinician','gap','flagged']]}},
+   {code:'EX',name:'Explainer Agent',role:'plain-language, non-diagnostic',problem:'Even flagged values need explaining in human words — safely.',does:'Writes an uncertainty-aware, non-diagnostic explanation with clinician routing and an RUO label.',use:['Plain-language explanation','Questions for the clinician','Never a diagnosis'],data:'The flagged values + vetted education sources.',integ:['Retrieval (MedlinePlus/NIH)','Claude behind guardrails'],faq:[['Is this medical advice?','No — research-use-only, general information, always "confirm with your clinician."']],sample:{type:'conv',text:'"Your Vitamin D (18) is below the usual range and your oxygen (86%) is well below normal — the oxygen is the one I\'d act on: please contact your clinician promptly. These are explanations to help your conversation with them, not a diagnosis."'}}]},
+ {k:'pulmo',seg:'Chronic & Respiratory',c:'--pulmo',em:'🫁',name:'PulmoIQ',role:'Respiratory',desc:'Longitudinal asthma/COPD tracking + PFT & sleep reimbursement. Prediction is FDA-gated.',problem:'Asthma and COPD decline gradually; the reimbursement lane is safe today, but predicting an exacerbation from lung data is a regulated device — so it stays gated.',agents:[
+   {code:'TL',name:'Timeline Agent',role:'longitudinal fusion',problem:'A single snapshot misses the trend that matters in respiratory care.',does:'Fuses history, continuous vitals, FDA-cleared home spirometry, and air quality into one timeline.',use:['Asthma/COPD timeline','Baseline vs change','Feed reimbursement + caregiver view'],data:'Retrieved history; HealthKit/Health Connect vitals; cleared spirometry; AirNow/NOAA.',integ:['HealthKit / Health Connect','FDA-cleared home spirometer','AirNow / NOAA'],faq:[['Does a wearable measure FEV1?','No wearable does — lung-function numbers come only from a cleared spirometer. We don\'t pretend otherwise.']],sample:{type:'run',lines:[['<span class="k">PULL</span> history + SpO₂ + spirometry','ok','fused'],['<span class="m">TREND</span> vs baseline','ok','stable'],['<span class="g">OUT</span> timeline updated','ok','ok']]}},
+   {code:'CD',name:'Coding Agent',role:'PFT & sleep reimbursement',problem:'Pulmonary-function and sleep-study claims have their own denial pitfalls.',does:'Codes PFT and sleep studies and tracks the 2027 sleep-code deletions.',use:['PFT / sleep coding','Track 95800/95801/95806 (flagged for 2027 deletion — verify vs AMA)','Reimbursement-safe, non-diagnostic'],data:'PFT/sleep CPT policy.',integ:['837 feed','CPT policy corpus'],faq:[['Does it diagnose?','No — coding/reimbursement only. Prediction is FDA-gated.']],sample:{type:'run',lines:[['<span class="k">READ</span> spirometry 94060','ok','loaded'],['<span class="m">CODE</span> + modifiers','ok','clean'],['<span class="g">DONE</span> reimbursement-ready','ok','ok']]}},
+   {code:'TG',name:'Trigger Agent',role:'air-quality early warning',problem:'Poor air quality drives exacerbations in sensitive patients.',does:'Watches AirNow/NOAA and gives a "watch today" nudge — environmental, non-diagnostic.',use:['Air-quality watch','Early environmental nudge','Feeds Aria reminders'],data:'AirNow / NOAA air-quality + pollen.',integ:['AirNow API','NOAA'],faq:[['Is this a medical alert?','No — an environmental heads-up, not a diagnosis.']],sample:{type:'run',lines:[['<span class="k">READ</span> AQI + pollen (zip)','ok','high'],['<span class="m">RULE</span> sensitive patient?','ok','yes'],['<span class="g">NUDGE</span> "watch your breathing today"','ok','sent']]}}]},
+ {k:'sentinel',seg:'Platform',c:'--sentinel',em:'🛡️',name:'Sentinel',role:'Governance Kernel',desc:'The compliance layer every model inherits — built and running today (42/42 tests).',problem:'Every agent touches sensitive data. Compliance can\'t be per-feature — it has to be structural and inherited.',agents:[
+   {code:'DI',name:'De-ID Agent',role:'PHI de-identification',problem:'PHI must never reach an LLM, a log, or storage in the clear.',does:'Strips HIPAA Safe-Harbor identifiers before anything else runs.',use:['De-identify every input','Protect PHI pre-LLM','Keep logs clean'],data:'Synthetic PHI corpus for testing.',integ:['Runs first in every pipeline','AES-256 at rest'],faq:[['Verified?','Yes — part of the 42/42 passing safety tests.']],sample:{type:'run',lines:[['<span class="k">IN</span> "call me at (214) 555-0199"','gap','PHI'],['<span class="m">STRIP</span> identifiers','ok','[phone] removed'],['<span class="g">OUT</span> safe for model/log','ok','clean']]}},
+   {code:'AU',name:'Audit Agent',role:'tamper-evident logging',problem:'HIPAA requires proving every PHI access.',does:'Writes a hash-chained, tamper-evident audit entry for each access.',use:['Prove every access','Detect tampering','Compliance evidence'],data:'Access events.',integ:['Hash-chain ledger'],faq:[['Why hash-chained?','So a changed or deleted entry is detectable.']],sample:{type:'run',lines:[['<span class="k">EVENT</span> record read by role=biller','ok','logged'],['<span class="m">HASH</span> prev→curr','ok','#a7f3'],['<span class="g">DONE</span> tamper-evident','ok','ok']]}},
+   {code:'AX',name:'Access Agent',role:'RBAC · minimum-necessary',problem:'Not everyone should see everything.',does:'Enforces role-based access and minimum-necessary on every request.',use:['Least-privilege access','Deny the unauthorized','Scope data to the role'],data:'Role definitions + policy.',integ:['RBAC policy engine'],faq:[['Default?','Deny — access is granted, never assumed.']],sample:{type:'run',lines:[['<span class="k">REQ</span> front-desk → full chart','gap','over-broad'],['<span class="m">CHECK</span> minimum-necessary','ok','scope down'],['<span class="g">GRANT</span> demographics only','ok','ok']]}}]},
+ {k:'crucible',seg:'Platform',c:'--crucible',em:'🎯',name:'Crucible',role:'Evaluation Harness',desc:'Nothing ships without evidence — the proving ground that gates releases (49 tests).',problem:'AI claims are cheap; evidence is not. Crucible makes "tested" a gate, not a promise.',agents:[
+   {code:'EV',name:'Eval Agent',role:'safety evals',problem:'A guardrail can silently regress.',does:'Runs refusal / escalation / de-identification assertions on every build.',use:['Safety verification','Catch regressions','Prove guardrails hold'],data:'The 49-test suite (42 unit + 7 integration).',integ:['pytest suite','CI gate'],faq:[['What if a guardrail breaks?','The Gate Agent fails the release.']],sample:{type:'run',lines:[['<span class="k">RUN</span> 49 tests','ok','executing'],['<span class="m">CHECK</span> refusal/escalation/de-id','ok','all pass'],['<span class="g">REPORT</span> 49/49 green','ok','ship-ready']]}},
+   {code:'GT',name:'Gate Agent',role:'release gate',problem:'Untested code must not ship.',does:'Blocks the release on any failing safety assertion or missing metric.',use:['Regression gate','Enforce "no untested claims"','Publish the evidence'],data:'Eval + metric results.',integ:['Release pipeline'],faq:[['Can it be overridden?','Not silently — a failed gate is visible and must be resolved.']],sample:{type:'run',lines:[['<span class="k">IN</span> build + metrics','ok','received'],['<span class="m">GATE</span> all green?','ok','yes'],['<span class="g">PASS</span> release allowed','ok','✓']]}}]},
+];
+const SEGORDER=['Independent Labs','Elderly Care','Chronic & Respiratory','Platform'];
+const byK={}; SOL.forEach(s=>byK[s.k]=s);
+document.getElementById('ddGrid').innerHTML=SOL.map(s=>`<div class="dd-i" style="--c:var(${s.c})" onclick="go('${s.k}')"><div class="dd-ic">${s.em}</div><div><div class="n">${s.name}</div><div class="r">${s.role}</div></div></div>`).join('');
+function buildSide(){let html='';SEGORDER.forEach(seg=>{html+=`<div class="side-h">${seg}</div>`;SOL.filter(s=>s.seg===seg).forEach(s=>{html+=`<div class="s-item" id="si-${s.k}" style="--c:var(${s.c})"><div class="s-row" onclick="toggleSide('${s.k}')"><div class="s-ic">${s.em}</div><div class="n">${s.name}</div><div class="chev">▶</div></div><div class="s-agents">${s.agents.map((a,i)=>`<div class="s-agent" id="sa-${s.k}-${i}" onclick="go('${s.k}',${i})"><span class="ac">${a.code}</span>${a.name}</div>`).join('')}</div></div>`;});});document.getElementById('side').innerHTML=html;}
+buildSide();
+let CUR=null,CURA=null;
+function toggleSide(k){document.getElementById('si-'+k).classList.toggle('open');go(k,undefined);}
+function go(k,ai){CUR=k;CURA=(ai===undefined?null:ai);
+ document.querySelectorAll('.s-row').forEach(r=>r.classList.remove('sel'));document.querySelectorAll('.s-agent').forEach(r=>r.classList.remove('sel'));
+ const si=document.getElementById('si-'+k);if(si){si.classList.add('open');si.querySelector('.s-row').classList.add('sel');}
+ if(CURA!==null){const sa=document.getElementById('sa-'+k+'-'+CURA);if(sa)sa.classList.add('sel');}
+ renderMain();window.scrollTo({top:0,behavior:'smooth'});}
+function renderMain(){const s=byK[CUR];const main=document.getElementById('main');
+ if(CURA===null){main.innerHTML=`<div class="crumb">Solutions Library · <b>${s.name}</b></div>
+  <div class="m-head" style="--c:var(${s.c})"><div class="m-ic">${s.em}</div><div><div class="role">${s.role}</div><h1>${s.name}</h1><div class="seg">${s.seg}</div></div></div>
+  <div class="lede" style="--c:var(${s.c})">${s.desc}</div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">The problem</div><p>${s.problem}</p></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">Agents in this solution (${s.agents.length})</div><div class="acards">${s.agents.map((a,i)=>`<div class="acard" style="--c:var(${s.c})" onclick="go('${s.k}',${i})"><div class="an"><span class="ac">${a.code}</span>${a.name}</div><div class="ar">${a.role}</div><div class="ad">${a.does}</div><div class="go">Open agent →</div></div>`).join('')}</div></div>`;
+ } else {const a=s.agents[CURA];main.innerHTML=`<div class="crumb">Solutions Library · <span onclick="go('${s.k}')" style="cursor:pointer;color:var(${s.c});font-weight:600">${s.name}</span> · <b>${a.name}</b></div>
+  <div class="m-head" style="--c:var(${s.c})"><div class="m-ic" style="font-family:'JetBrains Mono';font-weight:800;font-size:20px;color:var(${s.c})">${a.code}</div><div><div class="role">${a.role}</div><h1>${a.name}</h1><div class="seg">${s.name} · ${s.role}</div></div></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">The problem it solves</div><p>${a.problem}</p></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">What it does</div><p>${a.does}</p></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">Use cases</div><ul class="use">${a.use.map(u=>`<li>${u}</li>`).join('')}</ul></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">Data it uses</div><p>${a.data}</p></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">Integrations / datasets</div><div class="chips">${a.integ.map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">FAQ</div><div class="faq">${a.faq.map(q=>`<details><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('')}</div></div>
+  <div class="sec" style="--c:var(${s.c})"><div class="sec-l">Sample — what the agent does</div><div class="sample" style="--c:var(${s.c})"><div class="sample-h"><span class="dot"></span>ardia://agent/${a.code.toLowerCase()}<button class="run" onclick="playSample()">▶ Run</button></div><div class="sample-b${a.sample.type==='conv'?' conv':''}" id="sampleB"></div></div></div>`;
+  playSample();}}
+function playSample(){const a=byK[CUR].agents[CURA];const el=document.getElementById('sampleB');if(!el)return;el.innerHTML='';
+ if(a.sample.type==='conv'){const d=document.createElement('span');d.className='ln';d.textContent=a.sample.text;el.appendChild(d);requestAnimationFrame(()=>d.classList.add('show'));return;}
+ let j=0;const t=setInterval(()=>{if(j>=a.sample.lines.length){clearInterval(t);return;}const r=a.sample.lines[j];const ln=document.createElement('span');ln.className='ln';ln.innerHTML=`${r[0]} <span class="tag tg-${r[1]}">${r[2]}</span>`;el.appendChild(ln);requestAnimationFrame(()=>ln.classList.add('show'));j++;},600);}
+const P=new URLSearchParams(location.search);
+if(P.get('s')&&byK[P.get('s')])go(P.get('s'),P.get('a')!==null?parseInt(P.get('a')):undefined);else go('tox');
+const WELCOME=["👋 Hi, I'm Ardy — Ardia's assistant. Ask me about our models, solutions, or book a demo.","Welcome to Ardia 👋 Curious what our healthcare-AI platform does? I can help.","Hi there — I'm Ardy. Want the quick tour, or should I connect you with the team?"];
+const QUICK=[['What is Ardia?','about'],['Our models','models'],['Solutions','solutions'],['Book a demo','demo'],['For investors','invest'],['Contact us','contact']];
+function reply(t){t=t.toLowerCase();
+ if(/invest|funding|raise|seed/.test(t))return"We're raising a <b>$750K–$1.5M seed</b> (SAFE, terms under NDA). Reach <a href='mailto:investors@ardiahealthlabs.com'>investors@ardiahealthlabs.com</a> or see the <a href='investors.html'>Investors page</a>.";
+ if(/demo|book|meeting|schedule/.test(t))return"Happy to set up a demo — email <a href='mailto:info@ardiahealthlabs.com'>info@ardiahealthlabs.com</a> or use <a href='contact.html'>Book a demo</a>.";
+ if(/contact|email|phone|reach/.test(t))return"Reach us at <a href='mailto:info@ardiahealthlabs.com'>info@ardiahealthlabs.com</a> or <a href='mailto:investors@ardiahealthlabs.com'>investors@ardiahealthlabs.com</a> (investment). Based in Dallas–Fort Worth.";
+ if(/model|tara|aria|lumen|cadence|toxiq|molec|pulmo|meridian/.test(t))return"Our models: <b>TARA</b> (reasoning), <b>Aria</b> (elder companion), <b>Lumen</b> (report explainer), <b>Cadence</b> (activity — 95.5% tested), <b>ToxIQ/MolecuIQ</b> (lab RCM), <b>PulmoIQ</b>, <b>Meridian</b>. See <a href='ardia-models.html'>Models</a>.";
+ if(/solution|agent|labs|elder|respirat/.test(t))return"Each solution has purpose-built agents — labs, elder care, respiratory, governance. Browse them in the sidebar, or open any agent for full detail.";
+ if(/hipaa|secur|complian|privacy|phi/.test(t))return"Compliance is structural — PHI de-id before any model, AES-256, hash-chained audit, RBAC — the <b>Sentinel</b> kernel (42/42 tests). Non-diagnostic by design.";
+ if(/business|what.*ardia|who|about|company/.test(t))return"Ardia is a <b>seed-stage healthcare-AI reasoning platform</b>: one engine (TARA), a constellation of named models for lab reimbursement, elderly care, and respiratory — governance & evaluation built in.";
+ if(/help|how.*you|what.*do/.test(t))return"I can tell you about our <a href='ardia-models.html'>models</a>, the solutions & agents in the sidebar, help you <a href='contact.html'>book a demo</a>, or connect you with the team.";
+ if(/hi|hello|hey|thank/.test(t))return"👋 Happy to help — try a quick action below, or ask me anything about Ardia.";
+ return"I can help with <b>models</b>, <b>solutions & agents</b>, <b>booking a demo</b>, or <b>investment</b>. Try a quick action, or email <a href='mailto:info@ardiahealthlabs.com'>info@ardiahealthlabs.com</a>.";}
+const QMAP={about:'What is Ardia?',models:'Tell me about your models',solutions:'What solutions and agents do you have?',demo:'I want to book a demo',invest:'I want to invest',contact:'How do I contact you?'};
+let cbInit=false;
+function cbToggle(){const p=document.getElementById('cbPanel');p.classList.toggle('on');if(p.classList.contains('on')&&!cbInit){cbInit=true;cbAdd(WELCOME[Math.floor((Date.now()/1000)%WELCOME.length)],'b');document.getElementById('cbQa').innerHTML=QUICK.map(q=>`<span class="cb-chip" onclick="cbQuick('${q[1]}')">${q[0]}</span>`).join('');}}
+function cbAdd(h,c){const m=document.getElementById('cbMsgs');const d=document.createElement('div');d.className='cb-m '+c;d.innerHTML=h;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function cbQuick(k){cbAdd(QMAP[k],'u');setTimeout(()=>cbAdd(reply(QMAP[k]),'b'),240);}
+function cbSend(){const i=document.getElementById('cbInput');const v=i.value.trim();if(!v)return;cbAdd(v.replace(/</g,'&lt;'),'u');i.value='';setTimeout(()=>cbAdd(reply(v),'b'),260);}
+</script>
+</body>
+</html>

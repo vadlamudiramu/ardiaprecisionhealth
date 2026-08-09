@@ -1,0 +1,125 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--ink:#132b45;--teal:#12b8a6;--tealD:#0d9488;--cyan:#22d3ee;--amber:#f59e0b;--slate:#5a6e87}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1280px 720px;margin:0}
+html,body{background:#0b1524}
+.slide{width:1280px;height:720px;position:relative;overflow:hidden;font-family:'Inter',sans-serif}
+h1,h2,h3,.hd{font-family:'Poppins',sans-serif}
+.svgwrap{position:absolute;inset:0}
+/* ---------- SLIDE A · light "problem" ---------- */
+.A{background:linear-gradient(120deg,#f2f8fc 0%,#eaf4fb 45%,#dcefff 100%)}
+.A .content{position:absolute;left:76px;top:96px;width:560px;z-index:3}
+.A .ey{font-family:'Inter';font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--tealD);font-size:14px;margin-bottom:14px}
+.A h1{font-size:58px;font-weight:800;color:var(--navy);line-height:1.02;letter-spacing:-1px}
+.A .stat{font-family:'Poppins';font-weight:900;font-size:130px;line-height:.9;letter-spacing:-4px;color:var(--tealD);margin:26px 0 6px;text-shadow:0 10px 40px rgba(13,148,136,.28)}
+.A .statl{font-size:19px;color:var(--ink);font-weight:600;max-width:440px}
+.A .kick{position:absolute;left:720px;top:430px;width:470px;z-index:3}
+.A .kick h3{font-size:24px;color:var(--tealD);font-weight:700;margin-bottom:10px}
+.A .kick p{font-size:16px;color:#3d5670;line-height:1.6}
+/* ---------- SLIDE B · dark "architecture/core" ---------- */
+.B{background:radial-gradient(120% 120% at 78% 30%,#0e3b4e 0%,#0a2740 42%,#081a30 78%,#06121f 100%)}
+.B .content{position:absolute;left:76px;top:92px;width:640px;z-index:3}
+.B .ey{font-family:'Inter';font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#5eead4;font-size:14px;margin-bottom:14px}
+.B h1{font-size:52px;font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.8px}
+.B .sub{font-size:18px;color:#a9c8dd;line-height:1.6;margin-top:18px;max-width:520px}
+.B .panels{position:absolute;left:76px;bottom:70px;display:flex;gap:18px;z-index:3}
+.B .panel{width:300px;border:1.5px solid rgba(94,234,212,.4);border-radius:16px;padding:18px 20px;background:rgba(10,40,60,.35);box-shadow:0 0 30px rgba(34,211,238,.12) inset,0 0 24px rgba(34,211,238,.14)}
+.B .panel .pt{font-family:'Poppins';font-weight:700;color:#5eead4;font-size:15px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.B .panel p{font-size:14px;color:#cfe6f2;line-height:1.5}
+.foot{position:absolute;left:76px;bottom:26px;font-family:'Inter';font-weight:700;font-size:13px;letter-spacing:.3px;z-index:4}
+.A .foot{color:#7d97b0}.A .foot b{color:var(--tealD)}
+.B .foot{color:#6f92aa}.B .foot b{color:#5eead4}
+</style></head><body>
+
+<!-- ================= SLIDE A : light, glowing problem ================= -->
+<section class="slide A">
+  <svg class="svgwrap" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="aGlow" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#7ff0e6" stop-opacity=".55"/><stop offset="55%" stop-color="#39c7e0" stop-opacity=".22"/><stop offset="100%" stop-color="#39c7e0" stop-opacity="0"/></radialGradient>
+      <linearGradient id="aNode" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2fd6e6"/><stop offset="1" stop-color="#0e8fb8"/></linearGradient>
+      <filter id="aBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>
+      <filter id="aSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    </defs>
+    <!-- flowing waves bottom-left -->
+    <g opacity=".5" fill="none" stroke="#bcd9ec" stroke-width="1.4">
+      <path d="M-40 560 C 260 470, 520 660, 900 520 S 1400 470, 1400 470"/>
+      <path d="M-40 600 C 280 520, 520 700, 940 560 S 1400 520, 1400 520"/>
+      <path d="M-40 640 C 300 580, 520 730, 980 610 S 1400 570, 1400 570"/>
+    </g>
+    <!-- glowing network sphere illustration (right) -->
+    <g transform="translate(980,300)">
+      <circle r="230" fill="url(#aGlow)"/>
+      <g filter="url(#aBlur)" opacity=".9">
+        <circle r="120" fill="none" stroke="#37c9e0" stroke-width="3"/>
+      </g>
+      <g stroke="#4fd3e6" stroke-width="1.5" opacity=".85">
+        <line x1="-120" y1="-30" x2="60" y2="-110"/><line x1="60" y1="-110" x2="130" y2="20"/><line x1="130" y1="20" x2="20" y2="120"/>
+        <line x1="20" y1="120" x2="-110" y2="60"/><line x1="-110" y1="60" x2="-120" y2="-30"/><line x1="-120" y1="-30" x2="130" y2="20"/>
+        <line x1="60" y1="-110" x2="20" y2="120"/><line x1="0" y1="0" x2="60" y2="-110"/><line x1="0" y1="0" x2="130" y2="20"/><line x1="0" y1="0" x2="-110" y2="60"/><line x1="0" y1="0" x2="20" y2="120"/><line x1="0" y1="0" x2="-120" y2="-30"/>
+      </g>
+      <g filter="url(#aSoft)">
+        <circle cx="-120" cy="-30" r="9" fill="url(#aNode)"/><circle cx="60" cy="-110" r="11" fill="url(#aNode)"/><circle cx="130" cy="20" r="9" fill="url(#aNode)"/><circle cx="20" cy="120" r="9" fill="url(#aNode)"/><circle cx="-110" cy="60" r="9" fill="url(#aNode)"/>
+        <circle cx="0" cy="0" r="18" fill="#eafcff"/><circle cx="0" cy="0" r="30" fill="none" stroke="#7ff0e6" stroke-width="2" opacity=".8"/>
+      </g>
+      <!-- document motifs floating out -->
+      <g fill="#eafaff" stroke="#5fd6e6" stroke-width="1.2" opacity=".92" filter="url(#aSoft)">
+        <rect x="150" y="-90" width="34" height="44" rx="4"/><rect x="185" y="-30" width="30" height="40" rx="4"/><rect x="150" y="40" width="32" height="42" rx="4"/>
+      </g>
+    </g>
+  </svg>
+  <div class="content">
+    <div class="ey">The Problem</div>
+    <h1>The crisis in<br>lab reimbursement</h1>
+    <div class="stat">$12B</div>
+    <div class="statl">in U.S. lab revenue is left unpaid every year — most of it appealable, simply written off. <span style="font-family:'Inter';font-size:12px;color:#7d97b0">Industry est.</span></div>
+  </div>
+  <div class="kick">
+    <h3>The system is at a breaking point</h3>
+    <p>~65% of denials are never appealed. Molecular &amp; toxicology claims get denied as "experimental" despite guideline support — and a legislated PAMA rate cliff is about to make it worse.</p>
+  </div>
+  <div class="foot">ARDIA <b>PRECISION HEALTH</b> &nbsp;·&nbsp; Confidential</div>
+</section>
+
+<!-- ================= SLIDE B : dark, glowing core ================= -->
+<section class="slide B">
+  <svg class="svgwrap" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="bCore" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#bafcf3"/><stop offset="35%" stop-color="#2fe0d4"/><stop offset="75%" stop-color="#12a6c9" stop-opacity=".5"/><stop offset="100%" stop-color="#12a6c9" stop-opacity="0"/></radialGradient>
+      <radialGradient id="bHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#22d3ee" stop-opacity=".45"/><stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+      <filter id="bBlur" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="9"/></filter>
+      <filter id="bSoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5"/></filter>
+    </defs>
+    <!-- circuit traces -->
+    <g stroke="#1c5f78" stroke-width="1.2" opacity=".5" fill="none">
+      <path d="M780 120 h120 v80 h150"/><path d="M760 300 h180 v-60 h120"/><path d="M800 520 h140 v-70 h180"/><path d="M1180 160 v120 h-90"/>
+    </g>
+    <!-- glowing brain-sphere core (right) -->
+    <g transform="translate(1000,330)">
+      <circle r="260" fill="url(#bHalo)"/>
+      <g filter="url(#bBlur)"><circle r="150" fill="none" stroke="#22d3ee" stroke-width="4" opacity=".7"/></g>
+      <g stroke="#3fe0e6" stroke-width="1.6" opacity=".9">
+        <path d="M0 0 L120 -70 M0 0 L150 20 M0 0 L100 110 M0 0 L-30 150 M0 0 L-140 60 M0 0 L-120 -80 M0 0 L20 -150"/>
+        <circle cx="120" cy="-70" r="6" fill="#7ff7ee"/><circle cx="150" cy="20" r="6" fill="#7ff7ee"/><circle cx="100" cy="110" r="6" fill="#7ff7ee"/><circle cx="-30" cy="150" r="6" fill="#7ff7ee"/><circle cx="-140" cy="60" r="6" fill="#7ff7ee"/><circle cx="-120" cy="-80" r="6" fill="#7ff7ee"/><circle cx="20" cy="-150" r="6" fill="#7ff7ee"/>
+      </g>
+      <circle r="150" fill="none" stroke="#1f8fb0" stroke-width="1" opacity=".6"/>
+      <circle r="46" fill="url(#bCore)" filter="url(#bSoft)"/>
+      <circle r="16" fill="#f2ffff"/>
+    </g>
+  </svg>
+  <div class="content">
+    <div class="ey">The Product · Core</div>
+    <h1>TARA — the auditable<br>reasoning core</h1>
+    <div class="sub">A neuro-symbolic engine: a model reasons, a symbolic policy layer constrains it to real rules, and a guardrail layer must pass before any human sees the output. Cite-or-abstain, non-diagnostic, human-in-the-loop.</div>
+  </div>
+  <div class="panels">
+    <div class="panel"><div class="pt">Grounding</div><p>De-identified data + live PubMed / ClinicalTrials.gov — no PHI reaches the model.</p></div>
+    <div class="panel"><div class="pt">Symbolic policy</div><p>NCD / LCD / MolDX + deterministic PAMA math — the model can't invent a rule.</p></div>
+    <div class="panel"><div class="pt">Guardrails</div><p>Crucible's 8 gates + cite-or-abstain — a draft for a licensed human, never auto-filed.</p></div>
+  </div>
+  <div class="foot">ARDIA <b>PRECISION HEALTH</b> &nbsp;·&nbsp; Confidential</div>
+</section>
+
+</body></html>

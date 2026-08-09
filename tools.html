@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Interactive Tools | Pre-Submission Check · PAMA Calculator · Denial Library | Ardia Health</title>
+<meta name="description" content="Three Ardia tools you can run right now — a pre-submission medical-necessity check, a PAMA 2027 CLFS rate-cliff calculator, and a searchable denial-code library. No signup, no PHI, numbers you generate.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#fff;font-family:'DM Sans',sans-serif;color:#0f172a;line-height:1.65;overflow-x:hidden}
+
+/* ── NAVBAR ── */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,30,60,0.08);transition:.3s}
+.nav-inner{max-width:1360px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:14px}
+.nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none;flex-shrink:0}
+.nav-logo-icon{width:52px;height:52px;background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:10px;border:1.5px solid rgba(20,184,166,0.5);box-shadow:0 0 12px rgba(20,184,166,0.25),0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px;flex-shrink:0}
+.nav-logo-icon img{width:100%;height:100%;object-fit:contain;display:block}
+.logo-text{display:flex;flex-direction:column;line-height:1.2}
+.logo-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#1e2f4a;letter-spacing:-.3px}
+.logo-name span.teal{color:#1d9bd1}
+.logo-name::after{content:'';display:block;height:2px;background:linear-gradient(to right,#14b8a6,#f59e0b);border-radius:1px;margin-top:4px;margin-bottom:3px}
+.logo-sub{font-size:10px;font-weight:400;color:#5a6e87;letter-spacing:0;text-transform:none}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin-left:auto}
+.nav-link{font-size:13px;font-weight:600;color:#334155;padding:6px 5px;border-radius:8px;cursor:pointer;transition:.2s;white-space:nowrap}
+.nav-link:hover,.nav-link.active-page{color:#0d7c6e;background:rgba(13,124,110,.07)}
+.nav-cta{display:flex;align-items:center;gap:7px;margin-left:8px;flex-shrink:0}
+.btn-trial{font-size:13px;font-weight:700;color:#0d7c6e;padding:7px 11px;border-radius:8px;border:1.5px solid #0d7c6e;cursor:pointer;transition:.2s;white-space:nowrap}
+.btn-trial:hover{background:#0d7c6e;color:#fff}
+.btn-book{font-size:13px;font-weight:700;color:#fff;background:#1e3a5f;padding:8px 13px;border-radius:8px;cursor:pointer;transition:.2s;white-space:nowrap}
+.btn-book:hover{background:#0d7c6e}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#1e3a5f;border-radius:2px;transition:.3s}
+@media(max-width:1260px){.nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;padding:16px;gap:4px;border-bottom:1px solid #e2e8f0;box-shadow:0 8px 24px rgba(0,0,0,.1)}.nav-links.open{display:flex}.hamburger{display:flex}}
+
+/* ── MEGA MENU ── */
+.mega-menu{position:absolute;top:calc(100% + 1px);left:-60px;width:580px;background:#fff;border:1px solid #e2e8f0;border-radius:0 0 16px 16px;box-shadow:0 20px 60px rgba(13,124,110,0.10),0 8px 24px rgba(0,0,0,0.07);opacity:0;visibility:hidden;transition:opacity 0.2s ease,visibility 0.2s ease;pointer-events:none;z-index:10000;overflow:hidden}
+.nav-item{position:relative}
+.nav-item:hover .mega-menu{opacity:1;visibility:visible;pointer-events:auto}
+.mega-header{padding:14px 22px 12px;border-bottom:1px solid #e2e8f0;background:#f8fafb}
+.mega-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#7a93b0;margin-bottom:3px}
+.mega-desc{font-size:12.5px;color:#4a6285}
+.mega-grid{display:grid;grid-template-columns:1fr 1fr;padding:12px;gap:2px}
+.mega-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px;border-radius:10px;cursor:pointer;transition:all 0.18s}
+.mega-item:hover{background:#f0fdf9;transform:translateX(2px)}
+.mega-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.mi-teal{background:rgba(13,124,110,0.1);color:#0d7c6e}
+.mi-blue{background:rgba(3,105,161,0.1);color:#0369a1}
+.mi-amber{background:rgba(180,83,9,0.1);color:#b45309}
+.mi-purple{background:rgba(124,58,237,0.1);color:#7c3aed}
+.mega-item-title{font-size:13px;font-weight:700;color:#1e2f4a;margin-bottom:2px;line-height:1.2}
+.mega-item-desc{font-size:11.5px;color:#7a93b0;line-height:1.5}
+
+/* ── HERO ── */
+.hero{padding:116px 24px 56px;background:linear-gradient(135deg,#f0f7ff 0%,#e8faf7 50%,#fff8ec 100%);text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid #0d7c6e;color:#0d7c6e;font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;letter-spacing:.5px}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,52px);font-weight:800;color:#1e3a5f;line-height:1.1;max-width:880px;margin:0 auto 18px}
+.hero h1 span{color:#0d7c6e}
+.hero-sub{font-size:18px;color:#475569;max-width:740px;margin:0 auto 26px;line-height:1.7}
+.tool-jump{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.jump-btn{background:#fff;color:#1e3a5f;border:1.5px solid #cbd5e1;border-radius:100px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.jump-btn:hover{border-color:#0d7c6e;color:#0d7c6e;background:#f0fdf9}
+
+/* ── SECTION ── */
+.section{padding:66px 24px}
+.container{max-width:1080px;margin:0 auto}
+.section-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#0d7c6e;background:rgba(13,124,110,.08);padding:5px 14px;border-radius:100px;margin-bottom:14px}
+.section-title{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,34px);font-weight:800;color:#1e3a5f;line-height:1.15;margin-bottom:12px}
+.section-sub{font-size:15.5px;color:#64748b;max-width:720px;line-height:1.65}
+.tool-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#0d7c6e;color:#fff;font-family:'Sora';font-weight:800;font-size:15px;margin-right:10px;vertical-align:middle}
+.alt{background:#f8fafc}
+
+/* ── TOOL SHELL ── */
+.tool{background:#fff;border:1.5px solid #e2e8f0;border-radius:18px;overflow:hidden;box-shadow:0 12px 44px rgba(15,23,42,.05);margin-top:30px}
+.tool-bar{background:#0a1f35;padding:12px 20px;display:flex;align-items:center;gap:12px}
+.dots{display:flex;gap:6px}.dot{width:11px;height:11px;border-radius:50%}
+.dot-r{background:#ef4444}.dot-y{background:#f59e0b}.dot-g{background:#22c55e}
+.tool-bar-title{font-size:12.5px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;flex:1}
+.tool-live{font-size:10.5px;font-weight:700;color:#22c55e;background:rgba(34,197,94,.12);padding:4px 10px;border-radius:100px;border:1px solid rgba(34,197,94,.3)}
+.tool-body{padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:800px){.tool-body{grid-template-columns:1fr}}
+.tool-panel-label{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;margin-bottom:14px}
+
+/* ── CHECK TOOL ── */
+.seg{display:flex;gap:8px;margin-bottom:18px}
+.seg-btn{flex:1;padding:11px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;font-size:13.5px;font-weight:700;color:#64748b;cursor:pointer;transition:.18s;text-align:center}
+.seg-btn.on{border-color:#0d7c6e;background:#f0fdf9;color:#0d7c6e}
+.chk-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:11px;margin-bottom:9px;cursor:pointer;transition:.15s;user-select:none}
+.chk-row:hover{border-color:#cbd5e1;background:#fafbfc}
+.chk-row.on{border-color:#0d7c6e;background:#f0fdf9}
+.chk-box{width:22px;height:22px;border-radius:6px;border:2px solid #cbd5e1;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s;color:#fff;font-size:13px;font-weight:800}
+.chk-row.on .chk-box{background:#0d7c6e;border-color:#0d7c6e}
+.chk-txt{font-size:13.5px;font-weight:600;color:#334155}
+.chk-sub{font-size:11.5px;color:#94a3b8}
+.hidden{display:none!important}
+
+/* result */
+.result{border-radius:14px;padding:22px;min-height:230px;display:flex;flex-direction:column;justify-content:center}
+.result.pass{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac}
+.result.fail{background:linear-gradient(135deg,#fff8ec,#fef3c7);border:1.5px solid #fcd34d}
+.result-badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:6px 14px;border-radius:100px;align-self:flex-start;margin-bottom:16px}
+.result.pass .result-badge{background:#16a34a;color:#fff}
+.result.fail .result-badge{background:#d97706;color:#fff}
+.result-h{font-family:'Sora',sans-serif;font-size:19px;font-weight:800;color:#1e3a5f;margin-bottom:8px}
+.result-p{font-size:13.5px;color:#475569;line-height:1.6;margin-bottom:14px}
+.gap{display:flex;gap:11px;align-items:flex-start;background:rgba(255,255,255,.7);border:1px solid rgba(217,119,6,.25);border-radius:10px;padding:11px 13px;margin-bottom:8px}
+.gap-code{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;color:#b45309;background:#fff;border:1px solid #fcd34d;border-radius:6px;padding:3px 8px;flex-shrink:0}
+.gap-txt{font-size:12.5px;color:#475569;line-height:1.5}
+.gap-txt strong{color:#1e3a5f}
+
+/* ── PAMA CALC ── */
+.calc-table{width:100%;border-collapse:collapse;font-size:13px}
+.calc-table th{text-align:left;font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#94a3b8;padding:0 8px 8px}
+.calc-table td{padding:5px 8px 5px 0}
+.calc-input{width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#1e3a5f;transition:.15s}
+.calc-input:focus{outline:none;border-color:#0d7c6e;box-shadow:0 0 0 3px rgba(13,124,110,.1)}
+.calc-cpt{font-family:'JetBrains Mono',monospace;font-weight:700;color:#334155;white-space:nowrap;font-size:12.5px}
+.slider-wrap{margin:18px 0 8px}
+.slider-wrap label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:#334155;margin-bottom:8px}
+.slider-wrap label span{color:#d97706;font-family:'JetBrains Mono',monospace}
+input[type=range]{width:100%;accent-color:#d97706}
+.calc-out{background:#0a1f35;border-radius:14px;padding:22px;color:#fff}
+.calc-out-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.calc-out-row:last-child{border-bottom:none}
+.calc-out-lab{font-size:12.5px;color:rgba(255,255,255,.6)}
+.calc-out-val{font-family:'Sora',sans-serif;font-weight:800;font-size:17px}
+.calc-out-val.base{color:#5eead4}
+.calc-out-val.risk{color:#fca5a5}
+.bars{display:flex;align-items:flex-end;gap:14px;height:120px;margin:18px 0 6px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bar{width:100%;border-radius:6px 6px 0 0;transition:height .5s ease;min-height:4px}
+.bar-yr{font-size:11px;font-weight:700;color:rgba(255,255,255,.55)}
+.bar-amt{font-size:10.5px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.8)}
+
+/* ── DENIAL LIBRARY ── */
+.search-box{width:100%;border:1.5px solid #e2e8f0;border-radius:12px;padding:13px 16px 13px 42px;font-size:14.5px;color:#1e3a5f;transition:.15s;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 14px center}
+.search-box:focus{outline:none;border-color:#0d7c6e;box-shadow:0 0 0 3px rgba(13,124,110,.1)}
+.den-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:20px}
+.den-card{border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;transition:.18s;background:#fff}
+.den-card:hover{border-color:#cbd5e1;box-shadow:0 8px 28px rgba(15,23,42,.06)}
+.den-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.den-code{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;color:#fff;background:#1e3a5f;padding:4px 11px;border-radius:8px}
+.den-type{font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#0d7c6e;background:rgba(13,124,110,.09);padding:3px 10px;border-radius:100px}
+.den-label{font-family:'Sora',sans-serif;font-size:14.5px;font-weight:800;color:#1e3a5f;margin-bottom:5px}
+.den-plain{font-size:13px;color:#64748b;line-height:1.55;margin-bottom:12px}
+.den-tara{font-size:12.5px;color:#475569;line-height:1.55;background:#f0fdf9;border:1px solid rgba(13,124,110,.18);border-left:3px solid #0d7c6e;border-radius:8px;padding:10px 12px}
+.den-tara strong{color:#0d7c6e}
+.no-match{text-align:center;color:#94a3b8;font-size:14px;padding:40px 0;grid-column:1/-1}
+
+/* ── DISCLOSURE ── */
+.disclosure{background:#fff8ec;border:1.5px solid #fcd34d;border-radius:12px;padding:15px 18px;font-size:12.5px;color:#78350f;line-height:1.55;margin-top:22px}
+.disclosure strong{color:#d97706}
+
+/* ── CTA + FOOTER ── */
+.cta-strip{background:linear-gradient(135deg,#0a1f35,#1e3a5f);padding:72px 24px;text-align:center}
+.cta-strip h2{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;color:#fff;margin-bottom:14px}
+.cta-strip p{font-size:16px;color:rgba(255,255,255,.7);max-width:600px;margin:0 auto 30px}
+.cta-strip-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+.cta-primary{background:#d97706;color:#fff;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.2s;border:none}
+.cta-primary:hover{background:#b45309}
+.cta-ghost{background:transparent;color:#5eead4;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:2px solid #5eead4;transition:.2s}
+.cta-ghost:hover{background:#5eead4;color:#0a1f35}
+.footer-bar{background:#0a1f35;padding:24px;text-align:center;font-size:13px;color:rgba(255,255,255,.4)}
+.footer-bar a{color:rgba(255,255,255,.5);text-decoration:none}
+</style>
+<style>/* Hide Vercel toolbar */vercel-live-feedback,#__vercel_toolbar_container,.__vercel-toolbar,vt-toolbar,[id*="vercel-toolbar"],[class*="vercel-live"]{display:none!important}</style>
+</head>
+<body>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" onclick="window.location='index.html'" style="cursor:pointer">
+      <div class="nav-logo-icon"><img src="Ardia_Logo.png" alt="Ardia Precision Health Logo"></div>
+      <div class="logo-text">
+        <span class="logo-name">ARDIA <span class="teal">PRECISION HEALTH</span></span>
+        <span class="logo-sub">Next-Generation Intelligence for Healthcare Infrastructure.</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-item"><span class="nav-link" onclick="window.location='index.html'" style="cursor:pointer">Home</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='solutions.html'" style="cursor:pointer">Solutions Hub</span></li>
+      <li class="nav-item">
+        <span class="nav-link" style="display:flex;align-items:center;gap:4px;cursor:pointer" onclick="window.location='ecosystem.html'">
+          Ecosystem <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        <div class="mega-menu">
+          <div class="mega-header"><div class="mega-label">The Ardia Ecosystem</div><div class="mega-desc">Seven modules, one TARA reasoning core.</div></div>
+          <div class="mega-grid">
+            <div class="mega-item" onclick="window.location='ecosystem.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div><div class="mega-item-title">All 7 Modules</div><div class="mega-item-desc">Model, use case &amp; phase for each</div></div></div>
+            <div class="mega-item" onclick="window.location='tools.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="mega-item-title">Interactive Tools</div><div class="mega-item-desc">Pre-submission · PAMA · denials</div></div></div>
+            <div class="mega-item" onclick="window.location='our-product.html'" style="cursor:pointer"><div class="mega-icon mi-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><div><div class="mega-item-title">Product Overview</div><div class="mega-item-desc">What we're building &amp; dev stage</div></div></div>
+            <div class="mega-item" onclick="window.location='pama.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="mega-item-title">PAMA 2027 Framework</div><div class="mega-item-desc">Model the CLFS rate cliff</div></div></div>
+            <div class="mega-item" onclick="window.location='model-pama.html'" style="cursor:pointer"><div class="mega-icon mi-amber"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 8h4v10H7z"/><path d="M14 12l3-3 4 4"/></svg></div><div><div class="mega-item-title">Meridian — Rate-Cliff Model</div><div class="mega-item-desc">The PAMA model · live calculator</div></div></div>
+            <div class="mega-item" onclick="window.location='architecture.html'" style="cursor:pointer"><div class="mega-icon mi-teal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="mega-item-title">TARA Architecture</div><div class="mega-item-desc">The reasoning core, explained</div></div></div>
+            <div class="mega-item" onclick="window.location='roadmap.html'" style="cursor:pointer"><div class="mega-icon mi-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="14 5 21 12 14 19"/></svg></div><div><div class="mega-item-title">Roadmap &amp; Business Plan</div><div class="mega-item-desc">Four phases · 2027 → global</div></div></div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='architecture.html'" style="cursor:pointer">Software Platform</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='investors.html'" style="cursor:pointer">Investors</span></li>
+      <li class="nav-item"><span class="nav-link active-page" onclick="window.location='tools.html'" style="cursor:pointer">Tools</span></li>
+      <li class="nav-item"><span class="nav-link" onclick="window.location='contact.html'" style="cursor:pointer">Get in Touch</span></li>
+    </ul>
+    <div class="nav-cta">
+      <span class="btn-trial" onclick="window.location='ecosystem.html'" style="cursor:pointer">The Ecosystem</span>
+      <span class="btn-book" onclick="window.location='contact.html'" style="cursor:pointer">BOOK A DEMO</span>
+      <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div style="background:#fff;border-bottom:1px solid #e2e8f0;padding:8px 0;position:sticky;top:64px;z-index:40"><div style="max-width:1280px;margin:0 auto;padding:0 24px"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0d7c6e;cursor:pointer;transition:.2s;padding:4px 0" onclick="window.location='ecosystem.html'" onmouseover="this.style.gap='12px'" onmouseout="this.style.gap='8px'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Back to the Ecosystem</span></div></div>
+
+<div class="page-category-tag" style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 'Sora',system-ui;letter-spacing:.04em;text-transform:uppercase;color:#0ea5e9;background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.3);border-radius:6px;padding:4px 10px;margin:12px 24px 0">Product &amp; Platform</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-eyebrow">🧪 INTERACTIVE TOOLS — RUN THEM NOW</div>
+  <h1>Three tools that <span>actually run</span> in this page</h1>
+  <p class="hero-sub">No signup. No PHI. No data leaves your browser. These are working demonstrations of how the TARA engine reasons — the numbers you see are the ones you put in. Production runs the full MAC-specific policy set under a signed BAA.</p>
+  <div class="tool-jump">
+    <a href="#check" class="jump-btn">① Pre-submission check</a>
+    <a href="#pama" class="jump-btn">② PAMA 2027 calculator</a>
+    <a href="#denials" class="jump-btn">③ Denial library</a>
+  </div>
+</section>
+
+<!-- ═══════ TOOL 1 — PRE-SUBMISSION CHECK ═══════ -->
+<section class="section" id="check">
+  <div class="container">
+    <span class="section-label">Tool 1 · Prospective validation</span>
+    <h2 class="section-title"><span class="tool-num">1</span>Pre-submission necessity check</h2>
+    <p class="section-sub">Toggle what's actually in the record before you submit. TARA either clears the claim or shows you the exact denial codes you'd get — so you fix them <em>before</em> the payer does.</p>
+
+    <div class="tool">
+      <div class="tool-bar"><div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="tool-bar-title">tara://pre-submission-check</span><span class="tool-live">● LIVE · illustrative</span></div>
+      <div class="tool-body">
+        <div>
+          <div class="tool-panel-label">Test type</div>
+          <div class="seg">
+            <div class="seg-btn on" id="seg-tox" onclick="setType('tox')">Toxicology (definitive)</div>
+            <div class="seg-btn" id="seg-mol" onclick="setType('mol')">Molecular / genetic</div>
+          </div>
+          <div class="tool-panel-label">What's in the record?</div>
+          <div class="chk-row on" data-k="dx" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">ICD-10 diagnosis present</div><div class="chk-sub">A codeable diagnosis supports the order</div></div></div>
+          <div class="chk-row on" data-k="order" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">Signed physician order on file</div><div class="chk-sub">Ordering-provider signature + NPI</div></div></div>
+          <div class="chk-row on" data-k="note" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">Medical-necessity rationale note</div><div class="chk-sub">Why this test, for this patient, now</div></div></div>
+          <div class="chk-row on" data-k="freq" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">Within payer frequency limits</div><div class="chk-sub">Not exceeding LCD frequency caps</div></div></div>
+          <div class="chk-row on mol-only hidden" data-k="auth" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">Prior authorization obtained</div><div class="chk-sub">Required for most molecular / NGS</div></div></div>
+          <div class="chk-row on mol-only hidden" data-k="zcode" onclick="toggleChk(this)"><div class="chk-box">✓</div><div><div class="chk-txt">MolDX / DEX Z-code assigned</div><div class="chk-sub">Test registered &amp; mapped to a CPT</div></div></div>
+        </div>
+        <div>
+          <div class="tool-panel-label">TARA verdict</div>
+          <div class="result pass" id="checkResult"></div>
+        </div>
+      </div>
+    </div>
+    <div class="disclosure"><strong>Illustrative · synthetic.</strong> This demonstrates the logic of a necessity check against a simplified policy set. No real patient data is used or transmitted. In production, TARA runs the full, current LCD/NCD and MAC-specific policy for each claim under a BAA.</div>
+  </div>
+</section>
+
+<!-- ═══════ TOOL 2 — PAMA CALCULATOR ═══════ -->
+<section class="section alt" id="pama">
+  <div class="container">
+    <span class="section-label">Tool 2 · Rate-cliff modelling</span>
+    <h2 class="section-title"><span class="tool-num" style="background:#d97706">2</span>PAMA 2027 impact calculator</h2>
+    <p class="section-sub">Edit your test mix — rates and annual volumes are pre-filled with 2025 CLFS figures. PAMA allows CLFS cuts of up to 15% per year in 2027, 2028, and 2029. See the revenue at risk compound.</p>
+    <p style="margin:0 0 22px"><a href="model-pama.html" style="display:inline-flex;align-items:center;gap:8px;font-family:'Sora',sans-serif;font-weight:700;font-size:13px;color:#0d7c6e;text-decoration:none;transition:.2s" onmouseover="this.style.gap='12px'" onmouseout="this.style.gap='8px'">This calculator powers <b style="color:#e11d48">Meridian</b>, Ardia's PAMA rate-cliff model — open the full model page <span style="font-size:15px">→</span></a></p>
+
+    <div class="tool">
+      <div class="tool-bar"><div class="dots"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span></div><span class="tool-bar-title">tara://pama-clfs-model</span><span class="tool-live">● LIVE · your numbers</span></div>
+      <div class="tool-body">
+        <div>
+          <div class="tool-panel-label">Your test mix (annual)</div>
+          <table class="calc-table">
+            <thead><tr><th>CPT / HCPCS</th><th>2025 rate ($)</th><th>Volume / yr</th></tr></thead>
+            <tbody id="calcBody"></tbody>
+          </table>
+          <div class="slider-wrap">
+            <label>Annual CLFS cut applied <span id="cutVal">15%</span></label>
+            <input type="range" id="cutSlider" min="0" max="15" step="1" value="15" oninput="renderCalc()">
+            <div style="font-size:11px;color:#94a3b8;margin-top:4px">Statutory ceiling is 15%/yr for 2027–2029.</div>
+          </div>
+        </div>
+        <div>
+          <div class="tool-panel-label">Projected CLFS revenue</div>
+          <div class="calc-out">
+            <div class="calc-out-row"><span class="calc-out-lab">Baseline (2025 rates)</span><span class="calc-out-val base" id="outBase">$0</span></div>
+            <div class="bars" id="bars"></div>
+            <div class="calc-out-row"><span class="calc-out-lab">Cumulative revenue at risk by 2029</span><span class="calc-out-val risk" id="outRisk">$0</span></div>
+            <div class="calc-out-row"><span class="calc-out-lab">2029 run-rate vs. baseline</span><span class="calc-out-val" id="outPct" style="color:#fff">—</span></div>
+          </div>
+          <div style="font-size:11.5px;color:#94a3b8;margin-top:12px;line-height:1.5">Cuts compound: each year applies to the prior year's reduced rate. This is a planning model, not a CMS-published fee schedule.</div>
+        </div>
+      </div>
+    </div>
+    <div class="disclosure"><strong>Planning model.</strong> Seed rates reflect 2025 CLFS national limits for the listed codes and are illustrative. Actual cuts, floors, and code-level exceptions are set by CMS. Use this to frame exposure, then model your specific fee schedule with our team.</div>
+  </div>
+</section>
+
+<!-- ═══════ TOOL 3 — DENIAL LIBRARY ═══════ -->
+<section class="section" id="denials">
+  <div class="container">
+    <span class="section-label">Tool 3 · Denial intelligence</span>
+    <h2 class="section-title"><span class="tool-num" style="background:#1e3a5f">3</span>Denial-code library</h2>
+    <p class="section-sub">Search the CARC/RARC codes that hit independent labs hardest — each with the plain-English meaning and the TARA angle: how the engine prevents or argues it.</p>
+
+    <input type="text" class="search-box" id="denSearch" placeholder="Search a code or keyword — e.g. CO-50, necessity, molecular, frequency…" oninput="renderDenials()">
+    <div class="den-grid" id="denGrid"></div>
+    <div class="disclosure"><strong>Reference library.</strong> Code descriptions summarize standard CARC/RARC definitions for orientation. Payers attach their own remark codes and policies; TARA maps to the specific payer's rules at run time.</div>
+  </div>
+</section>
+
+<!-- ═══════ CTA STRIP ═══════ -->
+<section class="cta-strip">
+  <h2>This is a demo. Production is the whole policy set.</h2>
+  <p>See what TARA does against your actual denials and fee schedule — under a BAA, on your data.</p>
+  <div class="cta-strip-btns">
+    <a href="contact.html" class="cta-primary">📅 Book a working session</a>
+    <a href="ecosystem.html" class="cta-ghost">🧬 Back to the ecosystem</a>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<div class="footer-bar">
+  Ardia Health Labs LLC · <a href="https://ardiahealthlabs.com">ardiahealthlabs.com</a> · info@ardiahealthlabs.com · Pre-Revenue · Seed Stage · Building on Google Cloud
+</div>
+
+<script>
+/* ───────── TOOL 1: PRE-SUBMISSION CHECK ───────── */
+var testType = 'tox';
+function setType(t){
+  testType = t;
+  document.getElementById('seg-tox').classList.toggle('on', t==='tox');
+  document.getElementById('seg-mol').classList.toggle('on', t==='mol');
+  document.querySelectorAll('.mol-only').forEach(function(el){ el.classList.toggle('hidden', t!=='mol'); });
+  renderCheck();
+}
+function toggleChk(el){ el.classList.toggle('on'); renderCheck(); }
+
+/* denial-code copy reused by the verdict */
+var GAP = {
+  dx:   {code:'CO-50',  txt:'<strong>Not deemed medically necessary.</strong> No codeable diagnosis links the test to a covered indication on the payer LCD.'},
+  order:{code:'CO-16',  txt:'<strong>Claim lacks information.</strong> A signed ordering-provider record (signature + NPI) is missing.'},
+  note: {code:'CO-50',  txt:'<strong>Medical necessity not supported.</strong> No rationale note explains why this test, for this patient, now.'},
+  freq: {code:'CO-151', txt:'<strong>Frequency exceeded.</strong> The submitted volume is above what the payer supports for this period.'},
+  auth: {code:'CO-197', txt:'<strong>Authorization absent.</strong> Prior authorization required for this molecular/NGS service was not obtained.'},
+  zcode:{code:'CO-11',  txt:'<strong>Diagnosis inconsistent with procedure.</strong> Without a MolDX/DEX Z-code the test isn\'t mapped to a payable CPT.'}
+};
+function renderCheck(){
+  var rows = document.querySelectorAll('#check .chk-row');
+  var gaps = [];
+  rows.forEach(function(r){
+    if (r.classList.contains('hidden')) return;
+    if (!r.classList.contains('on')){
+      var k = r.getAttribute('data-k');
+      if (GAP[k]) gaps.push(GAP[k]);
+    }
+  });
+  // de-dupe by code+text
+  var seen = {}; gaps = gaps.filter(function(g){ var id=g.code+g.txt; if(seen[id])return false; seen[id]=1; return true; });
+  var box = document.getElementById('checkResult');
+  if (gaps.length === 0){
+    box.className = 'result pass';
+    box.innerHTML =
+      '<div class="result-badge">✓ Necessity PASS</div>'+
+      '<div class="result-h">Ready to submit</div>'+
+      '<div class="result-p">Every element TARA checks for a '+(testType==='tox'?'definitive toxicology':'molecular / genetic')+' claim is present. The engine finds no denial trigger against this policy set — submit with confidence.</div>'+
+      '<div style="font-size:12px;color:#16a34a;font-weight:700">Prospective validation is the whole point: fix it here, not in a 45-day appeal.</div>';
+  } else {
+    box.className = 'result fail';
+    var h = '<div class="result-badge">⚠ '+gaps.length+' denial risk'+(gaps.length>1?'s':'')+'</div>'+
+            '<div class="result-h">This claim would likely be denied</div>'+
+            '<div class="result-p">TARA flags the gaps below <strong>before</strong> submission. Each maps to a specific denial code and a documented fix.</div>';
+    gaps.forEach(function(g){
+      h += '<div class="gap"><span class="gap-code">'+g.code+'</span><span class="gap-txt">'+g.txt+'</span></div>';
+    });
+    box.innerHTML = h;
+  }
+}
+
+/* ───────── TOOL 2: PAMA CALCULATOR ───────── */
+var CLFS = [
+  {cpt:'80307', rate:62.14, vol:4200, label:'Presumptive drug test'},
+  {cpt:'G0483', rate:246.92, vol:1100, label:'Definitive drug test (22+)'},
+  {cpt:'82306', rate:36.55, vol:5200, label:'Vitamin D 25-OH'},
+  {cpt:'81225', rate:128.00, vol:900, label:'CYP2C19 (PGx)'},
+  {cpt:'82607', rate:18.61, vol:3100, label:'Vitamin B12'}
+];
+function fmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+function buildCalc(){
+  var b = document.getElementById('calcBody'); b.innerHTML='';
+  CLFS.forEach(function(r,i){
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="calc-cpt" title="'+r.label+'">'+r.cpt+'</td>'+
+      '<td><input class="calc-input" type="number" step="0.01" min="0" value="'+r.rate.toFixed(2)+'" oninput="CLFS['+i+'].rate=parseFloat(this.value)||0;renderCalc()"></td>'+
+      '<td><input class="calc-input" type="number" step="1" min="0" value="'+r.vol+'" oninput="CLFS['+i+'].vol=parseInt(this.value)||0;renderCalc()"></td>';
+    b.appendChild(tr);
+  });
+}
+function renderCalc(){
+  var cut = parseInt(document.getElementById('cutSlider').value,10)/100;
+  document.getElementById('cutVal').textContent = (cut*100).toFixed(0)+'%';
+  var base = CLFS.reduce(function(s,r){ return s + r.rate*r.vol; }, 0);
+  var y1 = base*(1-cut), y2 = y1*(1-cut), y3 = y2*(1-cut);
+  document.getElementById('outBase').textContent = fmt(base);
+  var risk = (base-y1)+(base-y2)+(base-y3); // cumulative annual shortfall vs baseline, 2027+2028+2029
+  document.getElementById('outRisk').textContent = fmt(risk);
+  document.getElementById('outPct').textContent = base>0 ? (y3/base*100).toFixed(0)+'%' : '—';
+  var max = base || 1;
+  var yrs = [{y:'Baseline',v:base,c:'#5eead4'},{y:'2027',v:y1,c:'#fbbf24'},{y:'2028',v:y2,c:'#fb923c'},{y:'2029',v:y3,c:'#f87171'}];
+  document.getElementById('bars').innerHTML = yrs.map(function(o){
+    var h = Math.max(4, (o.v/max)*100);
+    return '<div class="bar-col"><div class="bar-amt">'+fmt(o.v)+'</div><div class="bar" style="height:'+h+'%;background:'+o.c+'"></div><div class="bar-yr">'+o.y+'</div></div>';
+  }).join('');
+}
+
+/* ───────── TOOL 3: DENIAL LIBRARY ───────── */
+var DENIALS = [
+  {code:'CO-50', type:'Medical necessity', label:'Non-covered — not medically necessary', plain:'The payer does not consider the service medically necessary as billed. The single biggest lab denial category.', tara:'TARA matches the ordered test to the payer LCD covered-indication list and flags a missing necessity note or diagnosis <em>before</em> submission.'},
+  {code:'CO-11', type:'Coding', label:'Diagnosis inconsistent with procedure', plain:'The diagnosis submitted doesn\'t support the procedure code — extremely common in molecular billing.', tara:'The engine reconciles ICD-10 → CPT against payer policy and surfaces dx/CPT mismatches and missing MolDX Z-codes.'},
+  {code:'CO-197', type:'Authorization', label:'Pre-authorization absent', plain:'Required precertification, authorization, or notification was not obtained before the service.', tara:'TARA detects services that require prior auth (especially NGS / genetic panels) and flags the missing authorization prospectively.'},
+  {code:'CO-16', type:'Missing info', label:'Claim lacks information / billing error', plain:'The claim is missing a required data element or contains a submission error. Usually paired with a remark code.', tara:'TARA identifies the exact missing element — a modifier, ordering-provider NPI, or Z-code — instead of a vague "resubmit."'},
+  {code:'CO-151', type:'Frequency', label:'Frequency / volume not supported', plain:'The payer says the information submitted does not support this many services in the period.', tara:'The policy engine encodes LCD frequency caps (tox panels, vitamin D repeats) and warns when volume crosses the limit.'},
+  {code:'CO-4', type:'Coding', label:'Missing / inconsistent modifier', plain:'The procedure code is inconsistent with the modifier used, or a required modifier is missing.', tara:'TARA validates modifier requirements per payer (e.g. definitive-drug and molecular modifiers) before the claim goes out.'},
+  {code:'CO-96', type:'Coverage', label:'Non-covered charge(s)', plain:'The charge is non-covered under the patient\'s plan; a remark code specifies why.', tara:'The engine separates true non-coverage from fixable documentation gaps, so appeal effort goes only where it can win.'}
+];
+function renderDenials(){
+  var q = (document.getElementById('denSearch').value||'').toLowerCase().trim();
+  var list = DENIALS.filter(function(d){
+    if(!q) return true;
+    return (d.code+' '+d.type+' '+d.label+' '+d.plain+' '+d.tara).toLowerCase().indexOf(q) > -1;
+  });
+  var g = document.getElementById('denGrid');
+  if(list.length===0){ g.innerHTML = '<div class="no-match">No codes match "'+q+'". Try "necessity", "molecular", or a code like CO-50.</div>'; return; }
+  g.innerHTML = list.map(function(d){
+    return '<div class="den-card"><div class="den-top"><span class="den-code">'+d.code+'</span><span class="den-type">'+d.type+'</span></div>'+
+      '<div class="den-label">'+d.label+'</div><div class="den-plain">'+d.plain+'</div>'+
+      '<div class="den-tara"><strong>TARA angle → </strong>'+d.tara+'</div></div>';
+  }).join('');
+}
+
+/* init */
+buildCalc(); renderCalc(); renderCheck(); renderDenials();
+var _nav = document.getElementById('navbar');
+if (_nav) window.addEventListener('scroll', function(){ _nav.classList.toggle('scrolled', scrollY > 40); });
+</script>
+</body>
+</html>

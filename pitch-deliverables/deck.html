@@ -1,0 +1,175 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1280px 720px;margin:0}
+html,body{background:#334155}
+body{font-family:'Inter',-apple-system,system-ui,sans-serif;color:#0f172a;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.slide{width:1280px;height:720px;position:relative;overflow:hidden;page-break-after:always;break-after:page;display:flex;flex-direction:column;padding:60px 76px;
+  background:
+    radial-gradient(1150px 520px at 108% -12%,rgba(29,155,209,.10),transparent 58%),
+    radial-gradient(900px 520px at -12% 112%,rgba(20,184,166,.10),transparent 55%),
+    linear-gradient(160deg,#ffffff 0%,#f6f9fc 60%,#eef4fa 100%)}
+.slide:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(13,124,110,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(13,124,110,.05) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(120% 120% at 50% 0%,#000 30%,transparent 78%);mask-image:radial-gradient(120% 120% at 50% 0%,#000 30%,transparent 78%);pointer-events:none}
+h1,h2,h3{font-family:'Sora','Inter',sans-serif;letter-spacing:-.02em;font-weight:800;color:#0a1628;position:relative}
+h2{font-size:37px;line-height:1.08;margin-bottom:8px;max-width:20em}
+.eb{display:inline-flex;align-items:center;gap:9px;font:700 13px/1 'Sora';letter-spacing:2.5px;text-transform:uppercase;color:#0d9488;margin-bottom:14px;position:relative}
+.eb:before{content:"";width:26px;height:3px;border-radius:2px;background:linear-gradient(90deg,#0d9488,#1d9bd1)}
+.eb.light{color:#5eead4}.eb.light:before{background:linear-gradient(90deg,#14b8a6,#1d9bd1)}
+.sub{font-size:17px;color:#5a6e87;margin-bottom:20px;max-width:44em;position:relative}
+.note{margin-top:auto;background:linear-gradient(100deg,#fffaf0,#fff5e6);border:1.5px solid #fcd34d;border-left:5px solid #f59e0b;border-radius:12px;padding:12px 18px;font-size:13.5px;color:#78350f;position:relative;box-shadow:0 10px 26px -14px rgba(180,120,10,.45)}
+.foot{position:absolute;left:76px;right:76px;bottom:24px;display:flex;justify-content:space-between;font:600 11px/1 'JetBrains Mono',monospace;color:#94a3b8}
+.pg{position:absolute;right:76px;bottom:24px;font:600 12px 'JetBrains Mono';color:#94a3b8}.pg.light{color:#8fb0d6}
+/* dark / cover */
+.dark{background:linear-gradient(150deg,#0a1628,#0e2040 52%,#0a1c34);color:#fff}
+.dark:after{content:"";position:absolute;width:640px;height:640px;border-radius:50%;top:-230px;right:-170px;background:radial-gradient(circle,rgba(20,184,166,.22),transparent 62%);pointer-events:none}
+.dark:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(20,184,166,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(29,155,209,.07) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(90% 90% at 15% 20%,#000,transparent 75%);mask-image:radial-gradient(90% 90% at 15% 20%,#000,transparent 75%);pointer-events:none}
+.cov{justify-content:center}
+.cov .glow2{position:absolute;width:520px;height:520px;border-radius:50%;bottom:-220px;left:-150px;background:radial-gradient(circle,rgba(29,155,209,.20),transparent 62%);pointer-events:none}
+.brand{font-size:62px;color:#fff;line-height:1;margin-bottom:16px;text-shadow:0 2px 30px rgba(20,184,166,.25)}.brand span{background:linear-gradient(90deg,#1d9bd1,#14b8a6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cov-sub{font-family:'Sora';font-weight:700;font-size:23px;color:#14b8a6;margin-bottom:18px;position:relative}
+.cov-line{font-size:17px;color:#c3d3e6;max-width:42em;line-height:1.65;margin-bottom:24px;position:relative}
+.cov-foot{margin-top:22px;font:600 14px 'JetBrains Mono';color:#5eead4;position:relative}
+.light{color:#fff!important}
+.chips{display:flex;gap:10px;flex-wrap:wrap;position:relative}
+.chip{font:600 13px 'Sora';color:#eaf2fb;background:rgba(255,255,255,.09);border:1px solid rgba(94,234,212,.32);border-radius:100px;padding:7px 15px;backdrop-filter:blur(2px)}
+.chip.darkchip{color:#0a1628;background:linear-gradient(100deg,rgba(13,124,110,.10),rgba(29,155,209,.10));border-color:rgba(13,124,110,.3)}
+/* statement */
+.stmt{justify-content:center}
+.big{font-size:45px;line-height:1.12;max-width:18em}.big span{background:linear-gradient(90deg,#0d9488,#1d9bd1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stmt-sub{font-size:19px;color:#5a6e87;max-width:40em;margin:18px 0 24px;line-height:1.6;position:relative}
+/* shared card depth */
+.stat,.card,.fstep,.bl,.phase,.member,.use{box-shadow:0 14px 32px -16px rgba(10,22,40,.28),0 2px 6px rgba(10,22,40,.05)}
+/* stats */
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;position:relative}
+.stat{background:#fff;border:1px solid #e2e8f0;border-left:5px solid #0d9488;border-radius:14px;padding:19px 24px}
+.stat:nth-child(1){border-left-color:#0d9488}.stat:nth-child(2){border-left-color:#1d9bd1}.stat:nth-child(3){border-left-color:#b45309}.stat:nth-child(4){border-left-color:#7c3aed}
+.sn{font-family:'Sora';font-weight:800;font-size:40px;color:#0a1628;line-height:1}
+.stat:nth-child(1) .sn{color:#0d9488}.stat:nth-child(2) .sn{color:#1d9bd1}.stat:nth-child(3) .sn{color:#b45309}.stat:nth-child(4) .sn{color:#7c3aed}
+.sl{font-size:15px;font-weight:700;color:#0f172a;margin:6px 0 3px}
+.ss{font-size:12px;color:#5a6e87}
+/* cards */
+.cardgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;position:relative}
+.cardgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;position:relative}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:22px 20px 20px;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;top:0;left:0;right:0;height:5px}
+.card:nth-child(6n+1):before{background:linear-gradient(90deg,#0d9488,#14b8a6)}
+.card:nth-child(6n+2):before{background:linear-gradient(90deg,#1d9bd1,#38bdf8)}
+.card:nth-child(6n+3):before{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.card:nth-child(6n+4):before{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.card:nth-child(6n+5):before{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.card:nth-child(6n+6):before{background:linear-gradient(90deg,#e11d48,#fb7185)}
+.ct{font-family:'Sora';font-weight:800;font-size:18px;color:#0a1628}
+.cr{font-size:12px;font-weight:700;color:#0d9488;text-transform:uppercase;letter-spacing:.5px;margin:2px 0 8px}
+.card:nth-child(6n+2) .cr{color:#1d9bd1}.card:nth-child(6n+3) .cr{color:#b45309}.card:nth-child(6n+4) .cr{color:#7c3aed}.card:nth-child(6n+5) .cr{color:#16a34a}.card:nth-child(6n+6) .cr{color:#e11d48}
+.cd{font-size:13.5px;color:#5a6e87;line-height:1.55}
+/* flow */
+.flow{display:flex;align-items:stretch;gap:0;position:relative;margin-top:8px}
+.fstep{flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px 18px}
+.fn{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0a1628,#0d9488);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;margin-bottom:12px;box-shadow:0 6px 14px -4px rgba(13,124,110,.5)}
+.ft{font-family:'Sora';font-weight:800;font-size:17px;color:#0a1628;margin-bottom:6px}
+.fd{font-size:13px;color:#5a6e87;line-height:1.55}
+.farrow{display:flex;align-items:center;padding:0 8px;color:#14b8a6;font-size:22px;font-weight:800}
+/* table */
+.roster{width:100%;border-collapse:separate;border-spacing:0;position:relative;margin-top:6px;font-size:15px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;box-shadow:0 14px 32px -16px rgba(10,22,40,.24)}
+.roster th{text-align:left;font:700 11px 'Sora';letter-spacing:1px;text-transform:uppercase;color:#dbe7f5;background:linear-gradient(90deg,#0a1628,#0e2040);padding:12px 14px}
+.roster td{padding:9px 14px;border-bottom:1px solid #e2e8f0;color:#5a6e87;vertical-align:middle}
+.roster tbody tr:nth-child(even) td{background:rgba(29,155,209,.035)}
+.roster tbody tr:last-child td{border-bottom:0}
+.roster .tm{font-family:'Sora';font-weight:800;color:#0a1628;font-size:15px}
+.pill{font:700 10.5px 'JetBrains Mono';border:1px solid;border-radius:20px;padding:3px 9px;white-space:nowrap;background:rgba(255,255,255,.6)}
+/* bullets */
+.bullets{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;margin-top:8px}
+.bl{background:#fff;border:1px solid #e2e8f0;border-left:5px solid #1d9bd1;border-radius:12px;padding:18px 20px}
+.bl:nth-child(1){border-left-color:#0d9488}.bl:nth-child(2){border-left-color:#1d9bd1}.bl:nth-child(3){border-left-color:#7c3aed}.bl:nth-child(4){border-left-color:#16a34a}
+.blt{font-family:'Sora';font-weight:800;font-size:17px;color:#0a1628;margin-bottom:6px}
+.bld{font-size:13.5px;color:#5a6e87;line-height:1.55}
+/* roadmap */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;margin-top:8px}
+.phase{background:#fff;border:1px solid #e2e8f0;border-top:4px solid;border-radius:12px;padding:18px}
+.pw{font:700 12px 'JetBrains Mono';margin-bottom:4px}
+.pt{font-family:'Sora';font-weight:800;font-size:16px;color:#0a1628;margin-bottom:8px}
+.pd{font-size:12.5px;color:#5a6e87;line-height:1.5}
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;margin-top:8px}
+.member{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;text-align:center;position:relative;overflow:hidden}
+.member:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0d9488,#1d9bd1)}
+.member:nth-child(2):before{background:linear-gradient(90deg,#7c3aed,#a78bfa)}.member:nth-child(3):before{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.mav{width:68px;height:68px;border-radius:50%;margin:2px auto 14px;background:linear-gradient(135deg,#0a1628,#0d9488);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora';font-weight:800;font-size:22px;box-shadow:0 8px 18px -6px rgba(13,124,110,.55)}
+.member:nth-child(2) .mav{background:linear-gradient(135deg,#0a1628,#7c3aed)}.member:nth-child(3) .mav{background:linear-gradient(135deg,#0a1628,#b45309)}
+.mn{font-family:'Sora';font-weight:800;font-size:19px;color:#0a1628}
+.mrole{font-size:13px;font-weight:700;color:#0d9488;margin:3px 0 10px}
+.member:nth-child(2) .mrole{color:#7c3aed}.member:nth-child(3) .mrole{color:#b45309}
+.mbio{font-size:13px;color:#5a6e87;line-height:1.55}
+/* ask */
+.asklayout{display:grid;grid-template-columns:1.4fr 1fr;gap:26px;position:relative;margin-top:8px}
+.ublk-h{display:inline-flex;align-items:center;gap:8px;font:700 12px 'Sora';letter-spacing:1.5px;text-transform:uppercase;color:#0d9488;margin-bottom:12px}
+.ublk-h:before{content:"";width:20px;height:3px;border-radius:2px;background:linear-gradient(90deg,#0d9488,#1d9bd1)}
+.usegrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.use{background:#fff;border:1px solid #e2e8f0;border-top:4px solid #0d9488;border-radius:11px;padding:14px 16px}
+.use:nth-child(2){border-top-color:#1d9bd1}.use:nth-child(3){border-top-color:#f59e0b}.use:nth-child(4){border-top-color:#7c3aed}
+.ut{font-family:'Sora';font-weight:800;font-size:15px;color:#0a1628}
+.ud{font-size:12.5px;color:#5a6e87;margin-top:3px;line-height:1.45}
+.mils{display:flex;flex-direction:column;gap:10px}
+.mil{background:linear-gradient(100deg,#0a1628,#0e2040);color:#e8eef6;border-radius:10px;padding:11px 15px;font-size:13.5px;font-weight:600;border-left:4px solid #14b8a6;box-shadow:0 8px 20px -10px rgba(10,22,40,.5)}
+</style></head><body><section class="slide dark cov">
+      <div class="glow2"></div>
+      <div class="eb light">SEED ROUND · 2026 · DALLAS–FORT WORTH</div>
+      <h1 class="brand">ARDIA <span>PRECISION HEALTH</span></h1>
+      <div class="cov-sub">One governed reasoning core for revenue &amp; precision care</div>
+      <p class="cov-line">Governed, auditable AI on one reasoning core (TARA) — recovering wrongly denied lab &amp; molecular revenue, modelling the 2027 PAMA rate cliff, and extending into pulmonary care, elder care and precision medicine.</p>
+      <div class="chips"><span class="chip">Labs · PAMA cliff · Pulmonary</span><span class="chip">Elder care · Precision medicine</span><span class="chip">Non-diagnostic · auditable</span></div>
+      <div class="cov-foot">Raising a $750K–$1.5M seed · ardiahealthlabs.com</div>
+      <div class="pg light">01 / 15</div>
+    </section>
+<section class="slide"><div class="eb">THE PROBLEM</div>
+      <h2>Healthcare's revenue is leaking — and the cliff is coming</h2><p class="sub">Independent labs can't afford to fight the denials they're owed, and 2027 makes it worse.</p>
+      <div class="statgrid"><div class="stat"><div class="sn">23–35%</div><div class="sl">Molecular / tox claims denied</div><div class="ss">Industry benchmark · XiFin / JAMA 2024</div></div><div class="stat"><div class="sn">~65%</div><div class="sl">Of denials never appealed</div><div class="ss">MGMA 2023</div></div><div class="stat"><div class="sn">15%/yr</div><div class="sl">PAMA CLFS cuts, 2027–2029</div><div class="ss">Protecting Access to Medicare Act</div></div><div class="stat"><div class="sn">$12B+</div><div class="sl">Lab revenue left unpaid annually</div><div class="ss">Industry estimate</div></div></div>
+      <div class="note">Every denied molecular test is also a patient who may not get the precision answer their care depends on.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">02 / 15</span></div></section>
+<section class="slide stmt"><div class="eb">WHY NOW</div>
+      <h2 class="big">The tools finally exist to <span>reason</span> about a denial — not just flag it.</h2>
+      <p class="stmt-sub">Generic AI hallucinates policy. Rules engines can't read a chart. The winning approach is <b>neuro-symbolic and governed</b>: a deterministic policy engine a guarded LLM can't override — auditable end to end.</p>
+      <div class="chips"><span class="chip darkchip">$70B+ AI-in-RCM market by 2030 (Grand View 2024)</span><span class="chip darkchip">24% CAGR</span><span class="chip darkchip">No AI-native incumbent for independent labs</span></div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">03 / 15</span></div></section>
+<section class="slide"><div class="eb">THE SOLUTION</div>
+      <h2>TARA — the Triadic Adjudicative Reasoning core</h2><p class="sub">One governed engine every Ardia model runs on, at three reasoning tiers.</p>
+      <div class="cardgrid3"><div class="card"><div class="ct">⚡ Swift</div><div class="cr">Fast tier</div><div class="cd">Instant, low-deliberation answers — no tool calls. For clean claims and quick checks.</div></div><div class="card"><div class="ct">🧠 Cortex</div><div class="cr">Thinking tier</div><div class="cd">Step-by-step reasoning shown before the answer — the model thinks the problem through.</div></div><div class="card"><div class="ct">🔬 Scholar</div><div class="cr">Deep-research tier</div><div class="cd">Plans, calls tools, searches policy &amp; evidence, retrieves, reasons, and cites. The full investigation.</div></div></div>
+      <div class="note">Neuro-symbolic: a deterministic policy engine + a guarded LLM that cannot override policy or safety. Human-in-the-loop, non-diagnostic, tamper-evident audit trail.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">04 / 15</span></div></section>
+<section class="slide"><div class="eb">HOW IT WORKS</div>
+      <h2>Denied claim → cited appeal, in one governed trace</h2>
+      <div class="flow"><div class="fstep"><div class="fn">1</div><div class="ft">Ingest</div><div class="fd">EDI 835/837 denial + the order and result — de-identified first by the Sentinel kernel (HIPAA Safe Harbor).</div></div><div class="farrow">→</div><div class="fstep"><div class="fn">2</div><div class="ft">Adjudicate</div><div class="fd">TARA verifies against Medicare policy — NCD 90.2, MolDX / LCD, NCCI edits — and payer-specific rules.</div></div><div class="farrow">→</div><div class="fstep"><div class="fn">3</div><div class="ft">Research</div><div class="fd">Scholar tier searches NCCN, CPIC, PubMed and the DEX registry; retrieves the governing coverage rule.</div></div><div class="farrow">→</div><div class="fstep"><div class="fn">4</div><div class="ft">Draft</div><div class="fd">Generates a fully-cited appeal with the audit trail — a human reviewer verifies and submits. Never auto-filed.</div></div></div>
+      <div class="note">Every assertion traces to a named policy or guideline. Non-diagnostic. Drafts for human review.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">05 / 15</span></div></section>
+<section class="slide"><div class="eb">THE CONSTELLATION</div>
+      <h2>Nine models & agents, one governed core</h2><p class="sub">Each does one job well. Honest status — measured, deterministic, in-build, or a modelled target.</p>
+      <table class="roster"><thead><tr><th>Model</th><th>What it does</th><th>Status</th></tr></thead><tbody><tr><td class="tm">MolecuIQ</td><td>Molecular &amp; genomic denial recovery (MolDX, NGS, NCCN)</td><td><span class="pill" style="color:#2563eb;border-color:#2563eb">Modelled target</span></td></tr><tr><td class="tm">ToxIQ</td><td>Toxicology denial appeals (G0480–G0483, NCCI, PGx overlay)</td><td><span class="pill" style="color:#2563eb;border-color:#2563eb">Modelled target</span></td></tr><tr><td class="tm">PulmoIQ</td><td>Respiratory intelligence — asthma/COPD (GOLD/GINA)</td><td><span class="pill" style="color:#2563eb;border-color:#2563eb">Modelled target</span></td></tr><tr><td class="tm">Meridian</td><td>PAMA rate-cliff engine — deterministic, no PHI</td><td><span class="pill" style="color:#0d9488;border-color:#0d9488">Deterministic · unit-tested</span></td></tr><tr><td class="tm">Cadence</td><td>Movement / deterioration model (phone sensors)</td><td><span class="pill" style="color:#16a34a;border-color:#16a34a">Measured · 95.45% UCI HAR</span></td></tr><tr><td class="tm">Aria</td><td>Voice-first elder companion &amp; safety spine (FAST/C-SSRS/911)</td><td><span class="pill" style="color:#2563eb;border-color:#2563eb">Modelled target</span></td></tr><tr><td class="tm">Lumen</td><td>Plain-language report &amp; scan explainer</td><td><span class="pill" style="color:#2563eb;border-color:#2563eb">Modelled target</span></td></tr><tr><td class="tm">Sentinel</td><td>De-identification &amp; audit compliance kernel</td><td><span class="pill" style="color:#d97706;border-color:#d97706">In build</span></td></tr><tr><td class="tm">TARA</td><td>The triadic reasoning core every model runs on</td><td><span class="pill" style="color:#d97706;border-color:#d97706">Framework · in build</span></td></tr></tbody></table><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">06 / 15</span></div></section>
+<section class="slide"><div class="eb">SOLUTIONS · WHAT WE'RE BUILDING</div>
+      <h2>Five focus areas, one platform</h2>
+      <div class="cardgrid"><div class="card"><div class="ct">🧪 Lab Reimbursement</div><div class="cr">ToxIQ · MolecuIQ</div><div class="cd">Cited denial appeals for toxicology &amp; molecular billing. The near-term revenue engine.</div></div><div class="card"><div class="ct">🧬 Precision Medicine</div><div class="cr">Genomics · PGx</div><div class="cd">Right drug / right dose, molecular-matched therapy, inherited-risk prevention. Decision support.</div></div><div class="card"><div class="ct">📈 PAMA Rate-Cliff</div><div class="cr">Meridian</div><div class="cd">Deterministic model of the 2027–2029 CLFS cuts and revenue at risk. No PHI.</div></div><div class="card"><div class="ct">🫁 Pulmonary Care</div><div class="cr">PulmoIQ</div><div class="cd">Longitudinal asthma/COPD intelligence, PFT &amp; sleep-study coding integrity.</div></div><div class="card"><div class="ct">❤️ Aging & Elder Care</div><div class="cr">Aria + Cadence</div><div class="cd">Voice companion, safety escalation, and the trained movement model.</div></div><div class="card"><div class="ct">◆ The Core</div><div class="cr">TARA + Sentinel</div><div class="cd">Governed reasoning + de-identification every solution inherits by default.</div></div></div>
+      <div class="note">Non-diagnostic across all five. Reimbursement is the enabler; better patient outcomes are the point.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">07 / 15</span></div></section>
+<section class="slide"><div class="eb">WHAT'S REAL TODAY</div>
+      <h2>Pre-revenue — and honest about it</h2><p class="sub">No clients, no revenue, no clinical outcomes claimed. But not vaporware:</p>
+      <div class="statgrid"><div class="stat"><div class="sn">95.45%</div><div class="sl">Cadence held-out accuracy</div><div class="ss">Trained from scratch · public UCI HAR · reproducible in-repo</div></div><div class="stat"><div class="sn">7/7</div><div class="sl">Meridian PAMA math — unit tests green</div><div class="ss">Deterministic engine · models/meridian/clfs.py</div></div><div class="stat"><div class="sn">6</div><div class="sl">Grounded, honesty-verified model demos</div><div class="ss">Real codes/policies · synthetic data · non-diagnostic</div></div><div class="stat"><div class="sn">100%</div><div class="sl">Claims measured, cited, or labelled target</div><div class="ss">Honesty baked into every page</div></div></div>
+      <div class="note">The 'watch it reason' demos show the actual tool-using trace — not a hard-coded animation.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">08 / 15</span></div></section>
+<section class="slide"><div class="eb">BUSINESS MODEL</div>
+      <h2>Two honest paths to revenue</h2>
+      <div class="cardgrid3"><div class="card"><div class="ct">Contingency RCM</div><div class="cr">Enterprise labs</div><div class="cd">20–30% of revenue actually recovered — zero upfront. The lab pays only when a denial is overturned. (Target model.)</div></div><div class="card"><div class="ct">Product-led seats</div><div class="cr">Solo → lab-wide</div><div class="cd">Self-serve $149/seat; lab license upgrades without a sales call. Target model, not current users.</div></div><div class="card"><div class="ct">Precision-care support</div><div class="cr">Roadmap</div><div class="cd">Decision-support for PGx prescribing &amp; molecular therapy-matching, once validated under BAA.</div></div></div>
+      <div class="note">First dollar: convert a design-partner lab to a paid pilot on a retrospective backtest of their own denials (2027).</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">09 / 15</span></div></section>
+<section class="slide"><div class="eb">MARKET</div>
+      <h2>A large market with no AI-native incumbent</h2><p class="sub">Ardia sits at the intersection of revenue-cycle AI and precision medicine.</p>
+      <div class="statgrid"><div class="stat"><div class="sn">$70B+</div><div class="sl">AI-in-RCM market by 2030</div><div class="ss">Grand View Research 2024 · 24% CAGR</div></div><div class="stat"><div class="sn">$120B</div><div class="sl">Precision-medicine TAM (2025)</div><div class="ss">Projected ~$250B by 2030</div></div><div class="stat"><div class="sn">2.76×</div><div class="sl">Independent-lab denial rate vs hospitals</div><div class="ss">JAMA Network Open 2024</div></div><div class="stat"><div class="sn">75K+</div><div class="sl">Genetic tests, <200 CPT codes</div><div class="ss">Root cause of molecular denials</div></div></div>
+      <div class="note">Beachhead: independent molecular & toxicology labs in Texas → national.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">10 / 15</span></div></section>
+<section class="slide"><div class="eb">ROADMAP</div>
+      <h2>Build the adjudication spine, then scale</h2><div class="phases"><div class="phase" style="border-top-color:#16a34a"><div class="pw" style="color:#16a34a">2026</div><div class="pt">Phase 1 · Build</div><div class="pd">EDI 835/837 ingestion, symbolic MolDX/Z-code/LCD policy engine, TARA appeal generator + audit trail, HIPAA GCP + SOC 2.</div></div><div class="phase" style="border-top-color:#d97706"><div class="pw" style="color:#d97706">2027</div><div class="pt">Phase 2 · Pilot</div><div class="pd">First paid lab pilot under a signed BAA — retrospective backtest of the lab's own denials, human-in-the-loop.</div></div><div class="phase" style="border-top-color:#64748b"><div class="pw" style="color:#64748b">2028</div><div class="pt">Phase 3 · Scale</div><div class="pd">National rollout, payer pre-submission automation, LIS/EHR integration via HL7 FHIR.</div></div><div class="phase" style="border-top-color:#64748b"><div class="pw" style="color:#64748b">2028+</div><div class="pt">Phase 4 · Precision</div><div class="pd">Extend into precision medicine — cardiovascular &amp; oncology, where reimbursement meets genomics (NCCN, CPIC).</div></div></div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">11 / 15</span></div></section>
+<section class="slide"><div class="eb">WHY WE WIN</div>
+      <h2>Moat: governed, auditable, and payer-native</h2><div class="bullets"><div class="bl"><div class="blt">Neuro-symbolic + auditable</div><div class="bld">Deterministic policy engine a guarded LLM can't override — a tamper-evident audit trail on every recommendation. Built for FCA-safe, HIPAA/SB 1188/TRAIGA compliance.</div></div><div class="bl"><div class="blt">Payer-insider knowledge</div><div class="bld">12+ years inside Cigna, UnitedHealth, Optum, Teladoc — we helped build the denial logic Ardia now defeats.</div></div><div class="bl"><div class="blt">TARA framework IP</div><div class="bld">A proprietary triadic reasoning architecture, created in-house, that generalises across the model constellation.</div></div><div class="bl"><div class="blt">Honest by construction</div><div class="bld">Every claim measured, cited, or labelled — the credibility a regulated buyer and a diligence-minded investor both require.</div></div></div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">12 / 15</span></div></section>
+<section class="slide"><div class="eb">TEAM</div>
+      <h2>Built by people who know the problem from both sides</h2><div class="team"><div class="member"><div class="mav">PK</div><div class="mn">Paramesh Kurapati</div><div class="mrole">Chief Executive Officer</div><div class="mbio">Leads company strategy, GTM and investor relations; drives commercial execution and partnerships.</div></div><div class="member"><div class="mav">RV</div><div class="mn">Ram Vadlamudi</div><div class="mrole">Founder & Creator, TARA Framework</div><div class="mbio">Technical founder and inventor of the Triadic Adjudicative Reasoning Architecture; leads platform architecture, the model constellation, and product engineering.</div></div><div class="member"><div class="mav">MJ</div><div class="mn">Manasa Jampani</div><div class="mrole">Co-Founder</div><div class="mbio">Healthcare-AI and payer strategy; clinical-operations depth and precision-care product direction.</div></div></div>
+      <div class="note">Combining a CEO on strategy, the architect who created TARA, and payer + healthcare-AI depth.</div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">13 / 15</span></div></section>
+<section class="slide"><div class="eb">THE ASK</div>
+      <h2>Raising a $750K–$1.5M seed</h2><p class="sub">To fund Phase-1 execution and reach a first paid lab pilot in 2027.</p>
+      <div class="asklayout"><div><div class="ublk-h">Use of funds</div><div class="usegrid"><div class="use"><div class="ut">Engineering</div><div class="ud">EDI ingestion + symbolic policy engine + TARA appeal generator</div></div><div class="use"><div class="ut">Compliance & cloud</div><div class="ud">HIPAA-ready GCP (Vertex AI, FHIR R4, BigQuery), SOC 2, BAAs</div></div><div class="use"><div class="ut">Clinical validation</div><div class="ud">Backtest on a design-partner lab's denials under LDS/DUA</div></div><div class="use"><div class="ut">Go-to-market</div><div class="ud">Convert the design partner to a signed pilot</div></div></div></div>
+      <div><div class="ublk-h">Milestones</div><div class="mils"><div class="mil">Q3 2026 — governance & data access</div><div class="mil">Q4 2026 — ingestion + policy engine live</div><div class="mil">Q1 2027 — appeal generator + audit trail</div><div class="mil">Q2–Q3 2027 — first paid lab pilot</div></div></div></div><div class="foot"><span>Ardia Precision Health · Pre-Revenue · Seed Stage · Dallas–Fort Worth · Founded Jan 2026 · Not a diagnosis</span><span class="pg">14 / 15</span></div></section>
+<section class="slide dark cov">
+      <h2 class="big light" style="max-width:16em">Governed AI you can audit — for revenue and for care.</h2>
+      <p class="cov-line" style="font-size:19px">Pre-revenue, seed-stage, and honest about every number. Let's build the reasoning layer for healthcare.</p>
+      <div class="cov-foot">ardiahealthlabs.com · info@ardiahealthlabs.com · Dallas–Fort Worth, TX</div>
+      <div class="pg light">15 / 15</div></section></body></html>
