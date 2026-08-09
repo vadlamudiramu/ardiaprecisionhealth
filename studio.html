@@ -434,6 +434,8 @@ function tdRun(){
   document.getElementById('tdLive').style.display='flex';
   document.getElementById('tdRun').disabled=true;
   body.innerHTML='<div class="td-user"><div class="av">👤</div><div class="ub">'+esc(userMsg)+fileTag+'</div></div>';
+  // message is now sent into the console — clear the input so the default prompt doesn't linger
+  document.getElementById('stPrompt').value='';
   // stream the pipeline ("how it reasons") while the engine works
   var steps=genericSteps(tier), i=0, delay=(tier==='swift'?300:tier==='cortex'?460:560);
   function nextStep(){ if(i<steps.length){ body.insertAdjacentHTML('beforeend',stepHTML(steps[i])); i++; body.scrollTop=body.scrollHeight; timers.push(setTimeout(nextStep,delay)); } }
