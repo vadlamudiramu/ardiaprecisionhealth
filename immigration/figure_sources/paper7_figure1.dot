@@ -1,0 +1,44 @@
+digraph PGxIQ {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  order [label="PGx Test Order /\nClaim Construction", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l1 {
+    label="Layer 1: Deterministic PGx Policy Engine";
+    fontname="Helvetica-Bold"; fontsize=11; color="#1f3864"; style="rounded"; labeljust="l";
+    l1 [label="Duplicate germline testing check\nGene-specific non-coverage rules\n(e.g., VKORC1/CYP2C9 warfarin)\nPanel-vs-component billing logic", fillcolor="#dce6f1", color="#1f3864"];
+  }
+
+  subgraph cluster_l3 {
+    label="Layer 3: Predictive Denial Prevention";
+    fontname="Helvetica-Bold"; fontsize=11; color="#8a5a12"; style="rounded"; labeljust="l";
+    l3 [label="ML on PGx-specific EDI 835 history\nPayer-specific prior-auth patterns\nPre-submission risk score", fillcolor="#fdf0d5", color="#8a5a12"];
+  }
+
+  clean [label="Compliant Claim\nSubmission", fillcolor="white", color="#595959"];
+  denied [label="Denied Claim", fillcolor="white", color="#595959"];
+
+  subgraph cluster_l2 {
+    label="Layer 2: Generative Clinical Reasoning";
+    fontname="Helvetica-Bold"; fontsize=11; color="#0f6657"; style="rounded"; labeljust="l";
+    l2 [label="LCD L39063-anchored appeal brief\nCPIC / PharmGKB evidence citation\nHuman-reviewed before submission", fillcolor="#d9f0ec", color="#0f6657"];
+  }
+
+  appeal [label="Appeal Resubmission", fillcolor="white", color="#595959"];
+
+  order -> l1;
+  order -> l3;
+  l1 -> clean [label="passes checks"];
+  l1 -> denied [style=dashed, label="fails / no history"];
+  clean -> denied [style=dashed, label="payer denial"];
+  denied -> l2;
+  l2 -> appeal;
+  denied -> l3 [style=dashed, label="training feedback", constraint=false];
+
+  label="Figure 1. PGx-IQ architecture. The deterministic policy engine evaluates duplicate-testing status, gene-specific non-coverage rules, and panel-vs-component billing logic at claim construction; the predictive layer concurrently scores denial risk from PGx-specific EDI 835 history; denied claims route to the generative layer for LCD-anchored, human-reviewed appeal drafting.";
+}
