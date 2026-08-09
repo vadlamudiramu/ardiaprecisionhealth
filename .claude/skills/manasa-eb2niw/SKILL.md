@@ -64,7 +64,7 @@ Manasa has direct healthcare IT experience inside payer and payer-adjacent organ
 | ACO Operations + Independent Lab AI | ✅ Paper drafted | Paper M1 | `papers/paperM1_aco_independent_lab_ai.md` |
 | Payer AI Accountability / Algorithmic Fairness | ✅ Paper drafted | Paper M2 | `papers/paperM2_payer_ai_accountability.md` |
 | Renal Care + Molecular Diagnostics Billing | ✅ Paper drafted | Paper M3 | `papers/paperM3_renal_care_molecular_diagnostics.md` |
-| Value-Based Care Lab Economics | 🔬 Research pending | Paper M4 | ACO lab participation economics |
+| Value-Based Care Lab Economics | ✅ Paper drafted | Paper M4 | `papers/paperM4_value_based_care_lab_economics.md` |
 | Pilot Outcomes — CEO Perspective | ⏳ After Q2 2026 pilot | Paper M5 | Revenue recovery outcomes from CEO lens |
 
 ---

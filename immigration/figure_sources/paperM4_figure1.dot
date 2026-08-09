@@ -1,0 +1,33 @@
+digraph VBCFramework {
+  rankdir=LR;
+  fontname="Helvetica";
+  labelloc="b";
+  fontsize=13;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12, margin="0.25,0.15"];
+  edge [fontname="Helvetica", fontsize=10, color="#404040"];
+
+  denial [label="Independent Laboratory\nClaim Denial Volatility\n(35.3% denial rate;\n2.76x disparity vs. hospital labs)", fillcolor="#f8d7da", color="#8b2e2e"];
+
+  m1 [label="Mechanism 1:\nBenchmark Contribution\nUnpredictability", fillcolor="#dce6f1", color="#1f3864"];
+  m2 [label="Mechanism 2:\nConstrained Care-Coordination\nInvestment Capacity", fillcolor="#d9f0ec", color="#0f6657"];
+  m3 [label="Mechanism 3:\nElevated Continuity-\nof-Service Risk", fillcolor="#fdf0d5", color="#8a5a12"];
+
+  risk [label="ACO Participation Risk\nfor Independent Laboratories", fillcolor="white", color="#595959"];
+
+  stabilization [label="AI-Driven Revenue Cycle\nStabilization\n(enabling infrastructure)", fillcolor="#e2d9f3", color="#4b2e83"];
+
+  participation [label="Viable Independent Lab\nParticipation in MSSP /\nACO REACH Shared Savings", fillcolor="white", color="#595959"];
+
+  denial -> m1;
+  denial -> m2;
+  denial -> m3;
+  m1 -> risk;
+  m2 -> risk;
+  m3 -> risk;
+  stabilization -> m1 [style=dashed, label="mitigates", color="#4b2e83"];
+  stabilization -> m2 [style=dashed, label="mitigates", color="#4b2e83"];
+  stabilization -> m3 [style=dashed, label="mitigates", color="#4b2e83"];
+  risk -> participation [style=dashed, label="if mitigated"];
+
+  label="Figure 1. Framework linking independent laboratory claim denial volatility to ACO participation risk through three mechanisms, with AI-driven revenue cycle stabilization proposed as the mitigating enabling infrastructure.";
+}
