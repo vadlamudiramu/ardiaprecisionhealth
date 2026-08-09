@@ -424,6 +424,7 @@ body.guardian .gm-banner{display:flex}
       <button class="nav-item" data-v="appts" onclick="show('appts')"><span class="ic">📅</span><span class="lbl">Appointments</span></button>
       <button class="nav-item" data-v="records" onclick="show('records')"><span class="ic">📄</span><span class="lbl">Records &amp; Results</span></button>
       <button class="nav-item" data-v="vitals" onclick="show('vitals')"><span class="ic">📈</span><span class="lbl">Vitals &amp; Devices</span></button>
+      <button class="nav-item" data-v="conditions" onclick="show('conditions')"><span class="ic">🩺</span><span class="lbl">Care Programs</span></button>
       <div class="grp">AI health checks</div>
       <button class="nav-item" data-v="checks" onclick="show('checks')"><span class="ic" style="background:linear-gradient(135deg,#0d7c6e,#1d9bd1);color:#fff">✦</span><span class="lbl">Health Checks</span><span class="tag" style="background:var(--teal-d)">Free</span></button>
       <button class="nav-item" data-v="symptom" onclick="show('symptom')"><span class="ic">🩺</span><span class="lbl">Symptom Helper</span></button>
@@ -916,9 +917,56 @@ function toggleConsent(ci,cat,el){
   toast((CARE.caregivers[ci].cats[cat]?'Shared ':'Stopped sharing ')+cat+' with '+CARE.caregivers[ci].name.split(' ')[0]+'.');
 }
 
+/* ============ CARE PROGRAMS (condition packs) ============ */
+var PROGRAMS=[
+  {key:'pulm', active:true, icon:'🫁', color:'#0369a1', name:'Pulmonary care (COPD)', forWhom:'For your COPD',
+   adds:['Daily breathing check-in (breathlessness, phlegm color, inhaler use)','Optional SpO₂ or peak-flow entry','Inhaler-technique reminders','A yellow and red-zone action plan that tells you AND your caregiver exactly when to call','PulmoIQ respiratory risk signal (non-diagnostic)'],
+   zones:[
+     {z:'GREEN — my usual self', c:'#16a34a', d:'Usual breathing, usual cough, usual activity. Take your daily inhalers as prescribed.'},
+     {z:'YELLOW — worse than usual', c:'#d97706', d:'More short of breath, more cough or phlegm, or using your rescue inhaler more than usual. Start your action-plan steps and call your care team today.'},
+     {z:'RED — emergency', c:'#dc2626', d:'Severe breathlessness, cannot speak a full sentence, lips or fingertips look blue, or the rescue inhaler is not helping. Call 911 now.'}
+   ]},
+  {key:'cardio', active:true, icon:'❤️', color:'#e11d48', name:'Heart & metabolic care', forWhom:'For your heart failure, diabetes & blood pressure',
+   adds:['Daily weight, blood pressure and glucose trends with gentle nudges','Cross-condition medicine safety across all your medicines','A fluid and weight-gain early-warning card','Plain-language diet and fluid tips (cite-or-abstain, non-diagnostic)'],
+   zones:[
+     {z:'GREEN — steady', c:'#16a34a', d:'Weight steady, breathing usual, no new swelling. Keep your medicines and weigh yourself each morning.'},
+     {z:'YELLOW — watch', c:'#d97706', d:'Up 2 to 3 lb in a day or 5 lb in a week, more swelling in the legs, or short of breath lying flat. Call your care team today — your water pill may need adjusting.'},
+     {z:'RED — emergency', c:'#dc2626', d:'Severe trouble breathing, chest pain, or fainting. Call 911 now.'}
+   ]},
+  {key:'transitions', active:true, icon:'🩹', color:'#7c3aed', name:'Recovery & transitions', forWhom:'Recovering from cataract surgery (3 weeks ago)',
+   adds:['Post-surgery and post-hospital recovery check-ins with red-flag escalation','A 30-day watch after any hospital stay (decision support)','A follow-up appointment and medicine-reconciliation checklist','A de-identified hand-off summary for your care team'],
+   zones:null},
+  {key:'cognitive', active:false, icon:'🧠', color:'#0d7c6e', name:'Memory support', forWhom:'Optional — gentle help if memory becomes a concern',
+   adds:['One task per screen, with no timeouts','Simpler steps with easy undo (confirm, never rush)','More caregiver co-pilot visibility','Routine and medicine prompting with gentle reminders'],
+   zones:null}
+];
+function addProgram(key){ PROGRAMS.forEach(function(p){ if(p.key===key) p.active=true; }); show('conditions'); toast('Program added to your hub.'); }
+VIEWS.conditions=function(){
+  var active=PROGRAMS.filter(function(p){return p.active;}), inactive=PROGRAMS.filter(function(p){return !p.active;});
+  function prog(p){
+    return '<div class="card" style="border-left:4px solid '+p.color+'">'+
+      '<div class="card-h"><span class="ci" style="background:'+p.color+'">'+p.icon+'</span><div><h3>'+esc(p.name)+'</h3><div class="gm">'+esc(p.forWhom)+'</div></div></div>'+
+      '<ul style="margin:0 0 4px;padding-left:20px">'+p.adds.map(function(a){return '<li style="margin:5px 0">'+esc(a)+'</li>';}).join('')+'</ul>'+
+      (p.zones?('<div style="font-weight:700;font-size:14px;margin:14px 0 6px">Your action plan — when to act</div>'+
+        '<div style="border:1px solid var(--line);border-radius:12px;overflow:hidden">'+
+        p.zones.map(function(z){return '<div style="display:flex;gap:12px;padding:12px 14px;border-top:1px solid var(--line)"><span style="width:8px;border-radius:6px;background:'+z.c+';flex:none"></span><div><b style="color:'+z.c+'">'+esc(z.z)+'</b><div class="mini" style="color:var(--ink);margin-top:2px">'+esc(z.d)+'</div></div></div>';}).join('')+
+        '</div>'):'')+
+      '<div class="small-row"><button class="act" onclick="show(\'symptom\')">Check a symptom</button><button class="act" onclick="show(\'vitals\')">See my trends</button></div>'+
+    '</div>';
+  }
+  return catTag('Care programs','#0ea5e9')+guardBanner()+
+  '<div class="page-head"><div><h1>Care Programs</h1><p class="sub">Your hub adapts to the conditions you live with — non-diagnostic support, in plain words.</p></div></div>'+
+  '<div class="free-banner"><span class="fb-ic">🩺</span><div><b>'+active.length+' programs active.</b> Each one adds tailored check-ins, trends, and a clear action plan for that condition — on one shared timeline for you and your caregivers.</div></div>'+
+  '<div class="grid g2">'+active.map(prog).join('')+'</div>'+
+  (inactive.length?('<div style="font-weight:700;font-size:16px;margin:22px 0 12px">Add a program</div><div class="grid g2">'+inactive.map(function(p){
+    return '<div class="card check-card"><span class="cc-ic" style="background:'+p.color+'">'+p.icon+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.forWhom)+'</p><button class="act primary" style="align-self:flex-start" onclick="addProgram(\''+p.key+'\')">+ Add to my hub</button></div>';
+  }).join('')+'</div>'):'')+
+  disc('Care programs give tailored reminders, trends, and <b>plain-language action plans</b> — they are decision support, <b>not a diagnosis</b> and not a substitute for your care team. Action-plan thresholds are general guidance; your clinician sets what is right for you. Emergencies: call 911.');
+};
+
 /* ============ AI HEALTH CHECKS (governed, non-diagnostic) ============ */
 function setPerson(name,ini,bg){ document.getElementById('topName').textContent=name; document.getElementById('topAv').textContent=ini; document.getElementById('topAv').style.background=bg; }
-var GUEST_HIDE=['today','meds','appts','vitals','claims','coverage','careteam'];
+var GUEST_HIDE=['today','meds','appts','vitals','conditions','claims','coverage','careteam'];
 function applyGuestNav(){
   var guest=document.body.classList.contains('guest');
   [].forEach.call(document.querySelectorAll('.nav-item'),function(b){ b.style.display=(guest&&GUEST_HIDE.indexOf(b.dataset.v)>-1)?'none':''; });
