@@ -5,3 +5,39 @@ __pycache__/
 .venv/
 *.egg-info/
 models/ml-wellbeing/data/
+
+# --- Local WIP / design & pitch experiments — NOT part of the live site ---
+# Kept on disk; excluded from git so they can't be accidentally deployed.
+# To publish one deliberately: re-head it to apx-nav, then `git add -f <file>`.
+art-*.html
+*-warm.html
+one-shell*.html
+*-artifact.html
+ardia-one.html
+ardia-platform.html
+ardia-platform-dark.html
+ardia-platform-light.html
+ardia-models.html
+ardia-agents.html
+ardia-studio.html
+demo-cadence.html
+demo-molecuiq.html
+demo-sentinel.html
+demo-toxiq.html
+demos.html
+solutions-explorer.html
+solutions-library.html
+platform.html
+ecosystem.html
+tools.html
+report-explainer.html
+pitch-deliverables/deck.html
+pitch-deliverables/deck-v2.html
+pitch-deliverables/deck-v3.html
+pitch-deliverables/deck-v3-sample.html
+pitch-deliverables/walkthrough.html
+pitch-deliverables/_final-logo.html
+pitch-deliverables/logo-concepts.html
+pitch-deliverables/logo-dna.html
+pitch-deliverables/logo-mix.html
+pitch-deliverables/logo-shades.html
