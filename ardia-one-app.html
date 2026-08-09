@@ -297,6 +297,31 @@ body.guardian .gm-banner{display:flex}
 
 .disclaimer{margin-top:34px;padding:16px 18px;border:1px dashed rgba(217,119,6,.4);border-radius:14px;background:rgba(245,158,11,.05);font-size:13px;color:#7a3f04;line-height:1.6}
 
+/* AI Health Checks */
+.check-card{display:flex;flex-direction:column;gap:10px;padding:22px;cursor:pointer;transition:.16s;height:100%}
+.check-card:hover{transform:translateY(-2px);border-color:var(--teal);box-shadow:var(--shadow-lg)}
+.check-card .cc-ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff}
+.check-card h3{margin:0;font-size:19px}
+.check-card p{margin:0;color:var(--mut);font-size:14.5px;flex:1}
+.check-card .go{font-weight:700;color:var(--teal-d);font-size:14px}
+.free-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,rgba(20,184,166,.10),rgba(29,155,209,.08));border:1px solid rgba(20,184,166,.3);border-radius:16px;padding:16px 20px;margin-bottom:20px}
+.free-banner .fb-ic{font-size:24px}
+.free-banner b{color:var(--teal-d)}
+.rchips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
+.rchip{font-size:13.5px;font-weight:600;border:1.5px solid #d3deea;background:#fff;color:#3b4d63;border-radius:100px;padding:8px 14px;min-height:40px}
+.rchip.on{background:rgba(20,184,166,.12);border-color:rgba(20,184,166,.45);color:var(--teal-d)}
+.rchip:hover{border-color:var(--teal)}
+.tool-input{width:100%;min-height:120px;border:1.5px solid #d3deea;border-radius:13px;padding:13px 15px;font-family:inherit;font-size:16px;resize:vertical}
+.tool-input:focus{border-color:var(--teal);outline:none}
+.gv-think{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:15px;padding:18px;background:#f7fafd;border-radius:13px}
+.gv-answer{background:#f7fafd;border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:16px;line-height:1.6}
+.gv-answer .ttl{font-family:'Sora';font-weight:800;font-size:15px;color:var(--teal-d);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.gv-off{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:14px;padding:16px 18px;color:#7a3f04;font-size:15px;line-height:1.55}
+.urg{display:flex;align-items:center;gap:12px;border-radius:14px;padding:14px 18px;margin-bottom:14px;font-size:16px;font-weight:600}
+.urg .u-ic{font-size:26px}
+.urg-911{background:rgba(220,38,38,.10);border:1.5px solid rgba(220,38,38,.5);color:#8a1616}
+.small-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
 /* Responsive */
 @media(max-width:1000px){
   .login-main{grid-template-columns:1fr}
@@ -364,7 +389,9 @@ body.guardian .gm-banner{display:flex}
             <span><span class="who">Maria Hart, 52 — caregiver</span><span class="role">Guardian mode · consent-scoped view of her mother's care</span></span>
           </button>
         </div>
-        <p class="mini" style="margin-top:18px;text-align:center">No account is created. Nothing is uploaded. This is a working prototype on synthetic data.</p>
+        <button class="btn btn-ghost" style="width:100%;margin-top:14px" onclick="doLogin('guest')">👤 Continue as guest — no account</button>
+        <p class="mini" style="margin-top:10px;text-align:center">3 free AI health checks — no password, nothing saved. Or sign in above for your full hub.</p>
+        <p class="mini" style="margin-top:10px;text-align:center">No account is created. Nothing is uploaded. This is a working prototype on synthetic data.</p>
       </div>
     </div>
   </div>
@@ -379,7 +406,7 @@ body.guardian .gm-banner{display:flex}
     <span class="logo"><img src="Ardia_Logo.png" alt=""></span>
     <span class="tname">ARDIA <span>ONE</span><small>GOVERNED CARE HUB</small></span>
     <span class="spacer"></span>
-    <button class="icon-btn" onclick="show('careteam')" title="Alerts"><span>🔔</span><span class="badge-n">3</span></button>
+    <button class="icon-btn" id="bellBtn" onclick="show('careteam')" title="Alerts"><span>🔔</span><span class="badge-n">3</span></button>
     <div class="person-pill">
       <span class="nm" id="topName">Eleanor</span>
       <span class="av" id="topAv" style="background:linear-gradient(135deg,#0d7c6e,#14b8a6)">E</span>
@@ -397,10 +424,15 @@ body.guardian .gm-banner{display:flex}
       <button class="nav-item" data-v="appts" onclick="show('appts')"><span class="ic">📅</span><span class="lbl">Appointments</span></button>
       <button class="nav-item" data-v="records" onclick="show('records')"><span class="ic">📄</span><span class="lbl">Records &amp; Results</span></button>
       <button class="nav-item" data-v="vitals" onclick="show('vitals')"><span class="ic">📈</span><span class="lbl">Vitals &amp; Devices</span></button>
-      <div class="grp">Your money</div>
+      <div class="grp">AI health checks</div>
+      <button class="nav-item" data-v="checks" onclick="show('checks')"><span class="ic" style="background:linear-gradient(135deg,#0d7c6e,#1d9bd1);color:#fff">✦</span><span class="lbl">Health Checks</span><span class="tag" style="background:var(--teal-d)">Free</span></button>
+      <button class="nav-item" data-v="symptom" onclick="show('symptom')"><span class="ic">🩺</span><span class="lbl">Symptom Helper</span></button>
+      <button class="nav-item" data-v="imaging" onclick="show('imaging')"><span class="ic">🩻</span><span class="lbl">Imaging &amp; X-ray</span></button>
+      <button class="nav-item" data-v="ecg" onclick="show('ecg')"><span class="ic">🫀</span><span class="lbl">ECG Explainer</span></button>
+      <div class="grp" id="grpMoney">Your money</div>
       <button class="nav-item" data-v="claims" onclick="show('claims')"><span class="ic">🛡️</span><span class="lbl">Billing &amp; Claims</span><span class="tag">2</span></button>
       <button class="nav-item" data-v="coverage" onclick="show('coverage')"><span class="ic">📋</span><span class="lbl">Insurance</span></button>
-      <div class="grp">Your people</div>
+      <div class="grp" id="grpPeople">Your people</div>
       <button class="nav-item" data-v="careteam" onclick="show('careteam')"><span class="ic">👪</span><span class="lbl">Care Team &amp; Family</span></button>
       <div class="side-foot">
         <div class="gov">Governed end-to-end by <b>Sentinel</b> (removes your private details before any AI reads them), <b>Crucible</b> (8 safety gates), and a <b>HIPAA</b> audit trail of every access.</div>
@@ -544,19 +576,19 @@ var trendArrow={up:"↗",down:"↘",flat:"→"};
 /* ============ auth / routing ============ */
 function doLogin(who){
   var app=document.getElementById('app'), login=document.getElementById('login');
+  document.body.classList.remove('guardian','guest');
   if(who==='maria'){
     document.body.classList.add('guardian');
-    document.getElementById('topName').textContent="Maria";
-    document.getElementById('topAv').textContent="M";
-    document.getElementById('topAv').style.background="linear-gradient(135deg,#1d9bd1,#7c3aed)";
+    setPerson("Maria","M","linear-gradient(135deg,#1d9bd1,#7c3aed)");
+  }else if(who==='guest'){
+    document.body.classList.add('guest');
+    setPerson("Guest","G","linear-gradient(135deg,#54677f,#8697ac)");
   }else{
-    document.body.classList.remove('guardian');
-    document.getElementById('topName').textContent="Eleanor";
-    document.getElementById('topAv').textContent="E";
-    document.getElementById('topAv').style.background="linear-gradient(135deg,#0d7c6e,#14b8a6)";
+    setPerson("Eleanor","E","linear-gradient(135deg,#0d7c6e,#14b8a6)");
   }
+  applyGuestNav();
   login.classList.add('hide'); app.classList.remove('hide');
-  window.scrollTo(0,0); show('today');
+  window.scrollTo(0,0); show(who==='guest'?'checks':'today');
 }
 function logout(){document.getElementById('app').classList.add('hide');document.getElementById('login').classList.remove('hide');document.body.classList.remove('guardian','nav-open');}
 
@@ -882,6 +914,147 @@ function toggleConsent(ci,cat,el){
   CARE.caregivers[ci].cats[cat]=!CARE.caregivers[ci].cats[cat];
   el.classList.toggle('on');
   toast((CARE.caregivers[ci].cats[cat]?'Shared ':'Stopped sharing ')+cat+' with '+CARE.caregivers[ci].name.split(' ')[0]+'.');
+}
+
+/* ============ AI HEALTH CHECKS (governed, non-diagnostic) ============ */
+function setPerson(name,ini,bg){ document.getElementById('topName').textContent=name; document.getElementById('topAv').textContent=ini; document.getElementById('topAv').style.background=bg; }
+var GUEST_HIDE=['today','meds','appts','vitals','claims','coverage','careteam'];
+function applyGuestNav(){
+  var guest=document.body.classList.contains('guest');
+  [].forEach.call(document.querySelectorAll('.nav-item'),function(b){ b.style.display=(guest&&GUEST_HIDE.indexOf(b.dataset.v)>-1)?'none':''; });
+  var gm=document.getElementById('grpMoney'), gp=document.getElementById('grpPeople'), bell=document.getElementById('bellBtn');
+  if(gm)gm.style.display=guest?'none':''; if(gp)gp.style.display=guest?'none':'';
+  if(bell)bell.style.display=guest?'none':'';
+}
+var EXAMPLES={
+  sym:'For two days I have had a cough with yellow phlegm, and today I feel more short of breath than usual when I walk, and a bit wheezy.',
+  ecg:'ECG: Sinus rhythm, rate 88 bpm. Normal axis. No acute ST-segment changes. Occasional premature atrial complexes. QTc 430 ms.',
+  img:'CHEST X-RAY (PA and lateral). Findings: Mild cardiomegaly. Lungs are clear without focal consolidation, effusion, or pneumothorax. No acute osseous abnormality. Impression: Mild cardiomegaly, otherwise unremarkable.'
+};
+function loadExample(id,key){ var el=document.getElementById(id); if(el) el.value=EXAMPLES[key]||''; }
+function formatAnswer(t){ return esc(t||'').replace(/\n/g,'<br>'); }
+function gvOffline(msg,sample){
+  var h='<div class="gv-off">🔌 '+esc(msg)+'</div>';
+  if(sample) h+='<div style="margin-top:14px"><span class="pill pill-amber" style="margin-bottom:8px;display:inline-flex">Illustrative example · synthetic · not a real reading</span><div class="gv-answer" style="margin-top:8px">'+sample+'</div></div>';
+  return h;
+}
+function govPayload(model,text,atts){
+  return {model:model||'aria',text:text,engine:'',code:(function(){try{return sessionStorage.getItem('ardiaCode')||'';}catch(e){return '';}})(),attest_synthetic:true,ground:true,attachments:atts||[]};
+}
+function runGoverned(o){
+  var target=o.target; if(!target) return;
+  target.innerHTML=(o.prepend||'')+'<div class="gv-think">⏳ '+esc(o.thinking||'Working — removing your private details, then checking sources…')+'</div>';
+  var ctrl=('AbortController'in window)?new AbortController():null;
+  var to=setTimeout(function(){if(ctrl)try{ctrl.abort();}catch(e){}},60000);
+  fetch(engineBase()+'/api/run',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(govPayload(o.model,o.text,o.attachments)),signal:ctrl?ctrl.signal:undefined})
+  .then(function(r){return r.json();})
+  .then(function(res){clearTimeout(to);
+    if(res&&res.error){ target.innerHTML=(o.prepend||'')+gvOffline(offlineMsg(res.error),o.sample); return; }
+    target.innerHTML=(o.prepend||'')+'<div class="gv-answer"><div class="ttl">✦ '+esc(o.title||'Ardia explains')+'</div>'+formatAnswer(res.text||'')+badgesHTML(res)+'</div>'+(o.footer||'');
+  })
+  .catch(function(){clearTimeout(to); target.innerHTML=(o.prepend||'')+gvOffline("The Ardia engine is offline right now, so I will not make up an answer. Try again later, or ask your care team. (A live answer needs the site GEMINI_API_KEY / ANTHROPIC_API_KEY set.)",o.sample);});
+}
+
+VIEWS.checks=function(){
+  var guest=document.body.classList.contains('guest');
+  return catTag('AI health checks','#0ea5e9')+
+  '<div class="page-head"><div><h1>AI Health Checks</h1><p class="sub">Understand a symptom, an X-ray, an ECG, or a lab result — in plain words, with sources.</p></div></div>'+
+  '<div class="free-banner"><span class="fb-ic">✦</span><div><b>3 free checks — no account needed.</b> '+(guest?'You are browsing as a guest. Nothing is saved.':'Included with your hub.')+' Every answer removes your private details first, cites a source or says "I am not sure," and is <b>never a diagnosis</b>.</div></div>'+
+  '<div class="grid g2">'+
+    checkCard('symptom','🩺','linear-gradient(135deg,#0d7c6e,#14b8a6)','Symptom Helper','Describe how you feel. Get plain-language guidance, how urgent it is, and what to ask your doctor — with an instant 911 check for emergencies.')+
+    checkCard('imaging','🩻','linear-gradient(135deg,#0369a1,#1d9bd1)','Imaging & X-ray','Paste your radiology report (or upload the image). Ardia explains the terms and what to ask — by body region.')+
+    checkCard('ecg','🫀','linear-gradient(135deg,#e11d48,#c2410c)','ECG Explainer','Paste your ECG report. Ardia turns "sinus rhythm, no ST changes" into plain English and flags what to watch.')+
+    checkCard('records','📄','linear-gradient(135deg,#2563eb,#1d9bd1)','Lab & Results','Paste a lab report. It is de-identified in your browser, then each value is marked normal, low, or high.')+
+  '</div>'+
+  disc('These checks give <b>information and questions to ask</b>, not a diagnosis or treatment. Ardia removes your private details before any AI sees them, cites sources or abstains, and escalates emergencies to 911. Not medical, legal, or tax advice.');
+};
+function checkCard(v,ic,bg,title,desc){ return '<div class="card check-card" onclick="show(\''+v+'\')"><span class="cc-ic" style="background:'+bg+'">'+ic+'</span><h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p><span class="go">Open '+esc(title)+' →</span></div>'; }
+
+VIEWS.symptom=function(){
+  return catTag('Symptom Helper','#0ea5e9')+
+  '<div class="page-head"><div><h1>🩺 Symptom Helper</h1><p class="sub">Tell Ardia how you feel. It never diagnoses — it helps you judge urgency and what to ask.</p></div></div>'+
+  '<div class="card">'+
+    '<div style="font-weight:600;margin-bottom:6px">What is going on? (in your own words)</div>'+
+    '<textarea id="symIn" class="tool-input" placeholder="e.g. For two days I have had a cough, and today I feel more short of breath than usual when I walk."></textarea>'+
+    '<div class="priv-note">🔒 Your words are de-identified before any AI reads them.</div>'+
+    '<div class="small-row"><button class="act primary" onclick="runSymptom()">Check my symptoms →</button>'+
+    '<button class="act" onclick="loadExample(\'symIn\',\'sym\')">Try an example</button></div>'+
+    '<div id="symOut" style="margin-top:16px"></div>'+
+  '</div>'+
+  disc('An instant safety check flags emergencies to <b>911</b>. Everything else is plain-language guidance and questions to ask — <b>not a diagnosis</b>. When in doubt, contact your care team or call 911.');
+};
+var REDFLAG=/chest pain|can ?not breathe|can'?t breathe|trouble breathing|face droop|slurred speech|weak(ness)? on one side|numb.{0,12}one side|worst headache|passed out|unconscious|severe bleeding|coughing up blood|suicid|kill myself|want to die|end my life/i;
+function runSymptom(){
+  var t=(document.getElementById('symIn').value||'').trim(); if(!t){toast('Please describe how you feel.');return;}
+  var out=document.getElementById('symOut'), pre='';
+  if(REDFLAG.test(t)) pre='<div class="urg urg-911"><span class="u-ic">🚨</span><div>What you describe can be an emergency. <b>Call 911 now</b> (or your local emergency number). Do not wait for the notes below.</div></div>';
+  runGoverned({target:out, model:'aria', title:'How urgent, and what to do', prepend:pre,
+    thinking:'Removing your private details, then checking sources…',
+    text:'A patient describes these symptoms in their own words: "'+t+'". In plain, warm, 6th-grade language for an older adult: (1) say how urgent this seems using one of Emergency (call 911) / Urgent (be seen today) / Routine (can wait a bit) / Self-care, (2) what to do now, (3) three questions to ask their doctor. Do NOT diagnose or name a single disease as the cause, and do NOT prescribe. Cite a source or say you are not sure.',
+    sample:'<b>How urgent:</b> Urgent — worth being seen today.<br><b>Why:</b> New or worse shortness of breath with a productive cough can mean your lungs need attention.<br><b>What to do now:</b> Sit upright, use your rescue inhaler if you have one, and call your doctor today. Call 911 if breathing gets much harder, your lips look blue, or you cannot speak a full sentence.<br><b>Ask your doctor:</b> Do I need a chest exam or X-ray? Should my inhalers change? What symptoms mean I should go to the ER?'
+  });
+}
+
+VIEWS.imaging=function(){
+  var regions=['Chest','Head / Skull','Spine','Abdomen','Pelvis','Shoulder','Arm','Wrist / Hand','Hip','Knee','Ankle / Foot','Other'];
+  return catTag('Imaging & X-ray','#22c55e')+
+  '<div class="page-head"><div><h1>🩻 Imaging &amp; X-ray Explainer</h1><p class="sub">Ardia explains what your scan report means — it does not read the image or diagnose.</p></div><span class="ruo">🔬 Explains · not a radiology read</span></div>'+
+  '<div class="card">'+
+    '<div style="font-weight:600;margin-bottom:6px">Body region</div>'+
+    '<div class="rchips">'+regions.map(function(r,i){return '<button class="rchip'+(i===0?' on':'')+'" onclick="pickRegion(this)">'+esc(r)+'</button>';}).join('')+'</div>'+
+    '<div style="font-weight:600;margin:10px 0 6px">Paste your report findings (works instantly)</div>'+
+    '<textarea id="imgIn" class="tool-input" placeholder="Paste the Findings / Impression text from your radiology report…"></textarea>'+
+    '<div class="priv-note">🔒 Your text is de-identified before any AI reads it.</div>'+
+    '<div style="margin-top:12px;padding:12px 14px;border:1px dashed var(--line);border-radius:12px;background:#fbfdff">'+
+      '<div style="font-weight:600;font-size:14.5px;margin-bottom:6px">Optional: upload the image</div>'+
+      '<input type="file" id="imgFile" accept="image/*" style="font-size:14px">'+
+      '<div class="mini" style="margin-top:6px">Image analysis uses a secure upload channel that stays off until a signed BAA. If it is off, Ardia says so and explains your pasted report instead — it never guesses.</div>'+
+    '</div>'+
+    '<div class="small-row"><button class="act primary" onclick="runImaging()">Explain my imaging →</button>'+
+    '<button class="act" onclick="loadExample(\'imgIn\',\'img\')">Try an example</button></div>'+
+    '<div id="imgOut" style="margin-top:16px"></div>'+
+  '</div>'+
+  disc('Ardia explains the words in your report and what to ask — it is <b>not a radiologist read and not a diagnosis</b>. Only a qualified clinician interprets your images.');
+};
+var imgRegion='Chest';
+function pickRegion(el){ [].forEach.call(el.parentNode.children,function(c){c.classList.remove('on');}); el.classList.add('on'); imgRegion=el.textContent.trim(); }
+function readImg(file,cb){ try{ var r=new FileReader(); r.onload=function(){ var b64=String(r.result).split(',')[1]||''; cb({b64:b64,media_type:file.type||'image/png',name:file.name||'image'}); }; r.onerror=function(){cb(null);}; r.readAsDataURL(file); }catch(e){ cb(null); } }
+function runImaging(){
+  var t=(document.getElementById('imgIn').value||'').trim();
+  var f=document.getElementById('imgFile'), hasFile=f&&f.files&&f.files.length;
+  var out=document.getElementById('imgOut');
+  if(!t && !hasFile){ toast('Paste your report text, or upload the image.'); return; }
+  var sample='<b>Plain-language summary ('+esc(imgRegion)+'):</b><br>"Mild cardiomegaly" means the heart looks a little larger than average on the film. "Lungs are clear" means no signs of pneumonia, fluid, or a collapsed lung were seen. "No acute osseous abnormality" means no new bone problem.<br><br><b>How urgent:</b> Nothing here is described as an emergency, but a slightly large heart is worth discussing.<br><b>Ask your doctor:</b> Does the heart size fit my heart history? Do we need an echocardiogram? Should any medicine change?';
+  var runIt=function(atts){
+    runGoverned({target:out, model:'lumen', title:'Ardia explains your '+imgRegion+' report',
+      thinking:'De-identifying, then explaining your report with sources…',
+      text:'A patient shares their '+imgRegion+' imaging report and wants it explained. Report text: "'+(t||'(no text provided — an image was attached)')+'". In plain 6th-grade language for an older adult: (1) explain each finding or term simply, (2) say how urgent it sounds, (3) give three questions to ask their doctor. Do NOT invent findings that are not in the text, do NOT diagnose, and do NOT give a radiology read. Cite a source or say you are not sure.',
+      attachments:atts, sample:sample });
+  };
+  if(hasFile){ readImg(f.files[0],function(att){ runIt(att?[att]:[]); }); } else { runIt([]); }
+}
+
+VIEWS.ecg=function(){
+  return catTag('ECG explainer','#22c55e')+
+  '<div class="page-head"><div><h1>🫀 ECG Explainer</h1><p class="sub">Turn your ECG report into plain words — Ardia explains, it does not diagnose.</p></div><span class="ruo">🔬 Explains · not a cardiology read</span></div>'+
+  '<div class="card">'+
+    '<div style="font-weight:600;margin-bottom:6px">Paste your ECG report</div>'+
+    '<textarea id="ecgIn" class="tool-input" placeholder="e.g. Sinus rhythm, rate 88 bpm, no acute ST changes…"></textarea>'+
+    '<div class="priv-note">🔒 De-identified before any AI reads it.</div>'+
+    '<div class="small-row"><button class="act primary" onclick="runEcg()">Explain my ECG →</button>'+
+    '<button class="act" onclick="loadExample(\'ecgIn\',\'ecg\')">Try an example</button></div>'+
+    '<div id="ecgOut" style="margin-top:16px"></div>'+
+  '</div>'+
+  disc('Ardia explains ECG terms and what to ask — it is <b>not a cardiology interpretation and not a diagnosis</b>. Chest pain, fainting, or a very fast or irregular heartbeat: call 911.');
+};
+function runEcg(){
+  var t=(document.getElementById('ecgIn').value||'').trim(); if(!t){toast('Paste your ECG report.');return;}
+  var out=document.getElementById('ecgOut');
+  runGoverned({target:out, model:'lumen', title:'Ardia explains your ECG report',
+    thinking:'De-identifying, then explaining with sources…',
+    text:'A patient shares their ECG (electrocardiogram) report and wants it explained. Report: "'+t+'". In plain 6th-grade language for an older adult: (1) explain each term simply, for example what "sinus rhythm" or "ST changes" mean, (2) say how urgent it sounds, (3) give three questions to ask their doctor. Do NOT diagnose, do NOT give a cardiology read, and do NOT invent findings. Cite a source or say you are not sure.',
+    sample:'<b>Plain-language summary:</b><br>"Sinus rhythm" means your heartbeat starts from the normal place — that is good. "Rate 88" means 88 beats per minute, which is normal at rest. "No acute ST changes" means no sign on this tracing of a heart attack happening right now. "Premature atrial complexes" are occasional early beats that are usually harmless. "QTc 430 ms" is within the normal range.<br><br><b>How urgent:</b> Nothing here is described as an emergency.<br><b>Ask your doctor:</b> Do the early beats matter for me? Does this change any heart medicine? What symptoms should send me to the ER?'
+  });
 }
 
 /* close modal on backdrop */
