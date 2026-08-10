@@ -322,6 +322,27 @@ body.guardian .gm-banner{display:flex}
 .urg-911{background:rgba(220,38,38,.10);border:1.5px solid rgba(220,38,38,.5);color:#8a1616}
 .small-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
 
+/* Accessibility + notifications dropdowns */
+.drop{position:fixed;top:60px;right:16px;z-index:120;width:320px;max-width:92vw;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:8px;display:none}
+.drop.show{display:block;animation:fade .18s ease}
+.drop-h{font-family:'Sora';font-weight:800;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--dim);padding:8px 10px}
+.notif-item{display:flex;gap:11px;align-items:flex-start;padding:11px;border-radius:12px;cursor:pointer}
+.notif-item:hover{background:#f2f9f8}
+.notif-item .ni{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:17px}
+.notif-item .nt{font-size:14.5px;font-weight:600;line-height:1.3}
+.notif-item .nd{font-size:12.5px;color:var(--mut)}
+.a11y-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;font-size:14.5px;font-weight:600}
+.szbtn{border:1.5px solid #d3deea;background:#fff;border-radius:9px;padding:6px 12px;font-weight:800;margin-left:4px;min-height:38px}
+.szbtn.on{background:var(--teal-d);border-color:var(--teal-d);color:#fff}
+.tog{border:1.5px solid #d3deea;background:#fff;border-radius:100px;padding:7px 16px;font-weight:700;color:#3b4d63;min-height:38px}
+.tog.on{background:var(--teal-d);border-color:var(--teal-d);color:#fff}
+.listen{border:1.5px solid #cfe0dd;background:#f6fbfa;border-radius:9px;padding:7px 13px;font-weight:700;font-size:13.5px;color:var(--teal-d);margin-top:12px;display:inline-flex;align-items:center;gap:6px}
+.listen:hover{border-color:var(--teal)}
+body.fs-lg .body-row{zoom:1.12} body.fs-xl .body-row{zoom:1.24}
+body.hc{--mut:#28394d;--dim:#324459;--line:rgba(14,28,48,.34)}
+body.hc .card,body.hc .med,body.hc .finding,body.hc .rchip,body.hc .tool-input,body.hc .field input{border-width:1.5px}
+body.hc .ch-sub,body.hc .mini,body.hc .sub,body.hc .nd{color:#324459!important}
+
 /* Responsive */
 @media(max-width:1000px){
   .login-main{grid-template-columns:1fr}
@@ -406,13 +427,23 @@ body.guardian .gm-banner{display:flex}
     <span class="logo"><img src="Ardia_Logo.png" alt=""></span>
     <span class="tname">ARDIA <span>ONE</span><small>GOVERNED CARE HUB</small></span>
     <span class="spacer"></span>
-    <button class="icon-btn" id="bellBtn" onclick="show('careteam')" title="Alerts"><span>🔔</span><span class="badge-n">3</span></button>
+    <button class="icon-btn" onclick="toggleA11y()" title="Text size & accessibility" style="font-family:'Sora';font-weight:800;font-size:15px">Aa</button>
+    <button class="icon-btn" id="bellBtn" onclick="toggleNotif()" title="Alerts"><span>🔔</span><span class="badge-n">3</span></button>
     <div class="person-pill">
       <span class="nm" id="topName">Eleanor</span>
       <span class="av" id="topAv" style="background:linear-gradient(135deg,#0d7c6e,#14b8a6)">E</span>
     </div>
     <button class="icon-btn" onclick="logout()" title="Sign out">⎋</button>
   </header>
+
+  <div class="drop" id="notifPanel"><div class="drop-h">Alerts</div><div id="notifList"></div></div>
+  <div class="drop" id="a11yPanel">
+    <div class="drop-h">Text size &amp; accessibility</div>
+    <div class="a11y-row"><span>Text size</span><div><button class="szbtn on" data-sz="" onclick="setTextSize('',this)">A</button><button class="szbtn" data-sz="lg" onclick="setTextSize('lg',this)">A+</button><button class="szbtn" data-sz="xl" onclick="setTextSize('xl',this)">A++</button></div></div>
+    <div class="a11y-row"><span>High contrast</span><button class="tog" id="hcTog" onclick="toggleContrast()">Off</button></div>
+    <div class="a11y-row"><span>Read this page aloud</span><button class="tog" onclick="readPage()">🔊 Listen</button></div>
+    <div class="a11y-row" style="padding-top:2px"><span class="mini">Stop the voice anytime</span><button class="tog" onclick="stopSpeak()">■ Stop</button></div>
+  </div>
 
   <div class="body-row">
     <aside class="side" id="side">
@@ -596,7 +627,7 @@ function logout(){document.getElementById('app').classList.add('hide');document.
 
 var VIEWS={};
 function show(v){
-  document.body.classList.remove('nav-open');
+  document.body.classList.remove('nav-open'); closeDrops();
   [].forEach.call(document.querySelectorAll('.nav-item'),function(b){b.classList.toggle('active',b.dataset.v===v);});
   var main=document.getElementById('main');
   main.innerHTML='<div class="view">'+(VIEWS[v]?VIEWS[v]():'<p>Coming soon.</p>')+'</div>';
@@ -1031,7 +1062,7 @@ function runGoverned(o){
   .then(function(r){return r.json();})
   .then(function(res){clearTimeout(to);
     if(res&&res.error){ target.innerHTML=(o.prepend||'')+gvOffline(offlineMsg(res.error),o.sample); return; }
-    target.innerHTML=(o.prepend||'')+'<div class="gv-answer"><div class="ttl">✦ '+esc(o.title||'Ardia explains')+'</div>'+formatAnswer(res.text||'')+badgesHTML(res)+'</div>'+(o.footer||'');
+    target.innerHTML=(o.prepend||'')+'<div class="gv-answer"><div class="ttl">✦ '+esc(o.title||'Ardia explains')+'</div><span id="gvText">'+formatAnswer(res.text||'')+'</span>'+listenBtn('gvText')+badgesHTML(res)+'</div>'+(o.footer||'');
   })
   .catch(function(){clearTimeout(to); target.innerHTML=(o.prepend||'')+gvOffline("The Ardia engine is offline right now, so I will not make up an answer. Try again later, or ask your care team. (A live answer needs the site GEMINI_API_KEY / ANTHROPIC_API_KEY set.)",o.sample);});
 }
@@ -1137,6 +1168,27 @@ function runEcg(){
     sample:'<b>Plain-language summary:</b><br>"Sinus rhythm" means your heartbeat starts from the normal place — that is good. "Rate 88" means 88 beats per minute, which is normal at rest. "No acute ST changes" means no sign on this tracing of a heart attack happening right now. "Premature atrial complexes" are occasional early beats that are usually harmless. "QTc 430 ms" is within the normal range.<br><br><b>How urgent:</b> Nothing here is described as an emergency.<br><b>Ask your doctor:</b> Do the early beats matter for me? Does this change any heart medicine? What symptoms should send me to the ER?'
   });
 }
+
+/* ============ ACCESSIBILITY + NOTIFICATIONS ============ */
+function closeDrops(){ ['notifPanel','a11yPanel'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('show');}); }
+function toggleDrop(id){ var e=document.getElementById(id); if(!e)return; var open=e.classList.contains('show'); closeDrops(); if(!open){ e.classList.add('show'); if(id==='notifPanel') renderNotifs(); } }
+function toggleNotif(){ toggleDrop('notifPanel'); }
+function toggleA11y(){ toggleDrop('a11yPanel'); }
+var NOTIFS=[
+  {ic:'🛡️', bg:'rgba(220,38,38,.12)', t:'A bill may be a double charge', d:'Vista Surgery Center · review it', v:'claims'},
+  {ic:'💧', bg:'rgba(245,158,11,.16)', t:'Weight up about 4 lb this week', d:'Heart-failure early warning · Vitals', v:'vitals'},
+  {ic:'📅', bg:'rgba(29,155,209,.14)', t:'Lab draw tomorrow, 9:00 AM', d:'Green Oaks Lab · Appointments', v:'appts'}
+];
+function renderNotifs(){ var el=document.getElementById('notifList'); if(!el)return;
+  el.innerHTML=NOTIFS.map(function(n){ return '<div class="notif-item" onclick="closeDrops();show(\''+n.v+'\')"><span class="ni" style="background:'+n.bg+'">'+n.ic+'</span><div><div class="nt">'+esc(n.t)+'</div><div class="nd">'+esc(n.d)+'</div></div></div>'; }).join(''); }
+function setTextSize(sz,btn){ document.body.classList.remove('fs-lg','fs-xl'); if(sz)document.body.classList.add('fs-'+sz);
+  [].forEach.call(document.querySelectorAll('.szbtn'),function(b){b.classList.toggle('on',b===btn);}); }
+function toggleContrast(){ var on=document.body.classList.toggle('hc'); var t=document.getElementById('hcTog'); if(t){t.classList.toggle('on',on);t.textContent=on?'On':'Off';} }
+function speak(text){ try{ if(!('speechSynthesis'in window)){toast('Read-aloud is not supported in this browser.');return;} window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(String(text||'').slice(0,4000)); u.rate=.96; u.pitch=1; window.speechSynthesis.speak(u); toast('Reading aloud… (tap Aa → Stop to end)'); }catch(e){} }
+function stopSpeak(){ try{ window.speechSynthesis&&window.speechSynthesis.cancel(); }catch(e){} }
+function readPage(){ closeDrops(); var m=document.getElementById('main'); if(m) speak(m.textContent.replace(/\s+/g,' ').trim()); }
+function listenBtn(id){ return '<button class="listen" onclick="speak(document.getElementById(\''+id+'\').textContent)">🔊 Listen</button>'; }
+document.addEventListener('click',function(e){ if(e.target.closest&&(e.target.closest('.drop')||e.target.closest('.icon-btn')))return; closeDrops(); });
 
 /* close modal on backdrop */
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
