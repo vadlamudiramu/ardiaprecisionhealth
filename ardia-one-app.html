@@ -423,6 +423,7 @@ body.guardian .gm-banner{display:flex}
       <button class="nav-item" data-v="meds" onclick="show('meds')"><span class="ic">💊</span><span class="lbl">Medications</span></button>
       <button class="nav-item" data-v="appts" onclick="show('appts')"><span class="ic">📅</span><span class="lbl">Appointments</span></button>
       <button class="nav-item" data-v="records" onclick="show('records')"><span class="ic">📄</span><span class="lbl">Records &amp; Results</span></button>
+      <button class="nav-item" data-v="documents" onclick="show('documents')"><span class="ic">🗂️</span><span class="lbl">Documents</span></button>
       <button class="nav-item" data-v="vitals" onclick="show('vitals')"><span class="ic">📈</span><span class="lbl">Vitals &amp; Devices</span></button>
       <button class="nav-item" data-v="conditions" onclick="show('conditions')"><span class="ic">🩺</span><span class="lbl">Care Programs</span></button>
       <div class="grp">AI health checks</div>
@@ -917,6 +918,38 @@ function toggleConsent(ci,cat,el){
   toast((CARE.caregivers[ci].cats[cat]?'Shared ':'Stopped sharing ')+cat+' with '+CARE.caregivers[ci].name.split(' ')[0]+'.');
 }
 
+/* ============ DOCUMENTS VAULT ============ */
+var DOCS=[
+  {cat:'Bills & insurance', icon:'🧾', color:'#e11d48', items:[
+    {name:'Vista Surgery Center — cataract surgery bill', date:'3 weeks ago', tag:'Bill', act:'claims'},
+    {name:'Metro Imaging — chest CT bill', date:'2 weeks ago', tag:'Bill', act:'claims'},
+    {name:'Lone Star Advantage — Explanation of Benefits', date:'2 weeks ago', tag:'EOB', act:'claims'},
+    {name:'Insurance card — Medicare Advantage', date:'On file', tag:'Card', act:'coverage'}
+  ]},
+  {cat:'Results & imaging', icon:'📄', color:'#2563eb', items:[
+    {name:'Metabolic panel + A1c', date:'Scheduled tomorrow', tag:'Lab', act:'records'},
+    {name:'Chest X-ray report', date:'5 weeks ago', tag:'Imaging', act:'imaging'},
+    {name:'ECG report', date:'6 weeks ago', tag:'ECG', act:'ecg'}
+  ]},
+  {cat:'Visits & prescriptions', icon:'🩺', color:'#0d7c6e', items:[
+    {name:'Cataract surgery — operative & discharge summary', date:'3 weeks ago', tag:'Surgery', act:null},
+    {name:'Medication list — 6 active', date:'Current', tag:'Rx', act:'meds'},
+    {name:'Pulmonology visit summary', date:'6 weeks ago', tag:'Visit', act:null}
+  ]}
+];
+VIEWS.documents=function(){
+  function item(it){
+    return '<div class="rowline"><div style="flex:1"><b>'+esc(it.name)+'</b><div class="mini">'+esc(it.date)+' · <span class="pill pill-gray" style="padding:1px 8px">'+esc(it.tag)+'</span></div></div>'+
+      (it.act?'<button class="act" onclick="show(\''+it.act+'\')">Explain →</button>':'<button class="act" onclick="toast(\'Opening document…\')">Open</button>')+'</div>';
+  }
+  return catTag('Documents','#22c55e')+guardBanner()+
+  '<div class="page-head"><div><h1>Documents</h1><p class="sub">Every bill, report, scan and card — in one place, encrypted and de-identified before any AI reads it.</p></div></div>'+
+  '<div class="free-banner"><span class="fb-ic">🔒</span><div><b>Your records, safe in one vault.</b> Ardia removes your private details before anything is explained, and every open is audit-logged. Tap <b>Explain</b> to understand any document in plain words.</div></div>'+
+  DOCS.map(function(g){ return '<div class="card"><div class="card-h"><span class="ci" style="background:'+g.color+'">'+g.icon+'</span><h3>'+esc(g.cat)+'</h3></div>'+g.items.map(item).join('')+'</div>'; }).join('')+
+  '<div class="card" style="border:1px dashed var(--line)"><div class="card-h"><span class="ci" style="background:#54677f">⬆️</span><h3>Add a document</h3></div><input type="file" style="font-size:15px"><div class="mini" style="margin-top:8px">Uploads use a secure channel that stays off until a signed BAA. Until then this is a demo on synthetic documents — nothing is stored.</div></div>'+
+  disc('Documents are organized and explained for you — Ardia does not diagnose or make clinical decisions. Explanations are plain-language help; your care team interprets your records.');
+};
+
 /* ============ CARE PROGRAMS (condition packs) ============ */
 var PROGRAMS=[
   {key:'pulm', active:true, icon:'🫁', color:'#0369a1', name:'Pulmonary care (COPD)', forWhom:'For your COPD',
@@ -966,7 +999,7 @@ VIEWS.conditions=function(){
 
 /* ============ AI HEALTH CHECKS (governed, non-diagnostic) ============ */
 function setPerson(name,ini,bg){ document.getElementById('topName').textContent=name; document.getElementById('topAv').textContent=ini; document.getElementById('topAv').style.background=bg; }
-var GUEST_HIDE=['today','meds','appts','vitals','conditions','claims','coverage','careteam'];
+var GUEST_HIDE=['today','meds','appts','vitals','documents','conditions','claims','coverage','careteam'];
 function applyGuestNav(){
   var guest=document.body.classList.contains('guest');
   [].forEach.call(document.querySelectorAll('.nav-item'),function(b){ b.style.display=(guest&&GUEST_HIDE.indexOf(b.dataset.v)>-1)?'none':''; });
