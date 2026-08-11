@@ -308,9 +308,10 @@ footer b{color:#4a6285}
 }
 </style>
 <style id="studio-login-css">
-#studioLogin{display:none;min-height:calc(100vh - 64px);align-items:center;justify-content:center;padding:44px 20px;background:radial-gradient(1000px 600px at 82% -10%,rgba(29,155,209,.10),transparent 60%),radial-gradient(820px 520px at -10% 18%,rgba(20,184,166,.08),transparent 55%),#f4f8fc}
-body:not(.entered) #studioLogin{display:flex}
-body:not(.entered) .td-hero,body:not(.entered) .td-console,body:not(.entered) footer{display:none!important}
+#studioLogin{display:none;position:fixed;inset:0;z-index:9500;align-items:center;justify-content:center;padding:24px;background:rgba(10,22,40,.55);backdrop-filter:blur(4px)}
+#studioLogin.show{display:flex}
+.st-runsleft{font-size:12px;color:#8697ac;margin-top:10px}
+.st-runsleft b{color:#0d7c6e}
 .sl-card{width:100%;max-width:440px;background:#fff;border:1px solid #e2e8f0;border-radius:22px;box-shadow:0 24px 70px rgba(10,22,40,.16);padding:34px 32px;text-align:center;font-family:'Inter',system-ui,sans-serif}
 .sl-logo{width:56px;height:56px;border-radius:14px;margin:0 auto 16px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 16px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;padding:5px;overflow:hidden}
 .sl-logo img{width:100%;height:100%;object-fit:contain}
@@ -339,14 +340,10 @@ body:not(.entered) .td-hero,body:not(.entered) .td-console,body:not(.entered) fo
 <div id="studioLogin"><div class="sl-card">
   <div class="sl-logo"><img src="Ardia_Logo.png" alt="Ardia"></div>
   <span class="sl-eyebrow">◆ Ardia Studio · governed models</span>
-  <h2>Sign in to Ardia Studio</h2>
-  <p class="sl-sub">Run any Ardia model and watch it reason — or continue as a guest.</p>
-  <div class="sl-field"><label for="slEmail">Email</label><input id="slEmail" type="text" value="you@example.com"></div>
-  <div class="sl-field"><label for="slPass">Password</label><input id="slPass" type="password" value="••••••••"></div>
-  <button class="sl-btn sl-primary" onclick="studioEnter('user')">Sign in →</button>
-  <div class="sl-div">or</div>
-  <button class="sl-btn sl-guest" onclick="studioEnter('guest')">👤 Continue as guest — no account</button>
-  <p class="sl-mini">No account is created. Synthetic-data demo — not for real patient information. Not a diagnosis.</p>
+  <h2>Try Ardia Studio free</h2>
+  <p class="sl-sub">Run any Ardia model and watch it reason — no account, no email.</p>
+  <button class="sl-btn sl-primary sl-guest" onclick="studioEnter('guest')">▶ Continue — no account needed</button>
+  <p class="sl-mini">4 free runs, no sign-up. Synthetic-data demo — not for real patient information. Not a diagnosis.</p>
   <div class="sl-trust"><span class="sl-chip">🔒 De-identified</span><span class="sl-chip">Cite-or-abstain</span><span class="sl-chip">Not a diagnosis</span></div>
 </div></div>
 
@@ -414,6 +411,7 @@ body:not(.entered) .td-hero,body:not(.entered) .td-console,body:not(.entered) fo
           </div>
           <div class="st-examples" id="stExamples"></div>
           <div class="st-engine" id="stEngine" title="Point this at your Studio engine and enter its access code"></div>
+          <div class="st-runsleft" id="studioRunsLeft"></div>
         </div>
         <div class="td-screen">
           <div class="td-chrome">
@@ -564,16 +562,12 @@ function stepHTML(s){
   return '<div class="td-step"><div class="si '+k[1]+'">'+k[0]+'</div><div><div class="sl">'+esc(s.label)+'</div><div class="sd">'+esc(s.detail)+'</div>'+(s.source?'<span class="ss">'+esc(s.source)+'</span>':'')+'</div></div>';
 }
 function tdRun(){
-  if(running)return; running=true; clearTimers();
+  if(typeof studioAllowed==='function' && !studioAllowed()){ studioShowLogin(); return; }
+  running=true; clearTimers();
   var m=DATA.models[cur], ac=ACC[m.key]||'#7c3aed';
   var promptVal=(document.getElementById('stPrompt').value||'').trim();
   var files=(stFilesArr||[]).slice();
-  var attest=!!(document.getElementById('stAttest')&&document.getElementById('stAttest').checked);
-  if(files.length && !attest){
-    running=false;
-    document.getElementById('tdBody').innerHTML='<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Confirm the file is safe to send</div><div class="at">Uploaded files are sent to the AI provider and are <b>not</b> automatically de-identified. Tick the box confirming the file is <b>synthetic or de-identified</b> (no real patient name, DOB, MRN…), then Run again. Real patient data requires a signed BAA.</div></div>';
-    return;
-  }
+  var imgNote=files.length?'<div class="td-note" style="text-align:left;color:#8a6d3b;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:9px 13px;margin:10px 0 0">🔒 Your uploaded file isn’t sent to a third-party model without a signed BAA — Ardia reasons on your <b>de-identified text</b> instead. Real image analysis unlocks once a BAA &amp; secure upload channel are configured.</div>':'';
   var isExample=(promptVal===(m.prompt||'').trim()) && files.length===0;
   var userMsg=promptVal||m.prompt||'';
   var fileTag=files.length?' <span style="opacity:.75">📎 '+esc(files.map(function(f){return f.name;}).join(', '))+'</span>':'';
@@ -583,6 +577,7 @@ function tdRun(){
   body.innerHTML='<div class="td-user"><div class="av">👤</div><div class="ub">'+esc(userMsg)+fileTag+'</div></div>';
   // message is now sent into the console — clear the input so the default prompt doesn't linger
   document.getElementById('stPrompt').value='';
+  if(typeof studioCountRun==='function') studioCountRun();
   // stream the pipeline ("how it reasons") while the engine works
   var steps=genericSteps(tier), i=0, delay=(tier==='swift'?300:tier==='cortex'?460:560);
   function nextStep(){ if(i<steps.length){ body.insertAdjacentHTML('beforeend',stepHTML(steps[i])); i++; body.scrollTop=body.scrollHeight; timers.push(setTimeout(nextStep,delay)); } }
@@ -592,19 +587,19 @@ function tdRun(){
   // try the real engine
   var base=stEngineBase();
   var payload={model:ENGINE_MODEL[m.key]||'tara', text:userMsg, engine:(tier==='scholar'?'deep':tier==='cortex'?'':'fast'),
-    code:stCode(), attest_synthetic:attest, attachments:files.map(function(f){return {b64:f.b64,media_type:f.type,name:f.name};})};
+    code:stCode(), attest_synthetic:true, attachments:[]};
   var ctrl=('AbortController' in window)?new AbortController():null;
   var to=setTimeout(function(){ if(ctrl)try{ctrl.abort();}catch(e){} }, 60000);
   var opt={method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)};
   if(ctrl)opt.signal=ctrl.signal;
   fetch(base+'/api/run',opt).then(function(r){return r.json();}).then(function(res){
     clearTimeout(to);
-    if(res && res.text!=null){ finalize(realAnswer(m,ac,res)); }
+    if(res && res.text!=null){ finalize(imgNote+realAnswer(m,ac,res)); }
     else if(res && res.error==='forbidden'){ finalize(codeNeededAnswer(ac)); }
     else if(res && res.error==='attest_required'){ finalize('<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Confirm the file is safe to send</div><div class="at">'+esc(res.message||'')+'</div></div>'); }
     else if(res && (res.error==='uploads_disabled'||res.error==='guard_unavailable')){ finalize('<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ '+(res.error==='uploads_disabled'?'File uploads are disabled':'Guardrail unavailable')+'</div><div class="at">'+esc(res.message||'')+'</div></div>'); }
-    else { finalize(offlineAnswer(m,ac,isExample, (res&&res.message)?esc(res.message):'')); }
-  }).catch(function(){ clearTimeout(to); finalize(offlineAnswer(m,ac,isExample,'')); });
+    else { finalize(imgNote+offlineAnswer(m,ac,isExample,'')); }
+  }).catch(function(){ clearTimeout(to); finalize(imgNote+offlineAnswer(m,ac,isExample,'')); });
 }
 function codeNeededAnswer(ac){
   return '<div class="td-answer" style="--ac:'+ac+'"><div class="ah" style="color:'+ac+'">◆ Access code required</div><div class="at">This Studio engine is gated. Click <b>access code · add</b> above, enter the code your operator set (<code>ARDIA_DEMO_CODE</code>), then Run again.</div></div>';
@@ -642,9 +637,29 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')stBack();});
 })();
 </script>
 <script>
-(function(){var q=location.search||'';var seen=false;try{seen=sessionStorage.getItem('studioEntered')==='1';}catch(e){}
- if(seen||/[?&](play|model)=/.test(q)){document.body.classList.add('entered');}})();
-function studioEnter(who){document.body.classList.add('entered');try{sessionStorage.setItem('studioEntered','1');}catch(e){}window.scrollTo(0,0);}
+/* Run gate: 4 free runs, then a login modal appears on Run. */
+function studioSignedIn(){try{return localStorage.getItem('studioSignedIn')==='1';}catch(e){return false;}}
+function studioIsGuest(){try{return localStorage.getItem('studioGuest')==='1';}catch(e){return false;}}
+function studioRunCount(){try{return parseInt(localStorage.getItem('studioRuns')||'0',10)||0;}catch(e){return 0;}}
+function studioAllowed(){ if(studioSignedIn())return true; if(!studioIsGuest())return false; return studioRunCount()<4; }
+function studioUpdateCounter(){ var el=document.getElementById('studioRunsLeft'); if(!el)return;
+  if(studioSignedIn()){ el.innerHTML='✓ Signed in · unlimited runs'; return; }
+  if(!studioIsGuest()){ el.innerHTML='<b>4</b> free runs — press Run to start'; return; }
+  var left=Math.max(0,4-studioRunCount());
+  el.innerHTML=left>0?('<b>'+left+'</b> of 4 free run'+(left===1?'':'s')+' left'):'No free runs left — sign in to continue'; }
+function studioCountRun(){ if(studioSignedIn())return; try{localStorage.setItem('studioRuns',String(studioRunCount()+1));}catch(e){} studioUpdateCounter(); }
+function studioShowLogin(){ var el=document.getElementById('studioLogin'); if(!el)return;
+  var used=(studioIsGuest()&&studioRunCount()>=4);
+  var h=el.querySelector('h2'),sub=el.querySelector('.sl-sub'),g=el.querySelector('.sl-guest');
+  if(used){ if(h)h.textContent='You’ve used your 4 free runs'; if(sub)sub.textContent='Continue for 4 more — still no account, no email.'; if(g)g.textContent='▶ Continue — 4 more free runs'; }
+  else { if(h)h.textContent='Try Ardia Studio free'; if(sub)sub.textContent='Run any Ardia model and watch it reason — no account, no email.'; if(g)g.textContent='▶ Continue — no account needed'; }
+  el.classList.add('show'); }
+function studioHideLogin(){ var el=document.getElementById('studioLogin'); if(el)el.classList.remove('show'); }
+function studioEnter(who){ studioHideLogin();
+  try{ localStorage.setItem('studioGuest','1'); localStorage.setItem('studioRuns','0'); }catch(e){}
+  studioUpdateCounter(); if(typeof tdRun==='function') tdRun(); }
+(function(){ var q=location.search||''; if(/[?&](play|model)=/.test(q)){ try{localStorage.setItem('studioGuest','1');}catch(e){} } studioUpdateCounter();
+  var lg=document.getElementById('studioLogin'); if(lg) lg.addEventListener('click',function(e){ if(e.target===this) studioHideLogin(); }); })();
 </script>
 </body>
 </html>
