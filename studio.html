@@ -312,6 +312,15 @@ footer b{color:#4a6285}
 #studioLogin.show{display:flex}
 .st-runsleft{font-size:12px;color:#8697ac;margin-top:10px}
 .st-runsleft b{color:#0d7c6e}
+.st-acct{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,rgba(20,184,166,.08),rgba(29,155,209,.07));border:1px solid rgba(20,184,166,.28);border-radius:13px;padding:11px 15px;margin-bottom:14px;font-size:13px;color:#274863}
+.st-acct.on{background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.3)}
+.st-acct .ai{font-size:17px;flex:none}
+.st-acct div{flex:1}
+.st-acct b{color:#0d7c6e}
+.st-acct.on b{color:#15803d}
+.st-acct-btn{flex:none;font:700 12px/1 'Sora';color:#fff;background:linear-gradient(135deg,#0d7c6e,#1d9bd1);border:none;border-radius:9px;padding:9px 14px;cursor:pointer;box-shadow:0 3px 10px rgba(13,124,110,.22)}
+.st-acct-btn:hover{filter:brightness(1.05)}
+@media(max-width:560px){.st-acct{flex-wrap:wrap}.st-acct-btn{width:100%}}
 .sl-card{width:100%;max-width:440px;background:#fff;border:1px solid #e2e8f0;border-radius:22px;box-shadow:0 24px 70px rgba(10,22,40,.16);padding:34px 32px;text-align:center;font-family:'Inter',system-ui,sans-serif}
 .sl-logo{width:56px;height:56px;border-radius:14px;margin:0 auto 16px;background:linear-gradient(135deg,#0a1628,#0e2040);border:1.5px solid rgba(20,184,166,.5);box-shadow:0 0 16px rgba(20,184,166,.25);display:flex;align-items:center;justify-content:center;padding:5px;overflow:hidden}
 .sl-logo img{width:100%;height:100%;object-fit:contain}
@@ -340,10 +349,14 @@ footer b{color:#4a6285}
 <div id="studioLogin"><div class="sl-card">
   <div class="sl-logo"><img src="Ardia_Logo.png" alt="Ardia"></div>
   <span class="sl-eyebrow">◆ Ardia Studio · governed models</span>
-  <h2>Try Ardia Studio free</h2>
-  <p class="sl-sub">Run any Ardia model and watch it reason — no account, no email.</p>
-  <button class="sl-btn sl-primary sl-guest" onclick="studioEnter('guest')">▶ Continue — no account needed</button>
-  <p class="sl-mini">4 free runs, no sign-up. Synthetic-data demo — not for real patient information. Not a diagnosis.</p>
+  <h2 id="slHead">Create your free account</h2>
+  <p class="sl-sub" id="slSub">Unlock unlimited runs — instant access, no activation email. Or keep going as a guest.</p>
+  <div class="sl-field"><label for="slEmail">Email</label><input id="slEmail" type="email" placeholder="you@example.com"></div>
+  <div class="sl-field"><label for="slPass">Password</label><input id="slPass" type="password" placeholder="Create a password"></div>
+  <button class="sl-btn sl-primary" id="slCreate" onclick="studioEnter('account')">Create free account →</button>
+  <button class="sl-btn sl-guest" id="slGuestBtn" onclick="studioEnter('guest')">▶ Continue as guest — 4 free runs</button>
+  <p class="sl-mini">No activation email. Synthetic-data demo — not for real patient information. Not a diagnosis.</p>
+  <p class="sl-mini" style="margin-top:6px">Already have an account? <a href="#" onclick="studioEnter('account');return false;" style="color:#0d7c6e;font-weight:700">Sign in</a></p>
   <div class="sl-trust"><span class="sl-chip">🔒 De-identified</span><span class="sl-chip">Cite-or-abstain</span><span class="sl-chip">Not a diagnosis</span></div>
 </div></div>
 
@@ -389,6 +402,7 @@ footer b{color:#4a6285}
       </div>
       <div class="st-console" id="stConsole" style="display:none">
         <button class="st-back" onclick="stBack()">← All models</button>
+        <div class="st-acct" id="studioBanner"></div>
         <div class="td-mhead">
           <div class="td-mico" id="tdMico">◆</div>
           <div class="td-mtt"><div class="mn2" id="tdMname">—</div><div class="mr2" id="tdMrole">—</div></div>
@@ -637,28 +651,31 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')stBack();});
 })();
 </script>
 <script>
-/* Run gate: 4 free runs, then a login modal appears on Run. */
-function studioSignedIn(){try{return localStorage.getItem('studioSignedIn')==='1';}catch(e){return false;}}
+/* Account gate (gazacare-style): 4 free guest runs, then Create-account / Sign-in on Run. */
+function studioAccount(){try{return localStorage.getItem('studioAccount')==='1';}catch(e){return false;}}
 function studioIsGuest(){try{return localStorage.getItem('studioGuest')==='1';}catch(e){return false;}}
 function studioRunCount(){try{return parseInt(localStorage.getItem('studioRuns')||'0',10)||0;}catch(e){return 0;}}
-function studioAllowed(){ if(studioSignedIn())return true; if(!studioIsGuest())return false; return studioRunCount()<4; }
-function studioUpdateCounter(){ var el=document.getElementById('studioRunsLeft'); if(!el)return;
-  if(studioSignedIn()){ el.innerHTML='✓ Signed in · unlimited runs'; return; }
-  if(!studioIsGuest()){ el.innerHTML='<b>4</b> free runs — press Run to start'; return; }
+function studioAllowed(){ if(studioAccount())return true; if(!studioIsGuest())return false; return studioRunCount()<4; }
+function studioCountRun(){ if(studioAccount())return; try{localStorage.setItem('studioRuns',String(studioRunCount()+1));}catch(e){} studioUpdateBanner(); }
+function studioUpdateBanner(){ var el=document.getElementById('studioBanner'), rl=document.getElementById('studioRunsLeft');
+  if(studioAccount()){ if(el){el.className='st-acct on';el.innerHTML='<span class="ai">✓</span><div><b>Account active</b> — unlimited runs.</div>';} if(rl)rl.innerHTML='✓ unlimited runs'; return; }
   var left=Math.max(0,4-studioRunCount());
-  el.innerHTML=left>0?('<b>'+left+'</b> of 4 free run'+(left===1?'':'s')+' left'):'No free runs left — sign in to continue'; }
-function studioCountRun(){ if(studioSignedIn())return; try{localStorage.setItem('studioRuns',String(studioRunCount()+1));}catch(e){} studioUpdateCounter(); }
+  if(el){ el.className='st-acct';
+    el.innerHTML = studioIsGuest()
+      ? '<span class="ai">🛡️</span><div>Guest · <b>'+left+' of 4 free run'+(left===1?'':'s')+' left</b> — no password needed.</div><button class="st-acct-btn" onclick="studioShowLogin()">Create free account</button>'
+      : '<span class="ai">🛡️</span><div><b>4 free runs</b> — no password needed. Continue as guest or create an account.</div><button class="st-acct-btn" onclick="studioShowLogin()">Get started →</button>'; }
+  if(rl)rl.innerHTML='<b>'+left+'</b> of 4 free runs left'; }
 function studioShowLogin(){ var el=document.getElementById('studioLogin'); if(!el)return;
-  var used=(studioIsGuest()&&studioRunCount()>=4);
-  var h=el.querySelector('h2'),sub=el.querySelector('.sl-sub'),g=el.querySelector('.sl-guest');
-  if(used){ if(h)h.textContent='You’ve used your 4 free runs'; if(sub)sub.textContent='Continue for 4 more — still no account, no email.'; if(g)g.textContent='▶ Continue — 4 more free runs'; }
-  else { if(h)h.textContent='Try Ardia Studio free'; if(sub)sub.textContent='Run any Ardia model and watch it reason — no account, no email.'; if(g)g.textContent='▶ Continue — no account needed'; }
+  var used=(!studioAccount()&&studioIsGuest()&&studioRunCount()>=4);
+  var h=el.querySelector('#slHead'),sub=el.querySelector('#slSub'),g=el.querySelector('#slGuestBtn');
+  if(used){ if(h)h.textContent='You’ve used your 4 free runs'; if(sub)sub.textContent='Create a free account to keep running — instant, no activation email.'; if(g)g.style.display='none'; }
+  else { if(h)h.textContent='Create your free account'; if(sub)sub.textContent='Unlock unlimited runs — instant access, no activation email. Or keep going as a guest.'; if(g)g.style.display=''; }
   el.classList.add('show'); }
 function studioHideLogin(){ var el=document.getElementById('studioLogin'); if(el)el.classList.remove('show'); }
 function studioEnter(who){ studioHideLogin();
-  try{ localStorage.setItem('studioGuest','1'); localStorage.setItem('studioRuns','0'); }catch(e){}
-  studioUpdateCounter(); if(typeof tdRun==='function') tdRun(); }
-(function(){ var q=location.search||''; if(/[?&](play|model)=/.test(q)){ try{localStorage.setItem('studioGuest','1');}catch(e){} } studioUpdateCounter();
+  try{ if(who==='account'){localStorage.setItem('studioAccount','1');} else {localStorage.setItem('studioGuest','1');} }catch(e){}
+  studioUpdateBanner(); if(typeof tdRun==='function') tdRun(); }
+(function(){ var q=location.search||''; if(/[?&](play|model)=/.test(q)){ try{localStorage.setItem('studioGuest','1');}catch(e){} } studioUpdateBanner();
   var lg=document.getElementById('studioLogin'); if(lg) lg.addEventListener('click',function(e){ if(e.target===this) studioHideLogin(); }); })();
 </script>
 </body>
