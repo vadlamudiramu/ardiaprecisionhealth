@@ -1153,7 +1153,7 @@ body { overflow-x: hidden; }
           <div class="cap-icon"><i class="fas fa-flask"></i></div>
           <div>
             <div class="c-lbl">Lab Pilots</div>
-            <div class="c-val"><a href="mailto:founders@ardiahealthlabs.com?subject=Pilot%20Program%20Inquiry">founders@ardiahealthlabs.com</a></div>
+            <div class="c-val"><a href="mailto:investment@ardiahealthlabs.com?subject=Pilot%20Program%20Inquiry">investment@ardiahealthlabs.com</a></div>
             <div class="c-sub">DFW-area toxicology &amp; molecular diagnostic labs — pilot cohort</div>
           </div>
         </div>
@@ -1161,7 +1161,7 @@ body { overflow-x: hidden; }
           <div class="cap-icon"><i class="fas fa-chart-line"></i></div>
           <div>
             <div class="c-lbl">Investors</div>
-            <div class="c-val"><a href="mailto:founders@ardiahealthlabs.com?subject=Investor%20Inquiry">founders@ardiahealthlabs.com</a></div>
+            <div class="c-val"><a href="mailto:investment@ardiahealthlabs.com?subject=Investor%20Inquiry">investment@ardiahealthlabs.com</a></div>
             <div class="c-sub">Seed round — accredited investors only</div>
           </div>
         </div>
@@ -1177,7 +1177,7 @@ body { overflow-x: hidden; }
           <div class="cap-icon"><i class="fas fa-map-marker-alt"></i></div>
           <div>
             <div class="c-lbl">Headquarters</div>
-            <div class="c-val">Argyle, TX 76226</div>
+            <div class="c-val">Dallas–Fort Worth, TX</div>
             <div class="c-sub">Dallas-Fort Worth Metro</div>
           </div>
         </div>
@@ -1253,7 +1253,6 @@ body { overflow-x: hidden; }
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:founders@ardiahealthlabs.com">founders@ardiahealthlabs.com</a></li>
-          <li><a style="cursor:default">Argyle, TX 76226</a></li>
           <li><a style="cursor:default">Dallas-Fort Worth, Texas</a></li>
         </ul>
         <div style="margin-top:16px">
@@ -1304,7 +1303,7 @@ function sendContactForm() {
     alert('Please fill in your name, email, and message before sending.');
     return;
   }
-  const to = type === 'Partnership' ? 'info@ardiahealthlabs.com' : 'founders@ardiahealthlabs.com';
+  const to = type === 'Partnership' ? 'info@ardiahealthlabs.com' : (type === 'General' ? 'founders@ardiahealthlabs.com' : 'investment@ardiahealthlabs.com');
   const subject = encodeURIComponent(`${type} — ${org || name}`);
   const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nOrganization: ${org}\nInquiry type: ${type}\n\n${msg}`);
   window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
