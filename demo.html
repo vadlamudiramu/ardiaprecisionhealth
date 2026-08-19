@@ -43,6 +43,24 @@ h1 .g{background:linear-gradient(120deg,var(--teal-d),var(--blue));-webkit-backg
 .card .go{font-weight:700;font-size:13.5px;color:var(--teal-d)}
 .foot{max-width:1000px;margin:0 auto;padding:26px 22px;border-top:1px solid var(--line);color:#8697ac;font-size:12.5px;text-align:center}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.apx-bt small{display:none}}
+.sechd{margin:56px 0 6px;font-family:'Sora';font-size:clamp(21px,2.6vw,27px);font-weight:800;color:var(--navy);letter-spacing:-.015em}
+.secsub{font-size:15px;color:var(--mut);line-height:1.6;margin:0 0 22px;max-width:70ch}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:15px}
+.pill-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 30px rgba(10,22,40,.06);transition:.16s;border-top:4px solid var(--teal)}
+.pill-card:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(10,22,40,.14)}
+.pill-card .tag{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+.pill-card h3{font-family:'Sora';font-size:16.5px;margin:0 0 7px;color:var(--navy)}
+.pill-card p{font-size:13.2px;color:var(--mut);line-height:1.55;margin:0 0 15px;flex:1}
+.runbtn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-weight:800;font-size:13px;color:#fff;padding:10px 15px;border-radius:10px;background:linear-gradient(135deg,#0d7c6e,#1d9bd1);box-shadow:0 4px 14px rgba(13,124,110,.28)}
+.flowrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin-top:6px}
+.fstep{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 15px}
+.fstep .n{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#0d7c6e,#1d9bd1);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
+.fstep h4{font-family:'Sora';font-size:14px;margin:0 0 5px;color:var(--navy)}
+.fstep p{font-size:12.3px;color:var(--mut);line-height:1.45;margin:0}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:8px}
+.pbox{background:linear-gradient(135deg,#0a1628,#0e2040);border-radius:16px;padding:20px;color:#fff}
+.pbox .big{font-family:'Sora';font-size:31px;font-weight:800;color:#5eead4;line-height:1}
+.pbox .lbl{font-size:12.7px;color:rgba(255,255,255,.72);margin-top:8px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -60,7 +78,7 @@ h1 .g{background:linear-gradient(120deg,var(--teal-d),var(--blue));-webkit-backg
 <main class="wrap">
   <span class="eyebrow">◆ 2-minute product walkthrough</span>
   <h1>See <span class="g">Ardia in action</span></h1>
-  <p class="sub">A short walkthrough of Ardia's governed AI models and the Ardia One care hub — de-identified inputs, cite-or-abstain answers, and a unified elder-first experience. Synthetic data; Ardia is pre-revenue.</p>
+  <p class="sub">A walkthrough of Ardia's governed, non-diagnostic AI — spanning <b>precision medicine</b>, <b>molecular &amp; genomic diagnostics</b>, the <b>2027 PAMA rate cliff</b>, <b>pulmonary &amp; respiratory care</b> and <b>elder care</b>. De-identified inputs, cite-or-abstain answers, and a unified elder-first experience. Synthetic data; Ardia is pre-revenue.</p>
 
   <div class="player">
     <video controls playsinline preload="metadata" poster="img/screenshot-dashboard.png">
@@ -69,6 +87,78 @@ h1 .g{background:linear-gradient(120deg,var(--teal-d),var(--blue));-webkit-backg
     </video>
   </div>
   <div class="note">Illustrative walkthrough on synthetic data — not a diagnosis, and not real patient information.</div>
+
+  <!-- RUN IT YOURSELF — five pillars, live -->
+  <h2 class="sechd">Run it yourself — every domain, live</h2>
+  <p class="secsub">The video is the tour. These are the real engines: pick a domain and watch the model reason step by step —
+  the tasks it builds, the policies it retrieves, the citations it binds, and the moments it refuses. Synthetic cases; no real patient data.</p>
+
+  <div class="pillars">
+    <div class="pill-card" style="border-top-color:#7c3aed">
+      <div class="tag">Precision medicine · molecular</div>
+      <h3>MolecuIQ</h3>
+      <p>A stage IV NSCLC patient's large NGS panel (81455) is denied as experimental. Watch MolecuIQ retrieve the governing MolDX / LCD policy and build a cited appeal.</p>
+      <a class="runbtn" href="studio.html?play=molecuiq">▶ Run MolecuIQ</a>
+    </div>
+
+    <div class="pill-card" style="border-top-color:#e11d48">
+      <div class="tag">PAMA rate cliff · 2027</div>
+      <h3>Meridian</h3>
+      <p>Model the January 1, 2027 CLFS reimbursement cuts against a lab's test mix — deterministic rate math, not a guess, so a lab can plan before the cliff lands.</p>
+      <a class="runbtn" href="studio.html?play=meridian">▶ Run Meridian</a>
+    </div>
+
+    <div class="pill-card" style="border-top-color:#0369a1">
+      <div class="tag">Pulmonary &amp; respiratory</div>
+      <h3>PulmoIQ</h3>
+      <p>An asthma / COPD case reasoned against GOLD and GINA guidance — risk zones and next actions for the clinician, grounded in guidelines and never diagnostic.</p>
+      <a class="runbtn" href="studio.html?play=pulmoiq">▶ Run PulmoIQ</a>
+    </div>
+
+    <div class="pill-card" style="border-top-color:#c2410c">
+      <div class="tag">Elder care</div>
+      <h3>Aria</h3>
+      <p>The voice-first elder companion — medication reminders, check-ins and wellbeing support, with real emergencies escalated to 911. Non-diagnostic by construction.</p>
+      <a class="runbtn" href="studio.html?play=aria">▶ Run Aria</a>
+    </div>
+
+    <div class="pill-card" style="border-top-color:#0d7c6e">
+      <div class="tag">Toxicology</div>
+      <h3>ToxIQ</h3>
+      <p>The highest-volume repeat denial pattern in the lab world — definitive drug testing denied on medical necessity, rebuilt into a policy-grounded appeal.</p>
+      <a class="runbtn" href="studio.html?play=toxiq">▶ Run ToxIQ</a>
+    </div>
+
+    <div class="pill-card" style="border-top-color:#d97706">
+      <div class="tag">Patient-facing</div>
+      <h3>Lumen</h3>
+      <p>Turns a lab or imaging report into plain language a patient can actually read — explaining what was measured, never delivering a diagnosis.</p>
+      <a class="runbtn" href="studio.html?play=lumen">▶ Run Lumen</a>
+    </div>
+  </div>
+
+  <!-- UNDER THE HOOD -->
+  <h2 class="sechd">What happens under the hood</h2>
+  <p class="secsub">Every run above passes through the same governed pipeline. Governance lives in code — not in a prompt — which is why it can be audited rather than asserted.</p>
+  <div class="flowrow">
+    <div class="fstep"><div class="n">1</div><h4>De-identify</h4><p>PHI is stripped <i>before</i> inference. No patient identifiers ever reach the model.</p></div>
+    <div class="fstep"><div class="n">2</div><h4>Retrieve policy</h4><p>Pulls the governing LCD/NCD and MolDX/DEX logic — or GOLD/GINA guidance — from a grounded corpus.</p></div>
+    <div class="fstep"><div class="n">3</div><h4>Reason &amp; gate</h4><p>Eight deterministic gates run in front of the model and can stop it answering.</p></div>
+    <div class="fstep"><div class="n">4</div><h4>Cite or abstain</h4><p>Answers are bound to a real determination with a working cms.gov link. Ungrounded answers are not returned.</p></div>
+    <div class="fstep"><div class="n">5</div><h4>Human approves</h4><p>A specialist reviews before anything is filed. Ardia never acts alone.</p></div>
+  </div>
+
+  <!-- PROOF -->
+  <h2 class="sechd">Proof you can check in five minutes</h2>
+  <p class="secsub">You don't have to take the video's word for it — every number here is verifiable on this site right now.</p>
+  <div class="proof">
+    <div class="pbox"><div class="big">34/34</div><div class="lbl">governance tests passing in CI — published at <a href="test-results.html" style="color:#5eead4">/test-results</a></div></div>
+    <div class="pbox"><div class="big">8</div><div class="lbl">deterministic gates running in front of the model, refusal included</div></div>
+    <div class="pbox"><div class="big">L35025</div><div class="lbl">a real Local Coverage Determination returned live, with a working cms.gov link (plus L38045)</div></div>
+    <div class="pbox"><div class="big">0</div><div class="lbl">PHI reaching the model — de-identification runs first, by construction</div></div>
+  </div>
+
+  <h2 class="sechd">Go deeper</h2>
 
   <div class="cards">
     <a class="card" href="ardia-one-app.html">
