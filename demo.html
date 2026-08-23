@@ -111,7 +111,7 @@ h1 .g{background:linear-gradient(120deg,var(--teal-d),var(--blue));-webkit-backg
     <div class="pill-card" style="border-top-color:#0369a1">
       <div class="tag">Pulmonary &amp; respiratory</div>
       <h3>PulmoIQ</h3>
-      <p>An asthma / COPD case reasoned against GOLD and GINA staging concepts — risk zones and next actions for the clinician, grounded in guidelines and never diagnostic.</p>
+      <p>An asthma / COPD case reasoned against GOLD and GINA staging concepts — risk zones and next actions for the clinician. Respiratory guideline retrieval is in development, so these answers are not yet citation-bound and never diagnostic.</p>
       <a class="runbtn" href="studio.html?play=pulmoiq">▶ Run PulmoIQ</a>
     </div>
 
@@ -142,7 +142,7 @@ h1 .g{background:linear-gradient(120deg,var(--teal-d),var(--blue));-webkit-backg
   <p class="secsub">Every run above passes through the same governed pipeline. Governance lives in code — not in a prompt — which is why it can be audited rather than asserted.</p>
   <div class="flowrow">
     <div class="fstep"><div class="n">1</div><h4>De-identify</h4><p>PHI is stripped <i>before</i> inference. No patient identifiers ever reach the model.</p></div>
-    <div class="fstep"><div class="n">2</div><h4>Retrieve policy</h4><p>Pulls the governing LCD/NCD and MolDX/DEX logic — or GOLD/GINA guidance — from a grounded corpus.</p></div>
+    <div class="fstep"><div class="n">2</div><h4>Retrieve policy</h4><p>Pulls the governing LCD/NCD and MolDX/DEX logic from a grounded corpus of Medicare coverage determinations.</p></div>
     <div class="fstep"><div class="n">3</div><h4>Reason &amp; gate</h4><p>Six deterministic gates run in front of the model and can stop it answering.</p></div>
     <div class="fstep"><div class="n">4</div><h4>Cite or abstain</h4><p>Answers are bound to a real determination with a working cms.gov link. Ungrounded answers are not returned.</p></div>
     <div class="fstep"><div class="n">5</div><h4>Human approves</h4><p>A specialist reviews before anything is filed. Ardia never acts alone.</p></div>
