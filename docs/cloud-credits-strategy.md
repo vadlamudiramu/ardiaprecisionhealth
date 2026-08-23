@@ -2,6 +2,7 @@
 
 **Programs held:** Google for Startups Cloud · NVIDIA Inception · AWS Activate (via Inception)
 **Written:** August 2026 · **Horizon:** now → Phase 1A DFW pilot (Q4 2026) → Phase 2A (2027)
+**Companion:** [`cloud-credits-runbook.md`](./cloud-credits-runbook.md) — the step-by-step claim/setup checklist
 **Status:** internal planning doc — not web content (excluded in `.vercelignore`)
 
 ---
@@ -302,3 +303,7 @@ Two disciplines matter more than any infrastructure decision here:
 
 *Third-party summaries above are directional. Confirm every credit amount, tier rule and
 expiry date in your own program console before planning against it.*
+
+**Next:** the strategy behind these steps — why Google is the platform, why NVIDIA is
+mostly not compute, and what to build with the headroom — is in
+[`cloud-credits-strategy.md`](./cloud-credits-strategy.md).
