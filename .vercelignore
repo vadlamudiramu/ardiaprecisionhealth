@@ -27,3 +27,8 @@ tests/
 .env
 *.env
 ardia-studio-app/.env
+
+# Internal planning docs — tracked in git, never web content. Vercel would
+# otherwise serve these at their exact path (e.g. /docs/cloud-credits-strategy.md)
+# even though nothing links to them.
+docs/
