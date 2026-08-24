@@ -41,3 +41,12 @@ pitch-deliverables/logo-concepts.html
 pitch-deliverables/logo-dna.html
 pitch-deliverables/logo-mix.html
 pitch-deliverables/logo-shades.html
+
+# Secrets. ardia-studio-app/server.py:_load_dotenv() reads ardia-studio-app/.env
+# for the live Gemini/Anthropic key. .vercelignore kept it out of the deployment
+# bundle but nothing kept it out of a commit — one `git add -A` would have
+# published a working provider key.
+.env
+*.env
+.env.*
+!.env.example
