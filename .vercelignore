@@ -27,3 +27,23 @@ tests/
 .env
 *.env
 ardia-studio-app/.env
+
+# Confidential business documents at the REPO ROOT. The PrecisionMedicine/
+# exclusion above only covered the copies inside that folder — the root-level
+# originals were still uploaded and served at their exact paths, e.g.
+# /Ardia_Investor_Database_2026.xlsx, which contains 70 named investors with
+# direct contact emails (a16z, First Round, Salesforce Ventures, Humana, BCBS,
+# YC, Perot Jain, Mercury Fund) plus the internal outreach strategy and the
+# red-starred priority list. Same class of exposure the 2026-07-01 audit
+# flagged for email-audit.html.
+# NOTE: /pitch.pdf is deliberately public (commit 87483ff) and stays.
+Ardia_Investor_*.xlsx
+Ardia_Investor_*.docx
+Ardia_Health_*.docx
+Ardia_Health_*.pptx
+Precision Medicine Market Intelligence*.pdf
+PrecisionMedicine.zip
+
+# Not web content.
+.DS_Store
+pyproject.toml

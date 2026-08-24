@@ -1164,7 +1164,7 @@ body { overflow-x: hidden; }
         <div class="stack-items">
           <div class="stack-item">Every AI output requires practitioner attestation before it is submitted — a human is in the loop by design, not by policy alone</div>
           <div class="stack-item">Patient-facing AI disclosure is part of the workflow</div>
-          <div class="stack-item">All processing runs on Google Cloud in the <strong>us-central1</strong> region, keeping data inside the United States</div>
+          <div class="stack-item">Production processing is designed for Google Cloud <strong>us-central1</strong>, keeping data inside the United States (planned; the current prototype runs on Vercel)</div>
           <div class="stack-item">A full timestamped audit trail records each review and attestation</div>
         </div>
       </div>
@@ -1202,17 +1202,17 @@ body { overflow-x: hidden; }
 
 <section class="sol-section" style="background:#fff;border-top:1px solid #dce8f2">
   <div class="container">
-    <div class="sh"><span class="section-tag-l">Federal · Protected Health Information</span><h2 class="st st-l">HIPAA Security Rule</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">Ardia's handling of Protected Health Information is built on Google Cloud with a signed Business Associate Agreement and encryption in transit and at rest.</p></div>
+    <div class="sh"><span class="section-tag-l">Federal · Protected Health Information</span><h2 class="st st-l">HIPAA Security Rule</h2><p style="font-size:15px;color:#4a6285;max-width:640px;margin:0 auto;line-height:1.8">Ardia's target architecture for Protected Health Information is Google Cloud under a Business Associate Agreement, with encryption in transit and at rest. The BAA is planned before first pilot; Ardia processes no production PHI today.</p></div>
     <div class="sec-grid">
       <div class="sec-card">
         <div class="sec-icon"><i class="fas fa-file-signature"></i></div>
-        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">Signed GCP BAA</h4>
-        <p style="font-size:13px;color:#4a6285;line-height:1.7">A Business Associate Agreement is signed with Google Cloud Platform, the infrastructure Ardia runs on.</p>
+        <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">GCP BAA · planned</h4>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">A Business Associate Agreement with Google Cloud Platform is planned before the first pilot. The current prototype runs on Vercel + Anthropic Claude and handles no production PHI.</p>
       </div>
       <div class="sec-card">
         <div class="sec-icon"><i class="fas fa-server"></i></div>
         <h4 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#1e2f4a;margin-bottom:6px">US Data Residency</h4>
-        <p style="font-size:13px;color:#4a6285;line-height:1.7">Workloads run in the <strong>us-central1</strong> region, keeping PHI inside the United States.</p>
+        <p style="font-size:13px;color:#4a6285;line-height:1.7">Workloads are designed to run in the <strong>us-central1</strong> region, keeping PHI inside the United States (planned).</p>
       </div>
       <div class="sec-card">
         <div class="sec-icon"><i class="fas fa-lock"></i></div>
@@ -1312,7 +1312,7 @@ body { overflow-x: hidden; }
         <p>Governed clinical-reasoning AI — from a denied claim to a cited, review-ready appeal that a licensed professional reviews and submits. Building the AI-native Financial Adversary Engine for independent labs, pulmonology practices, and elder-care providers across DFW and the United States.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
           <span class="fbadge">TX SB 1188</span><span class="fbadge">TRAIGA</span>
-          <span class="fbadge">HIPAA</span><span class="fbadge">FHIR R4</span><span class="fbadge">FCA Safe</span>
+          <span class="fbadge">HIPAA</span><span class="fbadge">FHIR R4</span><span class="fbadge">FCA-aware</span>
         </div>
       </div>
       <div class="footer-col">
