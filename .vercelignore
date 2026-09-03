@@ -27,3 +27,20 @@ tests/
 .env
 *.env
 ardia-studio-app/.env
+
+# Root-level confidential business documents. Same rule as PrecisionMedicine/
+# above, which this list previously missed: these were tracked in git, not
+# linked from any page, and still served at their exact paths (verified HTTP 200
+# on the live site). Three of them carried the founder's personal name, which
+# must not appear anywhere on the website; the investor database and outreach
+# document also carry third parties' contact details. None is web content.
+Ardia_Health_Business_Plan_2026_v2.docx
+Ardia_Health_Pitch_Deck_2026_v2.pptx
+Ardia_Investor_Outreach_Emails_2026.docx
+Ardia_Investor_Database_2026.xlsx
+Ardia_Health_Investor_Pitch_Deck.pptx
+Ardia_Health_White_Paper_Business_Plan.docx
+Ardia_Health_White_Paper_Business_Plan (1).docx
+
+# NOTE: Ardia-Precision-Health-Deck.pdf is deliberately PUBLIC (its URL is given
+# out in applications) and must stay served. Do not add it here.
